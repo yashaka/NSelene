@@ -1,0 +1,3 @@
+﻿* find the way to refactor "describing" logic for conditions
+
+* make locator be visible in error message
