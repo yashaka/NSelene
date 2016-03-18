@@ -1,15 +1,16 @@
-﻿<Properties StartupItem="NSelene/NSelene.csproj">
+﻿<Properties StartupItem="NSelene/NSelene.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="NSelene/Conditions/ExactText.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="NSeleneExamples/TodoMVC/Pages/Tasks.cs">
     <Files>
-      <File FileName="NSelene/SElement.cs" Line="5" Column="1" />
-      <File FileName="NSeleneExamples/TodoMVC/Tests.cs" Line="25" Column="1" />
-      <File FileName="NSelene/SCollection.cs" Line="13" Column="31" />
+      <File FileName="NSelene/SElement.cs" Line="1" Column="1" />
+      <File FileName="NSeleneExamples/TodoMVC/Tests.cs" Line="24" Column="24" />
+      <File FileName="NSelene/SCollection.cs" Line="1" Column="1" />
       <File FileName="NSelene/todo.txt" Line="1" Column="1" />
-      <File FileName="NSelene/Utils.cs" Line="16" Column="20" />
-      <File FileName="NSeleneExamples/TodoMVC/Pages/Tasks.cs" Line="25" Column="13" />
-      <File FileName="NSeleneExamples/BaseTest.cs" Line="17" Column="36" />
-      <File FileName="NSelene/Conditions/ExactText.cs" Line="13" Column="40" />
+      <File FileName="NSelene/Utils.cs" Line="1" Column="1" />
+      <File FileName="NSeleneExamples/TodoMVC/Pages/Tasks.cs" Line="17" Column="38" />
+      <File FileName="NSeleneExamples/BaseTest.cs" Line="1" Column="1" />
+      <File FileName="NSelene/Conditions/ExactText.cs" Line="14" Column="4" />
+      <File FileName="NSelene/Conditions/Texts.cs" Line="14" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

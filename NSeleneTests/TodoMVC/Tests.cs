@@ -3,7 +3,7 @@ using System;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium;
 using static NSelene.Utils;
-using NSeleneTests.Pages;
+using NSeleneTests.TodoMVC.Pages;
 
 
 namespace NSeleneTests

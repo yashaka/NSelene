@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSelene", "NSelene\NSelene.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSeleneExamples", "NSeleneExamples\NSeleneExamples.csproj", "{8151DF05-741C-4DF2-A227-203B827F2B75}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSeleneTests", "NSeleneTests\NSeleneTests.csproj", "{8AC6DF4D-D61E-4524-B708-25B168F164CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8151DF05-741C-4DF2-A227-203B827F2B75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8151DF05-741C-4DF2-A227-203B827F2B75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8151DF05-741C-4DF2-A227-203B827F2B75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AC6DF4D-D61E-4524-B708-25B168F164CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AC6DF4D-D61E-4524-B708-25B168F164CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AC6DF4D-D61E-4524-B708-25B168F164CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AC6DF4D-D61E-4524-B708-25B168F164CC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C9C40CB0-17E2-4264-B216-1202A97BE857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C9C40CB0-17E2-4264-B216-1202A97BE857}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9C40CB0-17E2-4264-B216-1202A97BE857}.Release|Any CPU.ActiveCfg = Release|Any CPU

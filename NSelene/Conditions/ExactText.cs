@@ -2,45 +2,45 @@
 
 namespace NSelene
 {
-	namespace Conditions
-	{
-		public class ExactText : DescribedCondition<SElement> 
-		{
+    namespace Conditions
+    {
+        public class ExactText : DescribedCondition<SElement>
+        {
 
-			private string expectedText;
-			private string actualText;
+            private string expectedText;
+            private string actualText;
 
-			public ExactText(string expectedText)
-			{
-				this.expectedText = expectedText;
-			}
+            public ExactText(string expectedText)
+            {
+                this.expectedText = expectedText;
+            }
 
-			public override bool Apply (SElement entity)
-			{
-				this.actualText = entity ().Text;
-				return this.actualText.Equals (this.expectedText);
-			}
+            public override bool Apply(SElement entity)
+            {
+                this.actualText = entity().Text;
+                return this.actualText.Equals(this.expectedText);
+            }
 
-			public override string DescribeActual()
-			{
-				return this.actualText;
-			}
+            public override string DescribeActual()
+            {
+                return this.actualText;
+            }
 
-			public override string DescribeExpected()
-			{
-				return this.expectedText;
-			}		
-		}
+            public override string DescribeExpected()
+            {
+                return this.expectedText;
+            }
+        }
 
-		public static partial class Have
-		{
+        public static partial class Have
+        {
 
-			public static Condition<SElement> ExactText(string expectedText)
-			{
-				return new ExactText (expectedText);
-			}
-		}
+            public static Condition<SElement> ExactText(string expectedText)
+            {
+                return new ExactText(expectedText);
+            }
+        }
 
-	}
+    }
 
 }

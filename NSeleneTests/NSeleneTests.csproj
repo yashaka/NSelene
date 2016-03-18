@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C9C40CB0-17E2-4264-B216-1202A97BE857}</ProjectGuid>
+    <ProjectGuid>{8AC6DF4D-D61E-4524-B708-25B168F164CC}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>NSelene</RootNamespace>
-    <AssemblyName>NSelene</AssemblyName>
+    <RootNamespace>NSeleneTests</RootNamespace>
+    <AssemblyName>NSeleneTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -29,29 +29,29 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="WebDriver">
       <HintPath>..\packages\Selenium.WebDriver.2.48.0\lib\net40\WebDriver.dll</HintPath>
     </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="WebDriver.Support">
-      <HintPath>..\packages\Selenium.Support.2.48.0\lib\net40\WebDriver.Support.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SCollection.cs" />
-    <Compile Include="SElement.cs" />
-    <Compile Include="Utils.cs" />
-    <Compile Include="Conditions\BaseConditions.cs" />
-    <Compile Include="Conditions\ExactText.cs" />
-    <Compile Include="Conditions\Texts.cs" />
-    <Compile Include="Conditions\Visible.cs" />
+    <Compile Include="BaseTest.cs" />
+    <Compile Include="TodoMVC\Pages\Tasks.cs" />
+    <Compile Include="TodoMVC\Tests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="todo.txt" />
-    <None Include="NSelene.nuspec" />
-    <None Include=".gitignore" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NSelene\NSelene.csproj">
+      <Project>{C9C40CB0-17E2-4264-B216-1202A97BE857}</Project>
+      <Name>NSelene</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TodoMVC\" />
   </ItemGroup>
 </Project>
