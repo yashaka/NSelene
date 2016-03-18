@@ -6,7 +6,6 @@ using System.Linq;
 using System.Globalization;
 using System.Threading;
 using NSelene.Conditions;
-using System.Collections.ObjectModel;
 
 namespace NSelene
 {
@@ -31,6 +30,11 @@ namespace NSelene
             return _driver;
         }
 
+        public static object ExecuteScript(string script)
+        {
+            return (GetDriver() as IJavaScriptExecutor).ExecuteScript(script);
+        }
+
         public static IWebElement Find(By locator)
         {
             return _driver.FindElement(locator);
@@ -49,6 +53,11 @@ namespace NSelene
         public static TResult WaitFor<TResult>(TResult sEntity, Condition<TResult> condition)
         {
             return WaitFor(sEntity, condition, Config.Timeout);
+        }
+
+        public static TResult WaitForNot<TResult>(TResult sEntity, Condition<TResult> condition)
+        {
+            return WaitForNot(sEntity, condition, Config.Timeout);
         }
 
         public static TResult WaitFor<TResult>(TResult sEntity, Condition<TResult> condition, double timeout)
@@ -77,7 +86,7 @@ namespace NSelene
                 }
                 if (!clock.IsNowBefore(otherDateTime))
                 {
-                    string text = string.Format(CultureInfo.InvariantCulture, "Timed out after {0} seconds", new object[]
+                    string text = string.Format(CultureInfo.InvariantCulture, "\nTimed out after {0} seconds \n while waiting for condition: ", new object[]
                         {
                             timeoutSpan.TotalSeconds
                         });
@@ -88,6 +97,46 @@ namespace NSelene
             }
             return sEntity;
         }
+
+        public static TResult WaitForNot<TResult>(TResult sEntity, Condition<TResult> condition, double timeout)
+        {
+            Exception lastException = null;
+            var clock = new SystemClock();
+            var timeoutSpan = TimeSpan.FromSeconds(timeout);
+            DateTime otherDateTime = clock.LaterBy(timeoutSpan);
+//            var ignoredExceptionTypes = new [] { typeof(WebDriverException), typeof(IndexOutOfRangeException) };
+            while (true)
+            {
+                try
+                {
+                    if (!condition.Apply(sEntity))
+                    {
+                        break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lastException = ex;
+                    break;
+//                    if (!ignoredExceptionTypes.Any(type => type.IsInstanceOfType(ex)))
+//                    {
+//                        throw;
+//                    }
+                }
+                if (!clock.IsNowBefore(otherDateTime))
+                {
+                    string text = string.Format(CultureInfo.InvariantCulture, "\nTimed out after {0} seconds \n while waiting for not condition: ", new object[]
+                        {
+                            timeoutSpan.TotalSeconds
+                        });
+                    text = text + ": " + condition;
+                    throw new WebDriverTimeoutException(text, lastException);
+                }
+                Thread.Sleep(TimeSpan.FromSeconds(Config.PollDuringWaits).Milliseconds);
+            }
+            return sEntity;
+        }
+
 
     }
 }

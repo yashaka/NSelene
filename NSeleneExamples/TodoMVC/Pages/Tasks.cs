@@ -1,6 +1,4 @@
-using NUnit.Framework;
 using System;
-using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium;
 using NSelene;
 using static NSelene.Utils;
@@ -8,7 +6,7 @@ using NSelene.Conditions;
 
 namespace NSeleneTests
 {
-    namespace NSeleneTests
+    namespace Pages
     {
         public static class Tasks
         {

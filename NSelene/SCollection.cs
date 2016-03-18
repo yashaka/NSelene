@@ -29,6 +29,11 @@ namespace NSelene
             return Utils.WaitFor(elements, condition);
         }
 
+        public static SCollection ShouldNot(this SCollection elements, Condition<SCollection> condition)
+        {
+            return Utils.WaitForNot(elements, condition);
+        }
+
         public static SElement FindBy(this SCollection elements, Condition<SElement> condition)
         {
             return () => elements.FilterBy(condition)().First();
@@ -39,6 +44,11 @@ namespace NSelene
             return () => new ReadOnlyCollection<IWebElement>(
                 elements().Where(element => condition.Apply(() => element)).ToList()
             );
+        }
+
+        public static int GetCount(this SCollection elements)
+        {
+            return  elements().Count; // TODO: should we count only visible elements? or all?
         }
 
     }

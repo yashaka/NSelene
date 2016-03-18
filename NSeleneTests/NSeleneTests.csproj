@@ -38,8 +38,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseTest.cs" />
-    <Compile Include="TodoMVC\Pages\Tasks.cs" />
-    <Compile Include="TodoMVC\Tests.cs" />
+    <Compile Include="Given.cs" />
+    <Compile Include="SElementConditionsTests.cs" />
+    <Compile Include="SCollectionConditionsTests .cs" />
+    <Compile Include="SElementActionsTest.cs" />
+    <Compile Include="InnerSElementSearchTests.cs" />
+    <Compile Include="ErrorMessagesTests.cs" />
+    <Compile Include="SCollectionSearchTests.cs" />
+    <Compile Include="SElementSearchTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -52,6 +58,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="TodoMVC\" />
+    <Content Include="Resources\empty.html" />
   </ItemGroup>
 </Project>

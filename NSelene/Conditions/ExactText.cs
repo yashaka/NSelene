@@ -32,15 +32,14 @@ namespace NSelene
             }
         }
 
-        public static partial class Have
+    }
+
+    public static partial class Have
+    {
+        public static Conditions.Condition<SElement> ExactText(string expectedText)
         {
-
-            public static Condition<SElement> ExactText(string expectedText)
-            {
-                return new ExactText(expectedText);
-            }
+            return new Conditions.ExactText(expectedText);
         }
-
     }
 
 }

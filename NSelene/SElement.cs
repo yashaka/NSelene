@@ -27,6 +27,11 @@ namespace NSelene
             return Utils.WaitFor(element, condition);
         }
 
+        public static SElement ShouldNot(this SElement element, Condition<SElement> condition)
+        {
+            return Utils.WaitForNot(element, condition);
+        }
+
         public static SElement Click(this SElement element)
         {
             element.Should(Be.Visible);
@@ -48,6 +53,24 @@ namespace NSelene
             return element;
         }
 
+        public static string GetText(this SElement element)
+        {
+            element.Should(Be.Visible);
+            return element().Text;
+        }
+
+        public static bool IsDisplayed(this SElement element)
+        {
+            element.Should(Be.InDOM);
+            return element().Displayed;
+        }
+
+        public static string GetValue(this SElement element)
+        {
+            element.Should(Be.InDOM);
+            return element().GetAttribute("value");
+        }
+
         public static SElement SetValue(this SElement element, string value)
         {
             element.Should(Be.Visible);
@@ -63,9 +86,19 @@ namespace NSelene
                                                       why do we need it? seem's like we do not... (#TODO)*/
         }
 
+        public static SElement S(this SElement element, By locator)
+        {
+            return element.Find(locator);
+        }
+
         public static SElement Find(this SElement element, string cssSelector)
         {
             return element.Find(By.CssSelector(cssSelector));
+        }
+
+        public static SElement S(this SElement element, string cssSelector)
+        {
+            return element.Find(cssSelector);
         }
     }
 		

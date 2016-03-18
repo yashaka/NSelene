@@ -46,6 +46,7 @@
     <Compile Include="Conditions\ExactText.cs" />
     <Compile Include="Conditions\Texts.cs" />
     <Compile Include="Conditions\Visible.cs" />
+    <Compile Include="Conditions\InDOM.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

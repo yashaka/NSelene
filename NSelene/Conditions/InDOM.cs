@@ -2,12 +2,13 @@
 {
     namespace Conditions
     {
-        public class Visible : DescribedCondition<SElement>
+        public class InDOM : DescribedCondition<SElement>
         {
 
             public override bool Apply(SElement entity)
             {
-                return entity().Displayed;
+                entity();
+                return true;
             }
 
             public override string DescribeActual()
@@ -25,7 +26,7 @@
 
     public static partial class Be
     {
-        public static Conditions.Condition<SElement> Visible = new Conditions.Visible();
+        public static Conditions.Condition<SElement> InDOM = new Conditions.InDOM();
     }
 
 }

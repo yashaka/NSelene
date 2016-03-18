@@ -11,7 +11,7 @@ namespace NSelene
 
             public override string ToString()
             {
-                return string.Format("\n while waiting for condition: {0}", this.GetType());
+                return string.Format("{0}", this.GetType());
             }
         }
 
@@ -23,7 +23,7 @@ namespace NSelene
 
             public override string ToString()
             {
-                return string.Format("\n while waiting for condition: {0}" +
+                return string.Format("{0}" +
                     "\n Expected: {1}" +
                     "\n Actual: {2}", 
                     this.GetType(), DescribeExpected(), DescribeActual());

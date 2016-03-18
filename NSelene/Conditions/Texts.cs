@@ -39,15 +39,14 @@ namespace NSelene
             }
         }
 
-        public static partial class Have
+    }
+
+    public static partial class Have
+    {
+        public static Conditions.Condition<SCollection> Texts(params string[] expectedTexts)
         {
-
-            public static Condition<SCollection> Texts(params string[] expectedTexts)
-            {
-                return new Texts(expectedTexts);
-            }
+            return new Conditions.Texts(expectedTexts);
         }
-
     }
 
 }
