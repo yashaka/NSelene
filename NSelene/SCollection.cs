@@ -34,9 +34,19 @@ namespace NSelene
             return Utils.WaitForNot(elements, condition);
         }
 
+        public static SElement Get(this SCollection elements, int index)
+        {
+            return elements.ElementAt(index);
+        }
+
+        public static SElement ElementAt(this SCollection elements, int index)
+        {
+            return () => elements.Should(Have.CountAtLeast(index+1))().ElementAt(index);
+        }
+
         public static SElement FindBy(this SCollection elements, Condition<SElement> condition)
         {
-            return () => elements.FilterBy(condition)().First();
+            return () => elements.FilterBy(condition)().First(); // TODO: refactor to use its one "exist filtering fast" impl.
         }
 
         public static SCollection FilterBy(this SCollection elements, Condition<SElement> condition)

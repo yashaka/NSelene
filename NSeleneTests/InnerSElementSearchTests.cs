@@ -43,6 +43,25 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         }
 
         [Test]
+        public void InnerSElementSearchIsUpdatedOnNextActualActionLikeQuestioiningValue()
+        {
+            Given.OpenedPageWithBody("<p id='existing'>Hello!</p>");
+            var element = S("#existing").Find("#will-exist");
+            When.WithBody(@"
+                <p id='existing'>Hello! 
+                    <input id='will-exist' type='submit' value='How r u?'></input>
+                </p>"
+            );
+            Assert.AreEqual("How r u?", element.GetValue());
+            When.WithBody(@"
+                <p id='existing'>Hello! 
+                    <input id='will-exist' type='submit' value='R u Ok?'></input>
+                </p>"
+            );
+            Assert.AreEqual("R u Ok?", element.GetValue());
+        }
+
+        [Test]
         public void InnerSElementSearchFindsExactlyInsideParentElement()
         {
             Given.OpenedPageWithBody(@"

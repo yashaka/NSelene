@@ -100,6 +100,28 @@ namespace NSelene
         {
             return element.Find(cssSelector);
         }
+
+        public static SCollection FindAll(this SElement element, By locator)
+        {
+            return () => element.Should(Be.Visible)().FindElements(locator);
+        }
+
+        public static SCollection FindAll(this SElement element, string cssSelector)
+        {
+            return element.FindAll(By.CssSelector(cssSelector));
+        }
+
+        public static SCollection SS(this SElement element, By locator)
+        {
+            return element.FindAll(locator);
+        }
+
+        public static SCollection SS(this SElement element, string cssSelector)
+        {
+            return element.FindAll(cssSelector);
+        }
+
+
     }
 		
 }

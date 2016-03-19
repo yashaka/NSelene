@@ -41,11 +41,14 @@
     <Compile Include="Given.cs" />
     <Compile Include="SElementConditionsTests.cs" />
     <Compile Include="SCollectionConditionsTests .cs" />
-    <Compile Include="SElementActionsTest.cs" />
     <Compile Include="InnerSElementSearchTests.cs" />
     <Compile Include="ErrorMessagesTests.cs" />
     <Compile Include="SCollectionSearchTests.cs" />
     <Compile Include="SElementSearchTests.cs" />
+    <Compile Include="InnerSCollectionSearchTests.cs" />
+    <Compile Include="SCollectionActionsTests.cs" />
+    <Compile Include="SElementActionsTests.cs" />
+    <Compile Include="IndexedSElementSearchTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

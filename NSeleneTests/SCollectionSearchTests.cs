@@ -37,6 +37,26 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         }
 
         [Test]
+        public void SCollectionSearchIsUpdatedOnNextActualActionLikeQuestioiningCount()
+        {
+            Given.OpenedEmptyPage();
+            var elements = SS(".will-appear");
+            When.WithBody(@"
+                <ul>Hello to:
+                    <li class='will-appear'>Bob</li>
+                    <li class='will-appear'>Kate</li>
+                </ul>");
+            Assert.AreEqual(2, elements.GetCount());
+            When.WithBody(@"
+                <ul>Hello to:
+                    <li class='will-appear'>Bob</li>
+                    <li class='will-appear'>Kate</li>
+                    <li class='will-appear'>Joe</li>
+                </ul>");
+            Assert.AreEqual(3, elements.GetCount());
+        }
+
+        [Test]
         public void SCollectionSearchWaitsNothing()
         {
             Given.OpenedEmptyPage();

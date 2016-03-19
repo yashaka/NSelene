@@ -32,6 +32,17 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         }
 
         [Test]
+        public void SElementSearchIsUpdatedOnNextActualActionLikeQuestioiningDisplayed()
+        {
+            Given.OpenedEmptyPage();
+            var element = S("#will-be-existing-element-id");
+            When.WithBody(@"<h1 id='will-be-existing-element-id'>Hello kitty:*</h1>");
+            Assert.IsTrue(element.IsDisplayed());
+            When.WithBody(@"<h1 id='will-be-existing-element-id' style='display:none'>Hello kitty:*</h1>");
+            Assert.IsFalse(element.IsDisplayed());
+        }
+
+        [Test]
         public void SElementSearchWaitsForVisibilityOnActionsLikeClick()
         {
             Given.OpenedPageWithBody(@"

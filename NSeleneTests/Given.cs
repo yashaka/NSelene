@@ -13,6 +13,7 @@ namespace NSeleneTests
             );
         }
 
+        // TODO: consider renaming to WithBodyTimedOut
         public static void WithBody(string html, int timeout)
         {
             Utils.ExecuteScript(@"
