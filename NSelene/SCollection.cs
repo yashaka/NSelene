@@ -39,6 +39,11 @@ namespace NSelene
             return elements.ElementAt(index);
         }
 
+//        public static SElement First(this SCollection elements)
+//        {
+//            return elements.ElementAt(0);
+//        }
+
         public static SElement ElementAt(this SCollection elements, int index)
         {
             return () => elements.Should(Have.CountAtLeast(index+1))().ElementAt(index);
@@ -46,12 +51,20 @@ namespace NSelene
 
         public static SElement FindBy(this SCollection elements, Condition<SElement> condition)
         {
-            return () => elements.FilterBy(condition)().First(); // TODO: refactor to use its one "exist filtering fast" impl.
+            return () =>
+            {
+                var found = elements().ToList().Find(element => condition.Apply(() => element));
+                if (found == null) 
+                {
+                    throw new NotFoundException("element was not found by condition" + condition);
+                }
+                return found;
+            };
         }
 
         public static SCollection FilterBy(this SCollection elements, Condition<SElement> condition)
         {
-            return () => new ReadOnlyCollection<IWebElement>(
+            return () => new ReadOnlyCollection<IWebElement>(// TODO: don't we need here ReadONlyCollection<SElement> ?
                 elements().Where(element => condition.Apply(() => element)).ToList()
             );
         }

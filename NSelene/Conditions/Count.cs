@@ -4,22 +4,21 @@ namespace NSelene
 {
     namespace Conditions
     {
-        //TODO: consider inheritting from Count for DRYness
-        public class CountAtLeast : DescribedCondition<SCollection>
+        public class Count : DescribedCondition<SCollection>
         {
 
-            private int expectedMinimumCount;
+            private int expectedCount;
             private int actualCount;
 
-            public CountAtLeast(int minimumCount)
+            public Count(int count)
             {
-                this.expectedMinimumCount = minimumCount;
+                this.expectedCount = count;
             }
 
             public override bool Apply(SCollection entity)
             {
                 this.actualCount = entity().Count;
-                return this.actualCount >= this.expectedMinimumCount;
+                return this.actualCount >= this.expectedCount;
             }
 
             public override string DescribeActual()
@@ -29,7 +28,7 @@ namespace NSelene
 
             public override string DescribeExpected()
             {
-                return ">= " + this.expectedMinimumCount;
+                return this.expectedCount.ToString();
             }
         }
 
@@ -37,9 +36,9 @@ namespace NSelene
 
     public static partial class Have
     {
-        public static Conditions.Condition<SCollection> CountAtLeast(int minimumCount)
+        public static Conditions.Condition<SCollection> Count(int count)
         {
-            return new Conditions.CountAtLeast(minimumCount);
+            return new Conditions.CountAtLeast(count);
         }
     }
 

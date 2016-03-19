@@ -50,6 +50,11 @@ namespace NSelene
             _driver.Navigate().GoToUrl(url);
         }
 
+        public static string Url()
+        {
+            return _driver.Url;
+        }
+
         public static TResult WaitFor<TResult>(TResult sEntity, Condition<TResult> condition)
         {
             return WaitFor(sEntity, condition, Config.Timeout);
