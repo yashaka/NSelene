@@ -36,6 +36,15 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
             When.WithBody("<h1>Hello world!</h1>");
             S("h1").Should(Have.ExactText("Hello world!"));
         }
+
+        [Test]
+        public void SElementShouldHaveCssClass()
+        {
+            Given.OpenedPageWithBody("<h1 class='big-title'>Hello Babe!</h1>");
+            S("h1").ShouldNot(Have.CssClass("title"));
+            When.WithBody("<h1 class='big title'>Hello world!</h1>");
+            S("h1").Should(Have.CssClass("title"));
+        }
     }
 }
 

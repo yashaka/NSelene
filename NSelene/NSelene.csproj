@@ -49,6 +49,7 @@
     <Compile Include="Conditions\InDOM.cs" />
     <Compile Include="Conditions\CountAtLeast.cs" />
     <Compile Include="Conditions\Count.cs" />
+    <Compile Include="Conditions\CssClass.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
