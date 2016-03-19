@@ -51,6 +51,7 @@
     <Compile Include="IndexedSElementSearchTests.cs" />
     <Compile Include="FoundByConditionSElementSearchTests.cs" />
     <Compile Include="UtilsTests.cs" />
+    <Compile Include="FilteredSCollectionSearchTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

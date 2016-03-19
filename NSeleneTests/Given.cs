@@ -24,6 +24,17 @@ namespace NSeleneTests
                     " + timeout + ");"
             );
         }
+
+        public static void ExecuteScriptWithTimeout(string js, int timeout)
+        {
+            Utils.ExecuteScript(@"
+                setTimeout(
+                    function(){
+                        " + js + @"
+                    }, 
+                    " + timeout + ");"
+            );
+        }
     }
 
     public static class Given

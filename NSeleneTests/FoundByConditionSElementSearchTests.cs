@@ -76,7 +76,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                     function(){
                         document.getElementsByTagName('a')[1].style = 'display:block';
                     }, 
-                    500);"
+                    250);"
             );
             SS("a").FindBy(Be.Visible).Click();
             Assert.IsTrue(Utils.GetDriver().Url.Contains("second"));
@@ -92,14 +92,14 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                 <h1 id='first'>Heading 1</h1>
                 <h2 id='second'>Heading 2</h2>"
                 ,
-                500
+                250
             );
             Utils.ExecuteScript(@"
                setTimeout(
                     function(){
                         document.getElementsByTagName('a')[1].style = 'display:block';
                     }, 
-                    1000);"
+                    500);"
             );
             SS("a").FindBy(Be.Visible).Click();
             Assert.IsTrue(Utils.Url().Contains("second"));
@@ -108,7 +108,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         [Test]
         public void FoundByConditionSElementSearchFailsOnTimeoutDuringWaitingForVisibilityOnActionsLikeClick()
         {
-            Config.Timeout = 0.5;
+            Config.Timeout = 0.25;
             Given.OpenedPageWithBody(@"
                 <a href='#first' style='display:none'>go to Heading 1</a>
                 <a href='#second' style='display:none'>go to Heading 2</a>
@@ -120,14 +120,14 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                     function(){
                         document.getElementsByTagName('a')[1].style = 'display:block';
                     }, 
-                    1000);"
+                    500);"
             );
             try {
                 SS("a").FindBy(Be.Visible).Click();
                 Assert.Fail("should fail on timeout before can be clicked");
             } catch (WebDriverTimeoutException ex) {
                 Assert.IsFalse(Utils.GetDriver().Url.Contains("second"));
-                //TODO: consider asserting that actually 500ms passed
+                //TODO: consider asserting that actually 250ms passed
             }
         }
     }

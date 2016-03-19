@@ -73,7 +73,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                     <li class='will-appear' style='display:none'>Kate</li>
                     <li class='will-appear'>Bobik</li>
                 </ul>",
-                1000
+                500
             );
             Assert.AreEqual(2, elements.GetCount());
         }

@@ -124,7 +124,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         [Test]
         public void InnerSElementSearchFailsOnTimeoutDuringWaitingForVisibilityOnActionsLikeClick()
         {
-            Config.Timeout = 0.5;
+            Config.Timeout = 0.25;
             Given.OpenedPageWithBody(@"
                 <p>
                     <a href='#second' style='display:none'>go to Heading 2</a>
@@ -136,7 +136,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                     function(){
                         document.getElementsByTagName('a')[0].style = 'display:block';
                     }, 
-                    1000);"
+                    500);"
             );
             try {
                 S("p").S("a").Click();

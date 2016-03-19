@@ -87,7 +87,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                         <li class='will-appear'>Bobik</li>
                     </ul>
                 </div>",
-                1000
+                500
             );
             Assert.AreEqual(2, elements.GetCount());
         }
