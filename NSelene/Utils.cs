@@ -130,7 +130,7 @@ namespace NSelene
                 }
                 if (!clock.IsNowBefore(otherDateTime))
                 {
-                    string text = string.Format(CultureInfo.InvariantCulture, "\nTimed out after {0} seconds \n while waiting for not condition: ", new object[]
+                    string text = string.Format(CultureInfo.InvariantCulture, "\nTimed out after {0} seconds \n while waiting for NOT condition: ", new object[]
                         {
                             timeoutSpan.TotalSeconds
                         });

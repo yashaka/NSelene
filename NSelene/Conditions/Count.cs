@@ -7,8 +7,8 @@ namespace NSelene
         public class Count : DescribedCondition<SCollection>
         {
 
-            private int expectedCount;
-            private int actualCount;
+            protected int expectedCount;
+            protected int actualCount;
 
             public Count(int count)
             {
@@ -18,7 +18,7 @@ namespace NSelene
             public override bool Apply(SCollection entity)
             {
                 this.actualCount = entity().Count;
-                return this.actualCount >= this.expectedCount;
+                return this.actualCount == this.expectedCount;
             }
 
             public override string DescribeActual()
@@ -32,11 +32,27 @@ namespace NSelene
             }
         }
 
+        public class CountAtLeast: Count
+        {
+            public CountAtLeast(int count) : base (count) {}
+
+            public override bool Apply(SCollection entity)
+            {
+                this.actualCount = entity().Count;
+                return this.actualCount >= this.expectedCount;
+            }
+        }
+
     }
 
     public static partial class Have
     {
         public static Conditions.Condition<SCollection> Count(int count)
+        {
+            return new Conditions.Count(count);
+        }
+
+        public static Conditions.Condition<SCollection> CountAtLeast(int count)
         {
             return new Conditions.CountAtLeast(count);
         }
