@@ -33,6 +33,15 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
             SS("li").Should(Have.Count(2));
             SS("li").Should(Have.CountAtLeast(1));
         }
+
+        [Test]
+        public void SCollectionShouldBeEmpty()
+        {
+            Given.OpenedEmptyPage();
+            SS("li").Should(Be.Empty());
+            When.WithBody("<ul>Hello to:<li>Dear Bob</li><li>Lovely Kate</li></ul>");
+            SS("li").ShouldNot(Be.Empty());
+        }
     }
 }
 

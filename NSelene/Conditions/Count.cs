@@ -58,4 +58,12 @@ namespace NSelene
         }
     }
 
+    public static partial class Be
+    {
+        public static Conditions.Condition<SCollection> Empty()
+        {
+            return new Conditions.Count(0);
+        }
+    }
+
 }
