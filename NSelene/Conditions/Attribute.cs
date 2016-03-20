@@ -44,6 +44,11 @@ namespace NSelene
         {
             return new Conditions.Attribute(name, value);
         }
+
+        public static Conditions.Condition<SElement> Value(string expected)
+        {
+            return new Conditions.Attribute("value", expected);
+        }
     }
 
 }

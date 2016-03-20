@@ -32,9 +32,10 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         public void SElementShouldHaveText()
         {
             Given.OpenedPageWithBody("<h1>Hello Babe!</h1>");
-            S("h1").ShouldNot(Have.ExactText("Hello world!"));
-            When.WithBody("<h1>Hello world!</h1>");
-            S("h1").Should(Have.ExactText("Hello world!"));
+            S("h1").Should(Have.Text("Hello"));
+            S("h1").ShouldNot(Have.Text("Hello world!"));
+            S("h1").ShouldNot(Have.ExactText("Hello"));
+            S("h1").Should(Have.ExactText("Hello Babe!"));
         }
 
         [Test]
@@ -54,6 +55,18 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
             When.WithBody("<h1 class='big title'>Hello world!</h1>");
             S("h1").Should(Have.Attribute("class", "big title"));
         }
+
+        [Test]
+        public void SElementShouldHaveValue()
+        {
+            Given.OpenedEmptyPage();
+            S("input").ShouldNot(Have.Value("Yo"));
+            When.WithBody("<input value='Yo'></input>");
+            S("input").ShouldNot(Have.Value("o_O"));
+            S("input").Should(Have.Value("Yo"));
+        }
+
+        // TODO: add tests for ShouldNot with non-existent element itself... what should the behaviour be? :)
     }
 }
 

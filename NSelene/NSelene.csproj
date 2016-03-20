@@ -43,13 +43,13 @@
     <Compile Include="SElement.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Conditions\BaseConditions.cs" />
-    <Compile Include="Conditions\ExactText.cs" />
     <Compile Include="Conditions\Texts.cs" />
     <Compile Include="Conditions\Visible.cs" />
     <Compile Include="Conditions\InDOM.cs" />
     <Compile Include="Conditions\Count.cs" />
     <Compile Include="Conditions\CssClass.cs" />
     <Compile Include="Conditions\Attribute.cs" />
+    <Compile Include="Conditions\Text.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
