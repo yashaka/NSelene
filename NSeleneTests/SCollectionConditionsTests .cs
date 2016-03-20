@@ -9,13 +9,18 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
     {
 
         [Test]
-        public void SCollectionShouldHaveTexts()
+        public void SCollectionShouldHaveTextsAndExactTexts()
         { 
-            Given.OpenedPageWithBody("<ul>Hello to:<li>Dear Bob</li><li>Lovly Kate</li></ul>");
+            Given.OpenedPageWithBody("<ul>Hello to:<li>Dear Bob</li><li>Lovely Kate</li></ul>");
             SS("li").ShouldNot(Have.Texts("Kate", "Bob"));
             SS("li").ShouldNot(Have.Texts("Bob"));
             SS("li").ShouldNot(Have.Texts("Bob", "Kate", "Joe"));
             SS("li").Should(Have.Texts("Bob", "Kate"));
+            SS("li").ShouldNot(Have.ExactTexts("Bob", "Kate"));
+            SS("li").ShouldNot(Have.ExactTexts("Lovely Kate", "Dear Bob"));
+            SS("li").ShouldNot(Have.ExactTexts("Dear Bob"));
+            SS("li").ShouldNot(Have.ExactTexts("Dear Bob", "Lovely Kate", "Funny Joe"));
+            SS("li").Should(Have.ExactTexts("Dear Bob", "Lovely Kate"));
         }
 
         [Test]
@@ -23,7 +28,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         {
             Given.OpenedEmptyPage();
             SS("li").ShouldNot(Have.Count(2));
-            When.WithBody("<ul>Hello to:<li>Dear Bob</li><li>Lovly Kate</li></ul>");
+            When.WithBody("<ul>Hello to:<li>Dear Bob</li><li>Lovely Kate</li></ul>");
             SS("li").ShouldNot(Have.CountAtLeast(3));
             SS("li").Should(Have.Count(2));
             SS("li").Should(Have.CountAtLeast(1));

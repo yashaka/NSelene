@@ -4,6 +4,9 @@ namespace NSelene
 {
     namespace Conditions
     {
+
+        // TODO: find the way to DRY conditions:) Generics? keep it simple enough though...
+
         public abstract class Condition<TEntity>
         {
 
