@@ -51,4 +51,12 @@ namespace NSelene
         }
     }
 
+    public static partial class Be
+    {
+        public static Conditions.Condition<SElement> Blank()
+        {
+            return new Conditions.Attribute("value", "");
+        }
+    }
+
 }
