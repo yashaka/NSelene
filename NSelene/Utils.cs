@@ -55,6 +55,11 @@ namespace NSelene
             return _driver.Url;
         }
 
+        public static Actions SActions()
+        {
+            return new Actions(_driver);
+        }
+
         public static TResult WaitFor<TResult>(TResult sEntity, Condition<TResult> condition)
         {
             return WaitFor(sEntity, condition, Config.Timeout);

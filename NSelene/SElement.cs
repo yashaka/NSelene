@@ -151,6 +151,20 @@ namespace NSelene
             return element().Text;
         }
 
+        public static SElement Hover(this SElement element)
+        {
+            element.Should(Be.Visible);
+            Utils.SActions().MoveToElement(element()).Perform();
+            return element;
+        }
+
+        public static SElement DoubleClick(this SElement element)
+        {
+            element.Should(Be.Visible);
+            Utils.SActions().DoubleClick(element()).Perform();
+            return element;
+        }
+
         public static SElement Find(this SElement element, By locator)
         {
             return () => element.Should(Be.Visible)().FindElement(locator);
