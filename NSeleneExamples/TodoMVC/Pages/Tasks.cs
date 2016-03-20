@@ -4,7 +4,7 @@ using NSelene;
 using static NSelene.Utils;
 using NSelene.Conditions;
 
-namespace NSeleneTests
+namespace NSeleneExamples.TodoMVC
 {
     namespace Pages
     {

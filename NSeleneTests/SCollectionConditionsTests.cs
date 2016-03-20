@@ -38,9 +38,9 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         public void SCollectionShouldBeEmpty()
         {
             Given.OpenedEmptyPage();
-            SS("li").Should(Be.Empty());
+            SS("li").Should(Be.Empty);
             When.WithBody("<ul>Hello to:<li>Dear Bob</li><li>Lovely Kate</li></ul>");
-            SS("li").ShouldNot(Be.Empty());
+            SS("li").ShouldNot(Be.Empty);
         }
     }
 }

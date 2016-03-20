@@ -1,16 +1,16 @@
 ﻿using NUnit.Framework;
 using static NSelene.Utils;
-using NSeleneTests.Pages;
+using NSeleneExamples.TodoMVC.Pages;
 
 
-namespace NSeleneTests
+namespace NSeleneExamples
 {
-    namespace NSeleneTests
+    namespace TodoMVC
     {
-        [TestFixture()]
+        [TestFixture]
         public class Test : BaseTest
         {
-            [Test()]
+            [Test]
             public void FilterTasks()
             {
                 Tasks.Visit();

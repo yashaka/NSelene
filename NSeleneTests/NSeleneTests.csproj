@@ -40,7 +40,6 @@
     <Compile Include="BaseTest.cs" />
     <Compile Include="Given.cs" />
     <Compile Include="SElementConditionsTests.cs" />
-    <Compile Include="SCollectionConditionsTests .cs" />
     <Compile Include="InnerSElementSearchTests.cs" />
     <Compile Include="ErrorMessagesTests.cs" />
     <Compile Include="SCollectionSearchTests.cs" />
@@ -52,6 +51,7 @@
     <Compile Include="FoundByConditionSElementSearchTests.cs" />
     <Compile Include="UtilsTests.cs" />
     <Compile Include="FilteredSCollectionSearchTests.cs" />
+    <Compile Include="SCollectionConditionsTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

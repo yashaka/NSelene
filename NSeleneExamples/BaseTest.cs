@@ -3,10 +3,9 @@ using System;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium;
 using static NSelene.Utils;
-using NSeleneTests.Pages;
 
 
-namespace NSeleneTests
+namespace NSeleneExamples
 {
     [TestFixture()]
     public class BaseTest
