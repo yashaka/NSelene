@@ -50,6 +50,8 @@
     <Compile Include="Conditions\CssClass.cs" />
     <Compile Include="Conditions\Attribute.cs" />
     <Compile Include="Conditions\Text.cs" />
+    <Compile Include="Conditions\Enabled.cs" />
+    <Compile Include="Conditions\Selected.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

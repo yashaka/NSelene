@@ -75,6 +75,8 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                     }, 
                     500);"
             );
+
+            // TODO: consider using Assert.Throws<WebDriverTimeoutException>(() => { ... })
             try {
                 S("a").Click();
                 Assert.Fail("should fail on timeout before can be clicked");

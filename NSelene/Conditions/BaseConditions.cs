@@ -20,9 +20,20 @@ namespace NSelene
 
         public abstract class DescribedCondition<TEntity> : Condition<TEntity>
         {
-            public abstract string DescribeActual();
+//            public abstract string DescribeActual();
 
-            public abstract string DescribeExpected();
+//            public abstract string DescribeExpected();
+
+
+            public virtual string DescribeActual()
+            {
+                return false.ToString(); // TODO: consider providing more "universal" approach... because this makes sense only in case of failed condition:(
+            }
+
+            public virtual string DescribeExpected()
+            {
+                return true.ToString();
+            }
 
             public override string ToString()
             {

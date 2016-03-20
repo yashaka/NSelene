@@ -13,10 +13,19 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         [Test]
         public void SElementShouldBeVisible()
         {
-            Given.OpenedPageWithBody(@"<h1 style='display:none'>ku ku</h1>");
+            Given.OpenedPageWithBody("<h1 style='display:none'>ku ku</h1>");
             S("h1").ShouldNot(Be.Visible);
-            When.WithBody(@"<h1 style='display:block'>ku ku</h1>");
+            When.WithBody("<h1 style='display:block'>ku ku</h1>");
             S("h1").Should(Be.Visible);
+        }
+
+        [Test]
+        public void SElementShouldBeEnabled()
+        {
+            Given.OpenedPageWithBody("<input type='text' disabled/>");
+            S("input").ShouldNot(Be.Enabled);
+            When.WithBody("<input type='text'/>");
+            S("input").Should(Be.Enabled);
         }
 
         [Test]
@@ -24,7 +33,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         {
             Given.OpenedEmptyPage();
             S("h1").ShouldNot(Be.InDOM);
-            When.WithBody(@"<h1 style='display:none'>ku ku</h1>");
+            When.WithBody("<h1 style='display:none'>ku ku</h1>");
             S("h1").Should(Be.InDOM);
         }
 

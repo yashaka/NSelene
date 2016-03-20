@@ -31,7 +31,7 @@ namespace NSeleneTests
             {
                 foreach (var text in taskTexts)
                 {
-                    S("#new-todo").SetValue(text).PressEnter();
+                    S("#new-todo").Should(Be.Enabled).SetValue(text).PressEnter();
                 }
             }
 
