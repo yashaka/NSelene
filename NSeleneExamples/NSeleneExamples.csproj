@@ -51,6 +51,5 @@
     <Compile Include="TodoMVC\Tests.cs" />
     <Compile Include="TodoMVC\Pages\Tasks.cs" />
     <Compile Include="BaseTest.cs" />
-    <Compile Include="TodoMVC\TodoMVCDemoTest.cs" />
   </ItemGroup>
 </Project>

@@ -1,43 +1,64 @@
 ﻿<Properties StartupItem="NSelene/NSelene.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="NSeleneTests/InnerSCollectionSearchTests.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="NSelene/packages.config">
     <Files>
-      <File FileName="NSeleneTests/SCollectionSearchTests.cs" Line="59" Column="9" />
-      <File FileName="NSelene/SElement.cs" Line="123" Column="1" />
-      <File FileName="NSeleneTests/InnerSElementSearchTests.cs" Line="29" Column="72" />
-      <File FileName="NSelene/Utils.cs" Line="132" Column="51" />
-      <File FileName="NSeleneTests/ErrorMessagesTests.cs" Line="11" Column="21" />
-      <File FileName="NSeleneTests/SElementConditionsTests.cs" Line="13" Column="15" />
-      <File FileName="NSeleneTests/SElementActionsTest.cs" Line="9" Column="17" />
-      <File FileName="NSeleneTests/SCollectionConditionsTests .cs" Line="14" Column="62" />
-      <File FileName="NSelene/SCollection.cs" Line="51" Column="94" />
-      <File FileName="NSeleneTests/Given.cs" Line="24" Column="14" />
-      <File FileName="NSeleneTests/SElementSearchTests.cs" Line="19" Column="44" />
-      <File FileName="NSeleneTests/InnerSCollectionSearchTests.cs" Line="41" Column="1" />
+      <File FileName="NSeleneTests/SElementConditionsTests.cs" Line="43" Column="8" />
+      <File FileName="NSelene/SElement.cs" Line="165" Column="27" />
+      <File FileName="NSeleneTests/SElementActionsTests.cs" Line="53" Column="71" />
+      <File FileName="NSeleneTests/SCollectionActionsTests.cs" Line="26" Column="9" />
+      <File FileName="NSelene/Conditions/Attribute.cs" Line="55" Column="5" />
+      <File FileName="NSeleneTests/SElementSearchTests.cs" Line="79" Column="92" />
+      <File FileName="NSelene/Conditions/Visible.cs" Line="11" Column="13" />
+      <File FileName="NSelene/Conditions/Enabled.cs" Line="11" Column="13" />
+      <File FileName="NSelene/Conditions/BaseConditions.cs" Line="33" Column="26" />
+      <File FileName="NSelene/Conditions/Selected.cs" Line="15" Column="1" />
+      <File FileName="NSelene/Conditions/Texts.cs" Line="33" Column="42" />
+      <File FileName="NSeleneExamples/TodoMVC/Pages/Tasks.cs" Line="17" Column="59" />
+      <File FileName="NSelene/todo.txt" Line="1" Column="1" />
+      <File FileName="NSelene/packages.config" Line="5" Column="11" />
+      <File FileName="NSelene/NSelene.nuspec" Line="13" Column="29" />
+      <File FileName="NSelene/Properties/AssemblyInfo.cs" Line="14" Column="32" />
+      <File FileName="NSeleneExamples/TodoMVC/Tests.cs" Line="13" Column="18" />
+      <File FileName="NSeleneExamples/TodoMVC/TodoMVCDemoTest.cs" Line="52" Column="54" />
+      <File FileName="NSeleneExamples/BaseTest.cs" Line="20" Column="27" />
+      <File FileName="NSelene/Conditions/Count.cs" Line="63" Column="5" />
+      <File FileName="NSeleneTests/SCollectionConditionsTests.cs" Line="43" Column="40" />
+      <File FileName="NSelene/Utils.cs" Line="61" Column="40" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="NSelene" expanded="True">
-            <Node name="NSelene" expanded="True" />
-            <Node name="NSeleneTests" expanded="True">
-              <Node name="InnerSCollectionSearchTests.cs" selected="True" />
+            <Node name="NSelene" expanded="True">
+              <Node name="Conditions" expanded="True" />
+              <Node name="packages.config" selected="True" />
             </Node>
+            <Node name="NSeleneExamples" expanded="True">
+              <Node name="TodoMVC" expanded="True">
+                <Node name="Pages" expanded="True" />
+              </Node>
+            </Node>
+            <Node name="NSeleneTests" expanded="True" />
           </Node>
         </State>
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
       </Pad>
       <Pad Id="MonoDevelop.NUnit.TestPad">
         <State name="__root__">
           <Node name="NSelene" expanded="True">
+            <Node name="NSeleneExamples" expanded="True">
+              <Node name="NSeleneExamples" expanded="True">
+                <Node name="TodoMVC" expanded="True">
+                  <Node name="TodoMVCDemoTest" expanded="True">
+                    <Node name="TasksLifeCycle" selected="True" />
+                  </Node>
+                </Node>
+              </Node>
+            </Node>
             <Node name="NSeleneTests" expanded="True">
               <Node name="NSeleneTests" expanded="True">
                 <Node name="WithManagedBrowserBeforAndAfterAllTests" expanded="True">
-                  <Node name="InnerSElementSearchTests" expanded="True">
-                    <Node name="InnerSElementSearchIsPostponedUntilActualActionLikeQuestioiningValue" selected="True" />
-                  </Node>
+                  <Node name="InnerSCollectionSearchTests" expanded="True" />
+                  <Node name="InnerSElementSearchTests" expanded="True" />
                 </Node>
               </Node>
             </Node>

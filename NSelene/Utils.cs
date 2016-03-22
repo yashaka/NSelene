@@ -6,6 +6,7 @@ using System.Linq;
 using System.Globalization;
 using System.Threading;
 using NSelene.Conditions;
+using OpenQA.Selenium.Interactions;
 
 namespace NSelene
 {
