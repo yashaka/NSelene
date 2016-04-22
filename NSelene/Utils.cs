@@ -21,14 +21,26 @@ namespace NSelene
     {
         static IWebDriver _driver = null;
 
+        // TODO: move/encapsulate the driver management into a class, with its object aggregated here.
+        static IDictionary<int, IWebDriver> _drivers = new Dictionary<int, IWebDriver>();
+
         public static void SetDriver(IWebDriver driver)
         {
-            _driver = driver;
+            var code = Thread.CurrentThread.GetHashCode();
+
+            if (_drivers.ContainsKey(code)) 
+            {
+                _drivers[code] = driver;
+            } 
+            else 
+            {
+                _drivers.Add(code, driver);
+            }
         }
 
         public static IWebDriver GetDriver()
         {
-            return _driver;
+            return _drivers[Thread.CurrentThread.GetHashCode()];
         }
 
         public static object ExecuteScript(string script)
@@ -38,27 +50,27 @@ namespace NSelene
 
         public static IWebElement Find(By locator)
         {
-            return _driver.FindElement(locator);
+            return GetDriver().FindElement(locator);
         }
 
         public static IReadOnlyCollection<IWebElement> FindAll(By locator)
         {
-            return _driver.FindElements(locator);
+            return GetDriver().FindElements(locator);
         }
 
         public static void Open(string url)
         {
-            _driver.Navigate().GoToUrl(url);
+            GetDriver().Navigate().GoToUrl(url);
         }
 
         public static string Url()
         {
-            return _driver.Url;
+            return GetDriver().Url;
         }
 
         public static Actions SActions()
         {
-            return new Actions(_driver);
+            return new Actions(GetDriver());
         }
 
         public static TResult WaitFor<TResult>(TResult sEntity, Condition<TResult> condition)

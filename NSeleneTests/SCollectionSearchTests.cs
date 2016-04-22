@@ -6,6 +6,7 @@ using OpenQA.Selenium;
 namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
 {
     [TestFixture]
+    [Parallelizable(ParallelScope.Fixtures)]
     public class SCollectionSearchTests
     {
 

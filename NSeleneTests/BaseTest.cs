@@ -30,7 +30,7 @@ namespace NSeleneTests
     }
 
     [TestFixture()]
-    public class BaseTest
+    public abstract class BaseTest
     {
         [SetUp]
         public void SetupTest()

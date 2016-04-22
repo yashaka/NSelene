@@ -8,6 +8,7 @@ namespace NSeleneExamples
     namespace TodoMVC
     {
         [TestFixture]
+        [Parallelizable(ParallelScope.Fixtures)]
         public class Test : BaseTest
         {
             [Test]

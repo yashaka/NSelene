@@ -7,8 +7,8 @@ using static NSelene.Utils;
 
 namespace NSeleneExamples
 {
-    [TestFixture()]
-    public class BaseTest
+    [TestFixture]
+    public abstract class BaseTest
     {
         [SetUp]
         public void SetupTest()
