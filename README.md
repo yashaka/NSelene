@@ -1,4 +1,4 @@
-# NSelene - Selenide "from scratch port" to C#
+# NSelene - Selenide "from scratch port" to .NET
 A Tool created specifically for Web UI Test Automation
 
 So, Here it is... A base stabilized version, to be published to nuget gallery https://www.nuget.org/packages/NSelene/0.0.0.2.
