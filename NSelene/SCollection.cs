@@ -103,12 +103,13 @@ namespace NSelene
 
         public static SElement FindBy(this SCollection elements, Condition<SElement> condition)
         {
-            return new SElement(new PseudoBy(string.Format("By.Selene: ({0}).FindBy({1})", elements, condition))
+            return new SElement(new PseudoBy(string.Format("By.Selene: ({0}).FindBy({1})", elements, condition.Explain()))
                                 , () =>
             {
-                var found = elements.GetAllActualWebElements().ToList()
-                                    .Find(element => condition.Apply(
-                                        new SElement(new PseudoBy(string.Format("By.Selene: ({0}).FindBy({1})", elements, condition)) 
+                var webelments = elements.GetAllActualWebElements();
+                var found = webelments.ToList()
+                                      .Find(element => condition.Apply(
+                                          new SElement(new PseudoBy(string.Format("By.Selene: ({0}).FindBy({1})", elements, condition.Explain())) 
                                                      /* 
                                                       * ??? TODO: do we actually need here so meaningful PseudoBy?
                                                       * does it make sense to use it but to put index for each element?
@@ -118,7 +119,14 @@ namespace NSelene
                                        ));
                 if (found == null) 
                 {
-                    throw new NotFoundException("element was not found by condition" + condition);  // TODO: think on own exception for this case
+                    var actual = webelments.ToList().Select(element => element.Text).ToArray();
+                    throw new NotFoundException("element was not found in collection by condition "
+                                                + condition.Explain()
+                                                + "\n  Actual   : " + "[" + string.Join(",", actual) + "]" 
+                                               );  // TODO: think on own exception for this case
+                    /*
+                     * TODO: think on better messages
+                     */
                 }
                 return found;
             });
@@ -126,13 +134,13 @@ namespace NSelene
 
         public static SCollection FilterBy(this SCollection elements, Condition<SElement> condition)
         {
-            return new SCollection(new PseudoBy(string.Format("By.Selene: ({0}).FilterBy({1})", elements, condition))
+            return new SCollection(new PseudoBy(string.Format("By.Selene: ({0}).FilterBy({1})", elements, condition.Explain()))
                                    , () => 
             {
                 return new ReadOnlyCollection<IWebElement>(  // TODO: don't we need here ReadONlyCollection<SElement> ?
                     elements.GetAllActualWebElements()
                             .Where(element => condition.Apply(
-                                new SElement(new PseudoBy(string.Format("By.Selene: ({0}).FindBy({1})", elements, condition))
+                                new SElement(new PseudoBy(string.Format("By.Selene: ({0}).FindBy({1})", elements, condition.Explain()))
                                             , () => element)))
                             .ToList());
             });

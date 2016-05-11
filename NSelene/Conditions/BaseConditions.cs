@@ -12,6 +12,13 @@ namespace NSelene
 
             public abstract bool Apply(TEntity entity);
 
+            /*
+             * TODO: think on leaving ToString off board, 
+             * since better to use Explain and Describe vs Explain and ToString 
+             * because of less confusion
+             */
+            public abstract string Explain();
+
             public override string ToString()
             {
                 return string.Format("{0}", this.GetType());
@@ -37,10 +44,21 @@ namespace NSelene
 
             public override string ToString()
             {
+                //return this.GetType().Name +
+                //           "\n    Expected: " + DescribeExpected() +
+                //           (DescribeActual() ==  "" ? "" : "\n    " + DescribeActual());
                 return string.Format("{0}" +
-                    "\n    Expected: {1}" +
-                    "\n    Actual: {2}", 
+                    "\n  Expected : {1}" +
+                    "\n  Actual   : {2}", 
                     this.GetType().Name, DescribeExpected(), DescribeActual());
+            }
+
+            /*
+             * TODO: think on better names:)
+             */
+            public override string Explain()
+            {
+                return this.GetType().Name + " " + DescribeExpected();
             }
 
         }

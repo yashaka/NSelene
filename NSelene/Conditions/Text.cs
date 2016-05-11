@@ -13,6 +13,7 @@ namespace NSelene
             public Text(string expected)
             {
                 this.expected = expected;
+                this.actual = "";
             }
 
             public override bool Apply(SElement entity)
@@ -28,9 +29,10 @@ namespace NSelene
 
             public override string DescribeExpected()
             {
-                return this.expected;
+                return "contains " + this.expected;
             }
         }
+
         public class ExactText : Text
         {
 
@@ -44,7 +46,7 @@ namespace NSelene
 
             public override string DescribeExpected()
             {
-                return "contains " + this.expected;
+                return "is " + this.expected;
             }
         }
 
