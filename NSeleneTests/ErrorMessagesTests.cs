@@ -1,14 +1,43 @@
 ﻿using System;
+using NSelene;
+using static NSelene.Utils;
+using NUnit.Framework;
+using OpenQA.Selenium;
 
-namespace NSeleneTests
+namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
 {
+    [TestFixture]
     public class ErrorMessagesTests
     {
-        public ErrorMessagesTests()
+
+        [TearDown]
+        public void TeardownTest()
         {
+            Config.Timeout = 4;
         }
 
-        // todo: TBD
+        [Test]
+        public void SElelement_ShouldNot_FailsWhenAssertingNotVisibleForVisibleElement()
+        {
+            Config.Timeout = 0.2;
+            Given.OpenedPageWithBody("<input id='new-text' type='text' value='ku ku'/>");
+            Assert.Throws(Is.TypeOf(typeof(WebDriverTimeoutException))
+                          .And.Message.Contains("not " + Be.Visible.GetType().Name), () => {
+                S("#new-text").ShouldNot(Be.Visible);
+            });
+        }
+
+        [Test]
+        public void SElelement_Should_FailsWhenAssertingVisibleForHiddenElement()
+        {
+            Config.Timeout = 0.2;
+            Given.OpenedPageWithBody("<input id='new-text' type='text' value='ku ku' style='display:none'/>");
+            Assert.Throws(Is.TypeOf(typeof(WebDriverTimeoutException))
+                          .And.Message.Not.Contains("not " + Be.Visible.GetType().Name)
+                          .And.Message.Contains(Be.Visible.GetType().Name), () => {
+                S("#new-text").Should(Be.Visible);
+            });
+        }
     }
 }
 

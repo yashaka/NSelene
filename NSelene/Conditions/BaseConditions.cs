@@ -40,7 +40,7 @@ namespace NSelene
                 return string.Format("{0}" +
                     "\n Expected: {1}" +
                     "\n Actual: {2}", 
-                    this.GetType(), DescribeExpected(), DescribeActual());
+                    this.GetType().Name, DescribeExpected(), DescribeActual());
             }
 
         }

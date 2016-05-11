@@ -106,11 +106,11 @@ namespace NSelene
                 }
                 if (!clock.IsNowBefore(otherDateTime))
                 {
-                    string text = string.Format(CultureInfo.InvariantCulture, "\nTimed out after {0} seconds \n while waiting for condition: ", new object[]
-                        {
-                            timeoutSpan.TotalSeconds
-                        });
-                    text = text + ": " + condition;
+                    string text = string.Format("\nTimed out after {0} seconds \nwhile waiting {1} \nfor condition: "
+                                                , timeoutSpan.TotalSeconds
+                                                , sEntity
+                                               );
+                    text = text + condition;
                     throw new WebDriverTimeoutException(text, lastException);
                 }
                 Thread.Sleep(TimeSpan.FromSeconds(Config.PollDuringWaits).Milliseconds);
@@ -145,11 +145,10 @@ namespace NSelene
                 }
                 if (!clock.IsNowBefore(otherDateTime))
                 {
-                    string text = string.Format(CultureInfo.InvariantCulture, "\nTimed out after {0} seconds \n while waiting for NOT condition: ", new object[]
-                        {
-                            timeoutSpan.TotalSeconds
-                        });
-                    text = text + ": " + condition;
+                    string text = string.Format( "\nTimed out after {0} seconds \nwhile waiting {1}\nfor condition: not "
+                                               , timeoutSpan.TotalSeconds, sEntity
+                                               );
+                    text = text + condition;
                     throw new WebDriverTimeoutException(text, lastException);
                 }
                 Thread.Sleep(TimeSpan.FromSeconds(Config.PollDuringWaits).Milliseconds);
