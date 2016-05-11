@@ -119,11 +119,14 @@ namespace NSelene
                                        ));
                 if (found == null) 
                 {
-                    var actual = webelments.ToList().Select(element => element.Text).ToArray();
+                    var actualTexts = webelments.ToList().Select(element => element.Text).ToArray();
+                    var htmlelements = webelments.ToList().Select(element => element.GetAttribute("outerHTML")).ToArray();
                     throw new NotFoundException("element was not found in collection by condition "
                                                 + condition.Explain()
-                                                + "\n  Actual   : " + "[" + string.Join(",", actual) + "]" 
-                                               );  // TODO: think on own exception for this case
+                                                + "\n  Actual visible texts : " + "[" + string.Join(",", actualTexts) + "]"  // TODO: think: this line is actually needed in the case of FindBy(ExactText ...) ... is there any way to add such information not here?
+                                                + "\n  Actual html elements : " + "[" + string.Join(",", htmlelements) + "]" 
+                                               // TODO: should we add here some other info about elements? e.g. visiblitiy?
+                                               );
                     /*
                      * TODO: think on better messages
                      */
