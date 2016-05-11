@@ -108,7 +108,12 @@ namespace NSelene
             {
                 var found = elements.GetAllActualWebElements().ToList()
                                     .Find(element => condition.Apply(
-                                        new SElement(new PseudoBy(string.Format("By.Selene: ({0}).FindBy({1})", elements, condition)) // ??? TODO: do we actually need here so meaningful PseudoBy?
+                                        new SElement(new PseudoBy(string.Format("By.Selene: ({0}).FindBy({1})", elements, condition)) 
+                                                     /* 
+                                                      * ??? TODO: do we actually need here so meaningful PseudoBy?
+                                                      * does it make sense to use it but to put index for each element?
+                                                      * via using FindIndex ?
+                                                      */
                                                      , () => element)
                                        ));
                 if (found == null) 

@@ -13,12 +13,19 @@ namespace NSelene
         FindsWebElement GetActualWebElement { get; }
     }
 
+    /*
+     * TODO: consider using generics to implement abstract SEntity over SElement and SCollection
+     */
     public sealed class SElement : GetsWebElement
     {
         readonly By locator;
         readonly FindsWebElement finder;
 
-        public SElement(By locator, FindsWebElement finder)
+        /* 
+         * TODO: consider integrating finder into By, 
+         * since it's implemented like this in raw Selenium
+         */
+        public SElement(By locator, FindsWebElement finder) 
         {
             this.locator = locator;
             this.finder = finder;
@@ -56,6 +63,14 @@ namespace NSelene
         }
     }
 
+    /*
+     * TODO: consider integrating into SElement object itself
+     * Think on "what the purpose", what will be pros and cons?
+     * it's a potential talk theme btw ;)
+     * 
+     * seems like the main bonus of "integrated" approach is "OOP Contracts"
+     * so... do we need it?
+     */
     public static class SElementExtensions
     {
 

@@ -106,7 +106,7 @@ namespace NSelene
                 }
                 if (!clock.IsNowBefore(otherDateTime))
                 {
-                    string text = string.Format("\nTimed out after {0} seconds \nwhile waiting {1} \nfor condition: "
+                    string text = string.Format("\nTimed out after {0} seconds \nwhile waiting entity with locator: {1} \nfor condition: "
                                                 , timeoutSpan.TotalSeconds
                                                 , sEntity
                                                );
@@ -145,7 +145,7 @@ namespace NSelene
                 }
                 if (!clock.IsNowBefore(otherDateTime))
                 {
-                    string text = string.Format( "\nTimed out after {0} seconds \nwhile waiting {1}\nfor condition: not "
+                    string text = string.Format( "\nTimed out after {0} seconds \nwhile waiting entity with locator: {1}\nfor condition: not "
                                                , timeoutSpan.TotalSeconds, sEntity
                                                );
                     text = text + condition;
