@@ -17,7 +17,7 @@ namespace NSelene
 
             public override bool Apply(SCollection entity)
             {
-                this.actualCount = entity().Count;
+                this.actualCount = entity.GetAllActualWebElements().Count;
                 return this.actualCount == this.expectedCount;
             }
 
@@ -38,7 +38,7 @@ namespace NSelene
 
             public override bool Apply(SCollection entity)
             {
-                this.actualCount = entity().Count;
+                this.actualCount = entity.GetAllActualWebElements().Count;
                 return this.actualCount >= this.expectedCount;
             }
         }

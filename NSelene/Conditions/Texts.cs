@@ -19,7 +19,7 @@ namespace NSelene
 
             public override bool Apply(SCollection entity)
             {
-                this.actual = entity().Select(element => element.Text).ToArray();
+                this.actual = entity.GetAllActualWebElements().Select(element => element.Text).ToArray();
                 // TODO: make logic more readable, consider using something based on LINQ
                 if (this.actual.Length != this.expected.Length ||
                 !actual.Zip(this.expected, 
@@ -47,7 +47,7 @@ namespace NSelene
 
             public override bool Apply(SCollection entity)
             {
-                this.actual = entity().Select(element => element.Text).ToArray();
+                this.actual = entity.GetAllActualWebElements().Select(element => element.Text).ToArray();
                 return this.actual.SequenceEqual(this.expected);
             }
         }

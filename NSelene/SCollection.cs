@@ -6,13 +6,62 @@ using System.Collections.ObjectModel;
 
 namespace NSelene
 {
-    public delegate IReadOnlyCollection<IWebElement> SCollection();
+    /*
+     * :) It's a very bad way to to like this, 
+     * but it's extremely fast comparing to implementing own Bys as wrappers around Selenium ones 
+     *
+     * TODO: and btw move it some proper place */
+    class PseudoBy : By
+    {
+        public PseudoBy(string description)
+        {
+            this.Description = description;
+        }
+    }
+
+    //public delegate IReadOnlyCollection<IWebElement> SCollection();
+
+    public delegate IReadOnlyCollection<IWebElement> FindsAllWebElements();
+
+    public interface GetsAllWebElements
+    {
+        FindsAllWebElements GetAllActualWebElements { get; }
+    }
+
+    public sealed class SCollection : GetsAllWebElements
+    {
+        readonly By locator;
+        readonly FindsAllWebElements finder;
+
+        public SCollection(By locator, FindsAllWebElements finder)
+        {
+            this.locator = locator;
+            this.finder = finder;
+        }
+
+        public SCollection(By locator, IWebDriver driver) 
+            : this(locator, () => driver.FindElements(locator)) {}
+
+        public SCollection(By locator) 
+            : this(locator, () => Utils.GetDriver().FindElements(locator)) {}
+
+        public FindsAllWebElements GetAllActualWebElements {
+            get {
+                return this.finder;
+            }
+        }
+
+        public override string ToString()
+        {
+            return this.locator.ToString();
+        }
+    }
 
     public static partial class Utils
     {
         public static SCollection SS(By locator)
         {
-            return () => FindAll(locator);
+            return new SCollection(locator);
         }
 
         public static SCollection SS(string cssSelector)
@@ -46,32 +95,47 @@ namespace NSelene
 
         public static SElement ElementAt(this SCollection elements, int index)
         {
-            return () => elements.Should(Have.CountAtLeast(index+1))().ElementAt(index);
+            // TODO: refactor following usage from elements to elements.Loacator
+            return new SElement(new PseudoBy(string.Format("By.Selene: ({0})[{1}]", elements, index))
+                                , () => elements.Should(Have.CountAtLeast(index+1)).GetAllActualWebElements().ElementAt(index)
+                               );
         }
 
         public static SElement FindBy(this SCollection elements, Condition<SElement> condition)
         {
-            return () =>
+            return new SElement(new PseudoBy(string.Format("By.Selene: ({0}).FindBy({1})", elements, condition))
+                                , () =>
             {
-                var found = elements().ToList().Find(element => condition.Apply(() => element));
+                var found = elements.GetAllActualWebElements().ToList()
+                                    .Find(element => condition.Apply(
+                                        new SElement(new PseudoBy(string.Format("By.Selene: ({0}).FindBy({1})", elements, condition)) // ??? TODO: do we actually need here so meaningful PseudoBy?
+                                                     , () => element)
+                                       ));
                 if (found == null) 
                 {
-                    throw new NotFoundException("element was not found by condition" + condition);
+                    throw new NotFoundException("element was not found by condition" + condition);  // TODO: think on own exception for this case
                 }
                 return found;
-            };
+            });
         }
 
         public static SCollection FilterBy(this SCollection elements, Condition<SElement> condition)
         {
-            return () => new ReadOnlyCollection<IWebElement>(// TODO: don't we need here ReadONlyCollection<SElement> ?
-                elements().Where(element => condition.Apply(() => element)).ToList()
-            );
+            return new SCollection(new PseudoBy(string.Format("By.Selene: ({0}).FilterBy({1})", elements, condition))
+                                   , () => 
+            {
+                return new ReadOnlyCollection<IWebElement>(  // TODO: don't we need here ReadONlyCollection<SElement> ?
+                    elements.GetAllActualWebElements()
+                            .Where(element => condition.Apply(
+                                new SElement(new PseudoBy(string.Format("By.Selene: ({0}).FindBy({1})", elements, condition))
+                                            , () => element)))
+                            .ToList());
+            });
         }
 
         public static int GetCount(this SCollection elements)
         {
-            return  elements().Count; // TODO: should we count only visible elements? or all?
+            return  elements.GetAllActualWebElements().Count; // TODO: should we count only visible elements? or all?
         }
 
     }

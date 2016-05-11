@@ -17,7 +17,7 @@ namespace NSelene
 
             public override bool Apply(SElement entity)
             {
-                this.actual = entity().GetAttribute("class");
+                this.actual = entity.GetActualWebElement().GetAttribute("class");
 
                 // TODO: do we need this comparison with null? (we needed it in Java)
                 return this.actual != null && this.actual.Split(' ').Contains(this.expected); 

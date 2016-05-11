@@ -17,7 +17,7 @@ namespace NSelene
 
             public override bool Apply(SElement entity)
             {
-                this.actual = entity().Text;
+                this.actual = entity.GetActualWebElement().Text;
                 return this.actual.Contains(this.expected);
             }
 
@@ -38,7 +38,7 @@ namespace NSelene
 
             public override bool Apply(SElement entity)
             {
-                this.actual = entity().Text;
+                this.actual = entity.GetActualWebElement().Text;
                 return this.actual.Equals(this.expected);
             }
 

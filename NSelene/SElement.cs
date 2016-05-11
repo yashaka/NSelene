@@ -1,17 +1,53 @@
 using OpenQA.Selenium;
 using NSelene.Conditions;
 using System.Drawing;
+using System;
 
 namespace NSelene
 {
 
-    public delegate IWebElement SElement();
+    public delegate IWebElement FindsWebElement();
+
+    public interface GetsWebElement
+    {
+        FindsWebElement GetActualWebElement { get; }
+    }
+
+    public sealed class SElement : GetsWebElement
+    {
+        readonly By locator;
+        readonly FindsWebElement finder;
+
+        public SElement(By locator, FindsWebElement finder)
+        {
+            this.locator = locator;
+            this.finder = finder;
+        }
+
+        public SElement(By locator, IWebDriver driver) 
+            : this(locator, () => driver.FindElement(locator)) {}
+
+        public SElement(By locator) 
+            : this(locator, () => Utils.GetDriver().FindElement(locator)) {}
+
+        public FindsWebElement GetActualWebElement {
+            get {
+                return this.finder;
+            }
+        }
+
+        public override string ToString()
+        {
+            return this.locator.ToString();
+        }
+    }
 
     public static partial class Utils
     {
         public static SElement S(By locator)
         {
-            return () => Find(locator);
+            //return () => Find(locator);
+            return new SElement(locator);
         }
 
         public static SElement S(string cssSelector)
@@ -38,21 +74,21 @@ namespace NSelene
         public static SElement Clear(this SElement element)
         {
             element.Should(Be.Visible);
-            element().Clear();
+            element.GetActualWebElement().Clear();
             return element;
         }
 
         public static SElement Click(this SElement element)
         {
             element.Should(Be.Visible);
-            element().Click();
+            element.GetActualWebElement().Click();
             return element;
         }
 
         public static string GetAttribute(this SElement element, string name)
         {
             element.Should(Be.InDOM);
-            return element().GetAttribute(name);
+            return element.GetActualWebElement().GetAttribute(name);
         }
 
         public static string GetValue(this SElement element)
@@ -63,13 +99,13 @@ namespace NSelene
         public static string GetCssValue(this SElement element, string property)
         {
             element.Should(Be.InDOM);
-            return element().GetCssValue(property);
+            return element.GetActualWebElement().GetCssValue(property);
         }
 
         public static SElement SendKeys(this SElement element, string keys)
         {
             element.Should(Be.Visible);
-            element().SendKeys(keys);
+            element.GetActualWebElement().SendKeys(keys);
             return element;
         }
 
@@ -91,7 +127,7 @@ namespace NSelene
         public static SElement SetValue(this SElement element, string keys)
         {
             element.Should(Be.Visible);
-            var webelement = element();
+            var webelement = element.GetActualWebElement();
             webelement.Clear();
             webelement.SendKeys(keys);
             return element;
@@ -105,69 +141,72 @@ namespace NSelene
         public static SElement Submit(this SElement element)
         {
             element.Should(Be.Visible);
-            element().Submit();
+            element.GetActualWebElement().Submit();
             return element;
         }
 
         public static bool IsDisplayed(this SElement element)
         {
             element.Should(Be.InDOM);
-            return element().Displayed;
+            return element.GetActualWebElement().Displayed;
         }
 
         public static bool IsEnabled(this SElement element)
         {
             element.Should(Be.Visible);
-            return element().Enabled;
+            return element.GetActualWebElement().Enabled;
         }
 
         public static Point GetLocation(this SElement element)
         {
             element.Should(Be.Visible);
-            return element().Location;
+            return element.GetActualWebElement().Location;
         }
 
         public static bool IsSelected(this SElement element)
         {
             element.Should(Be.Visible);
-            return element().Selected;
+            return element.GetActualWebElement().Selected;
         }
 
         public static Size GetSize(this SElement element)
         {
             element.Should(Be.Visible);
-            return element().Size;
+            return element.GetActualWebElement().Size;
         }
 
         public static string GetTagName(this SElement element)
         {
             element.Should(Be.Visible);
-            return element().TagName;
+            return element.GetActualWebElement().TagName;
         }
 
         public static string GetText(this SElement element)
         {
             element.Should(Be.Visible);
-            return element().Text;
+            return element.GetActualWebElement().Text;
         }
 
         public static SElement Hover(this SElement element)
         {
             element.Should(Be.Visible);
-            Utils.SActions().MoveToElement(element()).Perform();
+            Utils.SActions().MoveToElement(element.GetActualWebElement()).Perform();
             return element;
         }
 
         public static SElement DoubleClick(this SElement element)
         {
             element.Should(Be.Visible);
-            Utils.SActions().DoubleClick(element()).Perform();
+            Utils.SActions().DoubleClick(element.GetActualWebElement()).Perform();
             return element;
         }
 
         public static SElement Find(this SElement element, By locator)
         {
-            return () => element.Should(Be.Visible)().FindElement(locator);
+            return new SElement(new PseudoBy(string.Format("By.Selene: ({0}).FindInner({1})", element, locator))
+                                , () => element.Should(Be.Visible).GetActualWebElement().FindElement(locator)
+                               );
+            //return () => element.Should(Be.Visible)().FindElement(locator);
             /* \
                                                       why do we need it? seem's like we do not... (#TODO)*/
         }
@@ -189,7 +228,8 @@ namespace NSelene
 
         public static SCollection FindAll(this SElement element, By locator)
         {
-            return () => element.Should(Be.Visible)().FindElements(locator);
+            return new SCollection(new PseudoBy(string.Format("By.Selene: ({0}).FindAllInner({1})", element, locator))
+                                   , () => element.Should(Be.Visible).GetActualWebElement().FindElements(locator));
         }
 
         public static SCollection FindAll(this SElement element, string cssSelector)
