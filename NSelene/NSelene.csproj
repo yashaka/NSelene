@@ -29,12 +29,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="WebDriver">
-      <HintPath>..\packages\Selenium.WebDriver.2.48.0\lib\net40\WebDriver.dll</HintPath>
-    </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="WebDriver">
+      <HintPath>..\packages\Selenium.WebDriver.2.53.0\lib\net40\WebDriver.dll</HintPath>
+    </Reference>
     <Reference Include="WebDriver.Support">
-      <HintPath>..\packages\Selenium.Support.2.48.0\lib\net40\WebDriver.Support.dll</HintPath>
+      <HintPath>..\packages\Selenium.Support.2.53.0\lib\net40\WebDriver.Support.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -55,9 +55,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="todo.txt" />
     <None Include="NSelene.nuspec" />
     <None Include=".gitignore" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

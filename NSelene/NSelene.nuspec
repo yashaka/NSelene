@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>NSelene</id>
-    <version>0.0.0.2</version>
+    <version>0.0.0.3</version>
     <title>NSelene</title>
     <authors>Iakiv Kramarenko</authors>
     <owners>Iakiv Kramarenko</owners>
@@ -10,12 +10,12 @@
     <projectUrl>https://github.com/yashaka/NSelene</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Concise API to Selenium for .Net (the port of Selene in python / Selenide in Java)</description>
-    <releaseNotes>Stabilized version with main functionality, not optimised for speed, but yet fast enough and you will hardly notice the difference:)</releaseNotes>
+    <releaseNotes>Stabilized version with main functionality, not optimised for speed, but yet fast enough and you will hardly notice the difference:) With Added parallel drivers support and upgraded Selenium to 2.53.0</releaseNotes>
     <copyright>Copyright 2015 Iakiv Kramarenko</copyright>
     <tags>Selenium Wrapper Web Automation</tags>
     <dependencies>
-        <dependency id="Selenium.WebDriver" version="2.48.2"/>
-        <dependency id="Selenium.Support" version="2.48.2"/>
+        <dependency id="Selenium.WebDriver" version="2.53.0"/>
+        <dependency id="Selenium.Support" version="2.53.0"/>
     </dependencies>
   </metadata>
   <files>
