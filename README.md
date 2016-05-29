@@ -94,6 +94,9 @@ where procedural "PageObject" aka "PageModule" may look like this:
             }
         }
 ```
+
+See more examples of other styles, e.g. object oriented PageObjects, examples of how NSelene can be integrated into your current selenium based framework (to make it more stable and efficient) in NSeleneExamples project.
+
 So... 
 The ported things are: 
 - Selenide.$
@@ -109,12 +112,5 @@ The ported things are:
 - EllementsCollection#get
 - all main Conditions
 - all main CollectionConditions
-
-The first thing I plan to do - is to implement SElement (aka SelenideElement) as something more smart than C# delegate. Because current implementation lacks abilities to support some extra features like "caching" wich would help to optimise performance.
-
-Current implementation is also kind of "experimental one". It is implemented completely in non-OOP way :)
-The main answer  to "Why?" - is speed. I implemented it in a few nights. 
-First I will proceed with this style of implementation (using a lot of "extension methods") just for fun and R&D :) And will switch to common OOP implementation via wrapping WebElement (like Selenide does) if needed :) The main API should not change because of this so don't worry.
-
 
 Feel free to share your thoughts and file an issue on github if you need something.

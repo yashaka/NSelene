@@ -8,6 +8,27 @@ namespace NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.AfterPlusPl
 {
     public class Tasks
     {
+
+        /*
+         * If you will never write a test where you will open two browsers at once,
+         * Then it's completely enough to use semi-automatic driver management 
+         * with static helpers - Utils.S & Utils.SS (aka Find & FindALl)
+         *      to create and find elements. 
+         * They will use drivers created via Utils.SetDriver per thread
+         * And so will work for tests being run in parallel. 
+         * Actually this is what is actually needed in Acceptance Web UI Automation.
+         * And this is how it is implemented in original Selenide, which is used 
+         * on many projects and everybody are happy with such implementation there:)
+         * 
+         * Once more:
+         * 
+         * "many browsers but one per each parallel test" will work
+         * 
+         * but "many browsers in one test" will not work with Utils.S & Utils.SS helpers. 
+         *      You should use Browser#Find & Browser#FindAll instead
+         *      As it was shown in After & AfterPlus* namespaces.
+         */
+
         SCollection list = SS("#todo-list>li");
 
         SElement clearCompleted = S("#clear-completed");
