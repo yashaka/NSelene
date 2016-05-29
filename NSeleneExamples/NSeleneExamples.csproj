@@ -32,10 +32,13 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="WebDriver">
-      <HintPath>..\packages\Selenium.WebDriver.2.48.0\lib\net40\WebDriver.dll</HintPath>
-    </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="WebDriver">
+      <HintPath>..\packages\Selenium.WebDriver.2.53.0\lib\net40\WebDriver.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriver.Support">
+      <HintPath>..\packages\Selenium.Support.2.53.0\lib\net40\WebDriver.Support.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -48,9 +51,37 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TodoMVC\Tests.cs" />
-    <Compile Include="TodoMVC\Pages\Tasks.cs" />
     <Compile Include="BaseTest.cs" />
-    <Compile Include="TodoMVC\DraftTests.cs" />
+    <Compile Include="TodoMVC\Temp\DraftTests.cs" />
+    <Compile Include="TodoMVC\WithPages\Pages\Tasks.cs" />
+    <Compile Include="TodoMVC\WithPages\TodoMVCTests.cs" />
+    <Compile Include="TodoMVC\Straightforward\TodoMVCTests.cs" />
+    <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\Before\TodoMVCTests.cs" />
+    <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\Before\Pages\Tasks.cs" />
+    <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusPlus\TodoMVCTests.cs" />
+    <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusPlus\Pages\Tasks.cs" />
+    <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\Before\Core\SeleniumExtensions.cs" />
+    <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\After\core\SeleniumExtensions.cs" />
+    <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\After\pages\Tasks.cs" />
+    <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\After\TodoMVCTests.cs" />
+    <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlus\TodoMVCTests.cs" />
+    <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlus\pages\Tasks.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TodoMVC\WithPages\" />
+    <Folder Include="TodoMVC\Straightforward\" />
+    <Folder Include="TodoMVC\Temp\" />
+    <Folder Include="TodoMVC\WithPages\Pages\" />
+    <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\" />
+    <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\Before\" />
+    <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\After\" />
+    <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\Before\Core\" />
+    <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\Before\Pages\" />
+    <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusPlus\" />
+    <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusPlus\Pages\" />
+    <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\After\core\" />
+    <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\After\pages\" />
+    <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlus\" />
+    <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlus\pages\" />
   </ItemGroup>
 </Project>

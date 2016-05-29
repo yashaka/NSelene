@@ -17,6 +17,86 @@ namespace NSelene
         public static double PollDuringWaits = 0.1;
     }
 
+    public sealed class Browser
+    {
+        readonly IWebDriver driver;
+
+        public Browser(IWebDriver driver)
+        {
+            this.driver = driver;
+        }
+
+        public void Open(string url)
+        {
+            this.driver.Navigate().GoToUrl(url);
+        }
+
+        public SElement Find(By locator)
+        {
+            return new SElement(locator, driver);
+        }
+
+        public SElement Find(string cssSelector)
+        {
+            return this.Find(By.CssSelector(cssSelector));
+        }
+
+        public SElement Find(IWebElement pageFactoryElement)
+        {
+            return new SElement(pageFactoryElement, driver);
+        }
+
+        public SCollection FindAll(By locator)
+        {
+            return new SCollection(locator, driver);
+        }
+
+        public SCollection FindAll(string cssSelector)
+        {
+            return this.FindAll(By.CssSelector(cssSelector));
+        }
+
+        public SCollection FindAll(IList<IWebElement> pageFactoryElements)
+        {
+            return new SCollection(pageFactoryElements, this.driver);
+        }
+
+        public object ExecuteScript(string script)
+        {
+            return (this.driver as IJavaScriptExecutor).ExecuteScript(script);
+        }
+
+        public string GetCurrentUrl()
+        {
+            return this.driver.Url;
+        }
+
+        public Actions Do()
+        {
+            return new Actions(this.driver);
+        }
+
+        public  TResult WaitFor<TResult>(TResult sEntity, Condition<TResult> condition)
+        {
+            return Utils.WaitFor(sEntity, condition, Config.Timeout);
+        }
+
+        public  TResult WaitFor<TResult>(TResult sEntity, Condition<TResult> condition, double timeout)
+        {
+            return Utils.WaitFor(sEntity, condition, timeout);
+        }
+
+        public  TResult WaitForNot<TResult>(TResult sEntity, Condition<TResult> condition)
+        {
+            return Utils.WaitForNot(sEntity, condition, Config.Timeout);
+        }
+
+        public  TResult WaitForNot<TResult>(TResult sEntity, Condition<TResult> condition, double timeout)
+        {
+            return Utils.WaitForNot(sEntity, condition, timeout);
+        }
+    }
+
     public static partial class Utils
     {
 
@@ -45,12 +125,32 @@ namespace NSelene
             return (GetDriver() as IJavaScriptExecutor).ExecuteScript(script);
         }
 
-        public static IWebElement Find(By locator)
+        public static SElement S(By locator)
+        {
+            return new SElement(locator);
+        }
+
+        public static SElement S(string cssSelector)
+        {
+            return S(By.CssSelector(cssSelector));
+        }
+
+        public static SCollection SS(By locator)
+        {
+            return new SCollection(locator);
+        }
+
+        public static SCollection SS(string cssSelector)
+        {
+            return SS(By.CssSelector(cssSelector));
+        }
+
+        public static IWebElement FindElement(By locator)
         {
             return GetDriver().FindElement(locator);
         }
 
-        public static IReadOnlyCollection<IWebElement> FindAll(By locator)
+        public static IReadOnlyCollection<IWebElement> FindElements(By locator)
         {
             return GetDriver().FindElements(locator);
         }
@@ -155,7 +255,5 @@ namespace NSelene
             }
             return sEntity;
         }
-
-
     }
 }

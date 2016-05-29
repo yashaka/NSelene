@@ -7,7 +7,7 @@
 
             public override bool Apply(SElement entity)
             {
-                return entity.GetActualWebElement().Enabled;
+                return entity.ActualWebElement.Enabled;
             }
         }
 

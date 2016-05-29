@@ -2,267 +2,252 @@ using OpenQA.Selenium;
 using NSelene.Conditions;
 using System.Drawing;
 using System;
+using OpenQA.Selenium.Interactions;
 
 namespace NSelene
 {
-
-    public delegate IWebElement FindsWebElement();
-
-    public interface GetsWebElement
+    // TODO: consider name: WrapsWebElement
+    public interface FindsWebElement
     {
-        FindsWebElement GetActualWebElement { get; }
+        IWebElement ActualWebElement { get; }
     }
 
-    /*
-     * TODO: consider using generics to implement abstract SEntity over SElement and SCollection
-     */
-    public sealed class SElement : GetsWebElement
+    // TODO: refactor impl to implement IWebElement interface in order to be able to do ToWebElement() conversion for integration purposes
+    public sealed class SElement : FindsWebElement
     {
-        readonly By locator;
-        readonly FindsWebElement finder;
+        readonly SLocator<IWebElement> locator;
 
-        /* 
-         * TODO: consider integrating finder into By, 
-         * since it's implemented like this in raw Selenium
-         */
-        public SElement(By locator, FindsWebElement finder) 
+        public SElement(SLocator<IWebElement> locator)
         {
             this.locator = locator;
-            this.finder = finder;
         }
 
-        public SElement(By locator, IWebDriver driver) 
-            : this(locator, () => driver.FindElement(locator)) {}
+        public SElement(By byLocator, IWebDriver driver) 
+            : this(new DriverWebElementSLocator(byLocator, driver)) {}
 
-        public SElement(By locator) 
-            : this(locator, () => Utils.GetDriver().FindElement(locator)) {}
+        public SElement(By byLocator) 
+            : this(new AutomaticDriverWebElementSLocator(byLocator)) {}
 
-        public FindsWebElement GetActualWebElement {
+        public SElement(IWebElement pageFactoryElement, IWebDriver driver)
+            : this(new WrappedWebElementSLocator(pageFactoryElement, driver)) {}
+
+        public SLocator<IWebElement> SLocator 
+        {
             get {
-                return this.finder;
+                return this.locator;
+            }
+        }
+
+        public Actions Actions
+        {
+            get {
+                //this.Should(Be.Visible); // TODO: should it be here? or should we create separate ajax friendly Actions wrapper?
+                        // currently it also would duplicate other check for visibility inside common selement actions
+                return new Actions(this.SLocator.Driver);
+            }
+        }
+
+        // would it be better to use method GetActualWebElement() instead?
+        public IWebElement ActualWebElement
+        {
+            get {
+                return locator.Find();
             }
         }
 
         public override string ToString()
         {
-            return this.locator.ToString();
-        }
-    }
-
-    public static partial class Utils
-    {
-        public static SElement S(By locator)
-        {
-            //return () => Find(locator);
-            return new SElement(locator);
+            return this.locator.Description;
         }
 
-        public static SElement S(string cssSelector)
+        public SElement Should(Condition<SElement> condition)
         {
-            return S(By.CssSelector(cssSelector));
-        }
-    }
-
-    /*
-     * TODO: consider integrating into SElement object itself
-     * Think on "what the purpose", what will be pros and cons?
-     * it's a potential talk theme btw ;)
-     * 
-     * seems like the main bonus of "integrated" approach is "OOP Contracts"
-     * so... do we need it?
-     */
-    public static class SElementExtensions
-    {
-
-        public static SElement Should(this SElement element, Condition<SElement> condition)
-        {
-            return Utils.WaitFor(element, condition);
+            return Utils.WaitFor(this, condition);
         }
 
-        public static SElement ShouldNot(this SElement element, Condition<SElement> condition)
+        public SElement AssertTo(Condition<SElement> condition)
         {
-            return Utils.WaitForNot(element, condition);
+            return this.Should(condition);
         }
 
-        // TODO: consider moving actions to separate file
-
-        public static SElement Clear(this SElement element)
+        public SElement ShouldNot(Condition<SElement> condition)
         {
-            element.Should(Be.Visible);
-            element.GetActualWebElement().Clear();
-            return element;
+            return Utils.WaitForNot(this, condition);
         }
 
-        public static SElement Click(this SElement element)
+        public SElement AssertToNot(Condition<SElement> condition)
         {
-            element.Should(Be.Visible);
-            element.GetActualWebElement().Click();
-            return element;
+            return this.ShouldNot(condition);
         }
 
-        public static string GetAttribute(this SElement element, string name)
+        public SElement Clear()
         {
-            element.Should(Be.InDOM);
-            return element.GetActualWebElement().GetAttribute(name);
+            this.Should(Be.Visible);
+            this.ActualWebElement.Clear();
+            return this;
         }
 
-        public static string GetValue(this SElement element)
+        public SElement Click()
         {
-            return element.GetAttribute("value");
+            this.Should(Be.Visible);
+            this.locator.Find().Click();
+            return this;
         }
 
-        public static string GetCssValue(this SElement element, string property)
+        public string GetAttribute(string name)
         {
-            element.Should(Be.InDOM);
-            return element.GetActualWebElement().GetCssValue(property);
+            this.Should(Be.InDOM);
+            return this.ActualWebElement.GetAttribute(name);
         }
 
-        public static SElement SendKeys(this SElement element, string keys)
+        public string GetValue()
         {
-            element.Should(Be.Visible);
-            element.GetActualWebElement().SendKeys(keys);
-            return element;
+            return this.GetAttribute("value");
         }
 
-        public static SElement PressEnter(this SElement element)
+        public string GetCssValue(string property)
         {
-            return element.SendKeys(Keys.Enter);
+            this.Should(Be.InDOM);
+            return this.ActualWebElement.GetCssValue(property);
         }
 
-        public static SElement PressTab(this SElement element)
+        public SElement SendKeys(string keys)
         {
-            return element.SendKeys(Keys.Tab);
+            this.Should(Be.Visible);
+            this.ActualWebElement.SendKeys(keys);
+            return this;
         }
 
-        public static SElement PressEscape(this SElement element)
+        public SElement PressEnter()
         {
-            return element.SendKeys(Keys.Escape);
+            return this.SendKeys(Keys.Enter);
         }
 
-        public static SElement SetValue(this SElement element, string keys)
+        public SElement PressTab()
         {
-            element.Should(Be.Visible);
-            var webelement = element.GetActualWebElement();
+            return this.SendKeys(Keys.Tab);
+        }
+
+        public SElement PressEscape()
+        {
+            return this.SendKeys(Keys.Escape);
+        }
+
+        public SElement SetValue(string keys)
+        {
+            this.Should(Be.Visible);
+            var webelement = this.ActualWebElement;
             webelement.Clear();
             webelement.SendKeys(keys);
-            return element;
+            return this;
         }
 
-        public static SElement Set(this SElement element, string value)
+        public SElement Set(string value)
         {
-            return element.SetValue(value);
+            return this.SetValue(value);
         }
 
-        public static SElement Submit(this SElement element)
+        public SElement Submit()
         {
-            element.Should(Be.Visible);
-            element.GetActualWebElement().Submit();
-            return element;
+            this.Should(Be.Visible);
+            this.ActualWebElement.Submit();
+            return this;
         }
 
-        public static bool IsDisplayed(this SElement element)
+        public bool IsDisplayed()
         {
-            element.Should(Be.InDOM);
-            return element.GetActualWebElement().Displayed;
+            this.Should(Be.InDOM);
+            return this.ActualWebElement.Displayed;
         }
 
-        public static bool IsEnabled(this SElement element)
+        public bool IsEnabled()
         {
-            element.Should(Be.Visible);
-            return element.GetActualWebElement().Enabled;
+            this.Should(Be.Visible);
+            return this.ActualWebElement.Enabled;
         }
 
-        public static Point GetLocation(this SElement element)
+        public Point GetLocation()
         {
-            element.Should(Be.Visible);
-            return element.GetActualWebElement().Location;
+            this.Should(Be.Visible);
+            return this.ActualWebElement.Location;
         }
 
-        public static bool IsSelected(this SElement element)
+        public bool IsSelected()
         {
-            element.Should(Be.Visible);
-            return element.GetActualWebElement().Selected;
+            this.Should(Be.Visible);
+            return this.ActualWebElement.Selected;
         }
 
-        public static Size GetSize(this SElement element)
+        public Size GetSize()
         {
-            element.Should(Be.Visible);
-            return element.GetActualWebElement().Size;
+            this.Should(Be.Visible);
+            return this.ActualWebElement.Size;
         }
 
-        public static string GetTagName(this SElement element)
+        public string GetTagName()
         {
-            element.Should(Be.Visible);
-            return element.GetActualWebElement().TagName;
+            this.Should(Be.Visible);
+            return this.ActualWebElement.TagName;
         }
 
-        public static string GetText(this SElement element)
+        public string GetText()
         {
-            element.Should(Be.Visible);
-            return element.GetActualWebElement().Text;
+            this.Should(Be.Visible);
+            return this.ActualWebElement.Text;
         }
 
-        public static SElement Hover(this SElement element)
+        public SElement Hover()
         {
-            element.Should(Be.Visible);
-            Utils.SActions().MoveToElement(element.GetActualWebElement()).Perform();
-            return element;
+            this.Should(Be.Visible);
+            this.Actions.MoveToElement(this.ActualWebElement).Perform();
+            return this;
         }
 
-        public static SElement DoubleClick(this SElement element)
+        public SElement DoubleClick()
         {
-            element.Should(Be.Visible);
-            Utils.SActions().DoubleClick(element.GetActualWebElement()).Perform();
-            return element;
+            this.Should(Be.Visible);
+            this.Actions.DoubleClick(this.ActualWebElement).Perform();
+            return this;
         }
 
-        public static SElement Find(this SElement element, By locator)
+        public SElement Find(By locator)
         {
-            return new SElement(new PseudoBy(string.Format("By.Selene: ({0}).FindInner({1})", element, locator))
-                                , () => element.Should(Be.Visible).GetActualWebElement().FindElement(locator)
-                               );
-            //return () => element.Should(Be.Visible)().FindElement(locator);
-            /* \
-                                                      why do we need it? seem's like we do not... (#TODO)*/
+            return new SElement(new InnerWebElementSLocator(locator, this));
         }
 
-        public static SElement S(this SElement element, By locator)
+        public SElement S(By locator)
         {
-            return element.Find(locator);
+            return this.Find(locator);
         }
 
-        public static SElement Find(this SElement element, string cssSelector)
+        public SElement Find(string cssSelector)
         {
-            return element.Find(By.CssSelector(cssSelector));
+            return this.Find(By.CssSelector(cssSelector));
         }
 
-        public static SElement S(this SElement element, string cssSelector)
+        public SElement S(string cssSelector)
         {
-            return element.Find(cssSelector);
+            return this.Find(cssSelector);
         }
 
-        public static SCollection FindAll(this SElement element, By locator)
+        public SCollection FindAll(By locator)
         {
-            return new SCollection(new PseudoBy(string.Format("By.Selene: ({0}).FindAllInner({1})", element, locator))
-                                   , () => element.Should(Be.Visible).GetActualWebElement().FindElements(locator));
+            return new SCollection(new InnerWebElementsCollectionSLocator(locator, this));
         }
 
-        public static SCollection FindAll(this SElement element, string cssSelector)
+        public SCollection FindAll(string cssSelector)
         {
-            return element.FindAll(By.CssSelector(cssSelector));
+            return this.FindAll(By.CssSelector(cssSelector));
         }
 
-        public static SCollection SS(this SElement element, By locator)
+        public SCollection SS(By locator)
         {
-            return element.FindAll(locator);
+            return this.FindAll(locator);
         }
 
-        public static SCollection SS(this SElement element, string cssSelector)
+        public SCollection SS(string cssSelector)
         {
-            return element.FindAll(cssSelector);
+            return this.FindAll(cssSelector);
         }
-
-
     }
-		
 }

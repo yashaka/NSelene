@@ -1,9 +1,20 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace NSelene
 {
     namespace Conditions
     {
+        public class ByStringContainsComparer : IEqualityComparer<string> {
+            public bool Equals(string x, string y) {
+                return (x.Contains(y));
+            }
+
+            public int GetHashCode(string obj) {
+                return obj.GetHashCode();
+            }
+        }
+
         // TODO: ensure messages are relevant
 
         public class Texts : DescribedCondition<SCollection>
@@ -19,15 +30,11 @@ namespace NSelene
 
             public override bool Apply(SCollection entity)
             {
-                this.actual = entity.GetAllActualWebElements().Select(element => element.Text).ToArray();
-                // TODO: make logic more readable, consider using something based on LINQ
-                if (this.actual.Length != this.expected.Length ||
-                !actual.Zip(this.expected, 
-                    (actualText, expectedText) => actualText.Contains(expectedText)).All(res => res))
-                {
-                    return false;						
-                } 
-                return true;
+                this.actual = entity.ActualWebElements
+                                    .Select(element => element.Text)
+                                    .ToArray(); //TODO: do we need conversion to array?
+
+                return this.actual.SequenceEqual(this.expected, new ByStringContainsComparer());
             }
 
             public override string DescribeActual()
@@ -47,7 +54,7 @@ namespace NSelene
 
             public override bool Apply(SCollection entity)
             {
-                this.actual = entity.GetAllActualWebElements().Select(element => element.Text).ToArray();
+                this.actual = entity.ActualWebElements.Select(element => element.Text).ToArray();
                 return this.actual.SequenceEqual(this.expected);
             }
         }

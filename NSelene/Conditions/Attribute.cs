@@ -19,7 +19,7 @@ namespace NSelene
 
             public override bool Apply(SElement entity)
             {
-                this.actualValue = entity.GetActualWebElement().GetAttribute(this.name);
+                this.actualValue = entity.ActualWebElement.GetAttribute(this.name);
 
                 // TODO: do we need this comparison with null? (we needed it in Java)
                 return this.actualValue != null && this.actualValue == this.expectedValue;

@@ -1,7 +1,5 @@
 ﻿using NUnit.Framework;
-using System;
 using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium;
 using static NSelene.Utils;
 
 

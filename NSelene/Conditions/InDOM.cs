@@ -7,7 +7,7 @@
 
             public override bool Apply(SElement entity)
             {
-                entity.GetActualWebElement();
+                var webelement = entity.ActualWebElement;
                 return true;
             }
 
