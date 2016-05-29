@@ -1,5 +1,5 @@
 # NSelene - Selenide "from scratch port" to .NET (`C#`, etc.)
-A Tool created specifically for Web UI Test Automation
+A Tool created specifically for Web UI Test Automation in .NET world
 
 So, Here it is... A base stabilized version, published to nuget gallery https://www.nuget.org/packages/NSelene
 
@@ -11,18 +11,18 @@ There is also an example tests project: https://github.com/yashaka/NSelene/blob/
 
 Below you can find a short overview:
 
-NSelene has no automatic driver management, you have to set it up manually, e.g. like here: 
+NSelene has no fully automatic driver management, you have to set it up manually, e.g. like here: 
 ```csharp
         [SetUp]
         public void SetupTest()
         {
-            SetDriver (new FirefoxDriver ());
+            SetDriver(new FirefoxDriver());
         }
 
         [TearDown]
-        public void TeardownTest()
+        public voidTeardownTest()
         {
-            GetDriver ().Quit ();
+            GetDriver().Quit();
         }
 ```
 (https://github.com/yashaka/NSelene/blob/master/NSeleneExamples/BaseTest.cs)
@@ -112,5 +112,12 @@ The ported things are:
 - EllementsCollection#get
 - all main Conditions
 - all main CollectionConditions
+
+Though NSelene is not a "complete" port (no automatic screenshots, no automatic driver creation, etc.), even now It has some useful additions to the basic "selenide set" of features. The following a some features that are still absent in Selenide:
+
+- NSelene has better error messages for some complex queries like 
+  `SS("#list-item").FindBy(Have.CssClass("specific")).Find(".inner-element").click()`
+- NSelene can be much easyly integrated into existing selenium based frameworks, because it is object-oriented by its nature. It provides a Consice API to Selenium via both "OOP" and "static utils" wrappers over WebDriver, not only "static utils wrappers" as in Selenide.
+- Because of the latter, NSelene also supports creation of "more than one driver per test". It can be rarely useful, but sometimes it "saves the life" on projects where "everything is too bad" :)
 
 Feel free to share your thoughts and file an issue on github if you need something.
