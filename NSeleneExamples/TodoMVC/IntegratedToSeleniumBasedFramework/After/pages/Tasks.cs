@@ -76,7 +76,7 @@ namespace NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.After.Pages
                  */
 
                 //newTodo.SetValue(text).PressEnter();
-                I.Find(newTodo).Should(Be.Enabled).SetValue(text).PressEnter();
+                I.Find(newTodo).AssertTo(Be.Enabled).SetValue(text).PressEnter();
             }
         }
 

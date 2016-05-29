@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseTest.cs" />
-    <Compile Include="TodoMVC\Temp\DraftTests.cs" />
     <Compile Include="TodoMVC\WithPages\Pages\Tasks.cs" />
     <Compile Include="TodoMVC\WithPages\TodoMVCTests.cs" />
     <Compile Include="TodoMVC\Straightforward\TodoMVCTests.cs" />
@@ -66,6 +65,10 @@
     <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\After\TodoMVCTests.cs" />
     <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlus\TodoMVCTests.cs" />
     <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlus\pages\Tasks.cs" />
+    <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusAlternativeStyleOfPageFields\pages\Tasks.cs" />
+    <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusAlternativeStyleOfNaming\pages\Tasks.cs" />
+    <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusAlternativeStyleOfNaming\core\SeleniumExtensions.cs" />
+    <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusAlternativeStyleOfNaming\TodoMVCTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TodoMVC\WithPages\" />
@@ -83,5 +86,10 @@
     <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\After\pages\" />
     <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlus\" />
     <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlus\pages\" />
+    <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusAlternativeStyleOfPageFields\" />
+    <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusAlternativeStyleOfPageFields\pages\" />
+    <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusAlternativeStyleOfNaming\" />
+    <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusAlternativeStyleOfNaming\core\" />
+    <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusAlternativeStyleOfNaming\pages\" />
   </ItemGroup>
 </Project>

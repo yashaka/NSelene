@@ -36,9 +36,23 @@ namespace NSelene
             return new SElement(locator, driver);
         }
 
+        // TODO: consider making the only availabe naming - Browser.Element over I.Find, and leave the "I.Find" option for self-impl by users
+        // hm... but it would be harder to implement... actually users will be able to implement fastly
+        // only Find as Browser.Element instead of I.Find as Browser.Element :(
+        // seems like better to leave both...
+        public SElement Element(By locator)
+        {
+            return Find(locator);
+        }
+
         public SElement Find(string cssSelector)
         {
             return this.Find(By.CssSelector(cssSelector));
+        }
+
+        public SElement Element(string cssSelector)
+        {
+            return Find(cssSelector);
         }
 
         public SElement Find(IWebElement pageFactoryElement)
@@ -46,9 +60,19 @@ namespace NSelene
             return new SElement(pageFactoryElement, driver);
         }
 
+        public SElement Element(IWebElement pageFactoryElement)
+        {
+            return Find(pageFactoryElement);
+        }
+
         public SCollection FindAll(By locator)
         {
             return new SCollection(locator, driver);
+        }
+
+        public SCollection Elements(By locator)
+        {
+            return FindAll(locator);
         }
 
         public SCollection FindAll(string cssSelector)
@@ -56,9 +80,19 @@ namespace NSelene
             return this.FindAll(By.CssSelector(cssSelector));
         }
 
+        public SCollection Elements(string cssSelector)
+        {
+            return FindAll(cssSelector);
+        }
+
         public SCollection FindAll(IList<IWebElement> pageFactoryElements)
         {
             return new SCollection(pageFactoryElements, this.driver);
+        }
+
+        public SCollection Elements(IList<IWebElement> pageFactoryElements)
+        {
+            return FindAll(pageFactoryElements);
         }
 
         public object ExecuteScript(string script)
@@ -69,6 +103,13 @@ namespace NSelene
         public string GetCurrentUrl()
         {
             return this.driver.Url;
+        }
+
+        public string Url
+        {
+            get {
+                return GetCurrentUrl();
+            }
         }
 
         public Actions Do()

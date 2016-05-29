@@ -53,6 +53,7 @@
     <Compile Include="Conditions\Enabled.cs" />
     <Compile Include="Conditions\Selected.cs" />
     <Compile Include="SLocator.cs" />
+    <Compile Include="Selectors.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
