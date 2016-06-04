@@ -22,7 +22,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                     </ul>
                 </p>"
             );
-            Assert.AreEqual(2, elements.GetCount());
+            Assert.AreEqual(2, elements.Count);
         }
 
         // TODO: TBD

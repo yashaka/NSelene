@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NSelene.Conditions;
 using System.Collections.ObjectModel;
+using System;
 
 namespace NSelene
 {
@@ -11,6 +12,7 @@ namespace NSelene
         IReadOnlyCollection<IWebElement> ActualWebElements { get; }
     }
 
+    // TODO: implement IEnumerable, IEnumerable<T>
     public sealed class SCollection : FindsWebElementsCollection
     {
         readonly SLocator<IReadOnlyCollection<IWebElement>> locator;
@@ -90,6 +92,14 @@ namespace NSelene
             return new SCollection(new SCollectionFilteredWebElementsCollectionSLocator(condition, this));
         }
 
+        public int Count
+        {
+            get {
+                return this.ActualWebElements.Count;
+            }
+        }
+
+        [Obsolete("GetCount is deprecated and will be removed in next version, please use Count property instead.")]
         public int GetCount()
         {
             return  this.ActualWebElements.Count; // TODO: should we count only visible elements? or all?

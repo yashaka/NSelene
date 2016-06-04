@@ -44,14 +44,14 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         public void SElementIsDisplayed()
         {
             Given.OpenedPageWithBody("<input type='text' value='ku ku' style='display:none'/>");
-            Assert.AreEqual(false, S("input").IsDisplayed());
+            Assert.AreEqual(false, S("input").Displayed);
         }
 
         [Test]
         public void SElementIsEnabled()
         {
             Given.OpenedPageWithBody("<input type='text' value='ku ku'/>");
-            Assert.AreEqual(true, S("input").IsEnabled());
+            Assert.AreEqual(true, S("input").Enabled);
         }
 
         // TODO: TBD

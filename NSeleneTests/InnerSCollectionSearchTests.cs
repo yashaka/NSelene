@@ -37,7 +37,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                     </ul>
                 </div>"
             ); //TODO: consider simplifying example via removing div and using ul instead
-            Assert.AreEqual(2, elements.GetCount());
+            Assert.AreEqual(2, elements.Count);
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                     </ul>
                 </div>"
             );
-            Assert.AreEqual(2, elements.GetCount());
+            Assert.AreEqual(2, elements.Count);
             When.WithBody(@"
                 <div>
                     <ul>Hello to:
@@ -63,7 +63,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                     </ul>
                 </div>"
             );
-            Assert.AreEqual(3, elements.GetCount());
+            Assert.AreEqual(3, elements.Count);
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                 </div>",
                 500
             );
-            Assert.AreEqual(2, elements.GetCount());
+            Assert.AreEqual(2, elements.Count);
         }
     }
 }

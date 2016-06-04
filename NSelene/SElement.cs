@@ -93,7 +93,7 @@ namespace NSelene
             this.locator.Find().Click();
             return this;
         }
-
+        
         public string GetAttribute(string name)
         {
             this.Should(Be.InDOM);
@@ -154,42 +154,105 @@ namespace NSelene
             return this;
         }
 
+        public bool Displayed
+        {
+            get {
+                this.Should(Be.InDOM);
+                return this.ActualWebElement.Displayed;
+            }
+        }
+
+        [Obsolete("IsDisplayed is deprecated and will be removed in next version, please use Displayed property instead.")]
         public bool IsDisplayed()
         {
             this.Should(Be.InDOM);
             return this.ActualWebElement.Displayed;
         }
 
+        public bool Enabled
+        {
+            get {
+                this.Should(Be.Visible);
+                return this.ActualWebElement.Enabled;
+            }
+        }
+
+        [Obsolete("IsEnabled is deprecated and will be removed in next version, please use Enabled property instead.")]
         public bool IsEnabled()
         {
             this.Should(Be.Visible);
             return this.ActualWebElement.Enabled;
         }
 
+        public Point Location
+        {
+            get {
+                this.Should(Be.Visible);
+                return this.ActualWebElement.Location;
+            }
+        }
+
+        [Obsolete("GetLocation is deprecated and will be removed in next version, please use Location property instead.")]
         public Point GetLocation()
         {
             this.Should(Be.Visible);
             return this.ActualWebElement.Location;
         }
 
+        public bool Selected
+        {
+            get {
+                this.Should(Be.Visible);
+                return this.ActualWebElement.Selected;
+            }
+        }
+
+        [Obsolete("IsSelected is deprecated and will be removed in next version, please use Selected property instead.")]
         public bool IsSelected()
         {
             this.Should(Be.Visible);
             return this.ActualWebElement.Selected;
         }
 
+        public Size Size
+        {
+            get {
+                this.Should(Be.Visible);
+                return this.ActualWebElement.Size;
+            }
+        }
+
+        [Obsolete("GetSize is deprecated and will be removed in next version, please use Size property instead.")]
         public Size GetSize()
         {
             this.Should(Be.Visible);
             return this.ActualWebElement.Size;
         }
 
+        public string TagName
+        {
+            get {
+                this.Should(Be.Visible);
+                return this.ActualWebElement.TagName;
+            }
+        }
+
+        [Obsolete("GetTagName is deprecated and will be removed in next version, please use TagName property instead.")]
         public string GetTagName()
         {
             this.Should(Be.Visible);
             return this.ActualWebElement.TagName;
         }
 
+        public string Text
+        {
+            get {
+                this.Should(Be.Visible);
+                return this.ActualWebElement.Text;
+            }
+        }
+
+        [Obsolete("GetText is deprecated and will be removed in next version, please use Text property instead.")]
         public string GetText()
         {
             this.Should(Be.Visible);

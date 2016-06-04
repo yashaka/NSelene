@@ -28,7 +28,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
             Given.OpenedEmptyPage();
             var element = S("#will-be-existing-element-id");
             When.WithBody(@"<h1 id='will-be-existing-element-id'>Hello kitty:*</h1>");
-            Assert.IsTrue(element.IsDisplayed());
+            Assert.IsTrue(element.Displayed);
         }
 
         [Test]
@@ -37,9 +37,9 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
             Given.OpenedEmptyPage();
             var element = S("#will-be-existing-element-id");
             When.WithBody(@"<h1 id='will-be-existing-element-id'>Hello kitty:*</h1>");
-            Assert.IsTrue(element.IsDisplayed());
+            Assert.IsTrue(element.Displayed);
             When.WithBody(@"<h1 id='will-be-existing-element-id' style='display:none'>Hello kitty:*</h1>");
-            Assert.IsFalse(element.IsDisplayed());
+            Assert.IsFalse(element.Displayed);
         }
 
         [Test]

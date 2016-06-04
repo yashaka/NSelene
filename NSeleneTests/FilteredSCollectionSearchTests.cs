@@ -33,7 +33,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                     <li class='will-appear'>Kate</li>
                 </ul>"
             ); 
-            Assert.AreEqual(1, elements.GetCount());
+            Assert.AreEqual(1, elements.Count);
         }
 
         [Test]
@@ -47,11 +47,11 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                     <li class='will-appear' style='display:none'>Julie Mao</li>
                 </ul>"
             );
-            Assert.AreEqual(0, elements.GetCount());
+            Assert.AreEqual(0, elements.Count);
             Utils.ExecuteScript(@"
                 document.getElementsByTagName('li')[0].style = 'display:block';"
             );
-            Assert.AreEqual(1, elements.GetCount());
+            Assert.AreEqual(1, elements.Count);
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                 document.getElementsByTagName('a')[1].style = 'display:block';
                 ", 1000
             );
-            Assert.AreEqual(0, elements.GetCount());
+            Assert.AreEqual(0, elements.Count);
         }
     }
 }

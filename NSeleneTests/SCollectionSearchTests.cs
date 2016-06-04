@@ -33,7 +33,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                     <li class='will-appear'>Bob</li>
                     <li class='will-appear'>Kate</li>
                 </ul>");
-            Assert.AreEqual(2, elements.GetCount());
+            Assert.AreEqual(2, elements.Count);
         }
 
         [Test]
@@ -46,14 +46,14 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                     <li class='will-appear'>Bob</li>
                     <li class='will-appear'>Kate</li>
                 </ul>");
-            Assert.AreEqual(2, elements.GetCount());
+            Assert.AreEqual(2, elements.Count);
             When.WithBody(@"
                 <ul>Hello to:
                     <li class='will-appear'>Bob</li>
                     <li class='will-appear'>Kate</li>
                     <li class='will-appear'>Joe</li>
                 </ul>");
-            Assert.AreEqual(3, elements.GetCount());
+            Assert.AreEqual(3, elements.Count);
         }
 
         [Test]
@@ -75,7 +75,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                 </ul>",
                 500
             );
-            Assert.AreEqual(2, elements.GetCount());
+            Assert.AreEqual(2, elements.Count);
         }
     }
 }
