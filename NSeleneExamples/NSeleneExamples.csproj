@@ -69,11 +69,12 @@
     <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusAlternativeStyleOfNaming\pages\Tasks.cs" />
     <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusAlternativeStyleOfNaming\core\SeleniumExtensions.cs" />
     <Compile Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusAlternativeStyleOfNaming\TodoMVCTests.cs" />
+    <Compile Include="TodoMVC\WithWidgets\TodoMVCTests.cs" />
+    <Compile Include="TodoMVC\WithWidgets\Pages\Tasks.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TodoMVC\WithPages\" />
     <Folder Include="TodoMVC\Straightforward\" />
-    <Folder Include="TodoMVC\Temp\" />
     <Folder Include="TodoMVC\WithPages\Pages\" />
     <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\" />
     <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\Before\" />
@@ -91,5 +92,7 @@
     <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusAlternativeStyleOfNaming\" />
     <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusAlternativeStyleOfNaming\core\" />
     <Folder Include="TodoMVC\IntegratedToSeleniumBasedFramework\AfterPlusAlternativeStyleOfNaming\pages\" />
+    <Folder Include="TodoMVC\WithWidgets\" />
+    <Folder Include="TodoMVC\WithWidgets\Pages\" />
   </ItemGroup>
 </Project>
