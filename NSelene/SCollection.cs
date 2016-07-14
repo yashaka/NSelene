@@ -4,6 +4,7 @@ using System.Linq;
 using NSelene.Conditions;
 using System.Collections.ObjectModel;
 using System;
+using System.Threading;
 
 namespace NSelene
 {
@@ -17,20 +18,22 @@ namespace NSelene
     {
         readonly SLocator<IReadOnlyCollection<IWebElement>> locator;
 
-        // TODO: consider naming params like slocator vs locator or slocator vs bylocator
-        public SCollection(SLocator<IReadOnlyCollection<IWebElement>> locator)
+        readonly DriverProvider engine;
+
+        public SCollection(SLocator<IReadOnlyCollection<IWebElement>> locator, DriverProvider engine)
         {
             this.locator = locator;
+            this.engine = engine;
         }
 
         public SCollection(By byLocator, IWebDriver driver) 
-            : this(new DriverWebElementsCollectionSLocator(byLocator, driver)) {}
+            : this(new DriverWebElementsCollectionSLocator(byLocator, new WrappedDriver(driver)), new WrappedDriver(driver)) {}
 
         public SCollection(By byLocator) 
-            : this(new AutomaticDriverWebElementsCollectionSLocator(byLocator)) {}
+            : this(new DriverWebElementsCollectionSLocator(byLocator, Config.DriverStorage), Config.DriverStorage) {}
 
         public SCollection(IList<IWebElement> pageFactoryElements, IWebDriver driver)
-            : this(new WrappedWebElementsCollectionSLocator(pageFactoryElements, driver)) {}
+            : this(new WrappedWebElementsCollectionSLocator(pageFactoryElements), new WrappedDriver(driver)) {}
 
         // todo: would it be better to use method GetActualWebElements() instead?
         public IReadOnlyCollection<IWebElement> ActualWebElements
@@ -79,17 +82,17 @@ namespace NSelene
 
         public SElement ElementAt(int index)
         {
-            return new SElement(new SCollectionWebElementByIndexSLocator(index, this));
+            return new SElement(new SCollectionWebElementByIndexSLocator(index, this), this.engine);
         }
 
         public SElement FindBy(Condition<SElement> condition)
         {
-            return new SElement(new SCollectionWebElementByConditionSLocator(condition, this));
+            return new SElement(new SCollectionWebElementByConditionSLocator(condition, this, this.engine), this.engine);
         }
 
         public SCollection FilterBy(Condition<SElement> condition)
         {
-            return new SCollection(new SCollectionFilteredWebElementsCollectionSLocator(condition, this));
+            return new SCollection(new SCollectionFilteredWebElementsCollectionSLocator(condition, this, this.engine), this.engine);
         }
 
         public int Count

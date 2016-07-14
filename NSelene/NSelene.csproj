@@ -54,6 +54,8 @@
     <Compile Include="Conditions\Selected.cs" />
     <Compile Include="SLocator.cs" />
     <Compile Include="Selectors.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="SDriver.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

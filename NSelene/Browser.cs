@@ -11,12 +11,6 @@ using OpenQA.Selenium.Interactions;
 namespace NSelene
 {
 
-    public static class Config
-    {
-        public static double Timeout = 4;
-        public static double PollDuringWaits = 0.1;
-    }
-
     public sealed class Browser
     {
         readonly IWebDriver driver;
@@ -145,20 +139,22 @@ namespace NSelene
 
         public static void SetDriver(IWebDriver driver)
         {
-            var code = Thread.CurrentThread.GetHashCode();
+            Config.DriverStorage.SetDriver(driver);
+            //var code = Thread.CurrentThread.GetHashCode();
 
-            if (_drivers.ContainsKey(code)) 
-            {
-                _drivers[code] = driver;
-            } else 
-            {
-                _drivers.Add(code, driver);
-            }
+            //if (_drivers.ContainsKey(code)) 
+            //{
+            //    _drivers[code] = driver;
+            //} else 
+            //{
+            //    _drivers.Add(code, driver);
+            //}
         }
 
         public static IWebDriver GetDriver()
         {
-            return _drivers[Thread.CurrentThread.GetHashCode ()];
+            return Config.DriverStorage.Driver;
+            //return _drivers[Thread.CurrentThread.GetHashCode ()];
         }
 
         public static object ExecuteScript(string script)

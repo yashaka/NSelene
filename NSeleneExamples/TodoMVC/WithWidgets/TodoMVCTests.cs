@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using static NSelene.Utils;
 using NSeleneExamples.TodoMVC.WithWidgets.Pages;
 
 
