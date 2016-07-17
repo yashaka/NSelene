@@ -16,7 +16,9 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         public void SElementClear()
         {
             Given.OpenedPageWithBody("<input type='text' value='ku ku'/>");
-            S("input").Clear().Should(Be.Blank());
+            //S("input").Clear().Should(Be.Blank()); // TODO: consider make this code still work... via tricks with explicit interface impl.
+            S("input").Clear();
+            S("input").Should(Be.Blank());
         }
 
         [Test]

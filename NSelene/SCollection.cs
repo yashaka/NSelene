@@ -27,10 +27,10 @@ namespace NSelene
         }
 
         public SCollection(By byLocator, IWebDriver driver) 
-            : this(new DriverWebElementsCollectionSLocator(byLocator, driver), driver) {}
+            : this(new SearchContextWebElementsCollectionSLocator(byLocator, driver), driver) {}
 
         public SCollection(By byLocator) 
-            : this(new DriverWebElementsCollectionSLocator(byLocator, SharedThreadLocalDriver.Instance), SharedThreadLocalDriver.Instance) {}
+            : this(new SearchContextWebElementsCollectionSLocator(byLocator, SharedThreadLocalDriver.Instance), SharedThreadLocalDriver.Instance) {}
 
         public SCollection(IList<IWebElement> pageFactoryElements, IWebDriver driver)
             : this(new WrappedWebElementsCollectionSLocator(pageFactoryElements), driver) {}

@@ -25,26 +25,26 @@ namespace NSelene
     {
     }
 
-    public sealed class DriverWebElementSLocator : WebElementSLocator
+    public sealed class SearchContextWebElementSLocator : WebElementSLocator
     {
-        readonly IWebDriver driver;
+        readonly ISearchContext context;
         readonly By driverLocator;
 
-        public DriverWebElementSLocator(By driverLocator, IWebDriver driver)
+        public SearchContextWebElementSLocator(By driverLocator, ISearchContext context)
         {
             this.driverLocator = driverLocator;
-            this.driver = driver;
+            this.context = context;
         }
 
         public override string Description {
             get {
-                return this.driverLocator.ToString();
+                return string.Format("By.Selene: ({0}).Find({1})", this.context, driverLocator); //TODO: check the case of message when context is IWebDriver :)
             }
         }
 
         public override IWebElement Find ()
         {
-            return this.driver.FindElement(this.driverLocator);
+            return this.context.FindElement(this.driverLocator);
         }
     }
 
@@ -71,30 +71,6 @@ namespace NSelene
         public override IWebElement Find ()
         {
             return this.webelement;
-        }
-    }
-
-    // TODO: rename to SElementInnerWebElementSLocator ?
-    public sealed class InnerWebElementSLocator : WebElementSLocator
-    {
-        readonly By driverLocator;
-        readonly SElement context;
-
-        public InnerWebElementSLocator(By driverLocator, SElement context)
-        {
-            this.driverLocator = driverLocator;
-            this.context = context;
-        }
-
-        public override string Description {
-            get {
-                return string.Format("By.Selene: ({0}).FindInner({1})", this.context, driverLocator);
-            }
-        }
-
-        public override IWebElement Find ()
-        {
-            return this.context.Should(Be.Visible).ActualWebElement.FindElement(this.driverLocator);
         }
     }
 
@@ -182,26 +158,26 @@ namespace NSelene
     {
     }
 
-    public sealed class DriverWebElementsCollectionSLocator : WebElementsCollectionSLocator
+    public sealed class SearchContextWebElementsCollectionSLocator : WebElementsCollectionSLocator
     {
-        readonly IWebDriver driver;
+        readonly ISearchContext context;
         readonly By driverLocator;
 
-        public DriverWebElementsCollectionSLocator(By driverLocator, IWebDriver driver)
+        public SearchContextWebElementsCollectionSLocator(By driverLocator, ISearchContext context)
         {
             this.driverLocator = driverLocator;
-            this.driver = driver;
+            this.context = context;
         }
 
         public override string Description {
             get {
-                return this.driverLocator.ToString();
+                return string.Format("By.Selene: ({0}).FindAll({1})", this.context, driverLocator);
             }
         }
 
         public override IReadOnlyCollection<IWebElement> Find ()
         {
-            return this.driver.FindElements(this.driverLocator);
+            return this.context.FindElements(this.driverLocator);
         }
     }
 
@@ -228,29 +204,6 @@ namespace NSelene
         public override IReadOnlyCollection<IWebElement> Find()
         {
             return new ReadOnlyCollection<IWebElement>(this.webelements);  // TODO: think on switching SCollection impl to be based on IList<IWebElement>
-        }
-    }
-
-    public sealed class InnerWebElementsCollectionSLocator : WebElementsCollectionSLocator
-    {
-        readonly By driverLocator;
-        readonly SElement context;
-
-        public InnerWebElementsCollectionSLocator(By driverLocator, SElement context)
-        {
-            this.driverLocator = driverLocator;
-            this.context = context;
-        }
-
-        public override string Description {
-            get {
-                return string.Format("By.Selene: ({0}).FindAllInner({1})", this.context, driverLocator);
-            }
-        }
-
-        public override IReadOnlyCollection<IWebElement> Find ()
-        {
-            return this.context.Should(Be.Visible).ActualWebElement.FindElements(this.driverLocator);
         }
     }
 
