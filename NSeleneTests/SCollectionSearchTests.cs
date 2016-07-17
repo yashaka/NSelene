@@ -12,7 +12,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         [TearDown]
         public void TeardownTest()
         {
-            Config.Timeout = 4;
+            Configuration.Timeout = 4;
         }
         
         [Test]

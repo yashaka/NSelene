@@ -13,13 +13,13 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         [TearDown]
         public void TeardownTest()
         {
-            Config.Timeout = 4;
+            Configuration.Timeout = 4;
         }
 
         [Test]
         public void SElelement_ShouldNot_FailsWhenAssertingNotVisibleForVisibleElement()
         {
-            Config.Timeout = 0.2;
+            Configuration.Timeout = 0.2;
             Given.OpenedPageWithBody("<input id='new-text' type='text' value='ku ku'/>");
             Assert.Throws(Is.TypeOf(typeof(WebDriverTimeoutException))
                           .And.Message.Contains("not " + Be.Visible.GetType().Name), () => {
@@ -30,7 +30,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         [Test]
         public void SElelement_Should_FailsWhenAssertingVisibleForHiddenElement()
         {
-            Config.Timeout = 0.2;
+            Configuration.Timeout = 0.2;
             Given.OpenedPageWithBody("<input id='new-text' type='text' value='ku ku' style='display:none'/>");
             Assert.Throws(Is.TypeOf(typeof(WebDriverTimeoutException))
                           .And.Message.Not.Contains("not " + Be.Visible.GetType().Name)

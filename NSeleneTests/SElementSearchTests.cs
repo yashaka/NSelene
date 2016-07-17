@@ -12,7 +12,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         [TearDown]
         public void TeardownTest()
         {
-            Config.Timeout = 4;
+            Configuration.Timeout = 4;
         }
         
         [Test]
@@ -63,7 +63,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         [Test]
         public void SElementSearchFailsOnTimeoutDuringWaitingForVisibilityOnActionsLikeClick()
         {
-            Config.Timeout = 0.25;
+            Configuration.Timeout = 0.25;
             Given.OpenedPageWithBody(@"
                 <a href='#second' style='display:none'>go to Heading 2</a>
                 <h2 id='second'>Heading 2</h2>"

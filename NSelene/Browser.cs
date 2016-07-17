@@ -113,7 +113,7 @@ namespace NSelene
 
         public  TResult WaitFor<TResult>(TResult sEntity, Condition<TResult> condition)
         {
-            return Utils.WaitFor(sEntity, condition, Config.Timeout);
+            return Utils.WaitFor(sEntity, condition, Configuration.Timeout);
         }
 
         public  TResult WaitFor<TResult>(TResult sEntity, Condition<TResult> condition, double timeout)
@@ -123,7 +123,7 @@ namespace NSelene
 
         public  TResult WaitForNot<TResult>(TResult sEntity, Condition<TResult> condition)
         {
-            return Utils.WaitForNot(sEntity, condition, Config.Timeout);
+            return Utils.WaitForNot(sEntity, condition, Configuration.Timeout);
         }
 
         public  TResult WaitForNot<TResult>(TResult sEntity, Condition<TResult> condition, double timeout)
@@ -139,7 +139,9 @@ namespace NSelene
 
         public static void SetDriver(IWebDriver driver)
         {
-            Config.DriverStorage.SetDriver(driver);
+            SharedThreadLocalDriver.Instance.Value = driver;
+            //Configuration.DriverStorage.SetDriver(driver);
+
             //var code = Thread.CurrentThread.GetHashCode();
 
             //if (_drivers.ContainsKey(code)) 
@@ -153,7 +155,9 @@ namespace NSelene
 
         public static IWebDriver GetDriver()
         {
-            return Config.DriverStorage.Driver;
+            return SharedThreadLocalDriver.Instance.Value;
+            //return Configuration.DriverStorage.Driver;
+
             //return _drivers[Thread.CurrentThread.GetHashCode ()];
         }
 
@@ -209,12 +213,12 @@ namespace NSelene
 
         public static TResult WaitFor<TResult>(TResult sEntity, Condition<TResult> condition)
         {
-            return WaitFor(sEntity, condition, Config.Timeout);
+            return WaitFor(sEntity, condition, Configuration.Timeout);
         }
 
         public static TResult WaitForNot<TResult>(TResult sEntity, Condition<TResult> condition)
         {
-            return WaitForNot(sEntity, condition, Config.Timeout);
+            return WaitForNot(sEntity, condition, Configuration.Timeout);
         }
 
         public static TResult WaitFor<TResult>(TResult sEntity, Condition<TResult> condition, double timeout)
@@ -250,7 +254,7 @@ namespace NSelene
                     text = text + condition;
                     throw new WebDriverTimeoutException(text, lastException);
                 }
-                Thread.Sleep(TimeSpan.FromSeconds(Config.PollDuringWaits).Milliseconds);
+                Thread.Sleep(TimeSpan.FromSeconds(Configuration.PollDuringWaits).Milliseconds);
             }
             return sEntity;
         }
@@ -288,7 +292,7 @@ namespace NSelene
                     text = text + condition;
                     throw new WebDriverTimeoutException(text, lastException);
                 }
-                Thread.Sleep(TimeSpan.FromSeconds(Config.PollDuringWaits).Milliseconds);
+                Thread.Sleep(TimeSpan.FromSeconds(Configuration.PollDuringWaits).Milliseconds);
             }
             return sEntity;
         }

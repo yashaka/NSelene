@@ -18,22 +18,22 @@ namespace NSelene
     {
         readonly SLocator<IWebElement> locator;
 
-        readonly DriverProvider engine;
+        readonly IWebDriver driver;
 
-        public SElement(SLocator<IWebElement> locator, DriverProvider engine)
+        public SElement(SLocator<IWebElement> locator, IWebDriver driver)
         {
             this.locator = locator;
-            this.engine = engine;
+            this.driver = driver;
         }
 
         public SElement(By locator, IWebDriver driver) 
-            : this(new DriverWebElementSLocator(locator, new WrappedDriver(driver)), new WrappedDriver(driver)) {}
+            : this(new DriverWebElementSLocator(locator, driver), driver) {}
 
         public SElement(By locator) 
-            : this(new DriverWebElementSLocator(locator, Config.DriverStorage), Config.DriverStorage) {}
+            : this(new DriverWebElementSLocator(locator, SharedThreadLocalDriver.Instance), SharedThreadLocalDriver.Instance) {}
 
         public SElement(IWebElement pageFactoryElement, IWebDriver driver)
-            : this(new WrappedWebElementSLocator(pageFactoryElement), new WrappedDriver(driver)) {}
+            : this(new WrappedWebElementSLocator(pageFactoryElement), driver) {}
 
         public SLocator<IWebElement> SLocator 
         {
@@ -47,7 +47,7 @@ namespace NSelene
             get {
                 //this.Should(Be.Visible); // TODO: should it be here? or should we create separate ajax friendly Actions wrapper?
                         // currently it also would duplicate other check for visibility inside common selement actions
-                return new Actions(this.engine.Driver);
+                return new Actions(this.driver);
             }
         }
 
@@ -279,7 +279,7 @@ namespace NSelene
 
         public SElement Find(By locator)
         {
-            return new SElement(new InnerWebElementSLocator(locator, this), this.engine);
+            return new SElement(new InnerWebElementSLocator(locator, this), this.driver);
         }
 
         public SElement S(By locator)
@@ -299,7 +299,7 @@ namespace NSelene
 
         public SCollection FindAll(By locator)
         {
-            return new SCollection(new InnerWebElementsCollectionSLocator(locator, this), this.engine);
+            return new SCollection(new InnerWebElementsCollectionSLocator(locator, this), this.driver);
         }
 
         public SCollection FindAll(string cssSelector)

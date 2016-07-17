@@ -27,13 +27,13 @@ namespace NSelene
 
     public sealed class DriverWebElementSLocator : WebElementSLocator
     {
-        readonly DriverProvider engine;
+        readonly IWebDriver driver;
         readonly By driverLocator;
 
-        public DriverWebElementSLocator(By driverLocator, DriverProvider engine)
+        public DriverWebElementSLocator(By driverLocator, IWebDriver driver)
         {
             this.driverLocator = driverLocator;
-            this.engine = engine;
+            this.driver = driver;
         }
 
         public override string Description {
@@ -44,7 +44,7 @@ namespace NSelene
 
         public override IWebElement Find ()
         {
-            return this.engine.Driver.FindElement(this.driverLocator); // TODO: it violates "Tell Don't Ask" principle... should we fix it?
+            return this.driver.FindElement(this.driverLocator);
         }
     }
 
@@ -125,13 +125,13 @@ namespace NSelene
     {
         readonly Condition<SElement> condition;
         readonly SCollection context;
-        readonly DriverProvider engine;
+        readonly IWebDriver driver;
 
-        public SCollectionWebElementByConditionSLocator(Condition<SElement> condition, SCollection context, DriverProvider engine)
+        public SCollectionWebElementByConditionSLocator(Condition<SElement> condition, SCollection context, IWebDriver driver)
         {
             this.condition = condition;
             this.context = context;
-            this.engine = engine;
+            this.driver = driver;
         }
 
         public override string Description {
@@ -151,7 +151,7 @@ namespace NSelene
                     new SElement(
                         new WrappedWebElementSLocator(
                             string.Format("By.Selene: ({0}).FindBy({1})", this.context, condition.Explain())
-                            , element), this.engine));/* 
+                            , element), this.driver));/* 
                             * ??? TODO: do we actually need here so meaningful desctiption?
                             * does it make sense to use it but to put index for each element?
                             * via using FindIndex ?
@@ -184,13 +184,13 @@ namespace NSelene
 
     public sealed class DriverWebElementsCollectionSLocator : WebElementsCollectionSLocator
     {
-        readonly DriverProvider engine;
+        readonly IWebDriver driver;
         readonly By driverLocator;
 
-        public DriverWebElementsCollectionSLocator(By driverLocator, DriverProvider engine)
+        public DriverWebElementsCollectionSLocator(By driverLocator, IWebDriver driver)
         {
             this.driverLocator = driverLocator;
-            this.engine = engine;
+            this.driver = driver;
         }
 
         public override string Description {
@@ -201,7 +201,7 @@ namespace NSelene
 
         public override IReadOnlyCollection<IWebElement> Find ()
         {
-            return this.engine.Driver.FindElements(this.driverLocator);
+            return this.driver.FindElements(this.driverLocator);
         }
     }
 
@@ -258,13 +258,13 @@ namespace NSelene
     {
         readonly Condition<SElement> condition;
         readonly SCollection context;
-        readonly DriverProvider engine;
+        readonly IWebDriver driver;
 
-        public SCollectionFilteredWebElementsCollectionSLocator(Condition<SElement> condition, SCollection context, DriverProvider engine)
+        public SCollectionFilteredWebElementsCollectionSLocator(Condition<SElement> condition, SCollection context, IWebDriver driver)
         {
             this.condition = condition;
             this.context = context;
-            this.engine = engine;
+            this.driver = driver;
         }
 
         public override string Description {
@@ -283,7 +283,7 @@ namespace NSelene
                             string.Format("By.Selene: ({0}).FindBy({1})"
                                           , this.context
                                           , this.condition.Explain())
-                            , element), this.engine));
+                            , element), this.driver));
             };
 
             return new ReadOnlyCollection<IWebElement>(  // TODO: don't we need here ReadONlyCollection<SElement> ?
