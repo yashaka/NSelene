@@ -4,17 +4,16 @@ using System.Drawing;
 using System;
 using OpenQA.Selenium.Interactions;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace NSelene
 {
-    // TODO: consider name: WrapsWebElement or ProxiesWebElement
-    public interface FindsWebElement
+    public interface WrapsWebElement
     {
         IWebElement ActualWebElement { get; }
     }
 
-    // TODO: consider implementing IWebElement explicitly, with "duplicated" own same methods for SElement
-    public sealed class SElement : FindsWebElement, IWebElement, ISearchContext
+    public sealed class SElement : WrapsWebElement, IWebElement, ISearchContext
     {
         readonly SLocator<IWebElement> locator;
 
@@ -32,9 +31,11 @@ namespace NSelene
         public SElement(By locator) 
             : this(new SearchContextWebElementSLocator(locator, SharedThreadLocalDriver.Instance), SharedThreadLocalDriver.Instance) {}
 
+        //TODO: consider renaming pageFactoryElement to element, becuase we nevertheless use it sometimes to just wrap non-proxy webelement
         public SElement(IWebElement pageFactoryElement, IWebDriver driver)
             : this(new WrappedWebElementSLocator(pageFactoryElement), driver) {}
 
+        //TODO: do we need it as public? it's a potential hole in context of violation "tell don't ask"
         public SLocator<IWebElement> SLocator 
         {
             get {
@@ -42,11 +43,10 @@ namespace NSelene
             }
         }
 
-        public Actions Actions
+        // TODO: consider making it just a field initialized in constructor
+        Actions Actions
         {
             get {
-                //Should(Be.Visible); // TODO: should it be here? or should we create separate ajax friendly Actions wrapper?
-                        // currently it also would duplicate other check for visibility inside common selement actions
                 return new Actions(this.driver);
             }
         }
@@ -177,7 +177,40 @@ namespace NSelene
         }
 
         //
-        // IWebElement Properties & Methods 
+        // SElement chainable alternatives to IWebElement void methods
+        //
+
+        public SElement Clear()
+        {
+            Should(Be.Visible);
+            this.ActualWebElement.Clear();
+            return this;
+        }
+
+        public SElement SendKeys(string keys)
+        {
+            Should(Be.Visible);
+            this.ActualWebElement.SendKeys(keys);
+            return this;
+        }
+
+        public SElement Submit()
+        {
+            Should(Be.Visible);
+            this.ActualWebElement.Submit();
+            return this;
+        }
+
+        public SElement Click()
+        {
+            Should(Be.Visible);
+            this.ActualWebElement.Click();
+            return this;
+        }
+
+
+        //
+        // IWebElement Properties
         //
 
         public bool Enabled
@@ -236,28 +269,28 @@ namespace NSelene
             }
         }
 
-        public void Clear()
+        //
+        // IWebElement Methods
+        //
+
+        void IWebElement.Clear()
         {
-            Should(Be.Visible);
-            this.ActualWebElement.Clear();
+            Clear();
         }
 
-        public void SendKeys(string keys)
+        void IWebElement.SendKeys(string keys)
         {
-            Should(Be.Visible);
-            this.ActualWebElement.SendKeys(keys);
+            SendKeys(keys);
         }
 
-        public void Submit()
+        void IWebElement.Submit()
         {
-            Should(Be.Visible);
-            this.ActualWebElement.Submit();
+            Submit();
         }
 
-        public void Click()
+        void IWebElement.Click()
         {
-            Should(Be.Visible);
-            this.locator.Find().Click();
+            Click();
         }
 
         public string GetAttribute(string name)
@@ -280,12 +313,14 @@ namespace NSelene
         {
             Should(Be.Visible);
             return this.ActualWebElement.FindElement(by);
+            //return new SElement(new SearchContextWebElementSLocator(by, this), this.driver);
         }
 
         ReadOnlyCollection<IWebElement> ISearchContext.FindElements (By by)
         {
             Should(Be.Visible);
             return this.ActualWebElement.FindElements(by);
+            //return new SCollection(new SearchContextWebElementsCollectionSLocator(by, this), this.driver).ToReadOnlyWebElementsCollection();
         }
 
         //

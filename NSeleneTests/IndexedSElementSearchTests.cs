@@ -19,21 +19,21 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         public void IndexedSElementSearchIsLazyAndDoesNotStartOnCreation()
         {
             Given.OpenedPageWithBody("<p>have no any items</p>");
-            var nonExistentElement = SS(".not-existing").Get(10);
+            var nonExistentElement = SS(".not-existing")[10];
         }
 
         [Test]
         public void IndexedSElementSearchIsLazyAndDoesNotStartEvenOnFollowingInnerSearch()
         {
             Given.OpenedPageWithBody("<p>have no any items</p>");
-            var nonExistentElement = SS(".not-existing").Get(10).Find("#not-existing-inner");
+            var nonExistentElement = SS(".not-existing")[10].Find("#not-existing-inner");
         }
 
         [Test]
         public void IndexedSElementSearchIsPostponedUntilActualActionLikeQuestioiningValue()
         {
             Given.OpenedEmptyPage();
-            var element = SS("#will-exist>input").Get(1);
+            var element = SS("#will-exist>input")[1];
             When.WithBody(@"
                 <p id='will-exist'>
                     <input id='ask' type='submit' value='How r u?'></input>
@@ -78,7 +78,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                     }, 
                     250);"
             );
-            SS("a").Get(1).Click();
+            SS("a")[1].Click();
             Assert.IsTrue(Utils.GetDriver().Url.Contains("second"));
         }
 
@@ -101,7 +101,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                     }, 
                     500);"
             );
-            SS("a").ElementAt(1).Click();
+            SS("a")[1].Click();
             Assert.IsTrue(Utils.GetDriver().Url.Contains("second"));
         }
 
@@ -121,7 +121,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                 500
             );
             try {
-                SS("a").Get(1).Click();
+                SS("a")[1].Click();
                 Assert.Fail("should fail on timeout before can be clicked");
             } catch (WebDriverTimeoutException ex) {
                 Assert.IsFalse(Utils.GetDriver().Url.Contains("second"));

@@ -3,6 +3,7 @@
 ## 0.0.0.6 (development...)
 API changes
 - renamed Config to Configuration
+- made SElement#Actions private
 
 ## 0.0.0.5 (released May 29, 2016)
 - added object oriented wrapper over WebDriver - implemented in Browser class

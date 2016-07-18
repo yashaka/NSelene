@@ -26,7 +26,7 @@
 
     public static partial class Be
     {
-        public static Conditions.Condition<SElement> InDOM = new Conditions.InDOM();
+        public static Conditions.Condition<SElement> InDOM = new Conditions.InDOM(); // TODO: consider renaming to InDom
     }
 
 }

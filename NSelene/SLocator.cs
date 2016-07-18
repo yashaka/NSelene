@@ -154,6 +154,7 @@ namespace NSelene
         }
     }
 
+    // TODO: maybe SLocator<ReadOnlyCollection<IWebElement>> ?
     public abstract class WebElementsCollectionSLocator : SLocator<IReadOnlyCollection<IWebElement>>
     {
     }
