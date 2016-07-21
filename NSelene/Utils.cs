@@ -10,7 +10,7 @@ using OpenQA.Selenium.Interactions;
 
 namespace NSelene
 {
-
+    /*
     public sealed class Browser
     {
         readonly IWebDriver driver;
@@ -131,39 +131,36 @@ namespace NSelene
             return Utils.WaitForNot(sEntity, condition, timeout);
         }
     }
+     */
 
     public static partial class Utils
     {
 
-        static IDictionary<int, IWebDriver> _drivers = new Dictionary<int, IWebDriver>();
-
+        //[Obsolete("SetDriver is deprecated and will be removed in next version, please use Configuration.SetWebDriver method instead.")]
         public static void SetDriver(IWebDriver driver)
         {
-            SharedThreadLocalDriver.Instance.Value = driver;
-            //Configuration.DriverStorage.SetDriver(driver);
-
-            //var code = Thread.CurrentThread.GetHashCode();
-
-            //if (_drivers.ContainsKey(code)) 
-            //{
-            //    _drivers[code] = driver;
-            //} else 
-            //{
-            //    _drivers.Add(code, driver);
-            //}
+            PrivateConfiguration.SharedDriver.Value = driver;
         }
 
+        public static void SetWebDriver(IWebDriver driver)
+        {
+            PrivateConfiguration.SharedDriver.Value = driver;
+        }
+
+        //[Obsolete("GetDriver is deprecated and will be removed in next version, please use Configuration.GetWebDriver method instead.")]
         public static IWebDriver GetDriver()
         {
-            return SharedThreadLocalDriver.Instance.Value;
-            //return Configuration.DriverStorage.Driver;
+            return PrivateConfiguration.SharedDriver.Value;
+        }
 
-            //return _drivers[Thread.CurrentThread.GetHashCode ()];
+        public static IWebDriver GetWebDriver()
+        {
+            return PrivateConfiguration.SharedDriver.Value;
         }
 
         public static object ExecuteScript(string script)
         {
-            return (GetDriver() as IJavaScriptExecutor).ExecuteScript(script);
+            return (Configuration.GetWebDriver() as IJavaScriptExecutor).ExecuteScript(script);
         }
 
         public static SElement S(By locator)
@@ -188,27 +185,27 @@ namespace NSelene
 
         public static IWebElement FindElement(By locator)
         {
-            return GetDriver().FindElement(locator);
+            return Configuration.GetWebDriver().FindElement(locator);
         }
 
         public static IReadOnlyCollection<IWebElement> FindElements(By locator)
         {
-            return GetDriver().FindElements(locator);
+            return Configuration.GetWebDriver().FindElements(locator);
         }
 
         public static void Open(string url)
         {
-            GetDriver().Navigate().GoToUrl(url);
+            Configuration.GetWebDriver().Navigate().GoToUrl(url);
         }
 
         public static string Url()
         {
-            return GetDriver().Url;
+            return Configuration.GetWebDriver().Url;
         }
 
         public static Actions SActions()
         {
-            return new Actions(GetDriver());
+            return new Actions(Configuration.GetWebDriver());
         }
 
         public static TResult WaitFor<TResult>(TResult sEntity, Condition<TResult> condition)

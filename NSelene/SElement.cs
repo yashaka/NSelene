@@ -29,7 +29,7 @@ namespace NSelene
             : this(new SearchContextWebElementSLocator(locator, driver), driver) {}
 
         public SElement(By locator) 
-            : this(new SearchContextWebElementSLocator(locator, SharedThreadLocalDriver.Instance), SharedThreadLocalDriver.Instance) {}
+            : this(new SearchContextWebElementSLocator(locator, PrivateConfiguration.SharedDriver), PrivateConfiguration.SharedDriver) {}
 
         //TODO: consider renaming pageFactoryElement to element, becuase we nevertheless use it sometimes to just wrap non-proxy webelement
         public SElement(IWebElement pageFactoryElement, IWebDriver driver)

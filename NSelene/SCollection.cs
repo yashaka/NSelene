@@ -31,7 +31,7 @@ namespace NSelene
             : this(new SearchContextWebElementsCollectionSLocator(byLocator, driver), driver) {}
 
         public SCollection(By byLocator) 
-            : this(new SearchContextWebElementsCollectionSLocator(byLocator, SharedThreadLocalDriver.Instance), SharedThreadLocalDriver.Instance) {}
+            : this(new SearchContextWebElementsCollectionSLocator(byLocator, PrivateConfiguration.SharedDriver), PrivateConfiguration.SharedDriver) {}
 
         public SCollection(IList<IWebElement> pageFactoryElements, IWebDriver driver)
             : this(new WrappedWebElementsCollectionSLocator(pageFactoryElements), driver) {}

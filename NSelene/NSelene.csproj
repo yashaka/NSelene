@@ -41,7 +41,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SCollection.cs" />
     <Compile Include="SElement.cs" />
-    <Compile Include="Browser.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="Conditions\BaseConditions.cs" />
     <Compile Include="Conditions\Texts.cs" />
     <Compile Include="Conditions\Visible.cs" />

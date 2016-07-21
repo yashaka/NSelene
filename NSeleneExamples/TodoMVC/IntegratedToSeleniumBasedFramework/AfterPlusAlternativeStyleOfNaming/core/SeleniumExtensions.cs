@@ -27,12 +27,12 @@ namespace NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.AfterPlusAl
          * - Browser.Open, 
          * - etc.
          */
-        public Browser Browser { get; private set;}
+        public SDriver Browser { get; private set;}
 
         public PageObject(IWebDriver driver)
         {
             this.driver = driver;
-            this.Browser = new Browser(this.driver);
+            this.Browser = new SDriver(this.driver);
             PageFactory.InitElements(this.driver, this);
         }
 

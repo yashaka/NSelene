@@ -48,6 +48,29 @@ namespace NSelene
         }
     }
 
+    //public sealed class SearchContextWebElementSLocator : WebElementSLocator
+    //{
+    //    readonly ISearchContext context;
+    //    readonly By driverLocator;
+
+    //    public SearchContextWebElementSLocator(By driverLocator, ISearchContext context)
+    //    {
+    //        this.driverLocator = driverLocator;
+    //        this.context = context;
+    //    }
+
+    //    public override string Description {
+    //        get {
+    //            return string.Format("By.Selene: ({0}).Find({1})", this.context, driverLocator); //TODO: check the case of message when context is IWebDriver :)
+    //        }
+    //    }
+
+    //    public override IWebElement Find ()
+    //    {
+    //        return this.context.FindElement(this.driverLocator);
+    //    }
+    //}
+
     public sealed class WrappedWebElementSLocator : WebElementSLocator
     {
         readonly string description;
