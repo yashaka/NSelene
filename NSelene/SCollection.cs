@@ -19,22 +19,22 @@ namespace NSelene
     {
         readonly SLocator<IReadOnlyCollection<IWebElement>> locator;
 
-        readonly IWebDriver driver;
+        readonly SDriver driver;
 
-        public SCollection(SLocator<IReadOnlyCollection<IWebElement>> locator, IWebDriver driver)
+        public SCollection(SLocator<IReadOnlyCollection<IWebElement>> locator, SDriver driver)
         {
             this.locator = locator;
             this.driver = driver;
         }
 
-        public SCollection(By byLocator, IWebDriver driver) 
+        public SCollection(By byLocator, SDriver driver) 
             : this(new SearchContextWebElementsCollectionSLocator(byLocator, driver), driver) {}
 
         public SCollection(By byLocator) 
             : this(new SearchContextWebElementsCollectionSLocator(byLocator, PrivateConfiguration.SharedDriver), PrivateConfiguration.SharedDriver) {}
 
         public SCollection(IList<IWebElement> pageFactoryElements, IWebDriver driver)
-            : this(new WrappedWebElementsCollectionSLocator(pageFactoryElements), driver) {}
+            : this(new WrappedWebElementsCollectionSLocator(pageFactoryElements), new SDriver(driver)) {}
         
         public IReadOnlyCollection<IWebElement> ActualWebElements
         {

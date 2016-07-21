@@ -13,19 +13,20 @@ namespace NSelene
         IWebElement ActualWebElement { get; }
     }
 
-    public sealed class SElement : WrapsWebElement, IWebElement, ISearchContext
+    // TODO: consider extracting SElement as interface... 
+    public sealed class SElement : WrapsWebElement, IWebElement, ISearchContext, SContext
     {
         readonly SLocator<IWebElement> locator;
 
-        readonly IWebDriver driver;
+        readonly SDriver driver;
 
-        public SElement(SLocator<IWebElement> locator, IWebDriver driver)
+        public SElement(SLocator<IWebElement> locator, SDriver driver)
         {
             this.locator = locator;
             this.driver = driver;
         }
 
-        public SElement(By locator, IWebDriver driver) 
+        public SElement(By locator, SDriver driver) 
             : this(new SearchContextWebElementSLocator(locator, driver), driver) {}
 
         public SElement(By locator) 
@@ -33,7 +34,7 @@ namespace NSelene
 
         //TODO: consider renaming pageFactoryElement to element, becuase we nevertheless use it sometimes to just wrap non-proxy webelement
         public SElement(IWebElement pageFactoryElement, IWebDriver driver)
-            : this(new WrappedWebElementSLocator(pageFactoryElement), driver) {}
+            : this(new WrappedWebElementSLocator(pageFactoryElement), new SDriver(driver)) {}
 
         //TODO: do we need it as public? it's a potential hole in context of violation "tell don't ask"
         public SLocator<IWebElement> SLocator 
@@ -311,16 +312,32 @@ namespace NSelene
 
         IWebElement ISearchContext.FindElement (By by)
         {
-            Should(Be.Visible);
-            return this.ActualWebElement.FindElement(by);
-            //return new SElement(new SearchContextWebElementSLocator(by, this), this.driver);
+            //Should(Be.Visible);
+            //return this.ActualWebElement.FindElement(by);
+            return new SElement(new SearchContextWebElementSLocator(by, this), this.driver);
         }
 
         ReadOnlyCollection<IWebElement> ISearchContext.FindElements (By by)
         {
+            //Should(Be.Visible);
+            //return this.ActualWebElement.FindElements(by);
+            return new SCollection(new SearchContextWebElementsCollectionSLocator(by, this), this.driver).ToReadOnlyWebElementsCollection();
+        }
+
+        //
+        // SContext methods
+        //
+
+        IWebElement SContext.FindElement (By by)
+        {
+            Should(Be.Visible);
+            return this.ActualWebElement.FindElement(by);
+        }
+
+        ReadOnlyCollection<IWebElement> SContext.FindElements (By by)
+        {
             Should(Be.Visible);
             return this.ActualWebElement.FindElements(by);
-            //return new SCollection(new SearchContextWebElementsCollectionSLocator(by, this), this.driver).ToReadOnlyWebElementsCollection();
         }
 
         //

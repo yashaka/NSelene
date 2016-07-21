@@ -122,18 +122,9 @@ namespace NSelene
     }
 
     //TODO: consider implementing IJavaScriptExecutor
-    public class SDriver : IWebDriver, ISearchContext, IDisposable, INavigation
+    public class SDriver : IWebDriver, ISearchContext, IDisposable, INavigation, SContext
     {
         IWebDriverSource source;
-
-        public SDriver(IWebDriverSource source)
-        {
-            this.source = source;
-        }
-
-        public SDriver() : this(SharedThreadLocalDriverSource.Instance) {}
-
-        public SDriver(IWebDriver driver) : this(new ExplicitDriverSource(driver)) {} 
 
         public IWebDriver Value {   // TODO: maybe other name? Driver over Value? else? Current over Value?
             get {
@@ -145,9 +136,18 @@ namespace NSelene
             }
         }
 
+        public SDriver(IWebDriverSource source)
+        {
+            this.source = source;
+        }
+
+        public SDriver() : this(SharedThreadLocalDriverSource.Instance) {}
+
+        public SDriver(IWebDriver driver) : this(new ExplicitDriverSource(driver)) {} 
+
         IWebDriver asWebDriver()
         {
-            return (IWebDriver) this;
+            return this;
         }
 
         //
@@ -302,18 +302,6 @@ namespace NSelene
             Value.Close();
         }
 
-        IWebElement ISearchContext.FindElement (By by)
-        {
-            return Value.FindElement(by);
-            //return new SElement(by, this);
-        }
-
-        ReadOnlyCollection<IWebElement> ISearchContext.FindElements (By by)
-        {
-            return Value.FindElements(by);
-            //return new SCollection(by, this).ToReadOnlyWebElementsCollection();
-        }
-
         IOptions IWebDriver.Manage ()
         {
             return Value.Manage();
@@ -332,6 +320,37 @@ namespace NSelene
         ITargetLocator IWebDriver.SwitchTo ()
         {
             return Value.SwitchTo();
+        }
+
+        //
+        // ISearchContext methods
+        //
+
+        IWebElement ISearchContext.FindElement (By by)
+        {
+            System.Console.WriteLine("inside findElement");
+            //return Value.FindElement(by);
+            return new SElement(by, this);
+        }
+
+        ReadOnlyCollection<IWebElement> ISearchContext.FindElements (By by)
+        {
+            //return Value.FindElements(by);
+            return new SCollection(by, this).ToReadOnlyWebElementsCollection();
+        }
+
+        //
+        // SContext methods
+        //
+
+        IWebElement SContext.FindElement (By by)
+        {
+            return this.Value.FindElement(by);
+        }
+
+        ReadOnlyCollection<IWebElement> SContext.FindElements (By by)
+        {
+            return this.Value.FindElements(by);
         }
 
         #region IDisposable Support

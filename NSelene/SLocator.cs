@@ -8,6 +8,15 @@ using System.Collections.ObjectModel;
 
 namespace NSelene
 {
+    // TODO: consider removing public modifier for SContext interface and all SLocator implementations
+
+    // TODO: consider renaming to either ISeleniumContext, IWebContext, IWebSearchContext, ISeleniumSearchContext
+    public interface SContext
+    {
+        // TODO: consider renaming to FindWebElement
+        IWebElement FindElement (By by);
+        ReadOnlyCollection<IWebElement> FindElements (By by);
+    }
 
     public abstract class SLocator<TEntity>
     {
@@ -27,10 +36,10 @@ namespace NSelene
 
     public sealed class SearchContextWebElementSLocator : WebElementSLocator
     {
-        readonly ISearchContext context;
+        readonly SContext context;
         readonly By driverLocator;
 
-        public SearchContextWebElementSLocator(By driverLocator, ISearchContext context)
+        public SearchContextWebElementSLocator(By driverLocator, SContext context)
         {
             this.driverLocator = driverLocator;
             this.context = context;
@@ -124,9 +133,9 @@ namespace NSelene
     {
         readonly Condition<SElement> condition;
         readonly SCollection context;
-        readonly IWebDriver driver;
+        readonly SDriver driver;
 
-        public SCollectionWebElementByConditionSLocator(Condition<SElement> condition, SCollection context, IWebDriver driver)
+        public SCollectionWebElementByConditionSLocator(Condition<SElement> condition, SCollection context, SDriver driver)
         {
             this.condition = condition;
             this.context = context;
@@ -184,10 +193,10 @@ namespace NSelene
 
     public sealed class SearchContextWebElementsCollectionSLocator : WebElementsCollectionSLocator
     {
-        readonly ISearchContext context;
+        readonly SContext context;
         readonly By driverLocator;
 
-        public SearchContextWebElementsCollectionSLocator(By driverLocator, ISearchContext context)
+        public SearchContextWebElementsCollectionSLocator(By driverLocator, SContext context)
         {
             this.driverLocator = driverLocator;
             this.context = context;
@@ -235,9 +244,9 @@ namespace NSelene
     {
         readonly Condition<SElement> condition;
         readonly SCollection context;
-        readonly IWebDriver driver;
+        readonly SDriver driver;
 
-        public SCollectionFilteredWebElementsCollectionSLocator(Condition<SElement> condition, SCollection context, IWebDriver driver)
+        public SCollectionFilteredWebElementsCollectionSLocator(Condition<SElement> condition, SCollection context, SDriver driver)
         {
             this.condition = condition;
             this.context = context;
