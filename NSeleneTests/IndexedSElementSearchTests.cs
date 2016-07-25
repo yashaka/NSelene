@@ -3,10 +3,10 @@ using NSelene;
 using static NSelene.Utils;
 using OpenQA.Selenium;
 
-namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
+namespace NSeleneTests
 {
     [TestFixture]
-    public class IndexedSElementSearchTests
+    public class IndexedSElementSearchTests : BaseTest
     {
 
         [TearDown]
@@ -83,10 +83,36 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         }
 
         [Test]
+        public void IndexedSElementSearchWaitsForAppearanceOnActionsLikeClick()
+        {
+            Given.OpenedPageWithBody(@"
+                <a href='#first'>go to Heading 1</a>
+                <h1 id='first'>Heading 1</h1>
+                <h2 id='second'>Heading 2</h2>"
+                                    );
+            When.WithBodyTimedOut(@"
+                <a href='#first'>go to Heading 1</a>
+                <a href='#second' style='display:none'>go to Heading 2</a>
+                <h1 id='first'>Heading 1</h1>
+                <h2 id='second'>Heading 2</h2>"
+                , 250
+            );
+            Utils.ExecuteScript(@"
+                setTimeout(
+                    function(){
+                        document.getElementsByTagName('a')[1].style = 'display:block';
+                    }, 
+                    500);"
+            );
+            SS("a")[1].Click();
+            Assert.IsTrue(Utils.GetDriver().Url.Contains("second"));
+        }
+
+        [Test]
         public void BothSCollectionAndIndexedSElementSearchWaitsForVisibilityOnActionsLikeClick()
         {// TODO: think on breaking down this test into two, or add one more explicitly testing implicit wait in get
             Given.OpenedEmptyPage();
-            When.WithBody(@"
+            When.WithBodyTimedOut(@"
                 <a href='#first'>go to Heading 1</a>
                 <a href='#second' style='display:none'>go to Heading 2</a>
                 <h1 id='first'>Heading 1</h1>

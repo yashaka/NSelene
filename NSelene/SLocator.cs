@@ -125,7 +125,7 @@ namespace NSelene
 
         public override IWebElement Find ()
         {
-            return this.context.Should(Have.CountAtLeast(this.index+1)).ActualWebElements.ElementAt(index);
+            return this.context.Should(Have.CountAtLeast(this.index+1)).ActualWebElements[index];
         }
     }
 
@@ -187,7 +187,7 @@ namespace NSelene
     }
 
     // TODO: maybe SLocator<ReadOnlyCollection<IWebElement>> ?
-    public abstract class WebElementsCollectionSLocator : SLocator<IReadOnlyCollection<IWebElement>>
+    public abstract class WebElementsCollectionSLocator : SLocator<ReadOnlyCollection<IWebElement>>
     {
     }
 
@@ -208,7 +208,7 @@ namespace NSelene
             }
         }
 
-        public override IReadOnlyCollection<IWebElement> Find ()
+        public override ReadOnlyCollection<IWebElement> Find ()
         {
             return this.context.FindElements(this.driverLocator);
         }
@@ -234,7 +234,7 @@ namespace NSelene
             }
         }
 
-        public override IReadOnlyCollection<IWebElement> Find()
+        public override ReadOnlyCollection<IWebElement> Find()
         {
             return new ReadOnlyCollection<IWebElement>(this.webelements);  // TODO: think on switching SCollection impl to be based on IList<IWebElement>
         }
@@ -259,7 +259,7 @@ namespace NSelene
             }
         }
 
-        public override IReadOnlyCollection<IWebElement> Find ()
+        public override ReadOnlyCollection<IWebElement> Find ()
         {
 
             Func<IWebElement, bool> byCondition = delegate(IWebElement element) {

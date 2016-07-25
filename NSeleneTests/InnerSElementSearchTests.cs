@@ -3,10 +3,10 @@ using NSelene;
 using static NSelene.Utils;
 using OpenQA.Selenium;
 
-namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
+namespace NSeleneTests
 {
     [TestFixture]
-    public class InnerSElementSearchTests
+    public class InnerSElementSearchTests : BaseTest
     {
 
         [TearDown]

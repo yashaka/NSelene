@@ -29,15 +29,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="WebDriver">
       <HintPath>..\packages\Selenium.WebDriver.2.53.0\lib\net40\WebDriver.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="WebDriver.Support">
       <HintPath>..\packages\Selenium.Support.2.53.0\lib\net40\WebDriver.Support.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +56,7 @@
     <Compile Include="UtilsTests.cs" />
     <Compile Include="FilteredSCollectionSearchTests.cs" />
     <Compile Include="SCollectionConditionsTests.cs" />
+    <Compile Include="SeleniumInteroperability\NSeleneBehaviorForIWebElementAndWebElementsCollectionTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -69,5 +70,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\empty.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SeleniumInteroperability\" />
   </ItemGroup>
 </Project>

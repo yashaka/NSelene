@@ -4,6 +4,9 @@
 API changes
 - renamed Config to Configuration
 - made SElement#Actions private
+- renamed Browser to SDriver
+New
+- enhanced interoperability with raw selenium. Now implicit waits for visibility can be added to all PageFactory webelements just via decorating new SDriver(driver); 
 
 ## 0.0.0.5 (released May 29, 2016)
 - added object oriented wrapper over WebDriver - implemented in Browser class

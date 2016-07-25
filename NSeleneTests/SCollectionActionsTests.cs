@@ -3,10 +3,10 @@ using NUnit.Framework;
 using static NSelene.Utils;
 using NSelene;
 
-namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
+namespace NSeleneTests
 {
     [TestFixture]
-    public class SCollectionActionsTests
+    public class SCollectionActionsTests : BaseTest
     {
 
         [Test]

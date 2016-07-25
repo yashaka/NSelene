@@ -4,10 +4,10 @@ using static NSelene.Utils;
 using OpenQA.Selenium;
 using System.Threading;
 
-namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
+namespace NSeleneTests
 {
     [TestFixture]
-    public class InnerSCollectionSearchTests
+    public class InnerSCollectionSearchTests : BaseTest
     {
 
         [TearDown]
@@ -79,7 +79,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
                     </ul>
                 </div>"
             );
-            When.WithBody(@"
+            When.WithBodyTimedOut(@"
                 <div>
                     <ul>Hello to:
                         <li class='will-appear'>Bob</li>

@@ -3,10 +3,10 @@ using NSelene;
 using static NSelene.Utils;
 using OpenQA.Selenium;
 
-namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
+namespace NSeleneTests
 {
     [TestFixture]
-    public class FoundByConditionSElementSearchTests
+    public class FoundByConditionSElementSearchTests : BaseTest
     {
 
         [TearDown]
@@ -86,7 +86,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         public void BothSCollectionAndFoundByConditionSElementSearchWaitsForVisibilityOnActionsLikeClick()
         {
             Given.OpenedEmptyPage();
-            When.WithBody(@"
+            When.WithBodyTimedOut(@"
                 <a href='#first' style='display:none'>go to Heading 1</a>
                 <a href='#second' style='display:none'>go to Heading 2</a>
                 <h1 id='first'>Heading 1</h1>

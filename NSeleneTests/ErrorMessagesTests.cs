@@ -4,10 +4,10 @@ using static NSelene.Utils;
 using NUnit.Framework;
 using OpenQA.Selenium;
 
-namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
+namespace NSeleneTests
 {
     [TestFixture]
-    public class ErrorMessagesTests
+    public class ErrorMessagesTests : BaseTest
     {
 
         [TearDown]

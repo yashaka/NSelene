@@ -328,14 +328,11 @@ namespace NSelene
 
         IWebElement ISearchContext.FindElement (By by)
         {
-            System.Console.WriteLine("inside findElement");
-            //return Value.FindElement(by);
             return new SElement(by, this);
         }
 
         ReadOnlyCollection<IWebElement> ISearchContext.FindElements (By by)
         {
-            //return Value.FindElements(by);
             return new SCollection(by, this).ToReadOnlyWebElementsCollection();
         }
 

@@ -5,39 +5,18 @@ using static NSelene.Utils;
 
 namespace NSeleneTests
 {
-    namespace WithManagedBrowserBeforAndAfterAllTests {
-        [SetUpFixture]
-        public class BrowserSetup
-        {
-            public BrowserSetup()
-            {
-            }
 
-            [SetUp]
-            public void SetUp()
-            {
-                SetDriver(new FirefoxDriver());
-            }
-
-            [TearDown]
-            public void TearDown()
-            {
-                GetDriver().Quit();
-            }
-        }
-    }
-
-    [TestFixture()]
+    [TestFixture]
     public class BaseTest
     {
-        [SetUp]
-        public void SetupTest()
+        [OneTimeSetUp]
+        public void initDriver()
         {
             SetDriver(new FirefoxDriver());
         }
 
-        [TearDown]
-        public void TeardownTest()
+        [OneTimeTearDown]
+        public void disposeDriver()
         {
             GetDriver().Quit();
         }

@@ -2,10 +2,10 @@
 using NSelene;
 using static NSelene.Utils;
 
-namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
+namespace NSeleneTests
 {
     [TestFixture]
-    public class SElementConditionTests
+    public class SElementConditionTests : BaseTest
     {
 
         // TODO: TBD

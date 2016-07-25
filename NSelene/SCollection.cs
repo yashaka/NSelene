@@ -11,17 +11,17 @@ namespace NSelene
 {
     public interface WrapsWebElementsCollection
     {
-        IReadOnlyCollection<IWebElement> ActualWebElements { get; }
+        ReadOnlyCollection<IWebElement> ActualWebElements { get; }
     }
 
     public sealed class SCollection 
-        : WrapsWebElementsCollection, IReadOnlyList<SElement>, IReadOnlyCollection<SElement>, IList<SElement>, ICollection<SElement>, IEnumerable<SElement>, IEnumerable
+        : WrapsWebElementsCollection, IReadOnlyList<SElement>, IReadOnlyCollection<SElement>, IList<SElement>, IList<IWebElement>, ICollection<SElement>, IEnumerable<SElement>, IEnumerable
     {
-        readonly SLocator<IReadOnlyCollection<IWebElement>> locator;
+        readonly SLocator<ReadOnlyCollection<IWebElement>> locator;
 
         readonly SDriver driver;
 
-        public SCollection(SLocator<IReadOnlyCollection<IWebElement>> locator, SDriver driver)
+        public SCollection(SLocator<ReadOnlyCollection<IWebElement>> locator, SDriver driver)
         {
             this.locator = locator;
             this.driver = driver;
@@ -36,14 +36,14 @@ namespace NSelene
         public SCollection(IList<IWebElement> pageFactoryElements, IWebDriver driver)
             : this(new WrappedWebElementsCollectionSLocator(pageFactoryElements), new SDriver(driver)) {}
         
-        public IReadOnlyCollection<IWebElement> ActualWebElements
+        public ReadOnlyCollection<IWebElement> ActualWebElements
         {
             get {
                 return locator.Find();
             }
         }
 
-        SLocator<IReadOnlyCollection<IWebElement>> SLocator 
+        SLocator<ReadOnlyCollection<IWebElement>> SLocator 
         {
             get {
                 return this.locator;
@@ -87,11 +87,7 @@ namespace NSelene
 
         public ReadOnlyCollection<IWebElement> ToReadOnlyWebElementsCollection()
         {
-            return new ReadOnlyCollection<IWebElement>(
-                this.ActualWebElements
-                .Select( element => new SElement(element, this.driver))
-                .Select( selement => (IWebElement) selement).ToList()
-            );
+            return new ReadOnlyCollection<IWebElement>(this);
         }
 
         //
@@ -133,7 +129,88 @@ namespace NSelene
         }
 
         //
-        // IList
+        // IList<IWebElement> methods
+        //
+
+        int ICollection<IWebElement>.Count {
+            get {
+                return this.Count;
+            }
+        }
+
+        bool ICollection<IWebElement>.IsReadOnly {
+            get {
+                return true;
+            }
+        }
+
+        IWebElement IList<IWebElement>.this [int index] {
+            get {
+                return this[index];
+            }
+
+            set {
+                throw new NotImplementedException ();
+            }
+        }
+
+        int IList<IWebElement>.IndexOf (IWebElement item)
+        {
+            throw new NotImplementedException ();
+        }
+
+        void IList<IWebElement>.Insert (int index, IWebElement item)
+        {
+            throw new NotImplementedException ();
+        }
+
+        void IList<IWebElement>.RemoveAt (int index)
+        {
+            throw new NotImplementedException ();
+        }
+
+        void ICollection<IWebElement>.Add (IWebElement item)
+        {
+            throw new NotImplementedException ();
+        }
+
+        void ICollection<IWebElement>.Clear ()
+        {
+            throw new NotImplementedException ();
+        }
+
+        bool ICollection<IWebElement>.Contains (IWebElement item)
+        {
+            throw new NotImplementedException ();
+        }
+
+        void ICollection<IWebElement>.CopyTo (IWebElement [] array, int arrayIndex)
+        {
+            if (array == null)
+                throw new ArgumentNullException("array");
+            if (arrayIndex < 0)
+                throw new ArgumentOutOfRangeException("arrayIndex");
+            if (array.Rank > 1)
+                throw new ArgumentException("array is multidimensional.");
+            if (array.Length - arrayIndex < Count)
+                throw new ArgumentException("Not enough elements after index in the destination array.");
+
+            for (int i = 0; i < Count; ++i)
+                array.SetValue(this[i], i + arrayIndex);
+        }
+
+        bool ICollection<IWebElement>.Remove (IWebElement item)
+        {
+            throw new NotImplementedException ();
+        }
+
+        IEnumerator<IWebElement> IEnumerable<IWebElement>.GetEnumerator ()
+        {
+            return this.GetEnumerator();
+        }
+
+        //
+        // IList<SElement> methods
         //
 
         bool ICollection<SElement>.IsReadOnly {

@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Threading;
 using NSelene.Conditions;
 using OpenQA.Selenium.Interactions;
+using System.Reflection;
 
 namespace NSelene
 {
@@ -224,7 +225,11 @@ namespace NSelene
             var clock = new SystemClock();
             var timeoutSpan = TimeSpan.FromSeconds(timeout);
             DateTime otherDateTime = clock.LaterBy(timeoutSpan);
-            var ignoredExceptionTypes = new [] { typeof(WebDriverException), typeof(IndexOutOfRangeException) };
+            var ignoredExceptionTypes = new [] { 
+                typeof(WebDriverException), 
+                typeof(IndexOutOfRangeException),
+                typeof(ArgumentOutOfRangeException)
+            };
             while (true)
             {
                 try

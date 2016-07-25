@@ -4,10 +4,10 @@ using static NSelene.Utils;
 using OpenQA.Selenium;
 using System.Threading;
 
-namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
+namespace NSeleneTests
 {
     [TestFixture]
-    public class FilteredSCollectionSearchTests
+    public class FilteredSCollectionSearchTests : BaseTest
     {
 
         [TearDown]
@@ -59,7 +59,7 @@ namespace NSeleneTests.WithManagedBrowserBeforAndAfterAllTests
         {
             Given.OpenedEmptyPage();
             var elements = SS("li").FilterBy(Be.Visible);
-            When.WithBody(@"
+            When.WithBodyTimedOut(@"
                 <ul>Hello to:
                     <li class='will-appear' style='display:none'>Miller</li>
                     <li class='will-appear' style='display:none'>Julie Mao</li>
