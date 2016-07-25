@@ -20,6 +20,7 @@ namespace NSeleneTests
         public void FilteredSCollectionSearchIsLazyAndDoesNotStartOnCreation()
         {
             var nonExistingCollection = SS(".will-exist").FilterBy(Be.Visible);
+            Assert.IsNotEmpty(nonExistingCollection.ToString()); 
         }
 
         [Test]

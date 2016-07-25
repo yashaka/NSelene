@@ -21,19 +21,19 @@ namespace NSelene
 
         readonly SDriver driver;
 
-        public SCollection(SLocator<ReadOnlyCollection<IWebElement>> locator, SDriver driver)
+        internal SCollection(SLocator<ReadOnlyCollection<IWebElement>> locator, SDriver driver)
         {
             this.locator = locator;
             this.driver = driver;
         }
 
-        public SCollection(By byLocator, SDriver driver) 
+        internal SCollection(By byLocator, SDriver driver) 
             : this(new SearchContextWebElementsCollectionSLocator(byLocator, driver), driver) {}
 
-        public SCollection(By byLocator) 
+        internal SCollection(By byLocator) 
             : this(new SearchContextWebElementsCollectionSLocator(byLocator, PrivateConfiguration.SharedDriver), PrivateConfiguration.SharedDriver) {}
 
-        public SCollection(IList<IWebElement> pageFactoryElements, IWebDriver driver)
+        internal SCollection(IList<IWebElement> pageFactoryElements, IWebDriver driver)
             : this(new WrappedWebElementsCollectionSLocator(pageFactoryElements), new SDriver(driver)) {}
         
         public ReadOnlyCollection<IWebElement> ActualWebElements
@@ -118,7 +118,7 @@ namespace NSelene
         //TODO: is it stable enought in context of "ajax friendly"?
         public IEnumerator<SElement> GetEnumerator ()
         {
-            //TODO: is it lazy, seems like not... because of ToList() conversion? should it be lazy?
+            //TODO: is it lazy? seems like not... because of ToList() conversion? should it be lazy?
             return new ReadOnlyCollection<SElement>(
                 this.ActualWebElements.Select(webelement => new SElement(webelement, this.driver)).ToList()).GetEnumerator();
         }

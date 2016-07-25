@@ -15,17 +15,35 @@ namespace NSelene
         public static double Timeout = 4;
         public static double PollDuringWaits = 0.1;
 
-        // TODO: consider making it properties and left same methods in Utils
-        // because it's pretty unhandy to use Configuration.GetWebDriver over GetWebDriver
-        // while using static for Configuration is not good idea, because Timeout and PllDuringWaits better to use via fully qualified name...
-        public static IWebDriver GetWebDriver()
-        {
-            return PrivateConfiguration.SharedDriver.Value;
+        public static IWebDriver WebDriver {
+            get {
+                return PrivateConfiguration.SharedDriver.Value;
+            }
+            set {
+                PrivateConfiguration.SharedDriver.Value = value;
+            }
+        }
+    }
+
+    [Obsolete("Config class is deprecated and will be removed in next version, please use Configuration static class instead.")]
+    public static class Config
+    {
+        public static double Timeout{
+            get {
+                return Configuration.Timeout;
+            }
+            set {
+                Configuration.Timeout = value;
+            }
         }
 
-        public static void SetWebDriver(IWebDriver value)
-        {
-            PrivateConfiguration.SharedDriver.Value = value;
+        public static double PollDuringWaits{
+            get {
+                return Configuration.PollDuringWaits;
+            }
+            set {
+                Configuration.PollDuringWaits = value;
+            }
         }
     }
 }

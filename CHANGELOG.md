@@ -5,8 +5,11 @@ API changes
 - renamed Config to Configuration
 - made SElement#Actions private
 - renamed Browser to SDriver
+- renamed Utils.SActions to Utils.Actions and make it property
+- made SElement and SCollection constructors internal (in order to leave ability to rename them, if one day we extract SElement/SCollection as interfaces);
+- removed SElement#SLocator property
 New
-- enhanced interoperability with raw selenium. Now implicit waits for visibility can be added to all PageFactory webelements just via decorating new SDriver(driver); 
+- enhanced interoperability with raw selenium. Now implicit waits for visibility can be added to all PageFactory webelements just via decorating new SDriver(driver); And all explicit driver calls for finding both IWebElement and IList<IWebElement> will produce NSelene proxy alternatives with both implicit waits for visibility and for indexed webelements of collections.
 
 ## 0.0.0.5 (released May 29, 2016)
 - added object oriented wrapper over WebDriver - implemented in Browser class

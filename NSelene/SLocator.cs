@@ -34,7 +34,7 @@ namespace NSelene
     {
     }
 
-    public sealed class SearchContextWebElementSLocator : WebElementSLocator
+    sealed class SearchContextWebElementSLocator : WebElementSLocator
     {
         readonly SContext context;
         readonly By driverLocator;
@@ -57,30 +57,7 @@ namespace NSelene
         }
     }
 
-    //public sealed class SearchContextWebElementSLocator : WebElementSLocator
-    //{
-    //    readonly ISearchContext context;
-    //    readonly By driverLocator;
-
-    //    public SearchContextWebElementSLocator(By driverLocator, ISearchContext context)
-    //    {
-    //        this.driverLocator = driverLocator;
-    //        this.context = context;
-    //    }
-
-    //    public override string Description {
-    //        get {
-    //            return string.Format("By.Selene: ({0}).Find({1})", this.context, driverLocator); //TODO: check the case of message when context is IWebDriver :)
-    //        }
-    //    }
-
-    //    public override IWebElement Find ()
-    //    {
-    //        return this.context.FindElement(this.driverLocator);
-    //    }
-    //}
-
-    public sealed class WrappedWebElementSLocator : WebElementSLocator
+    sealed class WrappedWebElementSLocator : WebElementSLocator
     {
         readonly string description;
         readonly IWebElement webelement;
@@ -106,7 +83,7 @@ namespace NSelene
         }
     }
 
-    public sealed class SCollectionWebElementByIndexSLocator : WebElementSLocator
+    sealed class SCollectionWebElementByIndexSLocator : WebElementSLocator
     {
         readonly int index;
         readonly SCollection context;
@@ -129,7 +106,7 @@ namespace NSelene
         }
     }
 
-    public sealed class SCollectionWebElementByConditionSLocator : WebElementSLocator
+    sealed class SCollectionWebElementByConditionSLocator : WebElementSLocator
     {
         readonly Condition<SElement> condition;
         readonly SCollection context;
@@ -187,11 +164,11 @@ namespace NSelene
     }
 
     // TODO: maybe SLocator<ReadOnlyCollection<IWebElement>> ?
-    public abstract class WebElementsCollectionSLocator : SLocator<ReadOnlyCollection<IWebElement>>
+    abstract class WebElementsCollectionSLocator : SLocator<ReadOnlyCollection<IWebElement>>
     {
     }
 
-    public sealed class SearchContextWebElementsCollectionSLocator : WebElementsCollectionSLocator
+    sealed class SearchContextWebElementsCollectionSLocator : WebElementsCollectionSLocator
     {
         readonly SContext context;
         readonly By driverLocator;
@@ -214,7 +191,7 @@ namespace NSelene
         }
     }
 
-    public sealed class WrappedWebElementsCollectionSLocator : WebElementsCollectionSLocator
+    sealed class WrappedWebElementsCollectionSLocator : WebElementsCollectionSLocator
     {
         readonly string description;
         readonly IList<IWebElement> webelements;
@@ -240,7 +217,7 @@ namespace NSelene
         }
     }
 
-    public sealed class SCollectionFilteredWebElementsCollectionSLocator : WebElementsCollectionSLocator
+    sealed class SCollectionFilteredWebElementsCollectionSLocator : WebElementsCollectionSLocator
     {
         readonly Condition<SElement> condition;
         readonly SCollection context;

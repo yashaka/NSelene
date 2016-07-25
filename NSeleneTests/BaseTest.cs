@@ -12,13 +12,13 @@ namespace NSeleneTests
         [OneTimeSetUp]
         public void initDriver()
         {
-            SetDriver(new FirefoxDriver());
+            SetWebDriver(new FirefoxDriver());
         }
 
         [OneTimeTearDown]
         public void disposeDriver()
         {
-            GetDriver().Quit();
+            GetWebDriver().Quit();
         }
     }
 }

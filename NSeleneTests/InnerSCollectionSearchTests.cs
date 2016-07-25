@@ -20,8 +20,10 @@ namespace NSeleneTests
         public void InnerSCollectionSearchIsLazyAndDoesNotStartOnCreation()
         {
             Given.OpenedPageWithBody("<p id='#existing'>Hello!</p>");
-            var nonExistingCollection = S("#existing").SS(".also-not-existing"); 
+            var nonExistingCollection = S("#existing").SS(".also-not-existing");
+            Assert.IsNotEmpty(nonExistingCollection.ToString());  
             var nonExistingCollection2 = S("#not-existing").SS(".also-not-existing"); 
+            Assert.IsNotEmpty(nonExistingCollection2.ToString()); 
         }
 
         [Test]

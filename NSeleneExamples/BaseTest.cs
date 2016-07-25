@@ -13,13 +13,13 @@ namespace NSeleneExamples
         [SetUp]
         public void SetupTest()
         {
-            SetDriver(new FirefoxDriver());
+            SetWebDriver(new FirefoxDriver());
         }
 
         [TearDown]
         public void TeardownTest()
         {
-            GetDriver().Quit();
+            GetWebDriver().Quit();
         }
     }
 }

@@ -201,12 +201,12 @@ namespace NSeleneTests.SeleniumInteroperability
             [FindsBy(How = How.CssSelector, Using = "a")]
             public IList<IWebElement> Elements;
 
-            public PageWithDeferredWebElementOfList(IWebDriver driver)
+            public PageWithDeferredWebElementOfList(IWebDriver driver) // Just emulating passing driver to constructor, so 
             {
-                this.driver = driver;
+                //this.driver = driver
             }
 
-            IWebDriver driver;
+            //IWebDriver driver;
         }
 
         class PageWithDeferredWebElementOfListAndCustomFindsBy
@@ -216,10 +216,10 @@ namespace NSeleneTests.SeleniumInteroperability
 
             public PageWithDeferredWebElementOfListAndCustomFindsBy(IWebDriver driver)
             {
-                this.driver = driver;
+                //this.driver = driver
             }
 
-            IWebDriver driver;
+            //IWebDriver driver;
         }
 
 

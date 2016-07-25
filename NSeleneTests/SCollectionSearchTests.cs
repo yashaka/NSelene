@@ -18,7 +18,8 @@ namespace NSeleneTests
         [Test]
         public void SCollectionSearchIsLazyAndDoesNotStartOnCreation()
         {
-            var nonExistingCollection = SS(".not-existing"); 
+            var nonExistingCollection = SS(".not-existing");
+            Assert.IsNotEmpty(nonExistingCollection.ToString()); 
                 // TODO: think on improving... actually it does not tell search is not started
                 // it would tell if browser is quited at the moment... but it is not...
         }

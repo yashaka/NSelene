@@ -20,6 +20,7 @@ namespace NSeleneTests
         {
             Given.OpenedPageWithBody("<p>have no any items nor visible nor hidden</p>");
             var nonExistentElement = SS(".not-existing").FindBy(Be.Visible);
+            Assert.IsNotEmpty(nonExistentElement.ToString()); 
         }
 
         [Test]
@@ -27,6 +28,7 @@ namespace NSeleneTests
         {//TODO: consider testing using FindBy(Have.CssClass("..."))
             Given.OpenedPageWithBody("<p>have no any items nor visible nor hidden</p>");
             var nonExistentElement = SS(".not-existing").FindBy(Be.Visible).Find("#not-existing-inner");
+            Assert.IsNotEmpty(nonExistentElement.ToString()); 
         }
 
         [Test]
@@ -79,7 +81,7 @@ namespace NSeleneTests
                     250);"
             );
             SS("a").FindBy(Be.Visible).Click();
-            Assert.IsTrue(Utils.GetDriver().Url.Contains("second"));
+            Assert.IsTrue(Utils.GetWebDriver().Url.Contains("second"));
         }
 
         [Test]
@@ -125,8 +127,8 @@ namespace NSeleneTests
             try {
                 SS("a").FindBy(Be.Visible).Click();
                 Assert.Fail("should fail on timeout before can be clicked");
-            } catch (WebDriverTimeoutException ex) {
-                Assert.IsFalse(Utils.GetDriver().Url.Contains("second"));
+            } catch (WebDriverTimeoutException) {
+                Assert.IsFalse(Utils.GetWebDriver().Url.Contains("second"));
                 //TODO: consider asserting that actually 250ms passed
             }
         }

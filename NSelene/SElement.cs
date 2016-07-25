@@ -20,35 +20,27 @@ namespace NSelene
 
         readonly SDriver driver;
 
-        public SElement(SLocator<IWebElement> locator, SDriver driver)
+        internal SElement(SLocator<IWebElement> locator, SDriver driver)
         {
             this.locator = locator;
             this.driver = driver;
         }
 
-        public SElement(By locator, SDriver driver) 
+        internal SElement(By locator, SDriver driver) 
             : this(new SearchContextWebElementSLocator(locator, driver), driver) {}
 
-        public SElement(By locator) 
+        internal SElement(By locator) 
             : this(new SearchContextWebElementSLocator(locator, PrivateConfiguration.SharedDriver), PrivateConfiguration.SharedDriver) {}
 
         //TODO: consider renaming pageFactoryElement to element, becuase we nevertheless use it sometimes to just wrap non-proxy webelement
-        public SElement(IWebElement pageFactoryElement, IWebDriver driver)
+        internal SElement(IWebElement pageFactoryElement, IWebDriver driver)
             : this(new WrappedWebElementSLocator(pageFactoryElement), new SDriver(driver)) {}
-
-        //TODO: do we need it as public? it's a potential hole in context of violation "tell don't ask"
-        public SLocator<IWebElement> SLocator 
-        {
-            get {
-                return this.locator;
-            }
-        }
 
         // TODO: consider making it just a field initialized in constructor
         Actions Actions
         {
             get {
-                return new Actions(this.driver);
+                return this.driver.Actions();
             }
         }
 

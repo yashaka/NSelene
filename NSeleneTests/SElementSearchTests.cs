@@ -20,6 +20,7 @@ namespace NSeleneTests
         {
             Given.OpenedEmptyPage();
             var nonExistentElement = S("#not-existing-element-id");
+            Assert.IsNotEmpty(nonExistentElement.ToString()); 
         }
 
         [Test]
@@ -57,7 +58,7 @@ namespace NSeleneTests
                     500);"
             );
             S("a").Click();
-            Assert.IsTrue(Utils.GetDriver().Url.Contains("second"));
+            Assert.IsTrue(Utils.GetWebDriver().Url.Contains("second"));
         }
 
         [Test]
@@ -80,8 +81,8 @@ namespace NSeleneTests
             try {
                 S("a").Click();
                 Assert.Fail("should fail on timeout before can be clicked");
-            } catch (WebDriverTimeoutException ex) {
-                Assert.IsFalse(Utils.GetDriver().Url.Contains("second"));
+            } catch (WebDriverTimeoutException) {
+                Assert.IsFalse(Utils.GetWebDriver().Url.Contains("second"));
             }
         }
     }

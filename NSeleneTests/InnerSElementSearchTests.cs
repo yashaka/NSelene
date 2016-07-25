@@ -2,6 +2,7 @@
 using NSelene;
 using static NSelene.Utils;
 using OpenQA.Selenium;
+using System;
 
 namespace NSeleneTests
 {
@@ -20,6 +21,7 @@ namespace NSeleneTests
         {
             Given.OpenedPageWithBody("<p id='#existing'>Hello!</p>");
             var nonExistentElement = S("#existing").Find("#not-existing-inner");
+            Assert.IsNotEmpty(nonExistentElement.ToString());
         }
 
         [Test]
@@ -27,6 +29,7 @@ namespace NSeleneTests
         {
             Given.OpenedEmptyPage();
             var nonExistentElement = S("#not-existing").Find("#not-existing-inner");
+            Assert.IsNotEmpty(nonExistentElement.ToString());
         }
 
         [Test]
@@ -73,7 +76,7 @@ namespace NSeleneTests
                 </p>"
             );
             S("p").S("a").Click();
-            Assert.IsTrue(Utils.GetDriver().Url.Contains("second"));
+            Assert.IsTrue(Utils.GetWebDriver().Url.Contains("second"));
         }
 
         [Test]
@@ -93,7 +96,7 @@ namespace NSeleneTests
                     1000);"
             );
             S("p").S("a").Click();
-            Assert.IsTrue(Utils.GetDriver().Url.Contains("second"));
+            Assert.IsTrue(Utils.GetWebDriver().Url.Contains("second"));
         }
 
         [Test]
@@ -118,7 +121,7 @@ namespace NSeleneTests
                     1000);"
             );
             S("p").S("a").Click();
-            Assert.IsTrue(Utils.GetDriver().Url.Contains("second"));
+            Assert.IsTrue(Utils.GetWebDriver().Url.Contains("second"));
         }
 
         [Test]
@@ -141,8 +144,8 @@ namespace NSeleneTests
             try {
                 S("p").S("a").Click();
                 Assert.Fail("should fail on timeout before can be clicked");
-            } catch (WebDriverTimeoutException ex) {
-                Assert.IsFalse(Utils.GetDriver().Url.Contains("second"));
+            } catch (WebDriverTimeoutException) {
+                Assert.IsFalse(Utils.GetWebDriver().Url.Contains("second"));
             }
         }
     }
