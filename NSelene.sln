@@ -62,5 +62,6 @@ Global
 		$2.inheritsSet = Mono
 		$2.inheritsScope = text/x-csharp
 		$2.scope = text/x-csharp
+		version = 0.0.0.6
 	EndGlobalSection
 EndGlobal

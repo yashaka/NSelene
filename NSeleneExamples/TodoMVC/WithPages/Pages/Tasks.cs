@@ -2,8 +2,6 @@ using System;
 using OpenQA.Selenium;
 using NSelene;
 using static NSelene.Selene;
-using NSelene.Conditions;
-using NSelene.Support.Extensions;
 
 namespace NSeleneExamples.TodoMVC.WithPages.Pages
 {
@@ -13,7 +11,7 @@ namespace NSeleneExamples.TodoMVC.WithPages.Pages
 
         public static void Visit()
         {
-            Open("https://todomvc4tasj.herokuapp.com/");
+            GoToUrl("https://todomvc4tasj.herokuapp.com/");
         }
 
         public static void FilterActive()
