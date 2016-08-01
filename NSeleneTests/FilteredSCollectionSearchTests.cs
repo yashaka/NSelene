@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using NSelene;
-using static NSelene.Utils;
+using static NSelene.Selene;
 using OpenQA.Selenium;
 using System.Threading;
 
@@ -49,7 +49,7 @@ namespace NSeleneTests
                 </ul>"
             );
             Assert.AreEqual(0, elements.Count);
-            Utils.ExecuteScript(@"
+            Selene.ExecuteScript(@"
                 document.getElementsByTagName('li')[0].style = 'display:block';"
             );
             Assert.AreEqual(1, elements.Count);

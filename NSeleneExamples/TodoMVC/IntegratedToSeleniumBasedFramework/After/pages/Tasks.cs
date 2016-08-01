@@ -6,6 +6,7 @@ using System.Linq;
 using NUnit.Framework;
 using NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.After.Core;
 using NSelene;
+using NSelene.Support.Extensions;
 
 namespace NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.After.Pages
 {

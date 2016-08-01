@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using NSelene;
-using static NSelene.Utils;
+using static NSelene.Selene;
 using OpenQA.Selenium;
 
 namespace NSeleneTests
@@ -72,7 +72,7 @@ namespace NSeleneTests
                 <h1 id='first'>Heading 1</h1>
                 <h2 id='second'>Heading 2</h2>"
             );
-            Utils.ExecuteScript(@"
+            Selene.ExecuteScript(@"
                 setTimeout(
                     function(){
                         document.getElementsByTagName('a')[1].style = 'display:block';
@@ -80,7 +80,7 @@ namespace NSeleneTests
                     250);"
             );
             SS("a")[1].Click();
-            Assert.IsTrue(Utils.GetWebDriver().Url.Contains("second"));
+            Assert.IsTrue(Selene.GetWebDriver().Url.Contains("second"));
         }
 
         [Test]
@@ -98,7 +98,7 @@ namespace NSeleneTests
                 <h2 id='second'>Heading 2</h2>"
                 , 250
             );
-            Utils.ExecuteScript(@"
+            Selene.ExecuteScript(@"
                 setTimeout(
                     function(){
                         document.getElementsByTagName('a')[1].style = 'display:block';
@@ -106,7 +106,7 @@ namespace NSeleneTests
                     500);"
             );
             SS("a")[1].Click();
-            Assert.IsTrue(Utils.GetWebDriver().Url.Contains("second"));
+            Assert.IsTrue(Selene.GetWebDriver().Url.Contains("second"));
         }
 
         [Test]
@@ -121,7 +121,7 @@ namespace NSeleneTests
                 ,
                 250
             );
-            Utils.ExecuteScript(@"
+            Selene.ExecuteScript(@"
                setTimeout(
                     function(){
                         document.getElementsByTagName('a')[1].style = 'display:block';
@@ -129,7 +129,7 @@ namespace NSeleneTests
                     500);"
             );
             SS("a")[1].Click();
-            Assert.IsTrue(Utils.GetWebDriver().Url.Contains("second"));
+            Assert.IsTrue(Selene.GetWebDriver().Url.Contains("second"));
         }
 
         [Test]
@@ -151,7 +151,7 @@ namespace NSeleneTests
                 SS("a")[1].Click();
                 Assert.Fail("should fail on timeout before can be clicked");
             } catch (WebDriverTimeoutException) {
-                Assert.IsFalse(Utils.GetWebDriver().Url.Contains("second"));
+                Assert.IsFalse(Selene.GetWebDriver().Url.Contains("second"));
             }
         }
     }

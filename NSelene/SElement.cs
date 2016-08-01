@@ -32,9 +32,8 @@ namespace NSelene
         internal SElement(By locator) 
             : this(new SearchContextWebElementSLocator(locator, PrivateConfiguration.SharedDriver), PrivateConfiguration.SharedDriver) {}
 
-        //TODO: consider renaming pageFactoryElement to element, becuase we nevertheless use it sometimes to just wrap non-proxy webelement
-        internal SElement(IWebElement pageFactoryElement, IWebDriver driver)
-            : this(new WrappedWebElementSLocator(pageFactoryElement), new SDriver(driver)) {}
+        internal SElement(IWebElement elementToWrap, IWebDriver driver)
+            : this(new WrappedWebElementSLocator(elementToWrap), new SDriver(driver)) {}
 
         // TODO: consider making it just a field initialized in constructor
         Actions Actions
@@ -44,7 +43,6 @@ namespace NSelene
             }
         }
 
-        // TODO: would it be better to use method GetActualWebElement() instead?
         public IWebElement ActualWebElement
         {
             get {
@@ -59,22 +57,12 @@ namespace NSelene
 
         public SElement Should(Condition<SElement> condition)
         {
-            return Utils.WaitFor(this, condition);
-        }
-
-        public SElement AssertTo(Condition<SElement> condition)
-        {
-            return Should(condition);
+            return Selene.WaitFor(this, condition);
         }
 
         public SElement ShouldNot(Condition<SElement> condition)
         {
-            return Utils.WaitForNot(this, condition);
-        }
-
-        public SElement AssertToNot(Condition<SElement> condition)
-        {
-            return ShouldNot(condition);
+            return Selene.WaitForNot(this, condition);
         }
 
         // TODO: refactor to property Value ?
@@ -110,6 +98,7 @@ namespace NSelene
             return this;
         }
 
+        // TODO: consider moving to Extensions
         public SElement Set(string value)
         {
             return SetValue(value);
@@ -134,19 +123,9 @@ namespace NSelene
             return new SElement(new SearchContextWebElementSLocator(locator, this), this.driver);
         }
 
-        public SElement S(By locator)
-        {
-            return this.Find(locator);
-        }
-
         public SElement Find(string cssSelector)
         {
             return this.Find(By.CssSelector(cssSelector));
-        }
-
-        public SElement S(string cssSelector)
-        {
-            return this.Find(cssSelector);
         }
 
         public SCollection FindAll(By locator)
@@ -157,16 +136,6 @@ namespace NSelene
         public SCollection FindAll(string cssSelector)
         {
             return this.FindAll(By.CssSelector(cssSelector));
-        }
-
-        public SCollection SS(By locator)
-        {
-            return this.FindAll(locator);
-        }
-
-        public SCollection SS(string cssSelector)
-        {
-            return this.FindAll(cssSelector);
         }
 
         //
@@ -257,7 +226,7 @@ namespace NSelene
         public bool Displayed
         {
             get {
-                Should(Be.InDOM);
+                Should(Be.InDom);
                 return this.ActualWebElement.Displayed;
             }
         }
@@ -288,13 +257,13 @@ namespace NSelene
 
         public string GetAttribute(string name)
         {
-            Should(Be.InDOM);
+            Should(Be.InDom);
             return this.ActualWebElement.GetAttribute(name);
         }
 
         public string GetCssValue(string property)
         {
-            Should(Be.InDOM);
+            Should(Be.InDom);
             return this.ActualWebElement.GetCssValue(property);
         }
 
@@ -367,7 +336,7 @@ namespace NSelene
         [Obsolete("IsDisplayed is deprecated and will be removed in next version, please use Displayed property instead.")]
         public bool IsDisplayed()
         {
-            Should(Be.InDOM);
+            Should(Be.InDom);
             return this.ActualWebElement.Displayed;
         }
 
@@ -383,6 +352,42 @@ namespace NSelene
         {
             Should(Be.Visible);
             return this.ActualWebElement.Text;
+        }
+    }
+
+    namespace Support.Extensions 
+    {
+        public static class SElementExtensions 
+        {
+            public static SElement AssertTo(this SElement selement, Condition<SElement> condition)
+            {
+                return selement.Should(condition);
+            }
+
+            public static SElement AssertToNot(this SElement selement, Condition<SElement> condition)
+            {
+                return selement.ShouldNot(condition);
+            }
+
+            public static SElement S(this SElement selement, By locator)
+            {
+                return selement.Find(locator);
+            }
+
+            public static SElement S(this SElement selement, string cssSelector)
+            {
+                return selement.Find(cssSelector);
+            }
+
+            public static SCollection SS(this SElement selement, By locator)
+            {
+                return selement.FindAll(locator);
+            }
+
+            public static SCollection SS(this SElement selement, string cssSelector)
+            {
+                return selement.FindAll(cssSelector);
+            }
         }
     }
 }

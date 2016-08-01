@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using NSelene;
-using static NSelene.Utils;
+using static NSelene.Selene;
 using OpenQA.Selenium;
 using System;
 
@@ -75,8 +75,8 @@ namespace NSeleneTests
                     <h2 id='second'>Heading 2</h2>
                 </p>"
             );
-            S("p").S("a").Click();
-            Assert.IsTrue(Utils.GetWebDriver().Url.Contains("second"));
+            S("p").Find("a").Click();
+            Assert.IsTrue(Selene.GetWebDriver().Url.Contains("second"));
         }
 
         [Test]
@@ -88,15 +88,15 @@ namespace NSeleneTests
                     <h2 id='second'>Heading 2</h2>
                 </p>"
             );
-            Utils.ExecuteScript(@"
+            Selene.ExecuteScript(@"
                 setTimeout(
                     function(){
                         document.getElementsByTagName('a')[0].style = 'display:block';
                     }, 
                     1000);"
             );
-            S("p").S("a").Click();
-            Assert.IsTrue(Utils.GetWebDriver().Url.Contains("second"));
+            S("p").Find("a").Click();
+            Assert.IsTrue(Selene.GetWebDriver().Url.Contains("second"));
         }
 
         [Test]
@@ -108,7 +108,7 @@ namespace NSeleneTests
                     <h2 id='second'>Heading 2</h2>
                 </p>"
             );
-            Utils.ExecuteScript(@"
+            Selene.ExecuteScript(@"
                 setTimeout(
                     function(){
                         document.getElementsByTagName('p')[0].style = 'display:block';
@@ -120,8 +120,8 @@ namespace NSeleneTests
                     }, 
                     1000);"
             );
-            S("p").S("a").Click();
-            Assert.IsTrue(Utils.GetWebDriver().Url.Contains("second"));
+            S("p").Find("a").Click();
+            Assert.IsTrue(Selene.GetWebDriver().Url.Contains("second"));
         }
 
         [Test]
@@ -134,7 +134,7 @@ namespace NSeleneTests
                     <h2 id='second'>Heading 2</h2>
                 </p>"
             );
-            Utils.ExecuteScript(@"
+            Selene.ExecuteScript(@"
                 setTimeout(
                     function(){
                         document.getElementsByTagName('a')[0].style = 'display:block';
@@ -142,10 +142,10 @@ namespace NSeleneTests
                     500);"
             );
             try {
-                S("p").S("a").Click();
+                S("p").Find("a").Click();
                 Assert.Fail("should fail on timeout before can be clicked");
             } catch (WebDriverTimeoutException) {
-                Assert.IsFalse(Utils.GetWebDriver().Url.Contains("second"));
+                Assert.IsFalse(Selene.GetWebDriver().Url.Contains("second"));
             }
         }
     }

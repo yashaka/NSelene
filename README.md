@@ -67,12 +67,12 @@ where procedural "PageObject" aka "PageModule" may look like this:
 
             public static void FilterActive()
             {
-                S (By.LinkText("Active")).Click();
+                S(By.LinkText("Active")).Click();
             }
 
             public static void FilterCompleted()
             {
-                S (By.LinkText("Completed")).Click();
+                S(By.LinkText("Completed")).Click();
             }
 
             public static void Add(params string[] taskTexts)

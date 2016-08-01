@@ -6,6 +6,7 @@ using System.Linq;
 using NUnit.Framework;
 using NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.AfterPlusAlternativeStyleOfNaming.Core;
 using NSelene;
+using NSelene.Support.Extensions;
 
 namespace NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.AfterPlusAlternativeStyleOfNaming.Pages
 {
@@ -54,7 +55,7 @@ namespace NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.AfterPlusAl
 
         public void Toggle(string taskText)
         {
-            list.FindBy(Have.ExactText(taskText)).Find(".toggle").Click();
+            IWebElementExtensions.Find(list.FindBy(Have.ExactText(taskText)),".toggle").Click();
         }
 
         public void ClearCompleted()

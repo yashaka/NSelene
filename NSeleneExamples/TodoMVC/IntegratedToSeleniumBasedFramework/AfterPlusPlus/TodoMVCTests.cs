@@ -1,6 +1,6 @@
 ﻿using NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.AfterPlusPlus.Pages;
 using NUnit.Framework;
-using static NSelene.Utils;
+using static NSelene.Selene;
 
 
 namespace NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.AfterPlusPLus

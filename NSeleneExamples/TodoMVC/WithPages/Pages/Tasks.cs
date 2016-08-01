@@ -1,8 +1,9 @@
 using System;
 using OpenQA.Selenium;
 using NSelene;
-using static NSelene.Utils;
+using static NSelene.Selene;
 using NSelene.Conditions;
+using NSelene.Support.Extensions;
 
 namespace NSeleneExamples.TodoMVC.WithPages.Pages
 {

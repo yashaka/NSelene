@@ -1,1 +1,0 @@
-* find the way to refactor "describing" logic for conditions

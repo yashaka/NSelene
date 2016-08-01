@@ -8,6 +8,15 @@ API changes
 - renamed Utils.SActions to Utils.Actions and make it property
 - made SElement and SCollection constructors internal (in order to leave ability to rename them, if one day we extract SElement/SCollection as interfaces);
 - removed SElement#SLocator property
+- renamed NSelene.Utils to NSelene.Selene to be more "selenide like" with com.codeborn.selenide.Selenide class as a container for utility methods
+- renamed Be.InDOM to Be.InDom
+- Left only the following aliasses: 
+  - SElement: S, SS, Should, ShouldNot; 
+  - SCollection: Should, ShouldNot
+  - SDriver: Find, FindAll
+  Everything else moved to NSelene.Support.Extensions
+  It is recommended though to use this extensions only as "example", because there are too much of them. The latter may lead to confusion in usage. Usually the user will need only some of them. so better to "copy&paste" needed ones to user's project namespace.
+
 New
 - enhanced interoperability with raw selenium. Now implicit waits for visibility can be added to all PageFactory webelements just via decorating new SDriver(driver); And all explicit driver calls for finding both IWebElement and IList<IWebElement> will produce NSelene proxy alternatives with both implicit waits for visibility and for indexed webelements of collections.
 

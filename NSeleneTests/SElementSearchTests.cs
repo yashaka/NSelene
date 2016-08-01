@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using NSelene;
-using static NSelene.Utils;
+using static NSelene.Selene;
 using OpenQA.Selenium;
 
 namespace NSeleneTests
@@ -50,7 +50,7 @@ namespace NSeleneTests
                 <a href='#second' style='display:none'>go to Heading 2</a>
                 <h2 id='second'>Heading 2</h2>"
             );
-            Utils.ExecuteScript(@"
+            Selene.ExecuteScript(@"
                 setTimeout(
                     function(){
                         document.getElementsByTagName('a')[0].style = 'display:block';
@@ -58,7 +58,7 @@ namespace NSeleneTests
                     500);"
             );
             S("a").Click();
-            Assert.IsTrue(Utils.GetWebDriver().Url.Contains("second"));
+            Assert.IsTrue(Selene.GetWebDriver().Url.Contains("second"));
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace NSeleneTests
                 <a href='#second' style='display:none'>go to Heading 2</a>
                 <h2 id='second'>Heading 2</h2>"
             );
-            Utils.ExecuteScript(@"
+            Selene.ExecuteScript(@"
                 setTimeout(
                     function(){
                         document.getElementsByTagName('a')[0].style = 'display:block';
@@ -82,7 +82,7 @@ namespace NSeleneTests
                 S("a").Click();
                 Assert.Fail("should fail on timeout before can be clicked");
             } catch (WebDriverTimeoutException) {
-                Assert.IsFalse(Utils.GetWebDriver().Url.Contains("second"));
+                Assert.IsFalse(Selene.GetWebDriver().Url.Contains("second"));
             }
         }
     }

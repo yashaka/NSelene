@@ -2,7 +2,7 @@
 using System;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium;
-using static NSelene.Utils;
+using static NSelene.Selene;
 
 
 namespace NSeleneExamples

@@ -1,7 +1,8 @@
 ﻿using NUnit.Framework;
-using static NSelene.Utils;
+using static NSelene.Selene;
 using NSelene;
 using OpenQA.Selenium;
+using NSelene.Support.Extensions;
 
 namespace NSeleneExamples.TodoMVC.StraightForward
 {

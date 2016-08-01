@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using NSelene;
-using static NSelene.Utils;
+using static NSelene.Selene;
 
 namespace NSeleneTests
 {
@@ -32,9 +32,9 @@ namespace NSeleneTests
         public void SElementShouldBeInDOM()
         {
             Given.OpenedEmptyPage();
-            S("h1").ShouldNot(Be.InDOM);
+            S("h1").ShouldNot(Be.InDom);
             When.WithBody("<h1 style='display:none'>ku ku</h1>");
-            S("h1").Should(Be.InDOM);
+            S("h1").Should(Be.InDom);
         }
 
         [Test]

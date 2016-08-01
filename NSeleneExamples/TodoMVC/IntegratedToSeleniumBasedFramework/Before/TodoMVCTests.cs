@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
-using static NSelene.Utils;
+using static NSelene.Selene;
 
 
 namespace NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.Before

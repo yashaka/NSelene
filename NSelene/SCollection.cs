@@ -33,8 +33,8 @@ namespace NSelene
         internal SCollection(By byLocator) 
             : this(new SearchContextWebElementsCollectionSLocator(byLocator, PrivateConfiguration.SharedDriver), PrivateConfiguration.SharedDriver) {}
 
-        internal SCollection(IList<IWebElement> pageFactoryElements, IWebDriver driver)
-            : this(new WrappedWebElementsCollectionSLocator(pageFactoryElements), new SDriver(driver)) {}
+        internal SCollection(IList<IWebElement> elementsListToWrap, IWebDriver driver)
+            : this(new WrappedWebElementsCollectionSLocator(elementsListToWrap), new SDriver(driver)) {}
         
         public ReadOnlyCollection<IWebElement> ActualWebElements
         {
@@ -57,22 +57,12 @@ namespace NSelene
 
         public SCollection Should(Condition<SCollection> condition)
         {
-            return Utils.WaitFor(this, condition);
-        }
-
-        public SCollection AssertTo(Condition<SCollection> condition)
-        {
-            return this.Should(condition);
+            return Selene.WaitFor(this, condition);
         }
 
         public SCollection ShouldNot(Condition<SCollection> condition)
         {
-            return Utils.WaitForNot(this, condition);
-        }
-
-        public SCollection AssertToNot(Condition<SCollection> condition)
-        {
-            return this.ShouldNot(condition);
+            return Selene.WaitForNot(this, condition);
         }
 
         public SElement FindBy(Condition<SElement> condition)
@@ -289,6 +279,24 @@ namespace NSelene
         public SElement ElementAt(int index)
         {
             return new SElement(new SCollectionWebElementByIndexSLocator(index, this), this.driver);
+        }
+    }
+
+
+
+    namespace Support.Extensions 
+    {
+        public static class SCollectionExtensions 
+        {
+            public static SCollection AssertTo(this SCollection selements, Condition<SCollection> condition)
+            {
+                return selements.Should(condition);
+            }
+
+            public static SCollection AssertToNot(this SCollection selements, Condition<SCollection> condition)
+            {
+                return selements.ShouldNot(condition);
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using OpenQA.Selenium;
 using NSelene;
-using static NSelene.Utils;
+using static NSelene.Selene;
 
 namespace NSeleneExamples.TodoMVC.WithWidgets.Pages
 {

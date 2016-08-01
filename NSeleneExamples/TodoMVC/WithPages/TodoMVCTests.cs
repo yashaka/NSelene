@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using static NSelene.Utils;
+using static NSelene.Selene;
 using NSeleneExamples.TodoMVC.WithPages.Pages;
 
 

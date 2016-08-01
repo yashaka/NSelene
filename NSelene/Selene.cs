@@ -5,28 +5,17 @@ using System.Linq;
 using System.Threading;
 using NSelene.Conditions;
 using OpenQA.Selenium.Interactions;
+using System.Collections.Generic;
 
 namespace NSelene
 {
+
     // TODO: consider renaming Utils to Selene
-    public static partial class Utils
+    public static partial class Selene
     {
-
-        [Obsolete("SetDriver is deprecated and will be removed in next version, please use Utils.SetWebDriver method instead.")]
-        public static void SetDriver(IWebDriver driver)
-        {
-            PrivateConfiguration.SharedDriver.Value = driver;
-        }
-
         public static void SetWebDriver(IWebDriver driver)
         {
             PrivateConfiguration.SharedDriver.Value = driver;
-        }
-
-        [Obsolete("GetDriver is deprecated and will be removed in next version, please use Utils.GetWebDriver method instead.")]
-        public static IWebDriver GetDriver()
-        {
-            return PrivateConfiguration.SharedDriver.Value;
         }
 
         public static IWebDriver GetWebDriver()
@@ -49,6 +38,11 @@ namespace NSelene
             return S(By.CssSelector(cssSelector));
         }
 
+        public static SElement S(IWebElement pageFactoryElement, IWebDriver driver)
+        {
+            return new SElement(pageFactoryElement, driver);
+        }
+
         public static SElement S(By locator, IWebDriver driver)
         {
             return new SElement(locator, new SDriver(driver));
@@ -67,6 +61,11 @@ namespace NSelene
         public static SCollection SS(string cssSelector)
         {
             return SS(By.CssSelector(cssSelector));
+        }
+
+        public static SCollection SS(IList<IWebElement> pageFactoryElementsList, IWebDriver driver)
+        {
+            return new SCollection(pageFactoryElementsList, driver);
         }
 
         public static SCollection SS(By locator, IWebDriver driver)
@@ -89,15 +88,10 @@ namespace NSelene
             GetWebDriver().Navigate().GoToUrl(url);
         }
 
+        // TODO: consider changing to static property
         public static string Url()
         {
             return GetWebDriver().Url;
-        }
-
-        [Obsolete("SActions method is deprecated and will be removed in next version, please use Utils.Actions property instead.")]
-        public static Actions SActions()
-        {
-            return new Actions(GetWebDriver());
         }
 
         public static Actions Actions{
@@ -194,6 +188,135 @@ namespace NSelene
                 Thread.Sleep(TimeSpan.FromSeconds(Configuration.PollDuringWaits).Milliseconds);
             }
             return sEntity;
+        }
+
+        //
+        // Obsolete 
+        //
+
+        [Obsolete("SetDriver is deprecated and will be removed in next version, please use Utils.SetWebDriver method instead.")]
+        public static void SetDriver(IWebDriver driver)
+        {
+            PrivateConfiguration.SharedDriver.Value = driver;
+        }
+
+        [Obsolete("GetDriver is deprecated and will be removed in next version, please use Utils.GetWebDriver method instead.")]
+        public static IWebDriver GetDriver()
+        {
+            return PrivateConfiguration.SharedDriver.Value;
+        }
+
+        [Obsolete("SActions method is deprecated and will be removed in next version, please use Utils.Actions property instead.")]
+        public static Actions SActions()
+        {
+            return new Actions(GetWebDriver());
+        }
+    }
+
+    [Obsolete("NSelene.Utils class is deprecated and will be removed in next version, please use NSelene.Selene class instead.")]
+    public static class Utils 
+    {
+
+        [Obsolete("SetDriver is deprecated and will be removed in next version, please use Selene.SetWebDriver method instead.")]
+        public static void SetDriver(IWebDriver driver)
+        {
+            PrivateConfiguration.SharedDriver.Value = driver;
+        }
+
+        [Obsolete("Utils.SetWebDriver is deprecated and will be removed in next version, please use Selene.SetWebDriver method instead.")]
+        public static void SetWebDriver(IWebDriver driver)
+        {
+            PrivateConfiguration.SharedDriver.Value = driver;
+        }
+
+        [Obsolete("Utils.GetDriver is deprecated and will be removed in next version, please use Selene.GetWebDriver method instead.")]
+        public static IWebDriver GetDriver()
+        {
+            return PrivateConfiguration.SharedDriver.Value;
+        }
+
+        [Obsolete("Utils.GetWebDriver is deprecated and will be removed in next version, please use Selene.GetWebDriver method instead.")]
+        public static IWebDriver GetWebDriver()
+        {
+            return PrivateConfiguration.SharedDriver.Value;
+        }
+
+        [Obsolete("Utils.ExecuteScript is deprecated and will be removed in next version, please use Selene.ExecuteScript method instead.")]
+        public static object ExecuteScript(string script)
+        {
+            return (GetWebDriver() as IJavaScriptExecutor).ExecuteScript(script);
+        }
+
+        [Obsolete("Utils.S is deprecated and will be removed in next version, please use Selene.S method instead.")]
+        public static SElement S(By locator)
+        {
+            return new SElement(locator);
+        }
+
+        [Obsolete("Utils.S is deprecated and will be removed in next version, please use Selene.S method instead.")]
+        public static SElement S(string cssSelector)
+        {
+            return S(By.CssSelector(cssSelector));
+        }
+
+        [Obsolete("Utils.S is deprecated and will be removed in next version, please use Selene.S method instead.")]
+        public static SElement S(By locator, IWebDriver driver)
+        {
+            return new SElement(locator, new SDriver(driver));
+        }
+
+        [Obsolete("Utils.S is deprecated and will be removed in next version, please use Selene.S method instead.")]
+        public static SElement S(string cssSelector, IWebDriver driver)
+        {
+            return S(By.CssSelector(cssSelector), driver);
+        }
+
+        [Obsolete("Utils.SS is deprecated and will be removed in next version, please use Selene.SS method instead.")]
+        public static SCollection SS(By locator)
+        {
+            return new SCollection(locator);
+        }
+
+        [Obsolete("Utils.SS is deprecated and will be removed in next version, please use Selene.SS method instead.")]
+        public static SCollection SS(string cssSelector)
+        {
+            return SS(By.CssSelector(cssSelector));
+        }
+
+        [Obsolete("Utils.SS is deprecated and will be removed in next version, please use Selene.SS method instead.")]
+        public static SCollection SS(By locator, IWebDriver driver)
+        {
+            return new SCollection(locator, new SDriver(driver));
+        }
+
+        [Obsolete("Utils.SS is deprecated and will be removed in next version, please use Selene.SS method instead.")]
+        public static SCollection SS(string cssSelector, IWebDriver driver)
+        {
+            return SS(By.CssSelector(cssSelector), driver);
+        }
+
+        [Obsolete("Utils.Open is deprecated and will be removed in next version, please use Selene.Open method instead.")]
+        public static void Open(string url)
+        {
+            GoToUrl(url);
+        }
+
+        [Obsolete("Utils.GoToUrl is deprecated and will be removed in next version, please use Selene.GoToUrl method instead.")]
+        public static void GoToUrl(string url)
+        {
+            GetWebDriver().Navigate().GoToUrl(url);
+        }
+
+        [Obsolete("Utils.Url is deprecated and will be removed in next version, please use Selene.Url method instead.")]
+        public static string Url()
+        {
+            return GetWebDriver().Url;
+        }
+
+        [Obsolete("SActions method is deprecated and will be removed in next version, please use Selene.Actions property instead.")]
+        public static Actions SActions()
+        {
+            return new Actions(GetWebDriver());
         }
     }
 }

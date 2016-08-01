@@ -2,6 +2,7 @@
 
 namespace NSelene
 {
+    // TODO: consider refactoring "describing" logic for conditions... 
     namespace Conditions
     {
 

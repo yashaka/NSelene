@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using NSelene;
+using NSelene.Support.Extensions;
 
 /*
  * This "core" part emulates some custom "pageobjects & Concise API to Selenium" framework 

@@ -9,7 +9,7 @@ namespace NSeleneTests
     {
         public static void WithBody(string html)
         {
-            Utils.ExecuteScript(
+            Selene.ExecuteScript(
                 "document.getElementsByTagName('body')[0].innerHTML = \"" 
                 + html.Replace("\n", "") + "\";"
             );
@@ -26,7 +26,7 @@ namespace NSeleneTests
         // TODO: consider renaming to WithBodyTimedOut
         public static void WithBodyTimedOut(string html, int timeout)
         {
-            Utils.ExecuteScript(@"
+            Selene.ExecuteScript(@"
                 setTimeout(
                     function(){
                         document.getElementsByTagName('body')[0].innerHTML = """ + html.Replace("\n", "") + @"""
@@ -48,7 +48,7 @@ namespace NSeleneTests
 
         public static void ExecuteScriptWithTimeout(string js, int timeout)
         {
-            Utils.ExecuteScript(@"
+            Selene.ExecuteScript(@"
                 setTimeout(
                     function(){
                         " + js + @"
@@ -73,7 +73,7 @@ namespace NSeleneTests
     {
 
         public static void OpenedEmptyPage(){
-            Utils.Open(
+            Selene.Open(
                 new Uri(
                     new Uri(Assembly.GetExecutingAssembly().Location), 
                     "../../Resources/empty.html"

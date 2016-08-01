@@ -41,11 +41,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SCollection.cs" />
     <Compile Include="SElement.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="Selene.cs" />
     <Compile Include="Conditions\BaseConditions.cs" />
     <Compile Include="Conditions\Texts.cs" />
     <Compile Include="Conditions\Visible.cs" />
-    <Compile Include="Conditions\InDOM.cs" />
+    <Compile Include="Conditions\InDom.cs" />
     <Compile Include="Conditions\Count.cs" />
     <Compile Include="Conditions\CssClass.cs" />
     <Compile Include="Conditions\Attribute.cs" />
@@ -59,7 +59,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <None Include="todo.txt" />
     <None Include="NSelene.nuspec" />
     <None Include=".gitignore" />
     <None Include="packages.config" />

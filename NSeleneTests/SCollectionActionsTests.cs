@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using static NSelene.Utils;
+using static NSelene.Selene;
 using NSelene;
 
 namespace NSeleneTests
