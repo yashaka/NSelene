@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.0.0.6 (development...)
+## 0.0.0.6 (released Aug 1, 2016)
 
 ### API changes 
 Should not break anything in this version (because "old names" was just marked as deprecated and will be removed completely in next version):
@@ -38,6 +38,9 @@ Breaking changes:
 ### Refactoring
 - refactored all "static variable" conditions to be "static properties", which should ensure stability for parallel testing
 
+### License
+- Changed License to "MIT License"
+
 ## 0.0.0.5 (released May 29, 2016)
 - added object oriented wrapper over WebDriver - implemented in Browser class
   - which makes it much easier to integrate NSelene to existing selenium based frameworks
@@ -54,3 +57,4 @@ Breaking changes:
 
 ## 0.0.0.1 (released December 30, 2015)
 - Initial "pretty draft" version with basic features ported
+- Published under Apache License 2.0
