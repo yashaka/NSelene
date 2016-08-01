@@ -7,9 +7,9 @@ namespace NSeleneExamples.TodoMVC.WithWidgets.Pages
 {
     public class Task
     {
-        SElement element;
+        SeleneElement element;
 
-        public Task(SElement element)
+        public Task(SeleneElement element)
         {
             this.element = element;
         }
@@ -23,7 +23,7 @@ namespace NSeleneExamples.TodoMVC.WithWidgets.Pages
 
     public static class Tasks
     {
-        public static SCollection List = SS("#todo-list>li");
+        public static SeleneCollection List = SS("#todo-list>li");
 
         public static void Visit()
         {

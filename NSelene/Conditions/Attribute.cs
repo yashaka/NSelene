@@ -4,7 +4,7 @@ namespace NSelene
 {
     namespace Conditions
     {
-        public class Attribute : DescribedCondition<SElement>
+        public class Attribute : DescribedCondition<SeleneElement>
         {
 
             private string name;
@@ -17,7 +17,7 @@ namespace NSelene
                 this.expectedValue = value;
             }
 
-            public override bool Apply(SElement entity)
+            public override bool Apply(SeleneElement entity)
             {
                 this.actualValue = entity.ActualWebElement.GetAttribute(this.name);
 
@@ -40,12 +40,12 @@ namespace NSelene
 
     public static partial class Have
     {
-        public static Conditions.Condition<SElement> Attribute(string name, string value)
+        public static Conditions.Condition<SeleneElement> Attribute(string name, string value)
         {
             return new Conditions.Attribute(name, value);
         }
 
-        public static Conditions.Condition<SElement> Value(string expected)
+        public static Conditions.Condition<SeleneElement> Value(string expected)
         {
             return new Conditions.Attribute("value", expected);
         }
@@ -53,7 +53,7 @@ namespace NSelene
 
     public static partial class Be
     {
-        public static Conditions.Condition<SElement> Blank()
+        public static Conditions.Condition<SeleneElement> Blank()
         {
             return new Conditions.Attribute("value", "");
         }

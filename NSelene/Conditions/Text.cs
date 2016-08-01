@@ -4,7 +4,7 @@ namespace NSelene
 {
     namespace Conditions
     {
-        public class Text : DescribedCondition<SElement>
+        public class Text : DescribedCondition<SeleneElement>
         {
 
             protected string expected;
@@ -16,7 +16,7 @@ namespace NSelene
                 this.actual = "";
             }
 
-            public override bool Apply(SElement entity)
+            public override bool Apply(SeleneElement entity)
             {
                 this.actual = entity.ActualWebElement.Text;
                 return this.actual.Contains(this.expected);
@@ -38,7 +38,7 @@ namespace NSelene
 
             public ExactText(string expected) : base(expected) {}
 
-            public override bool Apply(SElement entity)
+            public override bool Apply(SeleneElement entity)
             {
                 this.actual = entity.ActualWebElement.Text;
                 return this.actual.Equals(this.expected);
@@ -54,12 +54,12 @@ namespace NSelene
 
     public static partial class Have
     {
-        public static Conditions.Condition<SElement> Text(string expected)
+        public static Conditions.Condition<SeleneElement> Text(string expected)
         {
             return new Conditions.Text(expected);
         }
 
-        public static Conditions.Condition<SElement> ExactText(string expected)
+        public static Conditions.Condition<SeleneElement> ExactText(string expected)
         {
             return new Conditions.ExactText(expected);
         }

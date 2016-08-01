@@ -79,7 +79,7 @@ namespace NSeleneTests.SeleniumInteroperability
         [Test]
         public void ClassicPageWithDecoratedByNSeleneDriverLocatesDeferredElement()
         {
-            var page = new PageWithDeferredWebElement(new SDriver(driver));
+            var page = new PageWithDeferredWebElement(new SeleneDriver(driver));
             page.Element.Click();
             Assert.IsTrue(driver.Url.Contains("second"));
         }
@@ -164,7 +164,7 @@ namespace NSeleneTests.SeleniumInteroperability
         [Test]
         public void ClassicPageWithDecoratedByNSeleneDriverFailsToLocateDeferredElementByAppearance()
         {
-            var page = PageFactory.InitElements<PageWithDeferredWebElementOfList>(new SDriver(driver));
+            var page = PageFactory.InitElements<PageWithDeferredWebElementOfList>(new SeleneDriver(driver));
             /* same as the following
             var page = PageFactory.InitElements<PageWithDeferredWebElementOfList>(new DefaultElementLocator(new SDriver(driver)));
              */
@@ -178,7 +178,7 @@ namespace NSeleneTests.SeleniumInteroperability
         [Test]
         public void ClassicPageWithDecoratedByNSeleneDriverLocatesDeferredElementByVisibility()
         {
-            var page = PageFactory.InitElements<PageWithDeferredWebElementOfList>(new SDriver(driver));
+            var page = PageFactory.InitElements<PageWithDeferredWebElementOfList>(new SeleneDriver(driver));
             /* same as the following
             var page = PageFactory.InitElements<PageWithDeferredWebElementOfList>(new DefaultElementLocator(new SDriver(driver)));
              */
@@ -190,8 +190,8 @@ namespace NSeleneTests.SeleniumInteroperability
         [Test]
         public void ClassicPageWithDecoratedByNSeleneDriverAndCustomLocatorLocatesDeferredElement()
         {
-            var page = new PageWithDeferredWebElementOfListAndCustomFindsBy(new SDriver(driver));
-            PageFactory.InitElements(page, new My.CustomElementLocator(new SDriver(driver)), new My.CustomPageObjectMemberDecorator());
+            var page = new PageWithDeferredWebElementOfListAndCustomFindsBy(new SeleneDriver(driver));
+            PageFactory.InitElements(page, new My.CustomElementLocator(new SeleneDriver(driver)), new My.CustomPageObjectMemberDecorator());
             page.Elements[1].Click();
             Assert.IsTrue(driver.Url.Contains("second"));
         }

@@ -14,27 +14,40 @@ namespace NSelene
         ReadOnlyCollection<IWebElement> ActualWebElements { get; }
     }
 
-    public sealed class SCollection 
-        : WrapsWebElementsCollection, IReadOnlyList<SElement>, IReadOnlyCollection<SElement>, IList<SElement>, IList<IWebElement>, ICollection<SElement>, IEnumerable<SElement>, IEnumerable
+    [Obsolete("SCollection is deprecated and will be removed in next version, please use SeleneCollection type instead.")]
+    public interface SCollection :  WrapsWebElementsCollection, IReadOnlyList<SeleneElement>, IReadOnlyCollection<SeleneElement>, IList<SeleneElement>, IList<IWebElement>, ICollection<SeleneElement>, IEnumerable<SeleneElement>, IEnumerable
     {
-        readonly SLocator<ReadOnlyCollection<IWebElement>> locator;
+        SeleneCollection Should(Condition<SeleneCollection> condition);
+        SeleneCollection ShouldNot(Condition<SeleneCollection> condition);
+        SeleneElement FindBy(Condition<SeleneElement> condition);
+        SeleneCollection FilterBy(Condition<SeleneElement> condition);
+        int GetCount();
+        SeleneElement Get(int index);
+        SeleneElement ElementAt(int index);
+    }
 
-        readonly SDriver driver;
+    public sealed class SeleneCollection 
+        : SCollection, 
+          WrapsWebElementsCollection, IReadOnlyList<SeleneElement>, IReadOnlyCollection<SeleneElement>, IList<SeleneElement>, IList<IWebElement>, ICollection<SeleneElement>, IEnumerable<SeleneElement>, IEnumerable
+    {
+        readonly SeleneLocator<ReadOnlyCollection<IWebElement>> locator;
 
-        internal SCollection(SLocator<ReadOnlyCollection<IWebElement>> locator, SDriver driver)
+        readonly SeleneDriver driver;
+
+        internal SeleneCollection(SeleneLocator<ReadOnlyCollection<IWebElement>> locator, SeleneDriver driver)
         {
             this.locator = locator;
             this.driver = driver;
         }
 
-        internal SCollection(By byLocator, SDriver driver) 
+        internal SeleneCollection(By byLocator, SeleneDriver driver) 
             : this(new SearchContextWebElementsCollectionSLocator(byLocator, driver), driver) {}
 
-        internal SCollection(By byLocator) 
+        internal SeleneCollection(By byLocator) 
             : this(new SearchContextWebElementsCollectionSLocator(byLocator, PrivateConfiguration.SharedDriver), PrivateConfiguration.SharedDriver) {}
 
-        internal SCollection(IList<IWebElement> elementsListToWrap, IWebDriver driver)
-            : this(new WrappedWebElementsCollectionSLocator(elementsListToWrap), new SDriver(driver)) {}
+        internal SeleneCollection(IList<IWebElement> elementsListToWrap, IWebDriver driver)
+            : this(new WrappedWebElementsCollectionSLocator(elementsListToWrap), new SeleneDriver(driver)) {}
         
         public ReadOnlyCollection<IWebElement> ActualWebElements
         {
@@ -43,7 +56,7 @@ namespace NSelene
             }
         }
 
-        SLocator<ReadOnlyCollection<IWebElement>> SLocator 
+        SeleneLocator<ReadOnlyCollection<IWebElement>> SLocator 
         {
             get {
                 return this.locator;
@@ -55,24 +68,24 @@ namespace NSelene
             return this.locator.Description;
         }
 
-        public SCollection Should(Condition<SCollection> condition)
+        public SeleneCollection Should(Condition<SeleneCollection> condition)
         {
             return Selene.WaitFor(this, condition);
         }
 
-        public SCollection ShouldNot(Condition<SCollection> condition)
+        public SeleneCollection ShouldNot(Condition<SeleneCollection> condition)
         {
             return Selene.WaitForNot(this, condition);
         }
 
-        public SElement FindBy(Condition<SElement> condition)
+        public SeleneElement FindBy(Condition<SeleneElement> condition)
         {
-            return new SElement(new SCollectionWebElementByConditionSLocator(condition, this, this.driver), this.driver);
+            return new SeleneElement(new SCollectionWebElementByConditionSLocator(condition, this, this.driver), this.driver);
         }
 
-        public SCollection FilterBy(Condition<SElement> condition)
+        public SeleneCollection FilterBy(Condition<SeleneElement> condition)
         {
-            return new SCollection(new SCollectionFilteredWebElementsCollectionSLocator(condition, this, this.driver), this.driver);
+            return new SeleneCollection(new SCollectionFilteredWebElementsCollectionSLocator(condition, this, this.driver), this.driver);
         }
 
         public ReadOnlyCollection<IWebElement> ToReadOnlyWebElementsCollection()
@@ -84,9 +97,9 @@ namespace NSelene
         // IReadOnlyList
         //
 
-        public SElement this [int index] {
+        public SeleneElement this [int index] {
             get {
-                return new SElement(new SCollectionWebElementByIndexSLocator(index, this), this.driver);
+                return new SeleneElement(new SCollectionWebElementByIndexSLocator(index, this), this.driver);
             }
         }
 
@@ -106,11 +119,11 @@ namespace NSelene
         //
 
         //TODO: is it stable enought in context of "ajax friendly"?
-        public IEnumerator<SElement> GetEnumerator ()
+        public IEnumerator<SeleneElement> GetEnumerator ()
         {
             //TODO: is it lazy? seems like not... because of ToList() conversion? should it be lazy?
-            return new ReadOnlyCollection<SElement>(
-                this.ActualWebElements.Select(webelement => new SElement(webelement, this.driver)).ToList()).GetEnumerator();
+            return new ReadOnlyCollection<SeleneElement>(
+                this.ActualWebElements.Select(webelement => new SeleneElement(webelement, this.driver)).ToList()).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator ()
@@ -203,13 +216,13 @@ namespace NSelene
         // IList<SElement> methods
         //
 
-        bool ICollection<SElement>.IsReadOnly {
+        bool ICollection<SeleneElement>.IsReadOnly {
             get {
                 return true;
             }
         }
 
-        SElement IList<SElement>.this [int index] {
+        SeleneElement IList<SeleneElement>.this [int index] {
             get {
                 return this[index];
             }
@@ -219,42 +232,42 @@ namespace NSelene
             }
         }
 
-        int IList<SElement>.IndexOf (SElement item)
+        int IList<SeleneElement>.IndexOf (SeleneElement item)
         {
             throw new NotImplementedException ();
         }
 
-        void IList<SElement>.Insert (int index, SElement item)
+        void IList<SeleneElement>.Insert (int index, SeleneElement item)
         {
             throw new NotImplementedException ();
         }
 
-        void IList<SElement>.RemoveAt (int index)
+        void IList<SeleneElement>.RemoveAt (int index)
         {
             throw new NotImplementedException ();
         }
 
-        void ICollection<SElement>.Add (SElement item)
+        void ICollection<SeleneElement>.Add (SeleneElement item)
         {
             throw new NotImplementedException ();
         }
 
-        void ICollection<SElement>.Clear ()
+        void ICollection<SeleneElement>.Clear ()
         {
             throw new NotImplementedException ();
         }
 
-        bool ICollection<SElement>.Contains (SElement item)
+        bool ICollection<SeleneElement>.Contains (SeleneElement item)
         {
             throw new NotImplementedException ();
         }
 
-        void ICollection<SElement>.CopyTo (SElement [] array, int arrayIndex)
+        void ICollection<SeleneElement>.CopyTo (SeleneElement [] array, int arrayIndex)
         {
             throw new NotImplementedException ();
         }
 
-        bool ICollection<SElement>.Remove (SElement item)
+        bool ICollection<SeleneElement>.Remove (SeleneElement item)
         {
             throw new NotImplementedException ();
         }
@@ -270,15 +283,15 @@ namespace NSelene
         }
 
         [Obsolete("Get is deprecated and will be removed in next version, please use indexer [] instead.")]
-        public SElement Get(int index)
+        public SeleneElement Get(int index)
         {
             return this.ElementAt(index);
         }
 
         [Obsolete("ElementAt is deprecated and will be removed in next version, please use indexer [] instead.")]
-        public SElement ElementAt(int index)
+        public SeleneElement ElementAt(int index)
         {
-            return new SElement(new SCollectionWebElementByIndexSLocator(index, this), this.driver);
+            return new SeleneElement(new SCollectionWebElementByIndexSLocator(index, this), this.driver);
         }
     }
 
@@ -286,14 +299,14 @@ namespace NSelene
 
     namespace Support.Extensions 
     {
-        public static class SCollectionExtensions 
+        public static class SeleneCollectionExtensions 
         {
-            public static SCollection AssertTo(this SCollection selements, Condition<SCollection> condition)
+            public static SeleneCollection AssertTo(this SeleneCollection selements, Condition<SeleneCollection> condition)
             {
                 return selements.Should(condition);
             }
 
-            public static SCollection AssertToNot(this SCollection selements, Condition<SCollection> condition)
+            public static SeleneCollection AssertToNot(this SeleneCollection selements, Condition<SeleneCollection> condition)
             {
                 return selements.ShouldNot(condition);
             }

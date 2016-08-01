@@ -17,7 +17,7 @@ namespace NSelene
 
         // TODO: ensure messages are relevant
 
-        public class Texts : DescribedCondition<SCollection>
+        public class Texts : DescribedCondition<SeleneCollection>
         {
 
             protected string[] expected;
@@ -28,7 +28,7 @@ namespace NSelene
                 this.expected = expectedTexts;
             }
 
-            public override bool Apply(SCollection entity)
+            public override bool Apply(SeleneCollection entity)
             {
                 this.actual = entity.ActualWebElements
                                     .Select(element => element.Text)
@@ -52,7 +52,7 @@ namespace NSelene
         {
             public ExactTexts(params string[] expected) : base(expected) {}
 
-            public override bool Apply(SCollection entity)
+            public override bool Apply(SeleneCollection entity)
             {
                 this.actual = entity.ActualWebElements.Select(element => element.Text).ToArray();
                 return this.actual.SequenceEqual(this.expected);
@@ -63,12 +63,12 @@ namespace NSelene
 
     public static partial class Have
     {
-        public static Conditions.Condition<SCollection> Texts(params string[] expected)
+        public static Conditions.Condition<SeleneCollection> Texts(params string[] expected)
         {
             return new Conditions.Texts(expected);
         }
 
-        public static Conditions.Condition<SCollection> ExactTexts(params string[] expected)
+        public static Conditions.Condition<SeleneCollection> ExactTexts(params string[] expected)
         {
             return new Conditions.ExactTexts(expected);
         }

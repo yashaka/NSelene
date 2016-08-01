@@ -30,9 +30,9 @@ namespace NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.AfterPlusPl
          *      As it was shown in After & AfterPlus* namespaces.
          */
 
-        SCollection list = SS("#todo-list>li");
+        SeleneCollection list = SS("#todo-list>li");
 
-        SElement clearCompleted = S("#clear-completed");
+        SeleneElement clearCompleted = S("#clear-completed");
 
         public void Visit()
         {

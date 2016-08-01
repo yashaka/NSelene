@@ -28,52 +28,52 @@ namespace NSelene
             return (GetWebDriver() as IJavaScriptExecutor).ExecuteScript(script);
         }
 
-        public static SElement S(By locator)
+        public static SeleneElement S(By locator)
         {
-            return new SElement(locator);
+            return new SeleneElement(locator);
         }
 
-        public static SElement S(string cssSelector)
+        public static SeleneElement S(string cssSelector)
         {
             return S(By.CssSelector(cssSelector));
         }
 
-        public static SElement S(IWebElement pageFactoryElement, IWebDriver driver)
+        public static SeleneElement S(IWebElement pageFactoryElement, IWebDriver driver)
         {
-            return new SElement(pageFactoryElement, driver);
+            return new SeleneElement(pageFactoryElement, driver);
         }
 
-        public static SElement S(By locator, IWebDriver driver)
+        public static SeleneElement S(By locator, IWebDriver driver)
         {
-            return new SElement(locator, new SDriver(driver));
+            return new SeleneElement(locator, new SeleneDriver(driver));
         }
 
-        public static SElement S(string cssSelector, IWebDriver driver)
+        public static SeleneElement S(string cssSelector, IWebDriver driver)
         {
             return S(By.CssSelector(cssSelector), driver);
         }
 
-        public static SCollection SS(By locator)
+        public static SeleneCollection SS(By locator)
         {
-            return new SCollection(locator);
+            return new SeleneCollection(locator);
         }
 
-        public static SCollection SS(string cssSelector)
+        public static SeleneCollection SS(string cssSelector)
         {
             return SS(By.CssSelector(cssSelector));
         }
 
-        public static SCollection SS(IList<IWebElement> pageFactoryElementsList, IWebDriver driver)
+        public static SeleneCollection SS(IList<IWebElement> pageFactoryElementsList, IWebDriver driver)
         {
-            return new SCollection(pageFactoryElementsList, driver);
+            return new SeleneCollection(pageFactoryElementsList, driver);
         }
 
-        public static SCollection SS(By locator, IWebDriver driver)
+        public static SeleneCollection SS(By locator, IWebDriver driver)
         {
-            return new SCollection(locator, new SDriver(driver));
+            return new SeleneCollection(locator, new SeleneDriver(driver));
         }
 
-        public static SCollection SS(string cssSelector, IWebDriver driver)
+        public static SeleneCollection SS(string cssSelector, IWebDriver driver)
         {
             return SS(By.CssSelector(cssSelector), driver);
         }
@@ -248,49 +248,49 @@ namespace NSelene
         }
 
         [Obsolete("Utils.S is deprecated and will be removed in next version, please use Selene.S method instead.")]
-        public static SElement S(By locator)
+        public static SeleneElement S(By locator)
         {
-            return new SElement(locator);
+            return new SeleneElement(locator);
         }
 
         [Obsolete("Utils.S is deprecated and will be removed in next version, please use Selene.S method instead.")]
-        public static SElement S(string cssSelector)
+        public static SeleneElement S(string cssSelector)
         {
             return S(By.CssSelector(cssSelector));
         }
 
         [Obsolete("Utils.S is deprecated and will be removed in next version, please use Selene.S method instead.")]
-        public static SElement S(By locator, IWebDriver driver)
+        public static SeleneElement S(By locator, IWebDriver driver)
         {
-            return new SElement(locator, new SDriver(driver));
+            return new SeleneElement(locator, new SeleneDriver(driver));
         }
 
         [Obsolete("Utils.S is deprecated and will be removed in next version, please use Selene.S method instead.")]
-        public static SElement S(string cssSelector, IWebDriver driver)
+        public static SeleneElement S(string cssSelector, IWebDriver driver)
         {
             return S(By.CssSelector(cssSelector), driver);
         }
 
         [Obsolete("Utils.SS is deprecated and will be removed in next version, please use Selene.SS method instead.")]
-        public static SCollection SS(By locator)
+        public static SeleneCollection SS(By locator)
         {
-            return new SCollection(locator);
+            return new SeleneCollection(locator);
         }
 
         [Obsolete("Utils.SS is deprecated and will be removed in next version, please use Selene.SS method instead.")]
-        public static SCollection SS(string cssSelector)
+        public static SeleneCollection SS(string cssSelector)
         {
             return SS(By.CssSelector(cssSelector));
         }
 
         [Obsolete("Utils.SS is deprecated and will be removed in next version, please use Selene.SS method instead.")]
-        public static SCollection SS(By locator, IWebDriver driver)
+        public static SeleneCollection SS(By locator, IWebDriver driver)
         {
-            return new SCollection(locator, new SDriver(driver));
+            return new SeleneCollection(locator, new SeleneDriver(driver));
         }
 
         [Obsolete("Utils.SS is deprecated and will be removed in next version, please use Selene.SS method instead.")]
-        public static SCollection SS(string cssSelector, IWebDriver driver)
+        public static SeleneCollection SS(string cssSelector, IWebDriver driver)
         {
             return SS(By.CssSelector(cssSelector), driver);
         }

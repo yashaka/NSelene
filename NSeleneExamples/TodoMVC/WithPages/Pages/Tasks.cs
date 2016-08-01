@@ -9,7 +9,7 @@ namespace NSeleneExamples.TodoMVC.WithPages.Pages
 {
     public static class Tasks
     {
-        public static SCollection List = SS("#todo-list>li");
+        public static SeleneCollection List = SS("#todo-list>li");
 
         public static void Visit()
         {

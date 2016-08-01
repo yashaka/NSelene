@@ -23,12 +23,12 @@ namespace NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.After.Core
          * Integrating all NSelene power into "driver" wrapper property - I
          * in order to use it in the code of pageobjects like: I.Find, I.FindAll, I.Open, etc.
          */
-        public SDriver I { get; private set;}
+        public SeleneDriver I { get; private set;}
 
         public PageObject(IWebDriver driver)
         {
             this.driver = driver;
-            this.I = new SDriver(this.driver);
+            this.I = new SeleneDriver(this.driver);
             PageFactory.InitElements(this.driver, this);
         }
 

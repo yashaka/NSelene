@@ -17,8 +17,8 @@ namespace NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.AfterPlus.P
          * Once you have time, you refactor some PageObject to use only NSelene syntax (while other pages can use old one...)
          */
 
-        SCollection list;
-        SElement clearCompleted;
+        SeleneCollection list;
+        SeleneElement clearCompleted;
 
         public Tasks(IWebDriver driver) : base(driver) {
             list = I.FindAll("#todo-list>li");

@@ -122,7 +122,7 @@ namespace NSelene
     }
 
     //TODO: consider implementing IJavaScriptExecutor
-    public class SDriver : IWebDriver, ISearchContext, IDisposable, INavigation, SContext
+    public class SeleneDriver : IWebDriver, ISearchContext, IDisposable, INavigation, SeleneContext
     {
         IWebDriverSource source;
 
@@ -136,14 +136,14 @@ namespace NSelene
             }
         }
 
-        public SDriver(IWebDriverSource source)
+        public SeleneDriver(IWebDriverSource source)
         {
             this.source = source;
         }
 
-        public SDriver() : this(SharedThreadLocalDriverSource.Instance) {}
+        public SeleneDriver() : this(SharedThreadLocalDriverSource.Instance) {}
 
-        public SDriver(IWebDriver driver) : this(new ExplicitDriverSource(driver)) {} 
+        public SeleneDriver(IWebDriver driver) : this(new ExplicitDriverSource(driver)) {} 
 
         IWebDriver asWebDriver()
         {
@@ -156,34 +156,34 @@ namespace NSelene
 
         // TODO: consider moving Element/Elements to SDriverExtensions, and leaving Find/FindAll here
         // becuase SDriver#Find sounds better than SDriver#Element (Element sounded when we had Browser#Element in the past...)
-        public SElement Find(By by)
+        public SeleneElement Find(By by)
         {
-            return new SElement(by, this);
+            return new SeleneElement(by, this);
         }
 
-        public SElement Find(string cssSelector)
+        public SeleneElement Find(string cssSelector)
         {
             return Find(By.CssSelector(cssSelector));
         }
 
-        public SElement Find(IWebElement pageFactoryElement)
+        public SeleneElement Find(IWebElement pageFactoryElement)
         {
-            return new SElement(pageFactoryElement, this);
+            return new SeleneElement(pageFactoryElement, this);
         }
 
-        public SCollection FindAll(By by)
+        public SeleneCollection FindAll(By by)
         {
-            return new SCollection(by, this);
+            return new SeleneCollection(by, this);
         }
 
-        public SCollection FindAll(string cssSelector)
+        public SeleneCollection FindAll(string cssSelector)
         {
             return FindAll(By.CssSelector(cssSelector));
         }
 
-        public SCollection FindAll(IList<IWebElement> pageFactoryElements)
+        public SeleneCollection FindAll(IList<IWebElement> pageFactoryElements)
         {
-            return new SCollection(pageFactoryElements, this);
+            return new SeleneCollection(pageFactoryElements, this);
         }
 
         // TODO: this method works with driver's value, not source... this make it possibly not thread safe... 
@@ -330,24 +330,24 @@ namespace NSelene
 
         IWebElement ISearchContext.FindElement (By by)
         {
-            return new SElement(by, this);
+            return new SeleneElement(by, this);
         }
 
         ReadOnlyCollection<IWebElement> ISearchContext.FindElements (By by)
         {
-            return new SCollection(by, this).ToReadOnlyWebElementsCollection();
+            return new SeleneCollection(by, this).ToReadOnlyWebElementsCollection();
         }
 
         //
         // SContext methods
         //
 
-        IWebElement SContext.FindElement (By by)
+        IWebElement SeleneContext.FindElement (By by)
         {
             return this.Value.FindElement(by);
         }
 
-        ReadOnlyCollection<IWebElement> SContext.FindElements (By by)
+        ReadOnlyCollection<IWebElement> SeleneContext.FindElements (By by)
         {
             return this.Value.FindElements(by);
         }
@@ -394,74 +394,74 @@ namespace NSelene
 
     namespace Support.Extensions
     {
-        public static class SDriverExtensions
+        public static class SeleneDriverExtensions
         {
-            public static void Open(this SDriver driver, string url)
+            public static void Open(this SeleneDriver driver, string url)
             {
                 driver.GoToUrl(url);
             }
 
-            public static void Open(this SDriver driver, Uri url)
+            public static void Open(this SeleneDriver driver, Uri url)
             {
                 driver.GoToUrl(url);
             }
 
-            public static SElement S(this SDriver browser, By by)
+            public static SeleneElement S(this SeleneDriver browser, By by)
             {
                 return browser.Element(by);
             }
 
-            public static SElement S(this SDriver browser, string cssSelector)
+            public static SeleneElement S(this SeleneDriver browser, string cssSelector)
             {
                 return browser.Element(cssSelector);
             }
 
-            public static SElement S(this SDriver browser, IWebElement pageFactoryElement)
+            public static SeleneElement S(this SeleneDriver browser, IWebElement pageFactoryElement)
             {
                 return browser.Element(pageFactoryElement);
             }
 
-            public static SCollection SS(this SDriver browser, By by)
+            public static SeleneCollection SS(this SeleneDriver browser, By by)
             {
                 return browser.Elements(by);
             }
 
-            public static SCollection SS(this SDriver browser, string cssSelector)
+            public static SeleneCollection SS(this SeleneDriver browser, string cssSelector)
             {
                 return browser.Elements(cssSelector);
             }
 
-            public static SCollection SS(this SDriver browser, IList<IWebElement> pageFactoryElements)
+            public static SeleneCollection SS(this SeleneDriver browser, IList<IWebElement> pageFactoryElements)
             {
                 return browser.Elements(pageFactoryElements);
             }
 
-            public static SElement Element(this SDriver browser, By by)
+            public static SeleneElement Element(this SeleneDriver browser, By by)
             {
                 return browser.Find(by);
             }
 
-            public static SElement Element(this SDriver browser, string cssSelector)
+            public static SeleneElement Element(this SeleneDriver browser, string cssSelector)
             {
                 return browser.Find(cssSelector);
             }
 
-            public static SElement Element(this SDriver browser, IWebElement pageFactoryElement)
+            public static SeleneElement Element(this SeleneDriver browser, IWebElement pageFactoryElement)
             {
                 return browser.Find(pageFactoryElement);
             }
 
-            public static SCollection Elements(this SDriver browser, By by)
+            public static SeleneCollection Elements(this SeleneDriver browser, By by)
             {
                 return browser.FindAll(by);
             }
 
-            public static SCollection Elements(this SDriver browser, string cssSelector)
+            public static SeleneCollection Elements(this SeleneDriver browser, string cssSelector)
             {
                 return browser.FindAll(cssSelector);
             }
 
-            public static SCollection Elements(this SDriver browser, IList<IWebElement> pageFactoryElements)
+            public static SeleneCollection Elements(this SeleneDriver browser, IList<IWebElement> pageFactoryElements)
             {
                 return browser.FindAll(pageFactoryElements);
             }
@@ -469,7 +469,7 @@ namespace NSelene
     }
 
     [Obsolete("Browser is deprecated and will be removed in next version, please use SDriver class instead.")]
-    public class Browser : SDriver
+    public class Browser : SeleneDriver
     {
         public Browser(IWebDriver driver) : base(new ExplicitDriverSource(driver)) {}      
     }

@@ -11,14 +11,14 @@ namespace NSelene
     // TODO: consider removing public modifier for SContext interface and all SLocator implementations
 
     // TODO: consider renaming to either ISeleniumContext, IWebContext, IWebSearchContext, ISeleniumSearchContext
-    public interface SContext
+    public interface SeleneContext
     {
         // TODO: consider renaming to FindWebElement
         IWebElement FindElement (By by);
         ReadOnlyCollection<IWebElement> FindElements (By by);
     }
 
-    public abstract class SLocator<TEntity>
+    public abstract class SeleneLocator<TEntity>
     {
 
         public abstract string Description { get; }
@@ -30,16 +30,16 @@ namespace NSelene
         }
     }
 
-    public abstract class WebElementSLocator : SLocator<IWebElement>
+    public abstract class WebElementSLocator : SeleneLocator<IWebElement>
     {
     }
 
     sealed class SearchContextWebElementSLocator : WebElementSLocator
     {
-        readonly SContext context;
+        readonly SeleneContext context;
         readonly By driverLocator;
 
-        public SearchContextWebElementSLocator(By driverLocator, SContext context)
+        public SearchContextWebElementSLocator(By driverLocator, SeleneContext context)
         {
             this.driverLocator = driverLocator;
             this.context = context;
@@ -86,9 +86,9 @@ namespace NSelene
     sealed class SCollectionWebElementByIndexSLocator : WebElementSLocator
     {
         readonly int index;
-        readonly SCollection context;
+        readonly SeleneCollection context;
 
-        public SCollectionWebElementByIndexSLocator(int index, SCollection context)
+        public SCollectionWebElementByIndexSLocator(int index, SeleneCollection context)
         {
             this.index = index;
             this.context = context;
@@ -108,11 +108,11 @@ namespace NSelene
 
     sealed class SCollectionWebElementByConditionSLocator : WebElementSLocator
     {
-        readonly Condition<SElement> condition;
-        readonly SCollection context;
-        readonly SDriver driver;
+        readonly Condition<SeleneElement> condition;
+        readonly SeleneCollection context;
+        readonly SeleneDriver driver;
 
-        public SCollectionWebElementByConditionSLocator(Condition<SElement> condition, SCollection context, SDriver driver)
+        public SCollectionWebElementByConditionSLocator(Condition<SeleneElement> condition, SeleneCollection context, SeleneDriver driver)
         {
             this.condition = condition;
             this.context = context;
@@ -133,7 +133,7 @@ namespace NSelene
 
             Predicate<IWebElement> byCondition = delegate(IWebElement element) {
                 return condition.Apply(
-                    new SElement(
+                    new SeleneElement(
                         new WrappedWebElementSLocator(
                             string.Format("By.Selene: ({0}).FindBy({1})", this.context, condition.Explain())
                             , element), this.driver));/* 
@@ -164,16 +164,16 @@ namespace NSelene
     }
 
     // TODO: maybe SLocator<ReadOnlyCollection<IWebElement>> ?
-    abstract class WebElementsCollectionSLocator : SLocator<ReadOnlyCollection<IWebElement>>
+    abstract class WebElementsCollectionSLocator : SeleneLocator<ReadOnlyCollection<IWebElement>>
     {
     }
 
     sealed class SearchContextWebElementsCollectionSLocator : WebElementsCollectionSLocator
     {
-        readonly SContext context;
+        readonly SeleneContext context;
         readonly By driverLocator;
 
-        public SearchContextWebElementsCollectionSLocator(By driverLocator, SContext context)
+        public SearchContextWebElementsCollectionSLocator(By driverLocator, SeleneContext context)
         {
             this.driverLocator = driverLocator;
             this.context = context;
@@ -219,11 +219,11 @@ namespace NSelene
 
     sealed class SCollectionFilteredWebElementsCollectionSLocator : WebElementsCollectionSLocator
     {
-        readonly Condition<SElement> condition;
-        readonly SCollection context;
-        readonly SDriver driver;
+        readonly Condition<SeleneElement> condition;
+        readonly SeleneCollection context;
+        readonly SeleneDriver driver;
 
-        public SCollectionFilteredWebElementsCollectionSLocator(Condition<SElement> condition, SCollection context, SDriver driver)
+        public SCollectionFilteredWebElementsCollectionSLocator(Condition<SeleneElement> condition, SeleneCollection context, SeleneDriver driver)
         {
             this.condition = condition;
             this.context = context;
@@ -241,7 +241,7 @@ namespace NSelene
 
             Func<IWebElement, bool> byCondition = delegate(IWebElement element) {
                 return condition.Apply(
-                    new SElement(
+                    new SeleneElement(
                         new WrappedWebElementSLocator(
                             string.Format("By.Selene: ({0}).FindBy({1})"
                                           , this.context

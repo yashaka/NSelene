@@ -32,7 +32,7 @@ namespace NSeleneTests
         public void SElementGetValue()
         {
             Given.OpenedPageWithBody("<input type='text' value='ku ku'/>");
-            Assert.AreEqual("ku ku", S("input").GetValue());
+            Assert.AreEqual("ku ku", S("input").Value);
         }
 
         [Test]

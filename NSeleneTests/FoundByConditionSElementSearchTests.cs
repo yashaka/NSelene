@@ -43,7 +43,7 @@ namespace NSeleneTests
                     <input id='answer2' type='submit' value='Great!'></input>
                 </p>"
             );
-            Assert.AreEqual("Good!", element.GetValue());
+            Assert.AreEqual("Good!", element.Value);
         }
 
         [Test]
@@ -57,11 +57,11 @@ namespace NSeleneTests
                     <input id='answer1' type='submit' value='Good!'></input>
                 </p>"
             );
-            Assert.AreEqual("Good!", element.GetValue());
+            Assert.AreEqual("Good!", element.Value);
             Selene.ExecuteScript(@"
                 document.getElementById('answer1').value = 'Great!';"
             );
-            Assert.AreEqual("Great!", element.GetValue());
+            Assert.AreEqual("Great!", element.Value);
         }
 
         [Test]

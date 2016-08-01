@@ -4,7 +4,7 @@ namespace NSelene
 {
     namespace Conditions
     {
-        public class Count : DescribedCondition<SCollection>
+        public class Count : DescribedCondition<SeleneCollection>
         {
 
             protected int expectedCount;
@@ -15,7 +15,7 @@ namespace NSelene
                 this.expectedCount = count;
             }
 
-            public override bool Apply(SCollection entity)
+            public override bool Apply(SeleneCollection entity)
             {
                 this.actualCount = entity.ActualWebElements.Count;
                 return this.actualCount == this.expectedCount;
@@ -36,7 +36,7 @@ namespace NSelene
         {
             public CountAtLeast(int count) : base (count) {}
 
-            public override bool Apply(SCollection entity)
+            public override bool Apply(SeleneCollection entity)
             {
                 this.actualCount = entity.ActualWebElements.Count;
                 return this.actualCount >= this.expectedCount;
@@ -47,12 +47,12 @@ namespace NSelene
 
     public static partial class Have
     {
-        public static Conditions.Condition<SCollection> Count(int count)
+        public static Conditions.Condition<SeleneCollection> Count(int count)
         {
             return new Conditions.Count(count);
         }
 
-        public static Conditions.Condition<SCollection> CountAtLeast(int count)
+        public static Conditions.Condition<SeleneCollection> CountAtLeast(int count)
         {
             return new Conditions.CountAtLeast(count);
         }
@@ -60,7 +60,7 @@ namespace NSelene
 
     public static partial class Be
     {
-        public static Conditions.Condition<SCollection> Empty = new Conditions.Count(0);
+        public static Conditions.Condition<SeleneCollection> Empty = new Conditions.Count(0);
     }
 
 }

@@ -2,10 +2,10 @@
 {
     namespace Conditions
     {
-        public class Enabled : DescribedCondition<SElement>
+        public class Enabled : DescribedCondition<SeleneElement>
         {
 
-            public override bool Apply(SElement entity)
+            public override bool Apply(SeleneElement entity)
             {
                 return entity.ActualWebElement.Enabled;
             }
@@ -15,7 +15,7 @@
 
     public static partial class Be
     {
-        public static Conditions.Condition<SElement> Enabled = new Conditions.Enabled();
+        public static Conditions.Condition<SeleneElement> Enabled = new Conditions.Enabled();
     }
 
 }

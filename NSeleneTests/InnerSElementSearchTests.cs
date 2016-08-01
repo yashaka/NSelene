@@ -42,7 +42,7 @@ namespace NSeleneTests
                     <input id='will-exist' type='submit' value='How r u?'></input>
                 </p>"
             );
-            Assert.AreEqual("How r u?", element.GetValue());
+            Assert.AreEqual("How r u?", element.Value);
         }
 
         [Test]
@@ -55,13 +55,13 @@ namespace NSeleneTests
                     <input id='will-exist' type='submit' value='How r u?'></input>
                 </p>"
             );
-            Assert.AreEqual("How r u?", element.GetValue());
+            Assert.AreEqual("How r u?", element.Value);
             When.WithBody(@"
                 <p id='existing'>Hello! 
                     <input id='will-exist' type='submit' value='R u Ok?'></input>
                 </p>"
             );
-            Assert.AreEqual("R u Ok?", element.GetValue());
+            Assert.AreEqual("R u Ok?", element.Value);
         }
 
         [Test]

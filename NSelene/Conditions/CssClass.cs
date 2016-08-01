@@ -4,7 +4,7 @@ namespace NSelene
 {
     namespace Conditions
     {
-        public class CssClass : DescribedCondition<SElement>
+        public class CssClass : DescribedCondition<SeleneElement>
         {
 
             private string expected;
@@ -15,7 +15,7 @@ namespace NSelene
                 this.expected = expected;
             }
 
-            public override bool Apply(SElement entity)
+            public override bool Apply(SeleneElement entity)
             {
                 this.actual = entity.ActualWebElement.GetAttribute("class");
 
@@ -38,7 +38,7 @@ namespace NSelene
 
     public static partial class Have
     {
-        public static Conditions.Condition<SElement> CssClass(string cssClass)
+        public static Conditions.Condition<SeleneElement> CssClass(string cssClass)
         {
             return new Conditions.CssClass(cssClass);
         }

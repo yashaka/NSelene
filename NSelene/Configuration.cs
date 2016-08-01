@@ -6,7 +6,7 @@ namespace NSelene
 
     static class PrivateConfiguration 
     {
-        public static SDriver SharedDriver = new SDriver();
+        public static SeleneDriver SharedDriver = new SeleneDriver();
     }
 
     public static class Configuration

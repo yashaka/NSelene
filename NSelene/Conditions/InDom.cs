@@ -4,10 +4,10 @@ namespace NSelene
 {
     namespace Conditions
     {
-        public class InDom : DescribedCondition<SElement>
+        public class InDom : DescribedCondition<SeleneElement>
         {
 
-            public override bool Apply(SElement entity)
+            public override bool Apply(SeleneElement entity)
             {
                 var webelement = entity.ActualWebElement;
                 return true;
@@ -29,9 +29,9 @@ namespace NSelene
     public static partial class Be
     {
         [Obsolete("Be.InDOM is deprecated and will be removed in next version, please use Be.InDom method instead.")]
-        public static Conditions.Condition<SElement> InDOM = new Conditions.InDom();
+        public static Conditions.Condition<SeleneElement> InDOM = new Conditions.InDom();
 
-        public static Conditions.Condition<SElement> InDom = new Conditions.InDom();
+        public static Conditions.Condition<SeleneElement> InDom = new Conditions.InDom();
     }
 
 }
