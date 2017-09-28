@@ -79,11 +79,11 @@ namespace NSeleneTests
         public void SElementShouldBeBlank()
         {
             Given.OpenedEmptyPage();
-            S("input").ShouldNot(Be.Blank); // TODO: sounds crazy, no? :)
+            S("input").ShouldNot(Be.Blank()); // TODO: sounds crazy, no? :)
             When.WithBody("<input type='text' value='Yo'/>");
-            S("input").ShouldNot(Be.Blank);
+            S("input").ShouldNot(Be.Blank());
             When.WithBody("<input type='text'/>");
-            S("input").Should(Be.Blank);
+            S("input").Should(Be.Blank());
         }
 
         // TODO: add tests for ShouldNot with non-existent element itself... what should the behaviour be? :)

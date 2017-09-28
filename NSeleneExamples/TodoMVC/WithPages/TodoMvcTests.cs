@@ -6,7 +6,7 @@ using NSeleneExamples.TodoMVC.WithPages.Pages;
 namespace NSeleneExamples.TodoMVC.WithPages
 {
     [TestFixture]
-    public class TodoMvcTests : BaseTest
+    public class TestTodoMVC : BaseTest
     {
         [Test]
         public void FilterTasks()

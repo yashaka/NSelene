@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.UI;
+using System.IO;
 
 namespace NSelene
 {
@@ -464,6 +466,37 @@ namespace NSelene
             public static SeleneCollection Elements(this SeleneDriver browser, IList<IWebElement> pageFactoryElements)
             {
                 return browser.FindAll(pageFactoryElements);
+            }
+
+            public static void TakeScreenshot(string path = @"screens")
+            {
+                IWebDriver driver = Selene.GetWebDriver();
+                var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+                string fileName = path + @"\" + DateTime.Now.ToString("hh_mm_ss") + ".png";
+
+                //workaround
+                var dir = Path.GetDirectoryName(typeof(Selene).Assembly.Location);
+                Directory.SetCurrentDirectory(dir);
+
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Png);
+            }
+
+            public static void TakeScreenshot(this SeleneDriver driver, string path = @"screens")
+            {
+                var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+                string fileName = path + @"\" + DateTime.Now.ToString("hh_mm_ss") + ".png";
+
+                //workaround
+                var dir = Path.GetDirectoryName(typeof(Selene).Assembly.Location);
+                Directory.SetCurrentDirectory(dir);
+
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Png);
             }
         }
     }

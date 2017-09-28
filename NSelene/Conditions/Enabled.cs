@@ -15,7 +15,7 @@
 
     public static partial class Be
     {
-        public static Conditions.Condition<SeleneElement> Enabled { get { return new Conditions.Enabled(); } }
+        public static Conditions.Condition<SeleneElement> Enabled = new Conditions.Enabled();
     }
 
 }

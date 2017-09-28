@@ -53,10 +53,10 @@ namespace NSelene
 
     public static partial class Be
     {
-        public static Conditions.Condition<SeleneElement> Blank {
-            get {
-                return new Conditions.Attribute("value", "");
-            }
+        public static Conditions.Condition<SeleneElement> Blank()
+        {
+            return new Conditions.Attribute("value", "");
         }
     }
+
 }

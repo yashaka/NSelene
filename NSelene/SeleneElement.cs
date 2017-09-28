@@ -391,6 +391,11 @@ namespace NSelene
         {
             return GetAttribute("value");
         }
+
+        public string GetProperty(string propertyName)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     namespace Support.Extensions 
