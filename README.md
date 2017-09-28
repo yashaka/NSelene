@@ -1,7 +1,7 @@
 # NSelene - Selenide "from scratch port" to .NET (`C#`, etc.)
 A Tool created specifically for Web UI Test Automation in .NET world
 
-So, Here it is... A base stabilized version, published to nuget gallery https://www.nuget.org/packages/NSelene
+So, Here it is... A more or less stabilized version, published to nuget gallery https://www.nuget.org/packages/NSelene
 
 The version was covered with integration tests. The coverage was not complete in context of all probable use cases, but the "integration aspect" makes it good enough.
 
@@ -14,24 +14,24 @@ Below you can find a short overview:
 NSelene has no fully automatic driver management, you have to set it up manually, e.g. like here: 
 ```csharp
         [SetUp]
-        public void SetupTest()
+        public void InitDriver()
         {
-            SetDriver(new FirefoxDriver());
+            SetWebDriver(new FirefoxDriver());
         }
 
         [TearDown]
-        public voidTeardownTest()
+        public void TeardownDriver()
         {
-            GetDriver().Quit();
+            GetWebDriver().Quit();
         }
 ```
 (https://github.com/yashaka/NSelene/blob/master/NSeleneExamples/BaseTest.cs)
 
-Tests may look like this, via PageObject implemented in a "Procedural way":
+Tests may look like this, via PageObject implemented in a "Modular/Procedural way":
 
 ```csharp
         [TestFixture]
-        public class Test : BaseTest
+        public class TodoMvcTests : BaseTest
         {
             [Test]
             public void FilterTasks()
@@ -51,18 +51,18 @@ Tests may look like this, via PageObject implemented in a "Procedural way":
             }
         }
 ```
-(https://github.com/yashaka/NSelene/blob/master/NSeleneExamples/TodoMVC/Tests.cs)
+(https://github.com/yashaka/NSelene/blob/master/NSeleneExamples/TodoMVC/WithPages/TodoMvcTests.cs)
 
-where procedural "PageObject" aka "PageModule" may look like this:
+where "procedural PageObject" aka "PageModule" may look like this:
 
 ```csharp
         public static class Tasks
         {
-            public static SCollection List = SS("#todo-list>li"); 
+            public static SeleneCollection List = SS("#todo-list>li"); 
 
             public static void Visit()
             {
-                Open("https://todomvc4tasj.herokuapp.com/");
+                GoToUrl("https://todomvc4tasj.herokuapp.com/");
             }
 
             public static void FilterActive()
@@ -98,7 +98,7 @@ where procedural "PageObject" aka "PageModule" may look like this:
 See more examples of other styles, e.g. object oriented PageObjects, examples of how NSelene can be integrated into your current selenium based framework (to make it more stable and efficient) in NSeleneExamples project.
 
 So... 
-The ported things are: 
+The main things are ported: 
 - Selenide.$
 - SelenideElement#should
 - SelenideElement#shouldNot
@@ -117,7 +117,7 @@ Though NSelene is not a "complete" port (no automatic screenshots, no automatic 
 
 - NSelene has better error messages for some complex queries like 
   `SS("#list-item").FindBy(Have.CssClass("specific")).Find(".inner-element").click()`
-- NSelene can be much easyly integrated into existing selenium based frameworks, because it is object-oriented by its nature. It provides a Consice API to Selenium via both "OOP" and "static utils" wrappers over WebDriver, not only "static utils wrappers" as in Selenide.
+- NSelene can be much easyly integrated into existing selenium based frameworks, because it is object-oriented by its nature. It provides a Consice API to Selenium via both "OOP" (`SeleneDriver` class) and "static utils" wrappers (`Selene` static class) over WebDriver, not only "static utils wrappers" as in Selenide (`Selenide` utility class with static methods).
 - Because of the latter, NSelene also supports creation of "more than one driver per test". It can be rarely useful, but sometimes it "saves the life" on projects where "everything is too bad" :)
 
 Feel free to share your thoughts and file an issue on github if you need something.
