@@ -472,7 +472,7 @@ namespace NSelene
             {
                 IWebDriver driver = Selene.GetWebDriver();
                 var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-                string fileName = path + @"\" + DateTime.Now.ToString("hh_mm_ss") + ".png";
+                string fileName = path + @"\" + DateTime.Now.ToString("screen_hh_mm_ss") + ".png";
 
                 //workaround
                 var dir = Path.GetDirectoryName(typeof(Selene).Assembly.Location);
@@ -487,7 +487,7 @@ namespace NSelene
             public static void TakeScreenshot(this SeleneDriver driver, string path = @"screens")
             {
                 var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-                string fileName = path + @"\" + DateTime.Now.ToString("hh_mm_ss") + ".png";
+                string fileName = path + @"\" + DateTime.Now.ToString("screen_hh_mm_ss") + ".png";
 
                 //workaround
                 var dir = Path.GetDirectoryName(typeof(Selene).Assembly.Location);
