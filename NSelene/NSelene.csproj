@@ -57,6 +57,7 @@
     <Compile Include="Selectors.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="SeleneDriver.cs" />
+    <Compile Include="Conditions\JSReturnedTrue.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

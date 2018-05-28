@@ -1,9 +1,7 @@
 ﻿using NUnit.Framework;
-using System;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium;
 using static NSelene.Selene;
-
+using OpenQA.Selenium.Chrome;
+using NSelene;
 
 namespace NSeleneExamples
 {
@@ -13,7 +11,8 @@ namespace NSeleneExamples
         [SetUp]
         public void SetupTest()
         {
-            SetWebDriver(new FirefoxDriver());
+            SetWebDriver(new ChromeDriver());
+            Configuration.Timeout = 6;
         }
 
         [TearDown]

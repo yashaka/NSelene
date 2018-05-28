@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Chrome;
 using static NSelene.Selene;
 
 
@@ -9,7 +9,7 @@ namespace NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.After
     [TestFixture]
     public class TestTodoMVC
     {
-        static IWebDriver driver = new FirefoxDriver();
+        static IWebDriver driver = new ChromeDriver();
 
         [TestFixtureTearDown]
         public void TearDown()

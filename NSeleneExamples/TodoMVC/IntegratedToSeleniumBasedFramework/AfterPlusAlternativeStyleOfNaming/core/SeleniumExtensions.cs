@@ -34,6 +34,7 @@ namespace NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.AfterPlusAl
         {
             this.driver = driver;
             this.Browser = new SeleneDriver(this.driver);
+            Configuration.Timeout = 6;
             PageFactory.InitElements(this.driver, this);
         }
 

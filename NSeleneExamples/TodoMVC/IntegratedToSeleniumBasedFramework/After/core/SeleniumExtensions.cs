@@ -29,6 +29,7 @@ namespace NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.After.Core
         {
             this.driver = driver;
             this.I = new SeleneDriver(this.driver);
+            Configuration.Timeout = 6;
             PageFactory.InitElements(this.driver, this);
         }
 

@@ -100,6 +100,10 @@ namespace NSelene
             }
         }
 
+        public static IWebDriver WaitTo(Condition<IWebDriver> condition) {
+            return WaitFor(GetWebDriver(), condition);
+        }
+
         public static TResult WaitFor<TResult>(TResult sEntity, Condition<TResult> condition)
         {
             return WaitFor(sEntity, condition, Configuration.Timeout);

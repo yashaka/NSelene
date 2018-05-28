@@ -14,6 +14,12 @@ namespace NSeleneExamples.TodoMVC.StraightForward
         {
             Open("https://todomvc4tasj.herokuapp.com/");
 
+            WaitTo(Have.JSReturnedTrue (
+                "return " +
+                "$._data($('#new-todo').get(0), 'events').hasOwnProperty('keyup')&& " +
+                "$._data($('#toggle-all').get(0), 'events').hasOwnProperty('change') && " +
+                "$._data($('#clear-completed').get(0), 'events').hasOwnProperty('click')"));
+
             S("#new-todo").SetValue("a").PressEnter();
             S("#new-todo").SetValue("b").PressEnter();
             S("#new-todo").SetValue("c").PressEnter();
