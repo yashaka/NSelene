@@ -1,6 +1,5 @@
 using System;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using System.Linq;
 using System.Threading;
 using NSelene.Conditions;
@@ -117,7 +116,7 @@ namespace NSelene
         public static TResult WaitFor<TResult>(TResult sEntity, Condition<TResult> condition, double timeout)
         {
             Exception lastException = null;
-            var clock = new SystemClock();
+            var clock = new OpenQA.Selenium.Support.UI.SystemClock();
             var timeoutSpan = TimeSpan.FromSeconds(timeout);
             DateTime otherDateTime = clock.LaterBy(timeoutSpan);
             var ignoredExceptionTypes = new [] { 
@@ -159,7 +158,7 @@ namespace NSelene
         public static TResult WaitForNot<TResult>(TResult sEntity, Condition<TResult> condition, double timeout)
         {
             Exception lastException = null;
-            var clock = new SystemClock();
+            var clock = new OpenQA.Selenium.Support.UI.SystemClock();
             var timeoutSpan = TimeSpan.FromSeconds(timeout);
             DateTime otherDateTime = clock.LaterBy(timeoutSpan);
 //            var ignoredExceptionTypes = new [] { typeof(WebDriverException), typeof(IndexOutOfRangeException) };

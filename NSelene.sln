@@ -65,23 +65,6 @@ Global
 		$2.NewParentheses = False
 		$2.SpacesBeforeBrackets = False
 		$2.scope = text/x-csharp
-		$2.IndentSwitchSection = False
-		$2.NewLinesForBracesInProperties = False
-		$2.NewLinesForBracesInAccessors = False
-		$2.NewLinesForBracesInAnonymousMethods = False
-		$2.NewLinesForBracesInControlBlocks = False
-		$2.NewLinesForBracesInAnonymousTypes = False
-		$2.NewLinesForBracesInObjectCollectionArrayInitializers = False
-		$2.NewLinesForBracesInLambdaExpressionBody = False
-		$2.NewLineForElse = False
-		$2.NewLineForCatch = False
-		$2.NewLineForFinally = False
-		$2.NewLineForMembersInObjectInit = False
-		$2.NewLineForMembersInAnonymousTypes = False
-		$2.NewLineForClausesInQuery = False
-		$2.SpacingAfterMethodDeclarationName = True
-		$2.SpaceAfterMethodCallName = True
-		$2.SpaceBeforeOpenSquareBracket = True
 		version = 0.0.0.6
 	EndGlobalSection
 EndGlobal
