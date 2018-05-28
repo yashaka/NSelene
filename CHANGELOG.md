@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.0.0.7 (released May 28, 2018)
+
+### Summary
+- Upgraded selenium support to >= 3.5.2. 
+
+### New 
+- added
+  - Selene.WaitTo(Condition<IWebDriver>) method and SeleneDriver#Should correspondingly
+  - Conditions.JSReturnedTrue (Have.JSReturnedTrue) 
+  - SeleneElement#GetProperty (from IWebElement of 3.5.2 version)
+
 ## 0.0.0.6 (released Aug 1, 2016)
 
 ### API changes 

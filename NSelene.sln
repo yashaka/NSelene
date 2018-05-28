@@ -65,6 +65,6 @@ Global
 		$2.NewParentheses = False
 		$2.SpacesBeforeBrackets = False
 		$2.scope = text/x-csharp
-		version = 0.0.0.6
+		version = 0.0.0.7
 	EndGlobalSection
 EndGlobal

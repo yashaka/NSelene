@@ -8,7 +8,7 @@
     <RootNamespace>NSeleneExamples</RootNamespace>
     <AssemblyName>NSeleneExamples</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <ReleaseVersion>0.0.0.6</ReleaseVersion>
+    <ReleaseVersion>0.0.0.7</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
