@@ -12,7 +12,7 @@ using System.Threading;
 using NSelene;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Internal;
 using OpenQA.Selenium.Support.PageObjects;
 
@@ -26,7 +26,7 @@ namespace NSeleneTests.SeleniumInteroperability
         [OneTimeSetUp]
         public void initDriver()
         {
-            driver = new FirefoxDriver();
+            driver = new ChromeDriver();
         }
 
         [OneTimeTearDown]
@@ -107,7 +107,7 @@ namespace NSeleneTests.SeleniumInteroperability
         [OneTimeSetUp]
         public void initDriver()
         {
-            driver = new FirefoxDriver();
+            driver = new ChromeDriver();
         }
 
         [OneTimeTearDown]

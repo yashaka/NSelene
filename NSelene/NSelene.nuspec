@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>NSelene</id>
-    <version>0.0.0.5</version>
+    <version>0.0.0.7</version>
     <title>NSelene</title>
     <authors>Iakiv Kramarenko</authors>
     <owners>Iakiv Kramarenko</owners>
@@ -11,17 +11,20 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Concise API to Selenium for .Net (the port of Selene in python / Selenide in Java)</description>
     <releaseNotes>
-    	Stabilized version with main functionality, not fully optimised for speed, but yet fast enough and you will hardly notice the difference:) 
-    	With:
-    	- object oriented wrapper over WebDriver - implemented in Browser class
-    		- which makes it much easier to integrate NSelene to existing selenium based frameworks
-    	- support of "creating several drivers per test"
+    Summary
+    - Upgraded selenium support to >= 3.5.2. 
+
+    New 
+    - added
+      - Selene.WaitTo(webDriverCondition) method and SeleneDriver#Should(webDriverCondition) correspondingly
+      - Conditions.JSReturnedTrue (Have.JSReturnedTrue) 
+      - SeleneElement#GetProperty (from IWebElement of 3.5.2 version)
     </releaseNotes>
-    <copyright>Copyright 2015 Iakiv Kramarenko</copyright>
+    <copyright>Copyright (c) 2015-2016 Iakiv Kramarenko</copyright>
     <tags>Selenium Wrapper Web Automation</tags>
     <dependencies>
-        <dependency id="Selenium.WebDriver" version="2.53.0"/>
-        <dependency id="Selenium.Support" version="2.53.0"/>
+        <dependency id="Selenium.WebDriver" version="3.5.2"/>
+        <dependency id="Selenium.Support" version="3.5.2"/>
     </dependencies>
   </metadata>
   <files>

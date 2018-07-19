@@ -26,7 +26,8 @@ namespace NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.Before.Core
 
         public void Open(string url)
         {
-            driver.Navigate().GoToUrl("https://todomvc4tasj.herokuapp.com/");
+            driver.Navigate().GoToUrl(url);
+            System.Threading.Thread.Sleep(3000);
         }
     }
 

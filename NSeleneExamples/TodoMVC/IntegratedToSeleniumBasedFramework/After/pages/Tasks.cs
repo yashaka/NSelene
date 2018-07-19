@@ -54,6 +54,11 @@ namespace NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.After.Pages
         public void Visit()
         {
             Open("https://todomvc4tasj.herokuapp.com/");
+            I.Should (Have.JSReturnedTrue(
+                "return " +
+                "$._data($('#new-todo').get(0), 'events').hasOwnProperty('keyup')&& " +
+                "$._data($('#toggle-all').get(0), 'events').hasOwnProperty('change') && " +
+                "$._data($('#clear-completed').get(0), 'events').hasOwnProperty('click')"));
         }
 
         public void FilterActive()

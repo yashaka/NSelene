@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
+using NSelene.Conditions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 
@@ -190,6 +191,12 @@ namespace NSelene
         public Actions Actions()
         {
             return new Actions(this.Value);
+        }
+
+        public SeleneDriver Should(Condition<IWebDriver> condition) 
+        {
+            Selene.WaitFor(this.Value, condition);
+            return this;
         }
 
         //
@@ -468,7 +475,7 @@ namespace NSelene
         }
     }
 
-    [Obsolete("Browser is deprecated and will be removed in next version, please use SDriver class instead.")]
+    [Obsolete("Browser is deprecated and will be removed in next version, please use SeleneDriver class instead.")]
     public class Browser : SeleneDriver
     {
         public Browser(IWebDriver driver) : base(new ExplicitDriverSource(driver)) {}      

@@ -60,7 +60,7 @@ namespace NSelene
 
     public static partial class Be
     {
-        public static Conditions.Condition<SeleneCollection> Empty = new Conditions.Count(0);
+        public static Conditions.Condition<SeleneCollection> Empty { get { return new Conditions.Count(0); } }
     }
 
 }

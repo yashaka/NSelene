@@ -293,6 +293,12 @@ namespace NSelene
             return this.ActualWebElement.GetAttribute(name);
         }
 
+        public string GetProperty (string propertyName)
+        {
+            Should(Be.InDom);
+            return this.ActualWebElement.GetProperty(propertyName);
+        }
+
         public string GetCssValue(string property)
         {
             Should(Be.InDom);

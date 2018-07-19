@@ -60,6 +60,9 @@ Docs/node_modules
 # Visual Studio Code
 .vscode
 
+# Visual Studio
+.vs
+
 # etc
 NSeleneTests/.Rhistory
 NSeleneExamples/TodoMVC/TodoMVCDemoTest.cs
