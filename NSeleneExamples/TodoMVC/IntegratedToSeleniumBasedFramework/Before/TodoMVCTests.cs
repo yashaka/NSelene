@@ -11,7 +11,7 @@ namespace NSeleneExamples.TodoMVC.IntegratedToSeleniumBasedFramework.Before
     {
         static IWebDriver driver = new ChromeDriver();
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             driver.Quit();
