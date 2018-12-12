@@ -1,6 +1,10 @@
 using System;
 using OpenQA.Selenium;
 using System.Linq;
+
+using System.Text;
+using System.Text.RegularExpressions;
+
 using System.Threading;
 using NSelene.Conditions;
 using OpenQA.Selenium.Interactions;
@@ -32,9 +36,63 @@ namespace NSelene
             return new SeleneElement(locator);
         }
 
-        public static SeleneElement S(string cssSelector)
+        private static String selectorKind = null;
+        private static SeleneElement seleneElement = null;
+        private static String selectorValue = null;
+
+        private static MatchCollection matches;
+        private static Regex regex;
+
+        public static SeleneElement S(string selector)
         {
-            return S(By.CssSelector(cssSelector));
+            selectorKind = null;
+            selectorValue = null;
+            seleneElement = null;
+            regex = new Regex("^(?<kind>xpath|css|text) *= *(?<value>.*)$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            matches = regex.Matches(selector);
+            foreach (Match match in matches)
+            {
+                if (match.Length != 0)
+                {
+                    foreach (Capture capture in match.Groups["kind"].Captures)
+                    {
+                        if (selectorKind == null)
+                        {
+                            selectorKind = capture.ToString();
+                        }
+                    }
+                    foreach (Capture capture in match.Groups["value"].Captures)
+                    {
+                        if (selectorValue == null)
+                        {
+                            selectorValue = capture.ToString();
+                        }
+                    }
+                }
+            }
+            if (selectorKind != null)
+            {
+                switch (selectorKind)
+                {
+                    case "css":
+                        seleneElement = S(By.CssSelector(selectorValue));
+                        break;
+                    case "xpath":
+                        seleneElement = S(By.XPath(selectorValue));
+                        break;
+                    case "text":
+                        seleneElement = S(By.XPath(String.Format("//*[contains(text(),'%s')]", selectorValue)));
+                        break;
+                    default:
+                        seleneElement = S(By.CssSelector(selector));
+                        break;
+                }
+            }
+            else
+            {
+                seleneElement = S(By.CssSelector(selector));
+            }
+            return seleneElement;
         }
 
         public static SeleneElement S(IWebElement pageFactoryElement, IWebDriver driver)
@@ -94,12 +152,13 @@ namespace NSelene
         }
 
         public static Actions Actions{
-            get {
+            get
+            {
                 return new Actions(GetWebDriver());
             }
         }
 
-        public static IWebDriver WaitTo(Condition<IWebDriver> condition) {
+        public static IWebDriver WaitTo(Condition<IWebDriver> condition){
             return WaitFor(GetWebDriver(), condition);
         }
 
@@ -146,7 +205,7 @@ namespace NSelene
                     string text = string.Format("\nTimed out after {0} seconds \nwhile waiting entity with locator: {1} \nfor condition: "
                                                 , timeoutSpan.TotalSeconds
                                                 , sEntity
-                                               );
+                                  );
                     text = text + condition;
                     throw new WebDriverTimeoutException(text, lastException);
                 }
@@ -161,7 +220,7 @@ namespace NSelene
             var clock = new OpenQA.Selenium.Support.UI.SystemClock();
             var timeoutSpan = TimeSpan.FromSeconds(timeout);
             DateTime otherDateTime = clock.LaterBy(timeoutSpan);
-//            var ignoredExceptionTypes = new [] { typeof(WebDriverException), typeof(IndexOutOfRangeException) };
+            //            var ignoredExceptionTypes = new [] { typeof(WebDriverException), typeof(IndexOutOfRangeException) };
             while (true)
             {
                 try
@@ -184,7 +243,7 @@ namespace NSelene
                 {
                     string text = string.Format( "\nTimed out after {0} seconds \nwhile waiting entity with locator: {1}\nfor condition: not "
                                                , timeoutSpan.TotalSeconds, sEntity
-                                               );
+                                  );
                     text = text + condition;
                     throw new WebDriverTimeoutException(text, lastException);
                 }
@@ -194,7 +253,7 @@ namespace NSelene
         }
 
         //
-        // Obsolete 
+        // Obsolete
         //
 
         [Obsolete("SetDriver is deprecated and will be removed in next version, please use Utils.SetWebDriver method instead.")]
@@ -217,7 +276,7 @@ namespace NSelene
     }
 
     [Obsolete("NSelene.Utils class is deprecated and will be removed in next version, please use NSelene.Selene class instead.")]
-    public static class Utils 
+    public static class Utils
     {
 
         [Obsolete("SetDriver is deprecated and will be removed in next version, please use Selene.SetWebDriver method instead.")]

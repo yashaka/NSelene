@@ -15,6 +15,11 @@ namespace NSelene
             return By.LinkText(text);
         }
 
+        public static By ByXpath(string xpath)
+        {
+            return By.XPath(xpath);
+        }
+
         // TODO: add ByText & ByExactText, etc.
     }
 }
