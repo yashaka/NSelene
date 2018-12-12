@@ -36,10 +36,10 @@ namespace NSelene
             return new SeleneElement(locator);
         }
 
-        private static String selectorKind = null;
         private static SeleneElement seleneElement = null;
+        private static SeleneCollection seleneElementCollection = null;
+        private static String selectorKind = null;
         private static String selectorValue = null;
-
         private static MatchCollection matches;
         private static Regex regex;
 
@@ -115,9 +115,57 @@ namespace NSelene
             return new SeleneCollection(locator);
         }
 
-        public static SeleneCollection SS(string cssSelector)
+        public static SeleneCollection SS(string selector)
         {
-            return SS(By.CssSelector(cssSelector));
+            selectorKind = null;
+            selectorValue = null;
+            seleneElementCollection = null;
+            regex = new Regex("^(?<kind>xpath|css|text) *= *(?<value>.*)$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            matches = regex.Matches(selector);
+            foreach (Match match in matches)
+            {
+                if (match.Length != 0)
+                {
+                    foreach (Capture capture in match.Groups["kind"].Captures)
+                    {
+                        if (selectorKind == null)
+                        {
+                            selectorKind = capture.ToString();
+                        }
+                    }
+                    foreach (Capture capture in match.Groups["value"].Captures)
+                    {
+                        if (selectorValue == null)
+                        {
+                            selectorValue = capture.ToString();
+                        }
+                    }
+                }
+            }
+            if (selectorKind != null)
+            {
+                switch (selectorKind)
+                {
+                    case "css":
+                        seleneElementCollection = SS(By.CssSelector(selectorValue));
+                        break;
+                    case "xpath":
+                        seleneElementCollection = SS(By.XPath(selectorValue));
+                        break;
+                    case "text":
+                        String xpath = String.Format("//*[contains(text(),'{0}')]", selectorValue);
+                        seleneElementCollection = SS(By.XPath(xpath));
+                        break;
+                    default:
+                        seleneElementCollection = SS(By.CssSelector(selector));
+                        break;
+                }
+            }
+            else
+            {
+                seleneElementCollection = SS(By.CssSelector(selector));
+            }
+            return seleneElementCollection;
         }
 
         public static SeleneCollection SS(IList<IWebElement> pageFactoryElementsList, IWebDriver driver)
