@@ -2,7 +2,7 @@
 
 ## 0.0.0.8 (in progress)
 
-- updated selenium version to 3.12
+- updated selenium version to 3.141
 - deprecated:
   - Selectors.ByCss
   - Selectors.ByLinkText
