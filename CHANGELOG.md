@@ -3,6 +3,22 @@
 ## 0.0.0.8 (in progress)
 
 - updated selenium version to 3.12
+- deprecated:
+  - Selectors.ByCss
+  - Selectors.ByLinkText
+- added:
+  - With.Type
+  - With.Value
+  - With.IdContains
+  - With.Text
+  - With.ExactText
+  - With.Id
+  - With.Name
+  - With.ClassName
+  - With.XPath
+  - With.Css
+  - With.Attribute
+  - With.AttributeContains
 
 
 ## 0.0.0.7 (released May 28, 2018)
