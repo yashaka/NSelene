@@ -11,7 +11,7 @@ namespace NSeleneTests
         {
             Selene.ExecuteScript(
                 "document.getElementsByTagName('body')[0].innerHTML = \"" 
-                + html.Replace("\n", "") + "\";"
+                + html.Replace("\n", "").Replace("\r", "").Replace("\"", "\\\"") + "\";"
             );
         }
 
@@ -19,7 +19,7 @@ namespace NSeleneTests
         {
             (driver as IJavaScriptExecutor).ExecuteScript(
                 "document.getElementsByTagName('body')[0].innerHTML = \"" 
-                + html.Replace("\n", "") + "\";"
+                + html.Replace("\n", "").Replace("\r", "").Replace("\"", "\\\"") + "\";"
             );
         }
 
@@ -29,7 +29,7 @@ namespace NSeleneTests
             Selene.ExecuteScript(@"
                 setTimeout(
                     function(){
-                        document.getElementsByTagName('body')[0].innerHTML = """ + html.Replace("\n", "") + @"""
+                        document.getElementsByTagName('body')[0].innerHTML = """ + html.Replace("\n", "").Replace("\r", "").Replace("\"", "\\\"") + @"""
                     }, 
                     " + timeout + ");"
             );
@@ -40,7 +40,7 @@ namespace NSeleneTests
             (driver as IJavaScriptExecutor).ExecuteScript(@"
                 setTimeout(
                     function(){
-                        document.getElementsByTagName('body')[0].innerHTML = """ + html.Replace("\n", "") + @"""
+                        document.getElementsByTagName('body')[0].innerHTML = """ + html.Replace("\n", "").Replace("\r", "").Replace("\"", "\\\"") + @"""
                     }, 
                     " + timeout + ");"
             );
