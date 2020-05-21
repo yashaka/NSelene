@@ -1,4 +1,4 @@
-﻿namespace NSelene
+namespace NSelene
 {
     namespace Conditions
     {

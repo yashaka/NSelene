@@ -13,42 +13,8 @@ namespace NSelene
         IWebElement ActualWebElement { get; }
     }
 
-    // TODO: delete in next version, and mark SeleneElement as sealed
-    [Obsolete("SElement is deprecated and will be removed in next version, please use SeleneElement type instead.")]
-    public interface SElement : WrapsWebElement, IWebElement, ISearchContext, SeleneContext 
-    {
-        SeleneElement Should(Condition<SeleneElement> condition);
-        SeleneElement ShouldNot(Condition<SeleneElement> condition);
-        SeleneElement PressEnter();
-        SeleneElement PressTab();
-        SeleneElement PressEscape();
-        SeleneElement SetValue(string keys);
-        SeleneElement Set(string value);
-        SeleneElement Hover();
-        SeleneElement DoubleClick();
-        SeleneElement Find(By locator);
-        SeleneElement Find(string cssSelector);
-        SeleneCollection FindAll(By locator);
-        SeleneCollection FindAll(string cssSelector);
-        new SeleneElement Clear();
-        new SeleneElement SendKeys(string keys);
-        new SeleneElement Submit();
-        new SeleneElement Click();
-        string Value
-        {
-            get;
-        }
-        //SeleneElement AssertTo(Condition<SeleneElement> condition);
-        //SeleneElement AssertToNot(Condition<SeleneElement> condition);
-        //SeleneElement S(By locator);
-        //SeleneElement S(string cssSelector);
-        //SeleneCollection SS(By locator);
-        //SeleneCollection SS(string cssSelector);
-    }
-
     // TODO: consider extracting SElement as interface... 
-    public sealed class SeleneElement : SElement,
-        WrapsWebElement, IWebElement, ISearchContext, SeleneContext
+    public sealed class SeleneElement : WrapsWebElement, IWebElement, ISearchContext, SeleneContext
     {
         readonly SeleneLocator<IWebElement> locator;
 
@@ -149,9 +115,9 @@ namespace NSelene
             return new SeleneElement(new SearchContextWebElementSLocator(locator, this), this.driver);
         }
 
-        public SeleneElement Find(string cssSelector)
+        public SeleneElement Find(string cssOrXPathSelector)
         {
-            return this.Find(By.CssSelector(cssSelector));
+            return this.Find(Utils.ToBy(cssOrXPathSelector));
         }
 
         public SeleneCollection FindAll(By locator)
@@ -159,9 +125,9 @@ namespace NSelene
             return new SeleneCollection(new SearchContextWebElementsCollectionSLocator(locator, this), this.driver);
         }
 
-        public SeleneCollection FindAll(string cssSelector)
+        public SeleneCollection FindAll(string cssOrXPathSelector)
         {
-            return this.FindAll(By.CssSelector(cssSelector));
+            return this.FindAll(Utils.ToBy(cssOrXPathSelector));
         }
 
         //
@@ -337,65 +303,6 @@ namespace NSelene
         {
             Should(Be.Visible);
             return this.ActualWebElement.FindElements(by);
-        }
-
-        //
-        // OBSOLETE MEMBERS
-        //
-
-        [Obsolete("GetSize is deprecated and will be removed in next version, please use Size property instead.")]
-        public Size GetSize()
-        {
-            Should(Be.Visible);
-            return this.ActualWebElement.Size;
-        }
-
-        [Obsolete("GetTagName is deprecated and will be removed in next version, please use TagName property instead.")]
-        public string GetTagName()
-        {
-            Should(Be.Visible);
-            return this.ActualWebElement.TagName;
-        }
-
-        [Obsolete("GetLocation is deprecated and will be removed in next version, please use Location property instead.")]
-        public Point GetLocation()
-        {
-            Should(Be.Visible);
-            return this.ActualWebElement.Location;
-        }
-
-        [Obsolete("IsEnabled is deprecated and will be removed in next version, please use Enabled property instead.")]
-        public bool IsEnabled()
-        {
-            Should(Be.Visible);
-            return this.ActualWebElement.Enabled;
-        }
-
-        [Obsolete("IsDisplayed is deprecated and will be removed in next version, please use Displayed property instead.")]
-        public bool IsDisplayed()
-        {
-            Should(Be.InDom);
-            return this.ActualWebElement.Displayed;
-        }
-
-        [Obsolete("IsSelected is deprecated and will be removed in next version, please use Selected property instead.")]
-        public bool IsSelected()
-        {
-            Should(Be.Visible);
-            return this.ActualWebElement.Selected;
-        }
-
-        [Obsolete("GetText is deprecated and will be removed in next version, please use Text property instead.")]
-        public string GetText()
-        {
-            Should(Be.Visible);
-            return this.ActualWebElement.Text;
-        }
-
-        [Obsolete("GetValue is deprecated and will be removed in next version, please use Value property instead.")]
-        public string GetValue()
-        {
-            return GetAttribute("value");
         }
     }
 

@@ -1,79 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\NUnit.3.11.0\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.11.0\build\NUnit.props')" />
-  <Import Project="..\packages\NUnit.3.10.1\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.10.1\build\NUnit.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8AC6DF4D-D61E-4524-B708-25B168F164CC}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>NSeleneTests</RootNamespace>
-    <AssemblyName>NSeleneTests</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <ReleaseVersion>0.0.0.7</ReleaseVersion>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="WebDriver">
-      <HintPath>..\packages\Selenium.WebDriver.3.141.0\lib\net45\WebDriver.dll</HintPath>
-    </Reference>
-    <Reference Include="WebDriver.Support">
-      <HintPath>..\packages\Selenium.Support.3.141.0\lib\net45\WebDriver.Support.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.3.11.0\lib\net45\nunit.framework.dll</HintPath>
-    </Reference>
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="BaseTest.cs" />
-    <Compile Include="Given.cs" />
-    <Compile Include="SElementConditionsTests.cs" />
-    <Compile Include="InnerSElementSearchTests.cs" />
-    <Compile Include="ErrorMessagesTests.cs" />
-    <Compile Include="SCollectionSearchTests.cs" />
-    <Compile Include="SElementSearchTests.cs" />
-    <Compile Include="InnerSCollectionSearchTests.cs" />
-    <Compile Include="SCollectionActionsTests.cs" />
-    <Compile Include="SElementActionsTests.cs" />
-    <Compile Include="IndexedSElementSearchTests.cs" />
-    <Compile Include="FoundByConditionSElementSearchTests.cs" />
-    <Compile Include="UtilsTests.cs" />
-    <Compile Include="FilteredSCollectionSearchTests.cs" />
-    <Compile Include="SCollectionConditionsTests.cs" />
-    <Compile Include="SeleniumInteroperability\NSeleneBehaviorForIWebElementAndWebElementsCollectionTests.cs" />
+    <ProjectReference Include="..\NSelene\NSelene.csproj" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\NSelene\NSelene.csproj">
-      <Project>{C9C40CB0-17E2-4264-B216-1202A97BE857}</Project>
-      <Name>NSelene</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\empty.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
+
 </Project>

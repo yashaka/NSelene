@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
@@ -9,12 +9,15 @@ using OpenQA.Selenium.Interactions;
 namespace NSelene
 {
 
+    // todo: why the function over class would not be enough in c#? 
+    //       seems like there was some delegates limitation... 
+    // todo: should we make it internal?
     public interface IWebDriverSource : IDisposable
     {
         IWebDriver Driver { get; set; }
     }
 
-    public class SharedThreadLocalDriverSource : IWebDriverSource, IDisposable
+    internal class SharedThreadLocalDriverSource : IWebDriverSource, IDisposable
     {
 
         ThreadLocal<IWebDriver> driver = new ThreadLocal<IWebDriver>();
@@ -29,6 +32,7 @@ namespace NSelene
             }
         }
 
+        // todo: do we need this instance to be created in forward? not on demand?
         public static SharedThreadLocalDriverSource Instance = new SharedThreadLocalDriverSource();
 
         #region IDisposable Support
@@ -55,12 +59,6 @@ namespace NSelene
                 disposedValue = true;
             }
         }
-
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        // ~SDriver() {
-        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-        //   Dispose(false);
-        // }
 
         // This code added to correctly implement the disposable pattern.
         void IDisposable.Dispose ()
@@ -105,12 +103,6 @@ namespace NSelene
             }
         }
 
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        // ~SDriver() {
-        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-        //   Dispose(false);
-        // }
-
         // This code added to correctly implement the disposable pattern.
         void IDisposable.Dispose ()
         {
@@ -122,7 +114,9 @@ namespace NSelene
         #endregion
     }
 
-    //TODO: consider implementing IJavaScriptExecutor
+    // TODO: conider implementing Browser as pure user oriented abstraction, 
+    //       with no low level iwebdriverish things 
+    // TODO: consider implementing IJavaScriptExecutor
     public class SeleneDriver : IWebDriver, ISearchContext, IDisposable, INavigation, SeleneContext
     {
         IWebDriverSource source;
@@ -413,6 +407,7 @@ namespace NSelene
                 driver.GoToUrl(url);
             }
 
+            // TODO: consider deprecating, since it make no sense to call it like driver.S ;)
             public static SeleneElement S(this SeleneDriver browser, By by)
             {
                 return browser.Element(by);
@@ -475,10 +470,10 @@ namespace NSelene
         }
     }
 
-    [Obsolete("Browser is deprecated and will be removed in next version, please use SeleneDriver class instead.")]
-    public class Browser : SeleneDriver
-    {
-        public Browser(IWebDriver driver) : base(new ExplicitDriverSource(driver)) {}      
-    }
+    // [Obsolete("Browser is deprecated and will be removed in next version, please use SeleneDriver class instead.")]
+    // public class Browser : SeleneDriver
+    // {
+    //     public Browser(IWebDriver driver) : base(new ExplicitDriverSource(driver)) {}      
+    // }
 }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using NSelene.Conditions;
@@ -18,6 +18,7 @@ namespace NSelene
         ReadOnlyCollection<IWebElement> FindElements (By by);
     }
 
+    // TODO: consider making it internal
     public abstract class SeleneLocator<TEntity>
     {
 

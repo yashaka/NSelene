@@ -1,13 +1,38 @@
-# NSelene - Selenide "from scratch port" to .NET (`C#`, etc.)
-A Tool created specifically for Web UI Test Automation in .NET world
+# NSelene - User-oriented Web UI browser tests in .NET (Selenide port from Java)
 
-So, Here it is... A more or less stabilized version, published to nuget gallery https://www.nuget.org/packages/NSelene
+![Free](https://img.shields.io/badge/free-open--source-green.svg)
+[![MIT License](http://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yashaka/nselene/blob/master/LICENSE)
 
-The version was covered with integration tests. The coverage was not complete in context of all probable use cases, but the "integration aspect" makes it good enough.
+[![Join telegram chat https://t.me/nselene](https://img.shields.io/badge/chat-telegram-blue)](https://t.me/nselene)
+[![Присоединяйся к чату https://t.me/nselene_ru](https://img.shields.io/badge/%D1%87%D0%B0%D1%82-telegram-red)](https://t.me/nselene_ru)
 
-You can use tests as docs ;)
 
-There is also an example tests project: https://github.com/yashaka/NSelene/blob/master/NSeleneExamples
+Main features:
+
+- **User-oriented API for Selenium Webdriver** (code like speak common English)
+- **Ajax support** (Smart implicit waiting and retry mechanism)
+- **PageObjects support** (all elements are lazy-evaluated objects)
+- **Automatic driver management** (no need to install and setup driver for quick local execution)
+
+[Available at Nuget](www.nuget.org/packages/NSelene)
+
+Tests with Selene can be built either in a simple straightforward "selenide' style or with PageObjects composed from Widgets i.e. reusable element components.
+
+For docs see tests in the [NSeleneTests](https://github.com/yashaka/NSelene/blob/master/NSeleneTests) project for now;)
+
+## Versions
+  
+* Upcomig version to use is yet unreleased 1.0.0-alpha01
+  * targets netstandard2.0
+
+* Latest stable version: [0.0.0.7](https://www.nuget.org/packages/NSelene/0.0.0.7)
+  * targets net45
+  * it is main version used by most nselene users during during last 4 years
+  * there were not so much users, but even some small companies use it for their projects
+  * so it was proven to be stable for production use
+  * its sources can be found at [0.x](https://github.com/yashaka/nselene/tree/0.x) branch
+
+## Overview
 
 Below you can find a short overview:
 
@@ -25,7 +50,6 @@ NSelene has no fully automatic driver management, you have to set it up manually
             GetWebDriver().Quit();
         }
 ```
-(https://github.com/yashaka/NSelene/blob/master/NSeleneExamples/BaseTest.cs)
 
 Tests may look like this, via PageObject implemented in a "Modular/Procedural way":
 
@@ -51,7 +75,6 @@ Tests may look like this, via PageObject implemented in a "Modular/Procedural wa
             }
         }
 ```
-(https://github.com/yashaka/NSelene/blob/master/NSeleneExamples/TodoMVC/WithPages/TodoMvcTests.cs)
 
 where "procedural PageObject" aka "PageModule" may look like this:
 
@@ -95,7 +118,7 @@ where "procedural PageObject" aka "PageModule" may look like this:
         }
 ```
 
-See more examples of other styles, e.g. object oriented PageObjects, examples of how NSelene can be integrated into your current selenium based framework (to make it more stable and efficient) in NSeleneExamples project.
+You can create an OOP version with no statics of course.
 
 So... 
 The main things are ported: 

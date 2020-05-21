@@ -1,6 +1,34 @@
 # Changelog
 
-## 0.0.0.8 (in progress)
+## 1.0.0-alpha01 (in progress)
+
+- reformatted project to the SDK-style
+- **switched target framework from net45 to netstandard2.0**
+  - adding support of net45 is considered to be added soon
+
+- removed all obsolete things deprecated till 0.0.0.7 inclusive
+
+- removed dependency to Selenium.Support 
+  - it's not used anymore anywhere in NSelene
+- updated Selenium.Webdriver dependency to 3.141.0
+
+- added Have.No.CssClass and Have.No.Attribute
+
+- `S(selector)` and other similar methods now also accepts string with xpath
+
+- removed from API (marked internal) yet unreleased:
+  - NSelene.With.*
+
+- kept deprecated:
+  - NSelene.Selectors.ByCss
+  - NSelene.Selectors.ByLinkText
+
+- other
+  - restructured tests a bit
+  - removed NSeleneExamples from the solution
+    - left a few examples in NSeleneTests 
+
+## 0.0.0.8 (skipped for now)
 
 - updated selenium version to 3.141
 - deprecated:
