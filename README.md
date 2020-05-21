@@ -22,8 +22,14 @@ For docs see tests in the [NSeleneTests](https://github.com/yashaka/NSelene/blob
 
 ## Versions
   
-* Upcomig version to use is yet unreleased 1.0.0-alpha01
+* Upcomig version to use is just released [1.0.0-alpha01](https://www.nuget.org/packages/NSelene/1.0.0-alpha01)
   * targets netstandard2.0
+    * net45 support may be added later
+  * for now it's almost same as [0.0.0.7](https://www.nuget.org/packages/NSelene/0.0.0.7) 
+    * but repacked in sdk-style format
+    * and removed things marked as obsolete til 0.0.0.7
+  * can be installed by:
+    `dotnet add package NSelene --version 1.0.0-alpha01`
 
 * Latest stable version: [0.0.0.7](https://www.nuget.org/packages/NSelene/0.0.0.7)
   * targets net45
@@ -32,12 +38,17 @@ For docs see tests in the [NSeleneTests](https://github.com/yashaka/NSelene/blob
   * so it was proven to be stable for production use
   * its sources can be found at [0.x](https://github.com/yashaka/nselene/tree/0.x) branch
 
+See [changelog](https://github.com/yashaka/NSelene/blob/master/CHANGELOG.md) for more details.
+
 ## Overview
 
 Below you can find a short overview:
 
 NSelene has no fully automatic driver management, you have to set it up manually, e.g. like here: 
 ```csharp
+    [TestFixture]
+    public class BrowserTest
+    {
         [SetUp]
         public void InitDriver()
         {
@@ -45,17 +56,41 @@ NSelene has no fully automatic driver management, you have to set it up manually
         }
 
         [TearDown]
-        public void TeardownDriver()
+        public void QuitDriver()
         {
             GetWebDriver().Quit();
         }
+    }
 ```
 
-Tests may look like this, via PageObject implemented in a "Modular/Procedural way":
+Tests may look like this in a so-called "straightforward" style:
+
+```csharp
+    [TestFixture]
+    public class TodoMvcShould : BrowserTest
+    {
+        [Test]
+        public void CompleteTask()
+        {
+            Open("http://todomvc.com/examples/emberjs/");
+            S("#new-todo").SetValue("a").PressEnter();
+            S("#new-todo").SetValue("b").PressEnter();
+            S("#new-todo").SetValue("c").PressEnter();
+
+            SS("#todo-list>li").FindBy(Have.ExactText("b")).Find(".toggle").Click();
+
+            SS("#todo-list>li").FilterBy(Have.CssClass("completed")).Should(Have.ExactTexts("b"));
+            SS("#todo-list>li").FilterBy(Have.No.CssClass("completed")).Should(Have.ExactTexts("a", "c"));
+        }
+    }
+```
+
+
+or via PageObject implemented in a "Modular/Procedural way":
 
 ```csharp
         [TestFixture]
-        public class TodoMvcTests : BaseTest
+        public class TodoMvcShould : BrowserTest
         {
             [Test]
             public void FilterTasks()
@@ -118,7 +153,7 @@ where "procedural PageObject" aka "PageModule" may look like this:
         }
 ```
 
-You can create an OOP version with no statics of course.
+You can create an OOP version with no statics of course, if you need to represent some page state;)
 
 So... 
 The main things are ported: 
@@ -138,9 +173,19 @@ The main things are ported:
 
 Though NSelene is not a "complete" port (no automatic screenshots, no automatic driver creation, etc.), even now It has some useful additions to the basic "selenide set" of features. The following a some features that are still absent in Selenide:
 
-- NSelene has better error messages for some complex queries like 
-  `SS("#list-item").FindBy(Have.CssClass("specific")).Find(".inner-element").click()`
-- NSelene can be much easyly integrated into existing selenium based frameworks, because it is object-oriented by its nature. It provides a Consice API to Selenium via both "OOP" (`SeleneDriver` class) and "static utils" wrappers (`Selene` static class) over WebDriver, not only "static utils wrappers" as in Selenide (`Selenide` utility class with static methods).
-- Because of the latter, NSelene also supports creation of "more than one driver per test". It can be rarely useful, but sometimes it "saves the life" on projects where "everything is too bad" :)
+NSelene has a flexible way to locate elements by breakig long especially xpath selectors to smaller parts, like in:
+
+```
+SS("#list-item").FindBy(Have.CssClass("specific")).Find(".inner-element").click()
+```
+
+This allows to idetify more precisely which part was broken on failure.
+
+`S`, `SS` also supports xpath selectors:
+```
+SS("(//h1|//h2)[contains(text(), 'foo')]").Should(Have.Count(10));
+```
+
+NSelene can be easily integrated into existing selenium based frameworks, because it is object-oriented by its nature. It provides a Consice API to Selenium via both "OOP" (`SeleneDriver` class) and "static utils" wrappers (`Selene` static class) over WebDriver. Because of the latter, NSelene also supports creation of "more than one driver per test". It can be rarely useful, but sometimes it "saves the life".
 
 Feel free to share your thoughts and file an issue on github if you need something.
