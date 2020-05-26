@@ -85,8 +85,27 @@ namespace NSelene
         {
             Should(Be.Visible);
             var webelement = this.ActualWebElement;
-            webelement.Clear();
-            webelement.SendKeys(keys);
+            if (Configuration.SetValueByJs) 
+            {
+                // todo: refactor to make it possible to write this.ExecuteScript(...)
+                IJavaScriptExecutor js = (IJavaScriptExecutor) this.driver.Value;
+                js.ExecuteScript(
+                    @"return (function(element, text) {
+                        var maxlength = element.getAttribute('maxlength') === null
+                            ? -1
+                            : parseInt(element.getAttribute('maxlength'));
+                        element.value = maxlength === -1
+                            ? text
+                            : text.length <= maxlength
+                                ? text
+                                : text.substring(0, maxlength);
+                        return null;
+                    })(arguments[0], arguments[1]);", webelement, keys);
+            } else 
+            {
+                webelement.Clear();
+                webelement.SendKeys(keys);
+            }
             return this;
         }
 

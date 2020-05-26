@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>NSelene</PackageId>
-    <Version>1.0.0-alpha01</Version>
+    <Version>1.0.0-alpha02</Version>
     <Authors>yashaka</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Copyright (c) 2015-2020 Iakiv Kramarenko</Copyright>
@@ -24,26 +24,7 @@
     </PackageDescription>
     
     <PackageReleaseNotes>
-    - reformatted project to the SDK-style
-    - **switched target framework from net45 to netstandard2.0**
-      - adding support of net45 is considered to be added soon
-
-    - removed all obsolete things deprecated till 0.0.0.7 inclusive
-
-    - removed dependency to Selenium.Support 
-      - it's not used anymore anywhere in NSelene
-    - updated Selenium.Webdriver dependency to 3.141.0
-
-    - added Have.No.CssClass and Have.No.Attribute
-
-    - `S(selector)` and other similar methods now also accepts string with xpath
-
-    - removed from API (marked internal) yet unreleased:
-      - NSelene.With.*
-
-    - kept deprecated:
-      - NSelene.Selectors.ByCss
-      - NSelene.Selectors.ByLinkText
+    - added `Configuration.SetValueByJs`, `false` by default
     </PackageReleaseNotes>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

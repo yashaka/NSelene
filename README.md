@@ -189,3 +189,13 @@ SS("(//h1|//h2)[contains(text(), 'foo')]").Should(Have.Count(10));
 NSelene can be easily integrated into existing selenium based frameworks, because it is object-oriented by its nature. It provides a Consice API to Selenium via both "OOP" (`SeleneDriver` class) and "static utils" wrappers (`Selene` static class) over WebDriver. Because of the latter, NSelene also supports creation of "more than one driver per test". It can be rarely useful, but sometimes it "saves the life".
 
 Feel free to share your thoughts and file an issue on github if you need something.
+
+## Release process
+
+```
+cd NSeleneTests
+dotnet test
+cd ../NSelene
+dotnet build -c Release
+dotnet nuget push bin/Release/NSelene<VERSION>.nupkg -k <KEY> -s https://api.nuget.org/v3/index.json
+```

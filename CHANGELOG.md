@@ -1,6 +1,9 @@
 # Changelog
 
-## 1.0.0-alpha01 (in progress)
+## 1.0.0-alpha01 (to be released on 2020.05.26)
+- added `Configuration.SetValueByJs`, `false` by default
+
+## 1.0.0-alpha01 (released on 2020.05.21)
 
 - reformatted project to the SDK-style
 - **switched target framework from net45 to netstandard2.0**

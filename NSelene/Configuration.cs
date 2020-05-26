@@ -13,6 +13,8 @@ namespace NSelene
         public static double Timeout = 4;
         public static double PollDuringWaits = 0.1;
 
+        public static bool SetValueByJs = false;
+
         public static IWebDriver WebDriver {
             get {
                 return PrivateConfiguration.SharedDriver.Value;
