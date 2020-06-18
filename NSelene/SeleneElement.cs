@@ -160,9 +160,16 @@ namespace NSelene
             return this;
         }
 
-        public SeleneElement SendKeys(string keys)
+        public SeleneElement Type(string keys)
         {
             Should(Be.Visible);
+            this.ActualWebElement.SendKeys(keys);
+            return this;
+        }
+
+        public SeleneElement SendKeys(string keys)
+        {
+            Should(Be.InDom);
             this.ActualWebElement.SendKeys(keys);
             return this;
         }

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>NSelene</PackageId>
-    <Version>1.0.0-alpha02</Version>
+    <Version>1.0.0-alpha03</Version>
     <Authors>yashaka</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Copyright (c) 2015-2020 Iakiv Kramarenko</Copyright>
@@ -24,7 +24,13 @@
     </PackageDescription>
     
     <PackageReleaseNotes>
-    - added `Configuration.SetValueByJs`, `false` by default
+    - added `SeleneElement#Type(string keys)`, i.e. `S(selector).Type(text)`
+      - with wait for visibility built in
+    - changed in `SeleneElement#SendKeys(string keys)`, i.e. `S(selector).SendKeys(keys)`
+      - the wait from Be.Visible to Be.InDom 
+      - to enable its usage for file upload
+      - but can break some tests, where the "wait for visibility" is needed in context of "typing text"
+        - this should be fixed in further versions
     </PackageReleaseNotes>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

@@ -1,6 +1,19 @@
 # Changelog
 
-## 1.0.0-alpha01 (to be released on 2020.05.26)
+## NEXT
+- refactor waiting logic in element actions
+  - to wait for command to pass not for specific condition
+
+## 1.0.0-alpha03 (to be released on 2020.06.03)
+- added `SeleneElement#Type(string keys)`, i.e. `S(selector).Type(text)`
+  - with wait for visibility built in
+- changed in `SeleneElement#SendKeys(string keys)`, i.e. `S(selector).SendKeys(keys)`
+  - the wait from Be.Visible to Be.InDom 
+  - to enable its usage for file upload
+  - but can break some tests, where the "wait for visibility" is needed in context of "typing text"
+    - this should be fixed in further versions
+
+## 1.0.0-alpha02 (released on 2020.05.26)
 - added `Configuration.SetValueByJs`, `false` by default
 
 ## 1.0.0-alpha01 (released on 2020.05.21)
