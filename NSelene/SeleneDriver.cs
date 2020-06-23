@@ -192,6 +192,11 @@ namespace NSelene
             Selene.WaitFor(this.Value, condition);
             return this;
         }
+        public SeleneDriver ShouldNot(Condition<IWebDriver> condition)
+        {
+            Selene.WaitForNot(this.Value, condition);
+            return this;
+        }
 
         //
         // INavigation methods

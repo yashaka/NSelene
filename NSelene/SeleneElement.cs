@@ -330,6 +330,14 @@ namespace NSelene
             Should(Be.Visible);
             return this.ActualWebElement.FindElements(by);
         }
+
+        public SeleneElement ScrollIntoView()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)this.driver.Value;
+            js.ExecuteScript("arguments[0].scrollIntoView({ behavior: 'smooth', block: 'center'})", this.ActualWebElement);
+
+            return this;
+        }
     }
 
     namespace Support.Extensions 
