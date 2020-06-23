@@ -10,16 +10,16 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
         public static void WithBody(string html)
         {
             Selene.ExecuteScript(
-                "document.getElementsByTagName('body')[0].innerHTML = \"" 
-                + html.Replace("\n", "") + "\";"
+                "document.getElementsByTagName('body')[0].innerHTML = `" 
+                + html + "`;"
             );
         }
 
         public static void WithBody(string html, IWebDriver driver)
         {
             (driver as IJavaScriptExecutor).ExecuteScript(
-                "document.getElementsByTagName('body')[0].innerHTML = \"" 
-                + html.Replace("\n", "") + "\";"
+                "document.getElementsByTagName('body')[0].innerHTML = `" 
+                + html + "`;"
             );
         }
 
@@ -29,7 +29,7 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
             Selene.ExecuteScript(@"
                 setTimeout(
                     function(){
-                        document.getElementsByTagName('body')[0].innerHTML = """ + html.Replace("\n", "") + @"""
+                        document.getElementsByTagName('body')[0].innerHTML = `" + html + @"`
                     }, 
                     " + timeout + ");"
             );
@@ -40,7 +40,7 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
             (driver as IJavaScriptExecutor).ExecuteScript(@"
                 setTimeout(
                     function(){
-                        document.getElementsByTagName('body')[0].innerHTML = """ + html.Replace("\n", "") + @"""
+                        document.getElementsByTagName('body')[0].innerHTML = `" + html + @"`
                     }, 
                     " + timeout + ");"
             );
