@@ -1,10 +1,9 @@
 using OpenQA.Selenium;
 using NSelene.Conditions;
 using System.Drawing;
-using System;
 using OpenQA.Selenium.Interactions;
 using System.Collections.ObjectModel;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace NSelene
 {
@@ -331,16 +330,14 @@ namespace NSelene
             return this.ActualWebElement.FindElements(by);
         }
 
-        public SeleneElement ScrollIntoView()
+        public void ExecuteScript(params object[] arguments)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)this.driver.Value;
-            js.ExecuteScript("arguments[0].scrollIntoView({ behavior: 'smooth', block: 'center'})", this.ActualWebElement);
-
-            return this;
+            js.ExecuteScript("arguments[0].scrollIntoView({ behavior: 'smooth', block: 'center'})", (new object[] { this.ActualWebElement }).Concat(arguments).ToArray());
         }
     }
 
-    namespace Support.Extensions 
+    namespace Support.Extensions
     {
         public static class SeleneElementExtensions 
         {
@@ -374,5 +371,14 @@ namespace NSelene
                 return selement.FindAll(cssSelector);
             }
         }
+
+        public static class JSElementExtensions
+        {
+            public static SeleneElement JSScrollIntoView(this SeleneElement selement)
+            {
+                selement.ExecuteScript("arguments[0].scrollIntoView({ behavior: 'smooth', block: 'center'})");
+                return selement;
+            }
+         }
     }
 }
