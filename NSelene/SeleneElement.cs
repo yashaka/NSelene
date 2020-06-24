@@ -329,11 +329,22 @@ namespace NSelene
             Should(Be.Visible);
             return this.ActualWebElement.FindElements(by);
         }
-
-        public void ExecuteScript(params object[] arguments)
+        public void ExecuteScript(string script, params object[] args)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)this.driver.Value;
-            js.ExecuteScript("arguments[0].scrollIntoView({ behavior: 'smooth', block: 'center'})", (new object[] { this.ActualWebElement }).Concat(arguments).ToArray());
+            js.ExecuteScript($@"
+                return (function(element, args) {{
+                    {script}
+                }})(arguments[0], arguments[1])", new object[] { this.ActualWebElement, args });
+        }
+
+        public T ExecuteScript<T>(string script, params object[] args)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)this.driver.Value;
+            return (T)js.ExecuteScript($@"
+                return (function(element, args) {{
+                    {script}
+                }})(arguments[0], arguments[1])", new object[] { this.ActualWebElement, args });
         }
     }
 
@@ -376,9 +387,25 @@ namespace NSelene
         {
             public static SeleneElement JSScrollIntoView(this SeleneElement selement)
             {
-                selement.ExecuteScript("arguments[0].scrollIntoView({ behavior: 'smooth', block: 'center'})");
+                selement.ExecuteScript("element.scrollIntoView({ behavior: 'smooth', block: 'center'})");
                 return selement;
             }
-         }
+
+            public static SeleneElement JSClickWithOffset(this SeleneElement selement, int offX, int offY)
+            {
+                selement.ExecuteScript(@"
+                    element.dispatchEvent(new MouseEvent(
+                            'click',
+                            {
+                                bubbles: true,
+                                cancelable: true,
+                                clientX: element.getClientRects()[0].left + args[0],
+                                clientY: element.getClientRects()[0].top + args[1],
+                                view: window,
+                            }
+                        ));", offX, offY);
+                return selement;
+            }
+        }
     }
 }

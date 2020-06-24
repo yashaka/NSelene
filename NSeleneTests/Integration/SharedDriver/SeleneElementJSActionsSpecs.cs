@@ -37,5 +37,20 @@ namespace NSelene.Tests.Integration.SharedDriver
                     : (r.bottom > 0 && r.bottom <= windowHeight);
                 ", ele.ActualWebElement);
         }
+
+        [Test]
+        public void SElementJSClickWithOffset()
+        {
+            // prepare
+            Given.OpenedPageWithBody("<input type='text' value='ku ku'/>");
+            SeleneElement ele = S("input");
+            ele.Click();
+
+            // act
+            ele.JSClickWithOffset(-10, -10);
+
+            // assert
+        }
+
     }
 }
