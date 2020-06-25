@@ -1,4 +1,5 @@
 using System;
+using NSelene.Conditions;
 using OpenQA.Selenium;
 
 namespace NSelene
@@ -36,9 +37,10 @@ namespace NSelene
 
     public static partial class Have
     {
-        public static Conditions.Condition<IWebDriver> JSReturnedTrue (string script, params object [] arguments)
+        public static Conditions.Condition<IWebDriver> JSReturnedTrue(string script, params object[] arguments) => new Conditions.JSReturnedTrue(script, arguments);
+        public static partial class No
         {
-            return new Conditions.JSReturnedTrue (script, arguments);
+            public static Conditions.Condition<IWebDriver> JSReturnedTrue(string script, params object[] arguments) => new Not<IWebDriver>(new JSReturnedTrue(script, arguments));
         }
     }
 }

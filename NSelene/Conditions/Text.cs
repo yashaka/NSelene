@@ -63,6 +63,12 @@ namespace NSelene
         {
             return new Conditions.ExactText(expected);
         }
+        static partial class No
+        {
+            public static Conditions.Condition<SeleneElement> Text(string expected) => new Conditions.Not<SeleneElement>(new Conditions.Text(expected));
+
+            public static Conditions.Condition<SeleneElement> ExactText(string expected) => new Conditions.Not<SeleneElement>(new Conditions.ExactText(expected));
+        }
     }
 
 }

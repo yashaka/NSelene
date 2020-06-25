@@ -69,7 +69,7 @@ namespace NSelene.Tests.Integration.SharedDriver.WorkflowSpecs
             Given.OpenedEmptyPage();
             S("input").ShouldNot(Have.Value("Yo"));
             When.WithBody("<input value='Yo'></input>");
-            S("input").ShouldNot(Have.Value("o_O"));
+            S("input").Should(Have.No.Value("o_O"));
             S("input").Should(Have.Value("Yo"));
         }
 
@@ -79,7 +79,7 @@ namespace NSelene.Tests.Integration.SharedDriver.WorkflowSpecs
             Given.OpenedEmptyPage();
             S("input").ShouldNot(Be.Blank); // TODO: sounds crazy, no? :)
             When.WithBody("<input type='text' value='Yo'/>");
-            S("input").ShouldNot(Be.Blank);
+            S("input").Should(Be.Not.Blank);
             When.WithBody("<input type='text'/>");
             S("input").Should(Be.Blank);
         }

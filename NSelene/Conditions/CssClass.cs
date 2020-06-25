@@ -69,19 +69,11 @@ namespace NSelene
 
     public static partial class Have
     {
-        public static Conditions.Condition<SeleneElement> CssClass(string cssClass)
-        {
-            return new Conditions.CssClass(cssClass);
-        }
+        public static Conditions.Condition<SeleneElement> CssClass(string cssClass) => new Conditions.CssClass(cssClass);
 
         public static partial class No
         {
-            public static Conditions.Condition<SeleneElement> CssClass(string cssClass)
-            {
-                return new Conditions.NoCssClass(cssClass);
-            }
-            
-        }
+            public static Conditions.Condition<SeleneElement> CssClass(string cssClass) => new Conditions.NoCssClass(cssClass);
+         }
     }
-
 }
