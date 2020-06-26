@@ -3,7 +3,6 @@ using NSelene.Conditions;
 using System.Drawing;
 using OpenQA.Selenium.Interactions;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System;
 
 namespace NSelene
@@ -411,22 +410,6 @@ namespace NSelene
             public static SeleneElement JSScrollIntoView(this SeleneElement element)
             {
                 element.ExecuteScript("element.scrollIntoView({ behavior: 'smooth', block: 'center'})");
-                return element;
-            }
-
-            public static SeleneElement JSClickWithOffset(this SeleneElement element, int offX, int offY)
-            {
-                element.ExecuteScript(@"
-                    element.dispatchEvent(new MouseEvent(
-                            'click',
-                            {
-                                bubbles: true,
-                                cancelable: true,
-                                clientX: element.getClientRects()[0].left + args[0],
-                                clientY: element.getClientRects()[0].top + args[1],
-                                view: window,
-                            }
-                        ));", offX, offY);
                 return element;
             }
         }

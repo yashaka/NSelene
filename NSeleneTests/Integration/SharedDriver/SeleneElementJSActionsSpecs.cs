@@ -23,31 +23,13 @@ namespace NSelene.Tests.Integration.SharedDriver
         [Test]
         public void SElementJSScrollIntoView()
         {
-            // prepare
             Given.OpenedPageWithBody("<input style='margin-top:100cm;' type='text' value='ku ku'/>");
             SeleneElement ele = S("input");
             new SeleneDriver(Selene.GetWebDriver()).Should(Have.No.JSReturnedTrue(ELEMENT_IN_VIEEW, ele.ActualWebElement));
 
-            // act
             ele.JSScrollIntoView();
 
-            // assert
             new SeleneDriver(Selene.GetWebDriver()).Should(Have.JSReturnedTrue(ELEMENT_IN_VIEEW, ele.ActualWebElement));
         }
-
-        [Test]
-        public void SElementJSClickWithOffset()
-        {
-            // prepare
-            Given.OpenedPageWithBody("<input type='text' value='ku ku'/>");
-            SeleneElement ele = S("input");
-            ele.Click();
-
-            // act
-            ele.JSClickWithOffset(-10, -10);
-
-            // assert
-        }
-
     }
 }
