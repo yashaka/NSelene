@@ -4,6 +4,9 @@
 - refactor waiting logic in element actions
   - to wait for command to pass not for specific condition
 
+## 1.0.0-alpha04 (to be released on 2020.06.18)
+- 
+
 ## 1.0.0-alpha03 (to be released on 2020.06.03)
 - added `SeleneElement#Type(string keys)`, i.e. `S(selector).Type(text)`
   - with wait for visibility built in
