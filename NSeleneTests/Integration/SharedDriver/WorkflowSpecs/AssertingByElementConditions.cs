@@ -12,7 +12,7 @@ namespace NSelene.Tests.Integration.SharedDriver.WorkflowSpecs
         public void BeVisible()
         {
             Given.OpenedPageWithBody("<h1 style='display:none'>ku ku</h1>");
-            S("h1").ShouldNot(Be.Visible);
+            S("h1").Should(Be.Not.Visible);
             When.WithBody("<h1 style='display:block'>ku ku</h1>");
             S("h1").Should(Be.Visible);
         }
@@ -21,7 +21,7 @@ namespace NSelene.Tests.Integration.SharedDriver.WorkflowSpecs
         public void BeEnabled()
         {
             Given.OpenedPageWithBody("<input type='text' disabled/>");
-            S("input").ShouldNot(Be.Enabled);
+            S("input").Should(Be.Not.Enabled);
             When.WithBody("<input type='text'/>");
             S("input").Should(Be.Enabled);
         }
@@ -30,7 +30,7 @@ namespace NSelene.Tests.Integration.SharedDriver.WorkflowSpecs
         public void BeInDOM()
         {
             Given.OpenedEmptyPage();
-            S("h1").ShouldNot(Be.InDom);
+            S("h1").Should(Be.Not.InDom);
             When.WithBody("<h1 style='display:none'>ku ku</h1>");
             S("h1").Should(Be.InDom);
         }
@@ -40,8 +40,8 @@ namespace NSelene.Tests.Integration.SharedDriver.WorkflowSpecs
         {
             Given.OpenedPageWithBody("<h1>Hello Babe!</h1>");
             S("h1").Should(Have.Text("Hello"));
-            S("h1").ShouldNot(Have.Text("Hello world!"));
-            S("h1").ShouldNot(Have.ExactText("Hello"));
+            S("h1").Should(Have.No.Text("Hello world!"));
+            S("h1").Should(Have.No.ExactText("Hello"));
             S("h1").Should(Have.ExactText("Hello Babe!"));
         }
 
@@ -49,7 +49,7 @@ namespace NSelene.Tests.Integration.SharedDriver.WorkflowSpecs
         public void HaveCssClass()
         {
             Given.OpenedPageWithBody("<h1 class='big-title'>Hello Babe!</h1>");
-            S("h1").ShouldNot(Have.CssClass("title"));
+            S("h1").Should(Have.No.CssClass("title"));
             When.WithBody("<h1 class='big title'>Hello world!</h1>");
             S("h1").Should(Have.CssClass("title"));
         }
@@ -58,7 +58,7 @@ namespace NSelene.Tests.Integration.SharedDriver.WorkflowSpecs
         public void HaveAttribute()
         {
             Given.OpenedPageWithBody("<h1 class='big-title'>Hello Babe!</h1>");
-            S("h1").ShouldNot(Have.Attribute("class", "big title"));
+            S("h1").Should(Have.No.Attribute("class", "big title"));
             When.WithBody("<h1 class='big title'>Hello world!</h1>");
             S("h1").Should(Have.Attribute("class", "big title"));
         }
@@ -67,9 +67,9 @@ namespace NSelene.Tests.Integration.SharedDriver.WorkflowSpecs
         public void HaveValue()
         {
             Given.OpenedEmptyPage();
-            S("input").ShouldNot(Have.Value("Yo"));
+            S("input").Should(Have.No.Value("Yo"));
             When.WithBody("<input value='Yo'></input>");
-            S("input").ShouldNot(Have.Value("o_O"));
+            S("input").Should(Have.No.Value("o_O"));
             S("input").Should(Have.Value("Yo"));
         }
 
@@ -77,9 +77,10 @@ namespace NSelene.Tests.Integration.SharedDriver.WorkflowSpecs
         public void BeBlank()
         {
             Given.OpenedEmptyPage();
-            S("input").ShouldNot(Be.Blank); // TODO: sounds crazy, no? :)
+            // TODO: sounds crazy, no? :) it passes... is it good?
+            S("input").Should(Be.Not.Blank); 
             When.WithBody("<input type='text' value='Yo'/>");
-            S("input").ShouldNot(Be.Blank);
+            S("input").Should(Be.Not.Blank);
             When.WithBody("<input type='text'/>");
             S("input").Should(Be.Blank);
         }

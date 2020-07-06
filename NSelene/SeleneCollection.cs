@@ -60,6 +60,7 @@ namespace NSelene
             return Selene.WaitFor(this, condition);
         }
 
+        [Obsolete("Use the negative condition instead, e.g. Should(Have.No.Count(0))")]
         public SeleneCollection ShouldNot(Condition<SeleneCollection> condition)
         {
             return Selene.WaitForNot(this, condition);
@@ -271,6 +272,7 @@ namespace NSelene
                 return selements.Should(condition);
             }
 
+            [Obsolete("Use the negative condition instead, e.g. AssertTo(Have.No.Count(0))")]
             public static SeleneCollection AssertToNot(this SeleneCollection selements, Condition<SeleneCollection> condition)
             {
                 return selements.ShouldNot(condition);

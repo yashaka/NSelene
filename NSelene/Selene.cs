@@ -110,7 +110,7 @@ namespace NSelene
             return WaitForNot(sEntity, condition, Configuration.Timeout);
         }
 
-        public static TResult WaitFor<TResult>(TResult sEntity, Condition<TResult> condition, double timeout)
+        public static TResult WaitFor<TResult>(TResult entity, Condition<TResult> condition, double timeout)
         {
             Exception lastException = null;
             var timeoutSpan = TimeSpan.FromSeconds(timeout);
@@ -124,7 +124,7 @@ namespace NSelene
             {
                 try
                 {
-                    if (condition.Apply(sEntity))
+                    if (condition.Apply(entity))
                     {
                         break;
                     }
@@ -139,19 +139,17 @@ namespace NSelene
                 }
                 if (!(DateTime.Now < otherDateTime))
                 {
-                    string text = string.Format("\nTimed out after {0} seconds \nwhile waiting entity with locator: {1} \nfor condition: "
-                                                , timeoutSpan.TotalSeconds
-                                                , sEntity
-                                               );
-                    text = text + condition;
+                    string text = $"\nTimed out after {timeoutSpan.TotalSeconds} seconds " +
+                                  $"\nwhile waiting entity with locator: {entity} " +
+                                  $"\nfor condition: {condition}";
                     throw new WebDriverTimeoutException(text, lastException);
                 }
                 Thread.Sleep(TimeSpan.FromSeconds(Configuration.PollDuringWaits).Milliseconds);
             }
-            return sEntity;
+            return entity;
         }
 
-        public static TResult WaitForNot<TResult>(TResult sEntity, Condition<TResult> condition, double timeout)
+        public static TResult WaitForNot<TResult>(TResult entity, Condition<TResult> condition, double timeout)
         {
             Exception lastException = null;
             var timeoutSpan = TimeSpan.FromSeconds(timeout);
@@ -161,14 +159,14 @@ namespace NSelene
             {
                 try
                 {
-                    if (!condition.Apply(sEntity))
+                    if (!condition.Apply(entity))
                     {
                         break;
                     }
                 }
                 catch (Exception ex)
                 {
-                    lastException = ex;
+                    lastException = ex; // todo: probably we don't need it...
                     break;
 //                    if (!ignoredExceptionTypes.Any(type => type.IsInstanceOfType(ex)))
 //                    {
@@ -178,14 +176,14 @@ namespace NSelene
                 if (!(DateTime.Now < otherDateTime))
                 {
                     string text = string.Format( "\nTimed out after {0} seconds \nwhile waiting entity with locator: {1}\nfor condition: not "
-                                               , timeoutSpan.TotalSeconds, sEntity
+                                               , timeoutSpan.TotalSeconds, entity
                                                );
                     text = text + condition;
                     throw new WebDriverTimeoutException(text, lastException);
                 }
                 Thread.Sleep(TimeSpan.FromSeconds(Configuration.PollDuringWaits).Milliseconds);
             }
-            return sEntity;
+            return entity;
         }
     }
 }

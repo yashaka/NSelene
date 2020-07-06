@@ -36,7 +36,7 @@ namespace NSelene
             }
         }
 
-        public class NoAttribute : DescribedCondition<SeleneElement>
+        class NoAttribute : DescribedCondition<SeleneElement>
         {
 
             private string name;
@@ -72,31 +72,25 @@ namespace NSelene
 
     public static partial class Have
     {
+        public static Conditions.Condition<SeleneElement> Attribute(string name, string value) => new Conditions.Attribute(name, value);
+
+        public static Conditions.Condition<SeleneElement> Value(string expected) => new Conditions.Attribute("value", expected);
         public static partial class No
         {
-            public static Conditions.Condition<SeleneElement> Attribute(string name, string value)
-            {
-                return new Conditions.NoAttribute(name, value);
-            }
+            public static Conditions.Condition<SeleneElement> Attribute(string name, string value) 
+                => new Conditions.NoAttribute(name, value);
+            public static Conditions.Condition<SeleneElement> Value(string expected) 
+                => new Conditions.Not<SeleneElement>(new Conditions.Attribute("value", expected));
         }
 
-        public static Conditions.Condition<SeleneElement> Attribute(string name, string value)
-        {
-            return new Conditions.Attribute(name, value);
-        }
-
-        public static Conditions.Condition<SeleneElement> Value(string expected)
-        {
-            return new Conditions.Attribute("value", expected);
-        }
     }
 
     public static partial class Be
     {
-        public static Conditions.Condition<SeleneElement> Blank {
-            get {
-                return new Conditions.Attribute("value", "");
-            }
+        public static Conditions.Condition<SeleneElement> Blank => new Conditions.Attribute("value", "");
+        public static partial class Not
+        {
+            public static Conditions.Condition<SeleneElement> Blank => new Conditions.Not<SeleneElement>(new Conditions.Attribute("value", ""));
         }
     }
 }
