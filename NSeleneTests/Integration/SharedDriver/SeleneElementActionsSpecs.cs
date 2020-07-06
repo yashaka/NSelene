@@ -1,10 +1,9 @@
 using NUnit.Framework;
 using static NSelene.Selene;
+using NSelene.Tests.Integration.SharedDriver.Harness;
 
 namespace NSelene.Tests.Integration.SharedDriver
 {
-    using Harness;
-
     [TestFixture]
     public class SeleneElementActionsSpecs : BaseTest
     {

@@ -192,7 +192,7 @@ namespace NSelene
             Selene.WaitFor(this.Value, condition);
             return this;
         }
-
+ 
         //
         // INavigation methods
         //

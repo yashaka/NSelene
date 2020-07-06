@@ -1,10 +1,9 @@
 using OpenQA.Selenium;
 using NSelene.Conditions;
 using System.Drawing;
-using System;
 using OpenQA.Selenium.Interactions;
 using System.Collections.ObjectModel;
-using System.Collections.Generic;
+using System;
 
 namespace NSelene
 {
@@ -58,6 +57,7 @@ namespace NSelene
             return Selene.WaitFor(this, condition);
         }
 
+        [Obsolete("Use the negative condition instead")]
         public SeleneElement ShouldNot(Condition<SeleneElement> condition)
         {
             return Selene.WaitForNot(this, condition);
@@ -330,40 +330,60 @@ namespace NSelene
             Should(Be.Visible);
             return this.ActualWebElement.FindElements(by);
         }
+
+        /// <remarks>
+        ///     This method executes JavaScript in the context of the currently selected frame or window.
+        ///     This means that "document" will refer to the current document and "element" will refer to this element
+        ///  </remarks>
+        public object ExecuteScript(string scriptOnElementAndArgs, params object[] args)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)this.driver.Value;
+            return js.ExecuteScript($@"
+                return (function(element, args) {{
+                    {scriptOnElementAndArgs}
+                }})(arguments[0], arguments[1])", new object[] { this.ActualWebElement, args });
+        }
     }
 
-    namespace Support.Extensions 
+    namespace Support.Extensions
     {
         public static class SeleneElementExtensions 
         {
-            public static SeleneElement AssertTo(this SeleneElement selement, Condition<SeleneElement> condition)
+            public static SeleneElement AssertTo(this SeleneElement element, Condition<SeleneElement> condition)
             {
-                return selement.Should(condition);
+                return element.Should(condition);
             }
 
-            public static SeleneElement AssertToNot(this SeleneElement selement, Condition<SeleneElement> condition)
+            [Obsolete("Use the negative condition instead, e.g. AssertTo(Be.Not.Visible)")]
+            public static SeleneElement AssertToNot(this SeleneElement element, Condition<SeleneElement> condition)
             {
-                return selement.ShouldNot(condition);
+                return element.ShouldNot(condition);
             }
 
-            public static SeleneElement S(this SeleneElement selement, By locator)
+            public static SeleneElement S(this SeleneElement element, By locator)
             {
-                return selement.Find(locator);
+                return element.Find(locator);
             }
 
-            public static SeleneElement S(this SeleneElement selement, string cssSelector)
+            public static SeleneElement S(this SeleneElement element, string cssSelector)
             {
-                return selement.Find(cssSelector);
+                return element.Find(cssSelector);
             }
 
-            public static SeleneCollection SS(this SeleneElement selement, By locator)
+            public static SeleneCollection SS(this SeleneElement element, By locator)
             {
-                return selement.FindAll(locator);
+                return element.FindAll(locator);
             }
 
-            public static SeleneCollection SS(this SeleneElement selement, string cssSelector)
+            public static SeleneCollection SS(this SeleneElement element, string cssSelector)
             {
-                return selement.FindAll(cssSelector);
+                return element.FindAll(cssSelector);
+            }
+
+            public static SeleneElement JsScrollIntoView(this SeleneElement element)
+            {
+                element.ExecuteScript("element.scrollIntoView({ behavior: 'smooth', block: 'center'})");
+                return element;
             }
         }
     }

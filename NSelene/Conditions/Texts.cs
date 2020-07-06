@@ -63,14 +63,14 @@ namespace NSelene
 
     public static partial class Have
     {
-        public static Conditions.Condition<SeleneCollection> Texts(params string[] expected)
-        {
-            return new Conditions.Texts(expected);
-        }
+        public static Conditions.Condition<SeleneCollection> Texts(params string[] expected) => new Conditions.Texts(expected);
 
-        public static Conditions.Condition<SeleneCollection> ExactTexts(params string[] expected)
+        public static Conditions.Condition<SeleneCollection> ExactTexts(params string[] expected) => new Conditions.ExactTexts(expected);
+        static partial class No
         {
-            return new Conditions.ExactTexts(expected);
+            public static Conditions.Condition<SeleneCollection> Texts(params string[] expected) => new Conditions.Not<SeleneCollection>(new Conditions.Texts(expected));
+
+            public static Conditions.Condition<SeleneCollection> ExactTexts(params string[] expected) => new Conditions.Not<SeleneCollection>(new Conditions.ExactTexts(expected));
         }
     }
 
