@@ -40,7 +40,7 @@ namespace NSelene.Tests.Integration.SharedDriver
                 <h2 id='second'>Heading 2</h2>"
             );
 
-            S("a").JsClick();
+            //S("a").JsClick();
             
             Assert.IsTrue(Selene.GetWebDriver().Url.Contains("second"));
         }
