@@ -201,7 +201,7 @@ Feel free to share your thoughts and file an issue on github if you need somethi
 Before implementing your ideas, it is recommended first to create a corresponding issue and discuss the plan to be approved;)
 Also consider first to help with issues marked with help_wanted label ;)
 
-## Prerequisites
+### Prerequisites
 
 Target framework is .Net Standard 2.0
 
