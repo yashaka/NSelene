@@ -20,10 +20,11 @@ Tests with Selene can be built either in a simple straightforward "selenide' sty
 
 For docs see tests in the [NSeleneTests](https://github.com/yashaka/NSelene/blob/master/NSeleneTests) project for now;)
 
-##Table of Content
+## Table of Content
 * [Versions](#versions)
-*[Overview](#overview)
-*[Release Process](#release process)
+* [Overview](#overview)
+* [Contributing](#contributing)
+* [Release Process](#release-process)
 
 ## Versions
   
@@ -194,6 +195,36 @@ SS("(//h1|//h2)[contains(text(), 'foo')]").Should(Have.Count(10));
 NSelene can be easily integrated into existing selenium based frameworks, because it is object-oriented by its nature. It provides a Consice API to Selenium via both "OOP" (`SeleneDriver` class) and "static utils" wrappers (`Selene` static class) over WebDriver. Because of the latter, NSelene also supports creation of "more than one driver per test". It can be rarely useful, but sometimes it "saves the life".
 
 Feel free to share your thoughts and file an issue on github if you need something.
+
+## Contributing
+
+Before implementing your ideas, it is recommended first to create a corresponding issue and discuss the plan to be approved;)
+Also consider first to help with issues marked with help_wanted label ;)
+
+## Prerequisites
+
+Target framework is .Net Standard 2.0
+
+To build from the command line you need `dotnet` 2.0 and higher
+
+#### Windows
+
+* Visual Studio 2017+, VS Code or JetBrains Rider
+
+#### MacOS or Linux
+
+* Visual Studio for Mac, VS Code or JetBrains Rider
+
+1. Clone project git clone https://github.com/yashaka/NSelene.git
+2. cd NSelene
+3. For command line use `dotnet build`, or build solution using your code editor.
+4. Add a "feature request" Issue to this project.
+5. Discuss its need and possible implementation. And once approved...
+6. Fork the project ( https://github.com/[my-github-username]/NSelene/fork )
+7. Create your feature branch (`git checkout -b my-new-feature`)
+8. Commit your changes (`git commit -am 'Add some feature'`)
+9. Push to the branch (`git push origin my-new-feature`)
+10. Create a new Pull Request`
 
 ## Release process
 
