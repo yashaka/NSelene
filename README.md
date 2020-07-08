@@ -20,6 +20,11 @@ Tests with Selene can be built either in a simple straightforward "selenide' sty
 
 For docs see tests in the [NSeleneTests](https://github.com/yashaka/NSelene/blob/master/NSeleneTests) project for now;)
 
+##Table of Content
+* [Versions](#versions)
+*[Overview](#overview)
+*[Release Process](#release process)
+
 ## Versions
   
 * Upcomig version to use is just released [1.0.0-alpha01](https://www.nuget.org/packages/NSelene/1.0.0-alpha01)
