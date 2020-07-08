@@ -1,8 +1,8 @@
-﻿namespace NSelene
+namespace NSelene
 {
     namespace Conditions
     {
-        public class Visible : DescribedCondition<SeleneElement>
+        public class Visible : Condition<SeleneElement>
         {
             public override bool Apply(SeleneElement entity)
             {
@@ -14,7 +14,14 @@
 
     public static partial class Be
     {
-        public static Conditions.Condition<SeleneElement> Visible { get { return new Conditions.Visible(); } }
+        public static Conditions.Condition<SeleneElement> Visible 
+            => new Conditions.Visible();
+
+        static partial class Not
+        {
+            public static Conditions.Condition<SeleneElement> Visible 
+                => Be.Visible.Not;
+        }
     }
 
 }

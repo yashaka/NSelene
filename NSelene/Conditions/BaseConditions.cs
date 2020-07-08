@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 
 namespace NSelene
 {
@@ -8,39 +8,30 @@ namespace NSelene
 
         // TODO: find the way to DRY conditions:) Generics? keep it simple enough though...
 
-        public abstract class Condition<TEntity>
+        public abstract class DescribedResult<TEntity>
         {
-
-            public abstract bool Apply(TEntity entity);
-
-            /*
-             * TODO: think on leaving ToString off board, 
-             * since better to use Explain and Describe vs Explain and ToString 
-             * because of less confusion
-             */
-            public abstract string Explain();
-
-            public override string ToString()
-            {
-                return string.Format("{0}", this.GetType());
-            }
-        }
-
-        public abstract class DescribedCondition<TEntity> : Condition<TEntity>
-        {
-//            public abstract string DescribeActual();
-
-//            public abstract string DescribeExpected();
-
 
             public virtual string DescribeActual()
             {
-                return false.ToString(); // TODO: consider providing more "universal" approach... because this makes sense only in case of failed condition:(
+                // TODO: consider providing more "universal" approach... 
+                //       because this makes sense only 
+                //       in case of failed condition:(
+                return false.ToString(); 
             }
 
             public virtual string DescribeExpected()
             {
                 return true.ToString();
+            }
+
+            /*
+             * TODO: think on better names:)
+             */
+            public virtual string Explain()
+            {
+                var expected = this.DescribeExpected();
+                return expected == true.ToString() ? this.GetType().Name 
+                    : expected;
             }
 
             public override string ToString()
@@ -49,18 +40,28 @@ namespace NSelene
                 //           "\n    Expected: " + DescribeExpected() +
                 //           (DescribeActual() ==  "" ? "" : "\n    " + DescribeActual());
                 return string.Format("{0}" +
-                    "\n  Expected : {1}" +
-                    "\n  Actual   : {2}", 
-                    this.GetType().Name, DescribeExpected(), DescribeActual());
+                    // "\n  Expected : {1}" +
+                    "\n       Actual: {1}\n", 
+                    this.Explain(), 
+                    // this.DescribeExpected(), 
+                    this.DescribeActual());
             }
+        }
 
-            /*
-             * TODO: think on better names:)
-             */
-            public override string Explain()
-            {
-                return this.GetType().Name + " " + DescribeExpected();
-            }
+        public abstract class Condition<TEntity> : DescribedResult<TEntity>
+        {
+
+            public abstract bool Apply(TEntity entity);
+
+            // todo: review and once finalized make public 
+            internal Condition<TEntity> Not 
+                => new Not<TEntity>(this); 
+
+        }
+
+        // todo: mark it as obsolete
+        public abstract class DescribedCondition<TEntity> : Condition<TEntity>
+        {
 
         }
 

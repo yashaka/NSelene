@@ -1,10 +1,8 @@
-﻿using System;
 using OpenQA.Selenium;
 
 namespace NSelene
 {
-
-    static class PrivateConfiguration 
+    internal static class PrivateConfiguration  // todo: consider renaming
     {
         public static SeleneDriver SharedDriver = new SeleneDriver();
     }
@@ -15,6 +13,8 @@ namespace NSelene
         public static double Timeout = 4;
         public static double PollDuringWaits = 0.1;
 
+        public static bool SetValueByJs = false;
+
         public static IWebDriver WebDriver {
             get {
                 return PrivateConfiguration.SharedDriver.Value;
@@ -24,27 +24,4 @@ namespace NSelene
             }
         }
     }
-
-    [Obsolete("Config class is deprecated and will be removed in next version, please use Configuration static class instead.")]
-    public static class Config
-    {
-        public static double Timeout{
-            get {
-                return Configuration.Timeout;
-            }
-            set {
-                Configuration.Timeout = value;
-            }
-        }
-
-        public static double PollDuringWaits{
-            get {
-                return Configuration.PollDuringWaits;
-            }
-            set {
-                Configuration.PollDuringWaits = value;
-            }
-        }
-    }
 }
-

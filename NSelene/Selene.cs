@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using OpenQA.Selenium;
 using System.Linq;
 using System.Threading;
@@ -8,8 +8,6 @@ using System.Collections.Generic;
 
 namespace NSelene
 {
-
-    // TODO: consider renaming Utils to Selene
     public static partial class Selene
     {
         public static void SetWebDriver(IWebDriver driver)
@@ -21,7 +19,6 @@ namespace NSelene
         {
             return PrivateConfiguration.SharedDriver.Value;
         }
-
         public static object ExecuteScript(string script)
         {
             return (GetWebDriver() as IJavaScriptExecutor).ExecuteScript(script);
@@ -32,9 +29,9 @@ namespace NSelene
             return new SeleneElement(locator);
         }
 
-        public static SeleneElement S(string cssSelector)
+        public static SeleneElement S(string cssOrXPathSelector)
         {
-            return S(By.CssSelector(cssSelector));
+            return S(Utils.ToBy(cssOrXPathSelector));
         }
 
         public static SeleneElement S(IWebElement pageFactoryElement, IWebDriver driver)
@@ -47,9 +44,9 @@ namespace NSelene
             return new SeleneElement(locator, new SeleneDriver(driver));
         }
 
-        public static SeleneElement S(string cssSelector, IWebDriver driver)
+        public static SeleneElement S(string cssOrXPathSelector, IWebDriver driver)
         {
-            return S(By.CssSelector(cssSelector), driver);
+            return S(Utils.ToBy(cssOrXPathSelector), driver);
         }
 
         public static SeleneCollection SS(By locator)
@@ -57,9 +54,9 @@ namespace NSelene
             return new SeleneCollection(locator);
         }
 
-        public static SeleneCollection SS(string cssSelector)
+        public static SeleneCollection SS(string cssOrXPathSelector)
         {
-            return SS(By.CssSelector(cssSelector));
+            return SS(Utils.ToBy(cssOrXPathSelector));
         }
 
         public static SeleneCollection SS(IList<IWebElement> pageFactoryElementsList, IWebDriver driver)
@@ -72,9 +69,9 @@ namespace NSelene
             return new SeleneCollection(locator, new SeleneDriver(driver));
         }
 
-        public static SeleneCollection SS(string cssSelector, IWebDriver driver)
+        public static SeleneCollection SS(string cssOrXPathSelector, IWebDriver driver)
         {
-            return SS(By.CssSelector(cssSelector), driver);
+            return SS(Utils.ToBy(cssOrXPathSelector), driver);
         }
 
         public static void Open(string url)
@@ -113,12 +110,11 @@ namespace NSelene
             return WaitForNot(sEntity, condition, Configuration.Timeout);
         }
 
-        public static TResult WaitFor<TResult>(TResult sEntity, Condition<TResult> condition, double timeout)
+        public static TResult WaitFor<TResult>(TResult entity, Condition<TResult> condition, double timeout)
         {
             Exception lastException = null;
-            var clock = new OpenQA.Selenium.Support.UI.SystemClock();
             var timeoutSpan = TimeSpan.FromSeconds(timeout);
-            DateTime otherDateTime = clock.LaterBy(timeoutSpan);
+            var otherDateTime = DateTime.Now.Add(timeoutSpan);
             var ignoredExceptionTypes = new [] { 
                 typeof(WebDriverException), 
                 typeof(IndexOutOfRangeException),
@@ -128,7 +124,7 @@ namespace NSelene
             {
                 try
                 {
-                    if (condition.Apply(sEntity))
+                    if (condition.Apply(entity))
                     {
                         break;
                     }
@@ -141,185 +137,53 @@ namespace NSelene
                     }
                     lastException = ex;
                 }
-                if (!clock.IsNowBefore(otherDateTime))
+                if (!(DateTime.Now < otherDateTime))
                 {
-                    string text = string.Format("\nTimed out after {0} seconds \nwhile waiting entity with locator: {1} \nfor condition: "
-                                                , timeoutSpan.TotalSeconds
-                                                , sEntity
-                                               );
-                    text = text + condition;
+                    string text = $"\nTimed out after {timeoutSpan.TotalSeconds} seconds " +
+                                  $"\nwhile waiting entity with locator: {entity} " +
+                                  $"\nfor condition: {condition}";
                     throw new WebDriverTimeoutException(text, lastException);
                 }
                 Thread.Sleep(TimeSpan.FromSeconds(Configuration.PollDuringWaits).Milliseconds);
             }
-            return sEntity;
+            return entity;
         }
 
-        public static TResult WaitForNot<TResult>(TResult sEntity, Condition<TResult> condition, double timeout)
+        public static TResult WaitForNot<TResult>(TResult entity, Condition<TResult> condition, double timeout)
         {
             Exception lastException = null;
-            var clock = new OpenQA.Selenium.Support.UI.SystemClock();
             var timeoutSpan = TimeSpan.FromSeconds(timeout);
-            DateTime otherDateTime = clock.LaterBy(timeoutSpan);
+            var otherDateTime = DateTime.Now.Add(timeoutSpan);
 //            var ignoredExceptionTypes = new [] { typeof(WebDriverException), typeof(IndexOutOfRangeException) };
             while (true)
             {
                 try
                 {
-                    if (!condition.Apply(sEntity))
+                    if (!condition.Apply(entity))
                     {
                         break;
                     }
                 }
                 catch (Exception ex)
                 {
-                    lastException = ex;
+                    lastException = ex; // todo: probably we don't need it...
                     break;
 //                    if (!ignoredExceptionTypes.Any(type => type.IsInstanceOfType(ex)))
 //                    {
 //                        throw;
 //                    }
                 }
-                if (!clock.IsNowBefore(otherDateTime))
+                if (!(DateTime.Now < otherDateTime))
                 {
                     string text = string.Format( "\nTimed out after {0} seconds \nwhile waiting entity with locator: {1}\nfor condition: not "
-                                               , timeoutSpan.TotalSeconds, sEntity
+                                               , timeoutSpan.TotalSeconds, entity
                                                );
                     text = text + condition;
                     throw new WebDriverTimeoutException(text, lastException);
                 }
                 Thread.Sleep(TimeSpan.FromSeconds(Configuration.PollDuringWaits).Milliseconds);
             }
-            return sEntity;
-        }
-
-        //
-        // Obsolete 
-        //
-
-        [Obsolete("SetDriver is deprecated and will be removed in next version, please use Utils.SetWebDriver method instead.")]
-        public static void SetDriver(IWebDriver driver)
-        {
-            PrivateConfiguration.SharedDriver.Value = driver;
-        }
-
-        [Obsolete("GetDriver is deprecated and will be removed in next version, please use Utils.GetWebDriver method instead.")]
-        public static IWebDriver GetDriver()
-        {
-            return PrivateConfiguration.SharedDriver.Value;
-        }
-
-        [Obsolete("SActions method is deprecated and will be removed in next version, please use Utils.Actions property instead.")]
-        public static Actions SActions()
-        {
-            return new Actions(GetWebDriver());
-        }
-    }
-
-    [Obsolete("NSelene.Utils class is deprecated and will be removed in next version, please use NSelene.Selene class instead.")]
-    public static class Utils 
-    {
-
-        [Obsolete("SetDriver is deprecated and will be removed in next version, please use Selene.SetWebDriver method instead.")]
-        public static void SetDriver(IWebDriver driver)
-        {
-            PrivateConfiguration.SharedDriver.Value = driver;
-        }
-
-        [Obsolete("Utils.SetWebDriver is deprecated and will be removed in next version, please use Selene.SetWebDriver method instead.")]
-        public static void SetWebDriver(IWebDriver driver)
-        {
-            PrivateConfiguration.SharedDriver.Value = driver;
-        }
-
-        [Obsolete("Utils.GetDriver is deprecated and will be removed in next version, please use Selene.GetWebDriver method instead.")]
-        public static IWebDriver GetDriver()
-        {
-            return PrivateConfiguration.SharedDriver.Value;
-        }
-
-        [Obsolete("Utils.GetWebDriver is deprecated and will be removed in next version, please use Selene.GetWebDriver method instead.")]
-        public static IWebDriver GetWebDriver()
-        {
-            return PrivateConfiguration.SharedDriver.Value;
-        }
-
-        [Obsolete("Utils.ExecuteScript is deprecated and will be removed in next version, please use Selene.ExecuteScript method instead.")]
-        public static object ExecuteScript(string script)
-        {
-            return (GetWebDriver() as IJavaScriptExecutor).ExecuteScript(script);
-        }
-
-        [Obsolete("Utils.S is deprecated and will be removed in next version, please use Selene.S method instead.")]
-        public static SeleneElement S(By locator)
-        {
-            return new SeleneElement(locator);
-        }
-
-        [Obsolete("Utils.S is deprecated and will be removed in next version, please use Selene.S method instead.")]
-        public static SeleneElement S(string cssSelector)
-        {
-            return S(By.CssSelector(cssSelector));
-        }
-
-        [Obsolete("Utils.S is deprecated and will be removed in next version, please use Selene.S method instead.")]
-        public static SeleneElement S(By locator, IWebDriver driver)
-        {
-            return new SeleneElement(locator, new SeleneDriver(driver));
-        }
-
-        [Obsolete("Utils.S is deprecated and will be removed in next version, please use Selene.S method instead.")]
-        public static SeleneElement S(string cssSelector, IWebDriver driver)
-        {
-            return S(By.CssSelector(cssSelector), driver);
-        }
-
-        [Obsolete("Utils.SS is deprecated and will be removed in next version, please use Selene.SS method instead.")]
-        public static SeleneCollection SS(By locator)
-        {
-            return new SeleneCollection(locator);
-        }
-
-        [Obsolete("Utils.SS is deprecated and will be removed in next version, please use Selene.SS method instead.")]
-        public static SeleneCollection SS(string cssSelector)
-        {
-            return SS(By.CssSelector(cssSelector));
-        }
-
-        [Obsolete("Utils.SS is deprecated and will be removed in next version, please use Selene.SS method instead.")]
-        public static SeleneCollection SS(By locator, IWebDriver driver)
-        {
-            return new SeleneCollection(locator, new SeleneDriver(driver));
-        }
-
-        [Obsolete("Utils.SS is deprecated and will be removed in next version, please use Selene.SS method instead.")]
-        public static SeleneCollection SS(string cssSelector, IWebDriver driver)
-        {
-            return SS(By.CssSelector(cssSelector), driver);
-        }
-
-        [Obsolete("Utils.Open is deprecated and will be removed in next version, please use Selene.Open method instead.")]
-        public static void Open(string url)
-        {
-            GoToUrl(url);
-        }
-
-        [Obsolete("Utils.GoToUrl is deprecated and will be removed in next version, please use Selene.GoToUrl method instead.")]
-        public static void GoToUrl(string url)
-        {
-            GetWebDriver().Navigate().GoToUrl(url);
-        }
-
-        [Obsolete("Utils.Url is deprecated and will be removed in next version, please use Selene.Url method instead.")]
-        public static string Url()
-        {
-            return GetWebDriver().Url;
-        }
-
-        [Obsolete("SActions method is deprecated and will be removed in next version, please use Selene.Actions property instead.")]
-        public static Actions SActions()
-        {
-            return new Actions(GetWebDriver());
+            return entity;
         }
     }
 }

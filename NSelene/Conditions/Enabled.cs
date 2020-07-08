@@ -1,4 +1,4 @@
-﻿namespace NSelene
+namespace NSelene
 {
     namespace Conditions
     {
@@ -15,7 +15,12 @@
 
     public static partial class Be
     {
-        public static Conditions.Condition<SeleneElement> Enabled { get { return new Conditions.Enabled(); } }
+        public static Conditions.Condition<SeleneElement> Enabled => new Conditions.Enabled();
+
+        public static partial class Not
+        {
+            public static Conditions.Condition<SeleneElement> Enabled => new Conditions.Not<SeleneElement>(new Conditions.Enabled());
+        }
     }
 
 }

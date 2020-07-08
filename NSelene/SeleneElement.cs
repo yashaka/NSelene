@@ -1,10 +1,9 @@
 using OpenQA.Selenium;
 using NSelene.Conditions;
 using System.Drawing;
-using System;
 using OpenQA.Selenium.Interactions;
 using System.Collections.ObjectModel;
-using System.Collections.Generic;
+using System;
 
 namespace NSelene
 {
@@ -13,42 +12,8 @@ namespace NSelene
         IWebElement ActualWebElement { get; }
     }
 
-    // TODO: delete in next version, and mark SeleneElement as sealed
-    [Obsolete("SElement is deprecated and will be removed in next version, please use SeleneElement type instead.")]
-    public interface SElement : WrapsWebElement, IWebElement, ISearchContext, SeleneContext 
-    {
-        SeleneElement Should(Condition<SeleneElement> condition);
-        SeleneElement ShouldNot(Condition<SeleneElement> condition);
-        SeleneElement PressEnter();
-        SeleneElement PressTab();
-        SeleneElement PressEscape();
-        SeleneElement SetValue(string keys);
-        SeleneElement Set(string value);
-        SeleneElement Hover();
-        SeleneElement DoubleClick();
-        SeleneElement Find(By locator);
-        SeleneElement Find(string cssSelector);
-        SeleneCollection FindAll(By locator);
-        SeleneCollection FindAll(string cssSelector);
-        new SeleneElement Clear();
-        new SeleneElement SendKeys(string keys);
-        new SeleneElement Submit();
-        new SeleneElement Click();
-        string Value
-        {
-            get;
-        }
-        //SeleneElement AssertTo(Condition<SeleneElement> condition);
-        //SeleneElement AssertToNot(Condition<SeleneElement> condition);
-        //SeleneElement S(By locator);
-        //SeleneElement S(string cssSelector);
-        //SeleneCollection SS(By locator);
-        //SeleneCollection SS(string cssSelector);
-    }
-
     // TODO: consider extracting SElement as interface... 
-    public sealed class SeleneElement : SElement,
-        WrapsWebElement, IWebElement, ISearchContext, SeleneContext
+    public sealed class SeleneElement : WrapsWebElement, IWebElement, ISearchContext, SeleneContext
     {
         readonly SeleneLocator<IWebElement> locator;
 
@@ -92,6 +57,7 @@ namespace NSelene
             return Selene.WaitFor(this, condition);
         }
 
+        [Obsolete("Use the negative condition instead")]
         public SeleneElement ShouldNot(Condition<SeleneElement> condition)
         {
             return Selene.WaitForNot(this, condition);
@@ -119,8 +85,27 @@ namespace NSelene
         {
             Should(Be.Visible);
             var webelement = this.ActualWebElement;
-            webelement.Clear();
-            webelement.SendKeys(keys);
+            if (Configuration.SetValueByJs) 
+            {
+                // todo: refactor to make it possible to write this.ExecuteScript(...)
+                IJavaScriptExecutor js = (IJavaScriptExecutor) this.driver.Value;
+                js.ExecuteScript(
+                    @"return (function(element, text) {
+                        var maxlength = element.getAttribute('maxlength') === null
+                            ? -1
+                            : parseInt(element.getAttribute('maxlength'));
+                        element.value = maxlength === -1
+                            ? text
+                            : text.length <= maxlength
+                                ? text
+                                : text.substring(0, maxlength);
+                        return null;
+                    })(arguments[0], arguments[1]);", webelement, keys);
+            } else 
+            {
+                webelement.Clear();
+                webelement.SendKeys(keys);
+            }
             return this;
         }
 
@@ -149,9 +134,9 @@ namespace NSelene
             return new SeleneElement(new SearchContextWebElementSLocator(locator, this), this.driver);
         }
 
-        public SeleneElement Find(string cssSelector)
+        public SeleneElement Find(string cssOrXPathSelector)
         {
-            return this.Find(By.CssSelector(cssSelector));
+            return this.Find(Utils.ToBy(cssOrXPathSelector));
         }
 
         public SeleneCollection FindAll(By locator)
@@ -159,9 +144,9 @@ namespace NSelene
             return new SeleneCollection(new SearchContextWebElementsCollectionSLocator(locator, this), this.driver);
         }
 
-        public SeleneCollection FindAll(string cssSelector)
+        public SeleneCollection FindAll(string cssOrXPathSelector)
         {
-            return this.FindAll(By.CssSelector(cssSelector));
+            return this.FindAll(Utils.ToBy(cssOrXPathSelector));
         }
 
         //
@@ -175,9 +160,16 @@ namespace NSelene
             return this;
         }
 
-        public SeleneElement SendKeys(string keys)
+        public SeleneElement Type(string keys)
         {
             Should(Be.Visible);
+            this.ActualWebElement.SendKeys(keys);
+            return this;
+        }
+
+        public SeleneElement SendKeys(string keys)
+        {
+            Should(Be.InDom);
             this.ActualWebElement.SendKeys(keys);
             return this;
         }
@@ -339,98 +331,59 @@ namespace NSelene
             return this.ActualWebElement.FindElements(by);
         }
 
-        //
-        // OBSOLETE MEMBERS
-        //
-
-        [Obsolete("GetSize is deprecated and will be removed in next version, please use Size property instead.")]
-        public Size GetSize()
+        /// <remarks>
+        ///     This method executes JavaScript in the context of the currently selected frame or window.
+        ///     This means that "document" will refer to the current document and "element" will refer to this element
+        ///  </remarks>
+        public object ExecuteScript(string scriptOnElementAndArgs, params object[] args)
         {
-            Should(Be.Visible);
-            return this.ActualWebElement.Size;
-        }
-
-        [Obsolete("GetTagName is deprecated and will be removed in next version, please use TagName property instead.")]
-        public string GetTagName()
-        {
-            Should(Be.Visible);
-            return this.ActualWebElement.TagName;
-        }
-
-        [Obsolete("GetLocation is deprecated and will be removed in next version, please use Location property instead.")]
-        public Point GetLocation()
-        {
-            Should(Be.Visible);
-            return this.ActualWebElement.Location;
-        }
-
-        [Obsolete("IsEnabled is deprecated and will be removed in next version, please use Enabled property instead.")]
-        public bool IsEnabled()
-        {
-            Should(Be.Visible);
-            return this.ActualWebElement.Enabled;
-        }
-
-        [Obsolete("IsDisplayed is deprecated and will be removed in next version, please use Displayed property instead.")]
-        public bool IsDisplayed()
-        {
-            Should(Be.InDom);
-            return this.ActualWebElement.Displayed;
-        }
-
-        [Obsolete("IsSelected is deprecated and will be removed in next version, please use Selected property instead.")]
-        public bool IsSelected()
-        {
-            Should(Be.Visible);
-            return this.ActualWebElement.Selected;
-        }
-
-        [Obsolete("GetText is deprecated and will be removed in next version, please use Text property instead.")]
-        public string GetText()
-        {
-            Should(Be.Visible);
-            return this.ActualWebElement.Text;
-        }
-
-        [Obsolete("GetValue is deprecated and will be removed in next version, please use Value property instead.")]
-        public string GetValue()
-        {
-            return GetAttribute("value");
+            IJavaScriptExecutor js = (IJavaScriptExecutor)this.driver.Value;
+            return js.ExecuteScript($@"
+                return (function(element, args) {{
+                    {scriptOnElementAndArgs}
+                }})(arguments[0], arguments[1])", new object[] { this.ActualWebElement, args });
         }
     }
 
-    namespace Support.Extensions 
+    namespace Support.Extensions
     {
         public static class SeleneElementExtensions 
         {
-            public static SeleneElement AssertTo(this SeleneElement selement, Condition<SeleneElement> condition)
+            public static SeleneElement AssertTo(this SeleneElement element, Condition<SeleneElement> condition)
             {
-                return selement.Should(condition);
+                return element.Should(condition);
             }
 
-            public static SeleneElement AssertToNot(this SeleneElement selement, Condition<SeleneElement> condition)
+            [Obsolete("Use the negative condition instead, e.g. AssertTo(Be.Not.Visible)")]
+            public static SeleneElement AssertToNot(this SeleneElement element, Condition<SeleneElement> condition)
             {
-                return selement.ShouldNot(condition);
+                return element.ShouldNot(condition);
             }
 
-            public static SeleneElement S(this SeleneElement selement, By locator)
+            public static SeleneElement S(this SeleneElement element, By locator)
             {
-                return selement.Find(locator);
+                return element.Find(locator);
             }
 
-            public static SeleneElement S(this SeleneElement selement, string cssSelector)
+            public static SeleneElement S(this SeleneElement element, string cssSelector)
             {
-                return selement.Find(cssSelector);
+                return element.Find(cssSelector);
             }
 
-            public static SeleneCollection SS(this SeleneElement selement, By locator)
+            public static SeleneCollection SS(this SeleneElement element, By locator)
             {
-                return selement.FindAll(locator);
+                return element.FindAll(locator);
             }
 
-            public static SeleneCollection SS(this SeleneElement selement, string cssSelector)
+            public static SeleneCollection SS(this SeleneElement element, string cssSelector)
             {
-                return selement.FindAll(cssSelector);
+                return element.FindAll(cssSelector);
+            }
+
+            public static SeleneElement JsScrollIntoView(this SeleneElement element)
+            {
+                element.ExecuteScript("element.scrollIntoView({ behavior: 'smooth', block: 'center'})");
+                return element;
             }
         }
     }

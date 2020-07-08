@@ -1,5 +1,86 @@
 # Changelog
 
+## NEXT
+- refactor waiting logic in element actions
+  - to wait for command to pass not for specific condition
+- should we unmark ShouldNot as deprecated?
+- mark DescribedCondition as obsolete
+- make `Condition#Not` property public
+
+## 1.0.0-alpha04 (to be released on 2020.06.18)
+- added `Be.Not.*` and `Have.No.*` as entry points to "negated conditions"
+- `.ShouldNot` is obsolete now, use `.Should(Be.Not.*)` or `.Should(Have.No.*)` instead
+- removed `Actual: ...` clause from the error messages (usually it is obvious according the condition name)
+- moved previous impl inside DescribedCondition to DescribedResult that is now the parent of the Condition class
+  - don't use DescribedResult in your code, it's kind of "internal", but so far can't be made non-public...
+  - DescribedCondition class probably will be maked as obsolete in future
+- added `Not<TEntity> : Condition<TEntity>` class, yet kept as internal
+  - let's finalize the naming in [#53](https://github.com/yashaka/NSelene/issues/53)
+- added `Condition#Not` property, yet keeping it as internal
+  - let's finalize the naming in [#53](https://github.com/yashaka/NSelene/issues/53)
+- added SeleneElement extension: `.JsScrollIntoView()`
+
+## 1.0.0-alpha03 (to be released on 2020.06.03)
+- added `SeleneElement#Type(string keys)`, i.e. `S(selector).Type(text)`
+  - with wait for visibility built in
+- changed in `SeleneElement#SendKeys(string keys)`, i.e. `S(selector).SendKeys(keys)`
+  - the wait from Be.Visible to Be.InDom 
+  - to enable its usage for file upload
+  - but can break some tests, where the "wait for visibility" is needed in context of "typing text"
+    - this should be fixed in further versions
+
+## 1.0.0-alpha02 (released on 2020.05.26)
+- added `Configuration.SetValueByJs`, `false` by default
+
+## 1.0.0-alpha01 (released on 2020.05.21)
+
+- reformatted project to the SDK-style
+- **switched target framework from net45 to netstandard2.0**
+  - adding support of net45 is considered to be added soon
+
+- removed all obsolete things deprecated till 0.0.0.7 inclusive
+
+- removed dependency to Selenium.Support 
+  - it's not used anymore anywhere in NSelene
+- updated Selenium.Webdriver dependency to 3.141.0
+
+- added Have.No.CssClass and Have.No.Attribute
+
+- `S(selector)` and other similar methods now also accepts string with xpath
+
+- removed from API (marked internal) yet unreleased:
+  - NSelene.With.*
+
+- kept deprecated:
+  - NSelene.Selectors.ByCss
+  - NSelene.Selectors.ByLinkText
+
+- other
+  - restructured tests a bit
+  - removed NSeleneExamples from the solution
+    - left a few examples in NSeleneTests 
+
+## 0.0.0.8 (skipped for now)
+
+- updated selenium version to 3.141
+- deprecated:
+  - Selectors.ByCss
+  - Selectors.ByLinkText
+- added:
+  - With.Type
+  - With.Value
+  - With.IdContains
+  - With.Text
+  - With.ExactText
+  - With.Id
+  - With.Name
+  - With.ClassName
+  - With.XPath
+  - With.Css
+  - With.Attribute
+  - With.AttributeContains
+
+
 ## 0.0.0.7 (released May 28, 2018)
 
 ### Summary

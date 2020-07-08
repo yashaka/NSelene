@@ -14,21 +14,8 @@ namespace NSelene
         ReadOnlyCollection<IWebElement> ActualWebElements { get; }
     }
 
-    [Obsolete("SCollection is deprecated and will be removed in next version, please use SeleneCollection type instead.")]
-    public interface SCollection :  WrapsWebElementsCollection, IReadOnlyList<SeleneElement>, IReadOnlyCollection<SeleneElement>, IList<SeleneElement>, IList<IWebElement>, ICollection<SeleneElement>, IEnumerable<SeleneElement>, IEnumerable
-    {
-        SeleneCollection Should(Condition<SeleneCollection> condition);
-        SeleneCollection ShouldNot(Condition<SeleneCollection> condition);
-        SeleneElement FindBy(Condition<SeleneElement> condition);
-        SeleneCollection FilterBy(Condition<SeleneElement> condition);
-        int GetCount();
-        SeleneElement Get(int index);
-        SeleneElement ElementAt(int index);
-    }
-
     public sealed class SeleneCollection 
-        : SCollection, 
-          WrapsWebElementsCollection, IReadOnlyList<SeleneElement>, IReadOnlyCollection<SeleneElement>, IList<SeleneElement>, IList<IWebElement>, ICollection<SeleneElement>, IEnumerable<SeleneElement>, IEnumerable
+        :  WrapsWebElementsCollection, IReadOnlyList<SeleneElement>, IReadOnlyCollection<SeleneElement>, IList<SeleneElement>, IList<IWebElement>, ICollection<SeleneElement>, IEnumerable<SeleneElement>, IEnumerable
     {
         readonly SeleneLocator<ReadOnlyCollection<IWebElement>> locator;
 
@@ -73,6 +60,7 @@ namespace NSelene
             return Selene.WaitFor(this, condition);
         }
 
+        [Obsolete("Use the negative condition instead, e.g. Should(Have.No.Count(0))")]
         public SeleneCollection ShouldNot(Condition<SeleneCollection> condition)
         {
             return Selene.WaitForNot(this, condition);
@@ -271,28 +259,6 @@ namespace NSelene
         {
             throw new NotImplementedException ();
         }
-
-        //
-        // Obsolete Methods
-        //
-
-        [Obsolete("GetCount is deprecated and will be removed in next version, please use Count property instead.")]
-        public int GetCount()
-        {
-            return  this.ActualWebElements.Count; // TODO: should we count only visible elements? or all?
-        }
-
-        [Obsolete("Get is deprecated and will be removed in next version, please use indexer [] instead.")]
-        public SeleneElement Get(int index)
-        {
-            return this.ElementAt(index);
-        }
-
-        [Obsolete("ElementAt is deprecated and will be removed in next version, please use indexer [] instead.")]
-        public SeleneElement ElementAt(int index)
-        {
-            return new SeleneElement(new SCollectionWebElementByIndexSLocator(index, this), this.driver);
-        }
     }
 
 
@@ -306,6 +272,7 @@ namespace NSelene
                 return selements.Should(condition);
             }
 
+            [Obsolete("Use the negative condition instead, e.g. AssertTo(Have.No.Count(0))")]
             public static SeleneCollection AssertToNot(this SeleneCollection selements, Condition<SeleneCollection> condition)
             {
                 return selements.ShouldNot(condition);
