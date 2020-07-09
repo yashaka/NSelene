@@ -18,7 +18,10 @@
   - let's finalize the naming in [#53](https://github.com/yashaka/NSelene/issues/53)
 - added `Condition#Not` property, yet keeping it as internal
   - let's finalize the naming in [#53](https://github.com/yashaka/NSelene/issues/53)
-- added SeleneElement extension: `.JsScrollIntoView()`
+- added SeleneElement extensions
+  - `.JsScrollIntoView()`
+  - `.JsClick(centerXOffset=0, centerYOffset=0)`
+    - proper tests coverage is yet needed
 
 ## 1.0.0-alpha03 (to be released on 2020.06.03)
 - added `SeleneElement#Type(string keys)`, i.e. `S(selector).Type(text)`

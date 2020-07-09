@@ -250,7 +250,7 @@ namespace NSelene
         public bool Displayed
         {
             get {
-                Should(Be.InDom);
+                Should(Be.InDom);  // todo: probably we should not care in dom it or not...
                 return this.ActualWebElement.Displayed;
             }
         }
@@ -378,6 +378,28 @@ namespace NSelene
             public static SeleneCollection SS(this SeleneElement element, string cssSelector)
             {
                 return element.FindAll(cssSelector);
+            }
+
+            // todo: should we move Js* extensions to a separate namespace
+            //       to use them like: `using Nselene.Support.Extensions.Js;`
+            public static SeleneElement JsClick(this SeleneElement element, int centerXOffset=0, int centerYOffset=0)
+            {
+                element.ExecuteScript(@"
+                    var centerXOffset = args[0];
+                    var centerYOffset = args[1];
+
+                    var rect = element.getBoundingClientRect();
+                    element.dispatchEvent(new MouseEvent('click', {
+                        'view': window,
+                        'bubbles': true,
+                        'cancelable': true,
+                        'clientX': rect.left + rect.width/2 + centerXOffset,
+                        'clientY': rect.top + rect.height/2 + centerYOffset 
+                    }));
+                    ", 
+                    centerXOffset, 
+                    centerYOffset);
+                return element;
             }
 
             public static SeleneElement JsScrollIntoView(this SeleneElement element)
