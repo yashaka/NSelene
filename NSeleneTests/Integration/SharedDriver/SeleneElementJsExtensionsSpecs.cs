@@ -32,7 +32,7 @@ namespace NSelene.Tests.Integration.SharedDriver
             new SeleneDriver(Selene.GetWebDriver()).Should(Have.JSReturnedTrue(ELEMENT_IN_VIEEW, element.ActualWebElement));
         }
 
-        [Test]
+        //[Test]
         public void JsClick_ClicksOnHiddenElement()
         {
             Given.OpenedPageWithBody(@"

@@ -16,8 +16,12 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
         {
             string chromeVersion = "Latest"; // e.g. "83.0.4103.39" or "Latest", see https://chromedriver.chromium.org/downloads
             new DriverManager().SetUpDriver(new ChromeConfig(), version: chromeVersion);
-            
-            SetWebDriver(new ChromeDriver());
+
+            ChromeOptions options = new ChromeOptions();
+            options.AddArgument("--no-sandbox");
+            options.AddArgument("--disable-dev-shm-usage");
+
+            SetWebDriver(new ChromeDriver(options));
         }
 
         [OneTimeTearDown]
