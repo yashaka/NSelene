@@ -1,6 +1,10 @@
-name: .NET Core
+name: NSelene Build
 
-on: [push, pull_request]
+on: 
+  pull_request:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -13,6 +17,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
+    - name: Install Chrome
+      run: |
+        sudo apt install google-chrome-stable
     - name: Install dependencies
       run: dotnet restore
     - name: Build
