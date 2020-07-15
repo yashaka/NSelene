@@ -20,6 +20,7 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("--no-sandbox");
             options.AddArgument("--disable-dev-shm-usage");
+            options.AddArgument("--headless");
 
             SetWebDriver(new ChromeDriver(options));
         }
