@@ -19,7 +19,7 @@ namespace NSelene.Tests.Examples.SharedDriver.StraightForward
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("--headless");
 
-            SetWebDriver(new ChromeDriver(options));
+            SetWebDriver(new ChromeDriver());
         }
 
         [OneTimeTearDown]
