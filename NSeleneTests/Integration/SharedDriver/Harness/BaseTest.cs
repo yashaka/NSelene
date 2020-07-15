@@ -17,18 +17,20 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
             string chromeVersion = "Latest"; // e.g. "83.0.4103.39" or "Latest", see https://chromedriver.chromium.org/downloads
             new DriverManager().SetUpDriver(new ChromeConfig(), version: chromeVersion);
 
-            ChromeOptions options = new ChromeOptions();
-            options.AddArgument("--no-sandbox");
-            options.AddArgument("--disable-dev-shm-usage");
-            options.AddArgument("--headless");
-
-            SetWebDriver(new ChromeDriver(options));
+            SetWebDriver(new ChromeDriver(UseHeadlessMode()));
         }
 
         [OneTimeTearDown]
         public void disposeDriver()
         {
             GetWebDriver().Quit();
+        }
+
+        private static ChromeOptions UseHeadlessMode()
+        {
+            ChromeOptions options = new ChromeOptions();
+            options.AddArgument("--headless");
+            return options;
         }
     }
 }
