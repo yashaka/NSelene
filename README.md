@@ -20,6 +20,12 @@ Tests with Selene can be built either in a simple straightforward "selenide' sty
 
 For docs see tests in the [NSeleneTests](https://github.com/yashaka/NSelene/blob/master/NSeleneTests) project for now;)
 
+## Table of Content
+* [Versions](#versions)
+* [Overview](#overview)
+* [Contributing](#contributing)
+* [Release Process](#release-process)
+
 ## Versions
   
 * Upcomig version to use is just released [1.0.0-alpha01](https://www.nuget.org/packages/NSelene/1.0.0-alpha01)
@@ -189,6 +195,43 @@ SS("(//h1|//h2)[contains(text(), 'foo')]").Should(Have.Count(10));
 NSelene can be easily integrated into existing selenium based frameworks, because it is object-oriented by its nature. It provides a Consice API to Selenium via both "OOP" (`SeleneDriver` class) and "static utils" wrappers (`Selene` static class) over WebDriver. Because of the latter, NSelene also supports creation of "more than one driver per test". It can be rarely useful, but sometimes it "saves the life".
 
 Feel free to share your thoughts and file an issue on github if you need something.
+
+## Contributing
+
+Before implementing your ideas, it is recommended first to create a corresponding issue and discuss the plan to be approved;)
+Also consider first to help with issues marked with [help wanted](https://github.com/yashaka/NSelene/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) label ;)
+
+If you are a beginner consider starting with issues markd as [good first issue](https://github.com/yashaka/NSelene/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+
+### Prerequisites
+
+Target framework is .Net Standard 2.0
+
+To build from the command line you need `dotnet` 2.0 and higher
+
+Probably you will need your favourite code editor. Find some examples below:
+
+#### Windows
+
+* Visual Studio 2017+, VS Code or JetBrains Rider
+
+#### MacOS or Linux
+
+* Visual Studio for Mac, VS Code or JetBrains Rider
+
+### Workflow
+
+Before doing anything it's good to just clone the project via `git clone https://github.com/yashaka/NSelene.git` and play with it. Build, run tests, etc. For command line use `dotnet build`, or build solution using your code editor.
+
+1. If yet it does not exist, add a "feature request" Issue to this project. (assume it's number is `<ISSUE-NUMBER>`)
+2. Discuss its need and possible implementation. And once approved...
+3. Fork the project ( https://github.com/[my-github-username]/NSelene/fork )
+4. Create your feature branch (`git checkout -b my-new-feature`)
+5. Commit your changes (`git commit -am '#<ISSUE-NUMBER>: message described in short what was done'`)
+6. If you forget to add something important, add it and include into the same commit by using `git add . && git commit --amend -m "#<ISSUE-NUMBER>: <UPDATED OLD MESSAGE TEXT THAT YOU CAN GET FROM HISTORY>"
+7. Push to the branch (`git push origin my-new-feature`)
+8. Create a new Pull Request`
+9. Wait for PR Riview and pass it if requested. 
 
 ## Release process
 
