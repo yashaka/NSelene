@@ -28,14 +28,15 @@ For docs see tests in the [NSeleneTests](https://github.com/yashaka/NSelene/blob
 
 ## Versions
   
-* Upcomig version to use is just released [1.0.0-alpha01](https://www.nuget.org/packages/NSelene/1.0.0-alpha01)
+* Upcomig version to use is just released [1.0.0-alpha03](https://www.nuget.org/packages/NSelene/1.0.0-alpha03)
   * targets netstandard2.0
     * net45 support may be added later
-  * for now it's almost same as [0.0.0.7](https://www.nuget.org/packages/NSelene/0.0.0.7) 
-    * but repacked in sdk-style format
-    * and removed things marked as obsolete til 0.0.0.7
+  * it differs from [0.0.0.7](https://www.nuget.org/packages/NSelene/0.0.0.7) in the following:
+    * repacked in sdk-style format
+    * removed things marked as obsolete til 0.0.0.7
+    * added some small features, see CHANGELOG for more details
   * can be installed by:
-    `dotnet add package NSelene --version 1.0.0-alpha01`
+    `dotnet add package NSelene --version 1.0.0-alpha03`
 
 * Latest stable version: [0.0.0.7](https://www.nuget.org/packages/NSelene/0.0.0.7)
   * targets net45
@@ -48,9 +49,12 @@ See [changelog](https://github.com/yashaka/NSelene/blob/master/CHANGELOG.md) for
 
 ## Overview
 
+Find an example of NSelene usage in [this template project](https://github.com/yashaka/Web.Tests.Net).
+
 Below you can find a short overview:
 
-NSelene has no fully automatic driver management, you have to set it up manually, e.g. like here: 
+NSelene has no fully automatic driver management. Given the [WebDriverManager] is installed, then you can set your driver up manually, e.g. like here: 
+
 ```csharp
     [TestFixture]
     public class BrowserTest
@@ -58,13 +62,14 @@ NSelene has no fully automatic driver management, you have to set it up manually
         [SetUp]
         public void InitDriver()
         {
-            SetWebDriver(new FirefoxDriver());
+            new DriverManager().SetUpDriver(new ChromeConfig());
+            Selene.SetWebDriver(new ChromeDriver());
         }
 
         [TearDown]
         public void QuitDriver()
         {
-            GetWebDriver().Quit();
+            Selene.GetWebDriver().Quit();
         }
     }
 ```
@@ -91,75 +96,105 @@ Tests may look like this in a so-called "straightforward" style:
     }
 ```
 
-
-or via PageObject implemented in a "Modular/Procedural way":
-
-```csharp
-        [TestFixture]
-        public class TodoMvcShould : BrowserTest
-        {
-            [Test]
-            public void FilterTasks()
-            {
-                Tasks.Visit();
-
-                Tasks.Add("a", "b", "c");
-                Tasks.ShouldBe("a", "b", "c");
-
-                Tasks.Toggle("b"); 
-
-                Tasks.FilterActive();
-                Tasks.ShouldBe("a", "c");
-
-                Tasks.FilterCompleted();
-                Tasks.ShouldBe("b");
-            }
-        }
-```
-
-where "procedural PageObject" aka "PageModule" may look like this:
+or with PageObjects:
 
 ```csharp
-        public static class Tasks
+using NUnit.Framework;
+using Web.Tests.Model;
+
+namespace Web.Tests
+{
+    public class SearchEnginesShouldSearch : BrowserTest
+    {
+        [Test]
+        public void Ecosia()
         {
-            public static SeleneCollection List = SS("#todo-list>li"); 
+            Www.ecosia.Open();
 
-            public static void Visit()
-            {
-                GoToUrl("https://todomvc4tasj.herokuapp.com/");
-            }
+            Www.ecosia.Search("nselene dotnet");
+            Www.ecosia.Results.ShouldHaveSizeAtLeast(5)
+                .ShouldHaveText(0, "Consise API to Selenium for .Net");
 
-            public static void FilterActive()
-            {
-                S(By.LinkText("Active")).Click();
-            }
-
-            public static void FilterCompleted()
-            {
-                S(By.LinkText("Completed")).Click();
-            }
-
-            public static void Add(params string[] taskTexts)
-            {
-                foreach (var text in taskTexts) 
-                {
-                    S("#new-todo").SetValue(text).PressEnter();
-                }
-            }
-
-            public static void Toggle(string taskText)
-            {
-                List.FindBy(Have.ExactText(taskText)).S(".toggle").Click();
-            }
-
-            public static void ShouldBe(params string[] names)
-            {
-                List.FilterBy(Be.Visible).Should(Have.Texts(names));
-            }
+            Www.ecosia.Results.FollowLink(0);
+            Www.github.ShouldBeOn("yashaka/NSelene");
         }
+    }
+}
 ```
 
-You can create an OOP version with no statics of course, if you need to represent some page state;)
+where the Ecosia page object may look like this:
+
+```csharp
+namespace Web.Tests.Model.Pages
+{
+    public class Ecosia 
+    {
+        public Results Results => new Results(SS(".js-result"));
+
+        public void Open()
+        {
+            Selene.Open("https://www.ecosia.org/");
+        }
+
+        public void Search(string text)
+        {
+            S(By.Name("q")).Type(text).PressEnter();
+        }
+    }
+
+    internal class Github
+    {
+        public void ShouldBeOn(string pageTitleText)
+        {
+            Selene.WaitTo(Match.TitleContaining(pageTitleText));
+        }
+    }
+}
+
+// ...
+
+namespace Web.Tests.Model.Common
+{
+    internal class Results
+    {
+        SeleneCollection list;
+
+        public Results(SeleneCollection list)
+        {
+            this.list = list;
+        }
+
+        public Results ShouldHaveSizeAtLeast(int number)
+        {
+            list.Should(Have.CountAtLeast(number));
+            return this;
+        }
+
+        public Results ShouldHaveText(int index, string value)
+        {
+            list[index].Should(Have.Text(value));
+            return this;
+        }
+
+        public void FollowLink(int index)
+        {
+            list[index].Find("a").Click();
+        }
+    }
+}
+
+// ...
+
+namespace Web.Tests.Model
+{
+    class Www
+    {
+        public static Duckduckgo duckduckgo = new Duckduckgo();
+        public static Ecosia ecosia = new Ecosia();
+        internal static Github github = new Github();
+    }
+}
+```
 
 So... 
 The main things are ported: 
