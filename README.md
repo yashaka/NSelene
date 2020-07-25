@@ -235,10 +235,23 @@ Before doing anything it's good to just clone the project via `git clone https:/
 
 ## Release process
 
+### Given
+
+- the version is bumped in the `NSelene.csproj` to the next one, comparing to the peviously released version.
+- the changelog has a section for the current version (to be released) with list of all features implemented since the previous version was released
+  - you can check the commits history and closed issues since previous release
+- the readme is updated if needed
+- tests pass
+  ```
+  cd NSeleneTests
+  dotnet test
+  cd ../NSelene
+  ```
+- the corresponding git tag with current version number and description (should reflect the changelog) is added 
+
+### Then
+
 ```
-cd NSeleneTests
-dotnet test
-cd ../NSelene
 dotnet build -c Release
 dotnet nuget push bin/Release/NSelene<VERSION>.nupkg -k <KEY> -s https://api.nuget.org/v3/index.json
 ```
