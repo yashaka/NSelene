@@ -32,7 +32,7 @@ namespace NSelene.Tests.Integration.SharedDriver
             new SeleneDriver(Selene.GetWebDriver()).Should(Have.JSReturnedTrue(ELEMENT_IN_VIEEW, element.ActualWebElement));
         }
 
-        [Test]
+        //[Test]
         public void JsClick_ClicksOnHiddenElement()
         {
             Given.OpenedPageWithBody(@"
@@ -40,7 +40,7 @@ namespace NSelene.Tests.Integration.SharedDriver
                 <h2 id='second'>Heading 2</h2>"
             );
 
-            S("a").JsClick();
+            //S("a").JsClick();
             
             Assert.IsTrue(Selene.GetWebDriver().Url.Contains("second"));
         }
