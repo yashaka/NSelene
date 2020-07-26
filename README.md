@@ -142,7 +142,7 @@ namespace Web.Tests.Model.Pages
         }
     }
 
-    internal class Github
+    public class Github
     {
         public void ShouldBeOn(string pageTitleText)
         {
@@ -155,7 +155,7 @@ namespace Web.Tests.Model.Pages
 
 namespace Web.Tests.Model.Common
 {
-    internal class Results
+    public class Results
     {
         SeleneCollection list;
 
@@ -191,7 +191,7 @@ namespace Web.Tests.Model
     {
         public static Duckduckgo duckduckgo = new Duckduckgo();
         public static Ecosia ecosia = new Ecosia();
-        internal static Github github = new Github();
+        public static Github github = new Github();
     }
 }
 ```
