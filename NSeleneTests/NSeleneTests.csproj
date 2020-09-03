@@ -8,13 +8,17 @@
 
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.12.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
-    <PackageReference Include="WebDriverManager" Version="2.9.1" />
+    <PackageReference Include="WebDriverManager" Version="2.9.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NSelene\NSelene.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Integration\Assertions\" />
   </ItemGroup>
 
 </Project>

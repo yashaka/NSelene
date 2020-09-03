@@ -1,8 +1,10 @@
 namespace NSelene.Tests.Integration.SharedDriver.WorkflowSpecs
 {
+    using FluentAssertions;
     using Harness;
     using NUnit.Framework;
     using static NSelene.Selene;
+    using NSelene.Assertions;
 
     class AssertingByElementConditions : BaseTest
     {
@@ -84,6 +86,19 @@ namespace NSelene.Tests.Integration.SharedDriver.WorkflowSpecs
             S("input").Should(Be.Blank);
         }
 
+
+
         // TODO: add tests for ShouldNot with non-existent element itself... what should the behaviour be? :)
+
+
+        [Test]
+        public void HaveCssClassWithFluentAssertions()
+        {
+            Given.OpenedPageWithBody("<h1 class='big-title'>Hello Babe!</h1>");
+            S("h1").Should().HaveNoCssClass("title");
+            When.WithBody("<h1 class='big title'>Hello world!</h1>");
+            S("h1").Should().HaveCssClass("title").And.HaveCssClass("big");
+        }
+
     }
 }
