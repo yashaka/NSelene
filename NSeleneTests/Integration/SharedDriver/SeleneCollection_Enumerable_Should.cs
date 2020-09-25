@@ -157,5 +157,39 @@ namespace NSeleneTests.Integration.SharedDriver.SeleneCollectionSpec
             Assert.AreEqual(false, selectedElements.First());
             Assert.AreEqual(true, selectedElements.Last());
         }
+
+        [Test]
+        public void ReturnWhere()
+        {
+            Given.OpenedPageWithBody(@"
+                <ul>
+                    <li class='item'>a</li>
+                    <li class='item'>b</li>
+                </ul>"
+            );
+
+            SeleneCollection elements = SS(".item");
+
+            var selectedElements = elements.ActualWebElements.Where(e => e.Text == "b");
+
+            Assert.AreEqual(1, selectedElements.Count());
+        }
+
+        [Test]
+        public void ReturnWhereEmpty()
+        {
+            Given.OpenedPageWithBody(@"
+                <ul>
+                    <li class='item'>a</li>
+                    <li class='item'>b</li>
+                </ul>"
+            );
+
+            SeleneCollection elements = SS(".item");
+
+            var selectedElements = elements.ActualWebElements.Where(e => e.Text == "c");
+
+            Assert.AreEqual(0, selectedElements.Count());
+        }
     }
 }
