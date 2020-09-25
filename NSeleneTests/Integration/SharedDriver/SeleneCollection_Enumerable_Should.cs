@@ -191,5 +191,23 @@ namespace NSeleneTests.Integration.SharedDriver.SeleneCollectionSpec
 
             Assert.AreEqual(0, selectedElements.Count());
         }
+
+        [Test]
+        public void ReturnCount()
+        {
+            Given.OpenedPageWithBody(@"
+                <ul>
+                    <li class='item'>a</li>
+                    <li class='item'>a</li>
+                    <li class='item'>a</li>
+                </ul>"
+            );
+
+            SeleneCollection elements = SS(".item");
+
+            var count = elements.ActualWebElements.Count();
+
+            Assert.AreEqual(3, count);
+        }
     }
 }
