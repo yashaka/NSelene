@@ -3,6 +3,12 @@
 ![Free](https://img.shields.io/badge/free-open--source-green.svg)
 [![MIT License](http://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yashaka/nselene/blob/master/LICENSE)
 
+![GitHub stats in](https://raw.githubusercontent.com/yashaka/NSelene/traffic/traffic-selene/in_2021.svg)
+![GitHub views](https://raw.githubusercontent.com/yashaka/NSelene/traffic/traffic-selene/views.svg)
+![GitHub views per week](https://raw.githubusercontent.com/yashaka/NSelene/traffic/traffic-selene/views_per_week.svg)
+![GitHub clones](https://raw.githubusercontent.com/yashaka/NSelene/traffic/traffic-selene/clones.svg)
+![GitHub clones per week](https://raw.githubusercontent.com/yashaka/NSelene/traffic/traffic-selene/clones_per_week.svg)
+
 [![Join telegram chat https://t.me/nselene](https://img.shields.io/badge/chat-telegram-blue)](https://t.me/nselene)
 [![Присоединяйся к чату https://t.me/nselene_ru](https://img.shields.io/badge/%D1%87%D0%B0%D1%82-telegram-red)](https://t.me/nselene_ru)
 
