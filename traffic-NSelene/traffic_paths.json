@@ -2,7 +2,7 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 47,
+    "count": 49,
     "uniques": 24
   },
   {
@@ -36,12 +36,6 @@
     "uniques": 3
   },
   {
-    "path": "/yashaka/NSelene/releases",
-    "title": "Releases · yashaka/NSelene · GitHub",
-    "count": 4,
-    "uniques": 3
-  },
-  {
     "path": "/yashaka/NSelene/pull/72",
     "title": "fix path to traffic badges: traffic-NSelene by aleksandr-kotlyar · Pull Reque...",
     "count": 4,
@@ -50,6 +44,12 @@
   {
     "path": "/yashaka/NSelene/pull/73",
     "title": "add in_2021.svg by aleksandr-kotlyar · Pull Request #73 · yashaka/NSelene",
+    "count": 3,
+    "uniques": 2
+  },
+  {
+    "path": "/yashaka/NSelene/releases",
+    "title": "Releases · yashaka/NSelene · GitHub",
     "count": 3,
     "uniques": 2
   },
