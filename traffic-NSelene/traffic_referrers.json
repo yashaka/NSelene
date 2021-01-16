@@ -1,8 +1,8 @@
 [
   {
     "referrer": "Google",
-    "count": 23,
-    "uniques": 17
+    "count": 26,
+    "uniques": 18
   },
   {
     "referrer": "github.com",
@@ -10,14 +10,14 @@
     "uniques": 2
   },
   {
+    "referrer": "automated-testing.info",
+    "count": 8,
+    "uniques": 7
+  },
+  {
     "referrer": "ecosia.org",
     "count": 8,
     "uniques": 4
-  },
-  {
-    "referrer": "automated-testing.info",
-    "count": 6,
-    "uniques": 6
   },
   {
     "referrer": "yandex.ru",
