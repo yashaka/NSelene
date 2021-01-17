@@ -2,14 +2,20 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 72,
-    "uniques": 34
+    "count": 74,
+    "uniques": 36
   },
   {
     "path": "/yashaka/NSelene/issues",
     "title": "Issues · yashaka/NSelene · GitHub",
     "count": 10,
     "uniques": 3
+  },
+  {
+    "path": "/yashaka/NSelene/blob/master/NSelene/Selectors.cs",
+    "title": "NSelene/Selectors.cs at master · yashaka/NSelene · GitHub",
+    "count": 9,
+    "uniques": 7
   },
   {
     "path": "/yashaka/NSelene/pull/71",
@@ -22,12 +28,6 @@
     "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
     "count": 9,
     "uniques": 4
-  },
-  {
-    "path": "/yashaka/NSelene/blob/master/NSelene/Selectors.cs",
-    "title": "NSelene/Selectors.cs at master · yashaka/NSelene · GitHub",
-    "count": 8,
-    "uniques": 6
   },
   {
     "path": "/yashaka/NSelene/pulls",
