@@ -2,14 +2,20 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 74,
-    "uniques": 36
+    "count": 72,
+    "uniques": 33
   },
   {
     "path": "/yashaka/NSelene/issues",
     "title": "Issues · yashaka/NSelene · GitHub",
+    "count": 12,
+    "uniques": 4
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSelene",
+    "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
     "count": 10,
-    "uniques": 3
+    "uniques": 4
   },
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/Selectors.cs",
@@ -24,33 +30,15 @@
     "uniques": 4
   },
   {
-    "path": "/yashaka/NSelene/tree/master/NSelene",
-    "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
+    "path": "/yashaka/NSelene/pulls",
+    "title": "Pull requests · yashaka/NSelene",
     "count": 9,
     "uniques": 4
   },
   {
-    "path": "/yashaka/NSelene/pulls",
-    "title": "Pull requests · yashaka/NSelene",
-    "count": 8,
-    "uniques": 3
-  },
-  {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests",
     "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
-    "count": 6,
-    "uniques": 5
-  },
-  {
-    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
-    "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene · GitHub",
-    "count": 4,
-    "uniques": 4
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
-    "title": "NSelene/NSelene/Conditions at master · yashaka/NSelene · GitHub",
-    "count": 4,
+    "count": 5,
     "uniques": 4
   },
   {
@@ -58,5 +46,17 @@
     "title": "Branches · yashaka/NSelene · GitHub",
     "count": 4,
     "uniques": 3
+  },
+  {
+    "path": "/yashaka/NSelene/pull/73",
+    "title": "add in_2021.svg by aleksandr-kotlyar · Pull Request #73 · yashaka/NSelene · G...",
+    "count": 4,
+    "uniques": 3
+  },
+  {
+    "path": "/yashaka/NSelene/pull/72",
+    "title": "fix path to traffic badges: traffic-NSelene by aleksandr-kotlyar · Pull Reque...",
+    "count": 4,
+    "uniques": 2
   }
 ]
