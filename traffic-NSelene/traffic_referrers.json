@@ -1,28 +1,23 @@
 [
   {
     "referrer": "Google",
-    "count": 23,
-    "uniques": 15
-  },
-  {
-    "referrer": "github.com",
-    "count": 10,
-    "uniques": 3
+    "count": 21,
+    "uniques": 10
   },
   {
     "referrer": "automated-testing.info",
-    "count": 9,
-    "uniques": 8
+    "count": 10,
+    "uniques": 9
+  },
+  {
+    "referrer": "github.com",
+    "count": 8,
+    "uniques": 2
   },
   {
     "referrer": "ecosia.org",
-    "count": 8,
-    "uniques": 5
-  },
-  {
-    "referrer": "yandex.ru",
-    "count": 3,
-    "uniques": 1
+    "count": 7,
+    "uniques": 4
   },
   {
     "referrer": "Bing",
