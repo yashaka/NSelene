@@ -2,22 +2,22 @@
   {
     "referrer": "Google",
     "count": 20,
-    "uniques": 11
+    "uniques": 10
   },
   {
     "referrer": "automated-testing.info",
-    "count": 11,
-    "uniques": 10
+    "count": 8,
+    "uniques": 7
+  },
+  {
+    "referrer": "github.com",
+    "count": 7,
+    "uniques": 3
   },
   {
     "referrer": "ecosia.org",
     "count": 5,
     "uniques": 3
-  },
-  {
-    "referrer": "github.com",
-    "count": 5,
-    "uniques": 2
   },
   {
     "referrer": "confluence.buckaroo.nl",
