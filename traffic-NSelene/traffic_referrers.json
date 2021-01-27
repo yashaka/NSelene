@@ -1,13 +1,8 @@
 [
   {
     "referrer": "Google",
-    "count": 20,
-    "uniques": 10
-  },
-  {
-    "referrer": "automated-testing.info",
-    "count": 8,
-    "uniques": 7
+    "count": 19,
+    "uniques": 11
   },
   {
     "referrer": "github.com",
@@ -15,9 +10,19 @@
     "uniques": 3
   },
   {
-    "referrer": "ecosia.org",
+    "referrer": "automated-testing.info",
     "count": 5,
-    "uniques": 3
+    "uniques": 4
+  },
+  {
+    "referrer": "nuget.org",
+    "count": 2,
+    "uniques": 1
+  },
+  {
+    "referrer": "ecosia.org",
+    "count": 1,
+    "uniques": 1
   },
   {
     "referrer": "confluence.buckaroo.nl",
