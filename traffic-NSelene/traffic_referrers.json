@@ -1,8 +1,13 @@
 [
   {
     "referrer": "Google",
-    "count": 13,
+    "count": 12,
     "uniques": 7
+  },
+  {
+    "referrer": "automated-testing.info",
+    "count": 4,
+    "uniques": 4
   },
   {
     "referrer": "github.com",
@@ -10,18 +15,8 @@
     "uniques": 3
   },
   {
-    "referrer": "automated-testing.info",
-    "count": 2,
-    "uniques": 2
-  },
-  {
     "referrer": "nuget.org",
     "count": 2,
-    "uniques": 1
-  },
-  {
-    "referrer": "radio-qa.com",
-    "count": 1,
     "uniques": 1
   },
   {
@@ -30,7 +25,7 @@
     "uniques": 1
   },
   {
-    "referrer": "Baidu",
+    "referrer": "radio-qa.com",
     "count": 1,
     "uniques": 1
   }
