@@ -6,13 +6,8 @@
   },
   {
     "referrer": "automated-testing.info",
-    "count": 5,
-    "uniques": 4
-  },
-  {
-    "referrer": "github.com",
-    "count": 2,
-    "uniques": 2
+    "count": 8,
+    "uniques": 6
   },
   {
     "referrer": "ecosia.org",
@@ -20,7 +15,7 @@
     "uniques": 1
   },
   {
-    "referrer": "radio-qa.com",
+    "referrer": "github.com",
     "count": 1,
     "uniques": 1
   }
