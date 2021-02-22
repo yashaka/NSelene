@@ -1,13 +1,13 @@
 [
   {
     "referrer": "Google",
-    "count": 18,
-    "uniques": 14
+    "count": 16,
+    "uniques": 10
   },
   {
     "referrer": "automated-testing.info",
-    "count": 17,
-    "uniques": 5
+    "count": 15,
+    "uniques": 4
   },
   {
     "referrer": "github.com",
@@ -26,6 +26,11 @@
   },
   {
     "referrer": "nuget.org",
+    "count": 1,
+    "uniques": 1
+  },
+  {
+    "referrer": "gitmemory.com",
     "count": 1,
     "uniques": 1
   }
