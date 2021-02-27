@@ -2,8 +2,8 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 18,
-    "uniques": 15
+    "count": 17,
+    "uniques": 13
   },
   {
     "path": "/yashaka/NSelene/issues",
@@ -18,8 +18,20 @@
     "uniques": 2
   },
   {
+    "path": "/yashaka/NSelene/pull/72",
+    "title": "fix path to traffic badges: traffic-NSelene by aleksandr-kotlyar · Pull Reque...",
+    "count": 3,
+    "uniques": 1
+  },
+  {
     "path": "/yashaka/NSelene/blob/master/NSelene/Selectors.cs",
     "title": "NSelene/Selectors.cs at master · yashaka/NSelene · GitHub",
+    "count": 2,
+    "uniques": 2
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
+    "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
     "count": 2,
     "uniques": 2
   },
@@ -44,18 +56,6 @@
   {
     "path": "/yashaka/NSelene/commit/aa6c632d241829ecc0261f609c4cc42eb681fdea",
     "title": "Get traffic data at 2021-02-18T00:54:59.169Z · yashaka/NSelene@aa6c632",
-    "count": 1,
-    "uniques": 1
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
-    "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
-    "count": 1,
-    "uniques": 1
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSeleneTests/Examples/SharedDriver",
-    "title": "NSelene/NSeleneTests/Examples/SharedDriver at master · yashaka/NSelene · GitHub",
     "count": 1,
     "uniques": 1
   }
