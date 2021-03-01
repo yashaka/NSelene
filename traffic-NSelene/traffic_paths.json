@@ -2,8 +2,8 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 19,
-    "uniques": 14
+    "count": 18,
+    "uniques": 13
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene",
@@ -18,12 +18,6 @@
     "uniques": 2
   },
   {
-    "path": "/yashaka/NSelene/blob/master/NSelene/Selectors.cs",
-    "title": "NSelene/Selectors.cs at master · yashaka/NSelene · GitHub",
-    "count": 3,
-    "uniques": 3
-  },
-  {
     "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
     "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene · GitHub",
     "count": 3,
@@ -34,6 +28,12 @@
     "title": "fix path to traffic badges: traffic-NSelene by aleksandr-kotlyar · Pull Reque...",
     "count": 3,
     "uniques": 1
+  },
+  {
+    "path": "/yashaka/NSelene/blob/master/NSelene/Selectors.cs",
+    "title": "NSelene/Selectors.cs at master · yashaka/NSelene",
+    "count": 2,
+    "uniques": 2
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests",
