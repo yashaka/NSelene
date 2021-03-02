@@ -2,8 +2,14 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 18,
-    "uniques": 13
+    "count": 20,
+    "uniques": 15
+  },
+  {
+    "path": "/yashaka/nselene",
+    "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
+    "count": 13,
+    "uniques": 11
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene",
@@ -40,12 +46,6 @@
     "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
     "count": 2,
     "uniques": 2
-  },
-  {
-    "path": "/yashaka/nselene",
-    "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 1,
-    "uniques": 1
   },
   {
     "path": "/yashaka/NSelene/blob/master/NSeleneTests/Examples/SharedDriver/WithPageObjects/TodoMvc_Should.cs",
