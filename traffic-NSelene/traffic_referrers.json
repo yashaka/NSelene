@@ -2,17 +2,17 @@
   {
     "referrer": "Google",
     "count": 18,
-    "uniques": 13
-  },
-  {
-    "referrer": "automated-testing.info",
-    "count": 8,
-    "uniques": 5
+    "uniques": 14
   },
   {
     "referrer": "github.com",
+    "count": 7,
+    "uniques": 7
+  },
+  {
+    "referrer": "automated-testing.info",
     "count": 6,
-    "uniques": 6
+    "uniques": 5
   },
   {
     "referrer": "gitmemory.com",
