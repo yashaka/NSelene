@@ -8,20 +8,20 @@
   {
     "path": "/yashaka/nselene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 20,
-    "uniques": 18
-  },
-  {
-    "path": "/yashaka/NSelene/issues",
-    "title": "Issues · yashaka/NSelene · GitHub",
-    "count": 4,
-    "uniques": 3
+    "count": 21,
+    "uniques": 19
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene",
     "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
     "count": 4,
     "uniques": 3
+  },
+  {
+    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneLocator.cs",
+    "title": "NSelene/SeleneLocator.cs at master · yashaka/NSelene",
+    "count": 4,
+    "uniques": 1
   },
   {
     "path": "/yashaka/NSelene/pull/72",
@@ -42,10 +42,10 @@
     "uniques": 2
   },
   {
-    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneLocator.cs",
-    "title": "NSelene/SeleneLocator.cs at master · yashaka/NSelene",
+    "path": "/yashaka/NSelene/issues",
+    "title": "Issues · yashaka/NSelene · GitHub",
     "count": 2,
-    "uniques": 1
+    "uniques": 2
   },
   {
     "path": "/yashaka/NSelene/commit/4e97442022286890318a1b76cf3818801d2d3eb9",
@@ -54,8 +54,8 @@
     "uniques": 1
   },
   {
-    "path": "/yashaka/NSelene/commit/aa6c632d241829ecc0261f609c4cc42eb681fdea",
-    "title": "Get traffic data at 2021-02-18T00:54:59.169Z · yashaka/NSelene@aa6c632",
+    "path": "/yashaka/NSelene/find/master",
+    "title": "File Finder",
     "count": 1,
     "uniques": 1
   }
