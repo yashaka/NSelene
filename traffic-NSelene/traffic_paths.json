@@ -2,8 +2,8 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 29,
-    "uniques": 22
+    "count": 27,
+    "uniques": 21
   },
   {
     "path": "/yashaka/nselene",
@@ -18,22 +18,28 @@
     "uniques": 1
   },
   {
+    "path": "/yashaka/NSelene/blob/649bba5606653a642acee39df515b5752d595525/NSelene/Selene.cs",
+    "title": "NSelene/Selene.cs at 649bba5606653a642acee39df515b5752d595525 · yashaka/NSelene",
+    "count": 5,
+    "uniques": 2
+  },
+  {
+    "path": "/yashaka/NSelene/blob/649bba5606653a642acee39df515b5752d595525/NSelene/SeleneElement.cs",
+    "title": "NSelene/SeleneElement.cs at 649bba5606653a642acee39df515b5752d595525 · yashak...",
+    "count": 5,
+    "uniques": 1
+  },
+  {
     "path": "/yashaka/NSelene/tree/649bba5606653a642acee39df515b5752d595525/NSelene/Conditions",
     "title": "NSelene/NSelene/Conditions at 649bba5606653a642acee39df515b5752d595525 · yash...",
     "count": 5,
     "uniques": 1
   },
   {
-    "path": "/yashaka/NSelene/blob/649bba5606653a642acee39df515b5752d595525/NSelene/Selene.cs",
-    "title": "NSelene/Selene.cs at 649bba5606653a642acee39df515b5752d595525 · yashaka/NSelene",
+    "path": "/yashaka/NSelene/blob/649bba5606653a642acee39df515b5752d595525/NSelene/Conditions/BaseConditions.cs",
+    "title": "NSelene/BaseConditions.cs at 649bba5606653a642acee39df515b5752d595525 · yasha...",
     "count": 4,
-    "uniques": 1
-  },
-  {
-    "path": "/yashaka/NSelene/blob/649bba5606653a642acee39df515b5752d595525/NSelene/SeleneElement.cs",
-    "title": "NSelene/SeleneElement.cs at 649bba5606653a642acee39df515b5752d595525 · yashak...",
-    "count": 4,
-    "uniques": 1
+    "uniques": 2
   },
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/SeleneLocator.cs",
@@ -44,13 +50,7 @@
   {
     "path": "/yashaka/NSelene/tree/master/NSelene",
     "title": "NSelene/NSelene at master · yashaka/NSelene",
-    "count": 4,
-    "uniques": 1
-  },
-  {
-    "path": "/yashaka/NSelene/blob/649bba5606653a642acee39df515b5752d595525/NSelene/Conditions/BaseConditions.cs",
-    "title": "NSelene/BaseConditions.cs at 649bba5606653a642acee39df515b5752d595525 · yasha...",
-    "count": 2,
+    "count": 3,
     "uniques": 1
   },
   {
