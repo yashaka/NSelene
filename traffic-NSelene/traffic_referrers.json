@@ -1,8 +1,8 @@
 [
   {
     "referrer": "Google",
-    "count": 8,
-    "uniques": 8
+    "count": 7,
+    "uniques": 7
   },
   {
     "referrer": "github.com",
@@ -16,6 +16,11 @@
   },
   {
     "referrer": "software-testing.ru",
+    "count": 1,
+    "uniques": 1
+  },
+  {
+    "referrer": "autotest.how",
     "count": 1,
     "uniques": 1
   }
