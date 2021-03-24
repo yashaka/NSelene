@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 using System;
 using NSelene;
 
+using SeleneElementJsExtentions = NSelene.Support.SeleneElementJsExtensions.SeleneElementJsExtensions;
+
 namespace NSelene.Support.Extensions
 {
     public static class SeleneElementExtensions
@@ -41,32 +43,14 @@ namespace NSelene.Support.Extensions
             return element.FindAll(cssSelector);
         }
 
-        // todo: should we move Js* extensions to a separate namespace
-        //       to use them like: `using Nselene.Support.Extensions.Js;`
         public static SeleneElement JsClick(this SeleneElement element, int centerXOffset = 0, int centerYOffset = 0)
         {
-            element.ExecuteScript(@"
-                    var centerXOffset = args[0];
-                    var centerYOffset = args[1];
-
-                    var rect = element.getBoundingClientRect();
-                    element.dispatchEvent(new MouseEvent('click', {
-                        'view': window,
-                        'bubbles': true,
-                        'cancelable': true,
-                        'clientX': rect.left + rect.width/2 + centerXOffset,
-                        'clientY': rect.top + rect.height/2 + centerYOffset 
-                    }));
-                    ",
-                centerXOffset,
-                centerYOffset);
-            return element;
+            return SeleneElementJsExtentions.JsClick(element, centerXOffset, centerYOffset);
         }
 
         public static SeleneElement JsScrollIntoView(this SeleneElement element)
         {
-            element.ExecuteScript("element.scrollIntoView({ behavior: 'smooth', block: 'center'})");
-            return element;
+            return SeleneElementJsExtentions.JsScrollIntoView(element);
         }
     }
 }

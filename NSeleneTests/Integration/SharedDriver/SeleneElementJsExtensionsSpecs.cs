@@ -2,8 +2,8 @@ using NUnit.Framework;
 using static NSelene.Selene;
 using NSelene.Tests.Integration.SharedDriver.Harness;
 using NSelene.Conditions;
-using NSelene.Support.Extensions;
 using OpenQA.Selenium;
+using NSelene.Support.SeleneElementJsExtensions;
 
 namespace NSelene.Tests.Integration.SharedDriver
 {
