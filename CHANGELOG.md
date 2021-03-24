@@ -22,6 +22,7 @@
   - `.JsScrollIntoView()`
   - `.JsClick(centerXOffset=0, centerYOffset=0)`
     - proper tests coverage is yet needed
+- made Configuration ThreadLocal
 
 ## 1.0.0-alpha03 (to be released on 2020.06.03)
 - added `SeleneElement#Type(string keys)`, i.e. `S(selector).Type(text)`

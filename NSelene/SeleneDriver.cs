@@ -114,7 +114,7 @@ namespace NSelene
         #endregion
     }
 
-    // TODO: conider implementing Browser as pure user oriented abstraction, 
+    // TODO: consider implementing Browser as pure user oriented abstraction, 
     //       with no low level iwebdriverish things 
     // TODO: consider implementing IJavaScriptExecutor
     public class SeleneDriver : IWebDriver, ISearchContext, IDisposable, INavigation, SeleneContext

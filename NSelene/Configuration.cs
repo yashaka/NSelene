@@ -10,7 +10,6 @@ namespace NSelene
 
     public static class Configuration
     {
-        // TODO: consider making Timeout and PollDuringWaits also threadlocal
         private static ThreadLocal<double> _timeout = (
             new ThreadLocal<double>(() => 4)
         );
