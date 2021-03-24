@@ -14,8 +14,9 @@ namespace NSelene.Tests.Examples.SharedDriver.WithPageObjects
         {
             string chromeVersion = "Latest"; // e.g. "83.0.4103.39" or "Latest", see https://chromedriver.chromium.org/downloads
             new DriverManager().SetUpDriver(new ChromeConfig(), version: chromeVersion);
-          
-            SetWebDriver(new ChromeDriver());
+            var options = new ChromeOptions();
+            options.AddArguments("headless"); 
+            SetWebDriver(new ChromeDriver(options));
         }
 
         [OneTimeTearDown]
