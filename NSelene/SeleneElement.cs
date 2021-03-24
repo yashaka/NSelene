@@ -63,6 +63,18 @@ namespace NSelene
             return Selene.WaitForNot(this, condition);
         }
 
+        public bool Matching(Condition<SeleneElement> condition)
+        {
+            try 
+            {
+                return condition.Apply(this);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public SeleneElement PressEnter()
         {
             SendKeys(Keys.Enter);
