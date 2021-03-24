@@ -2,8 +2,8 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 25,
-    "uniques": 14
+    "count": 28,
+    "uniques": 17
   },
   {
     "path": "/yashaka/NSelene/issues",
@@ -12,8 +12,14 @@
     "uniques": 2
   },
   {
-    "path": "/yashaka/NSelene/blob/649bba5606653a642acee39df515b5752d595525/NSelene/Conditions/BaseConditions.cs",
-    "title": "NSelene/BaseConditions.cs at 649bba5606653a642acee39df515b5752d595525 · yasha...",
+    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
+    "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
+    "count": 4,
+    "uniques": 3
+  },
+  {
+    "path": "/yashaka/NSelene/blob/649bba5606653a642acee39df515b5752d595525/NSelene/Conditions/InDom.cs",
+    "title": "NSelene/InDom.cs at 649bba5606653a642acee39df515b5752d595525 · yashaka/NSelen...",
     "count": 3,
     "uniques": 1
   },
@@ -30,33 +36,27 @@
     "uniques": 2
   },
   {
-    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
-    "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
+    "path": "/yashaka/NSelene/blob/master/NSeleneTests/Examples/SharedDriver/Straightforward/TodoMvc_Should.cs",
+    "title": "NSelene/TodoMvc_Should.cs at master · yashaka/NSelene · GitHub",
     "count": 2,
     "uniques": 2
   },
   {
-    "path": "/yashaka/NSelene/blob/649bba5606653a642acee39df515b5752d595525/NSelene/Conditions/InDom.cs",
-    "title": "NSelene/InDom.cs at 649bba5606653a642acee39df515b5752d595525 · yashaka/NSelen...",
+    "path": "/yashaka/NSelene/tree/master/NSeleneTests/Examples/SharedDriver",
+    "title": "NSelene/NSeleneTests/Examples/SharedDriver at master · yashaka/NSelene · GitHub",
     "count": 2,
-    "uniques": 1
+    "uniques": 2
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSeleneTests/Examples/SharedDriver/Straightforward",
+    "title": "NSelene/NSeleneTests/Examples/SharedDriver/Straightforward at master · yashak...",
+    "count": 2,
+    "uniques": 2
   },
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/Conditions/InDom.cs",
     "title": "NSelene/InDom.cs at master · yashaka/NSelene · GitHub",
     "count": 2,
-    "uniques": 1
-  },
-  {
-    "path": "/yashaka/NSelene/issues/70",
-    "title": "It is possible to add some SelectElement wrapper? · Issue #70 · yashaka/NSele...",
-    "count": 2,
-    "uniques": 1
-  },
-  {
-    "path": "/yashaka/nselene",
-    "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 1,
     "uniques": 1
   }
 ]
