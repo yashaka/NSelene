@@ -54,7 +54,7 @@ namespace NSelene
             public abstract bool Apply(TEntity entity);
 
             // todo: review and once finalized make public 
-            internal Condition<TEntity> Not 
+            public Condition<TEntity> Not 
                 => new Not<TEntity>(this); 
 
         }
