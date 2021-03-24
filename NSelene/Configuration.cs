@@ -10,9 +10,7 @@ namespace NSelene
 
     public static class Configuration
     {
-        private static ThreadLocal<double> _timeout = (
-            new ThreadLocal<double>(() => 4)
-        );
+        static ThreadLocal<double> _timeout = new ThreadLocal<double>(() => 4);
         public static double Timeout
         {
             get
@@ -26,7 +24,7 @@ namespace NSelene
         }
 
 
-        private static ThreadLocal<double> _pollDuringWaits = (
+        static ThreadLocal<double> _pollDuringWaits = (
             new ThreadLocal<double>(() => 0.1)
         );
         public static double PollDuringWaits
@@ -41,7 +39,7 @@ namespace NSelene
             }
         }
 
-        public static ThreadLocal<bool> _setValueByJs = (
+        static ThreadLocal<bool> _setValueByJs = (
             new ThreadLocal<bool>(() => false)
         );
         public static bool SetValueByJs
