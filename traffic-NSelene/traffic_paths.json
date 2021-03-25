@@ -2,14 +2,14 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 32,
-    "uniques": 18
+    "count": 34,
+    "uniques": 20
   },
   {
     "path": "/yashaka/NSelene/issues",
     "title": "Issues · yashaka/NSelene · GitHub",
-    "count": 6,
-    "uniques": 2
+    "count": 8,
+    "uniques": 3
   },
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
@@ -36,6 +36,12 @@
     "uniques": 1
   },
   {
+    "path": "/yashaka/NSelene/actions",
+    "title": "Actions · yashaka/NSelene · GitHub",
+    "count": 2,
+    "uniques": 2
+  },
+  {
     "path": "/yashaka/NSelene/blob/master/NSeleneTests/Examples/SharedDriver/Straightforward/TodoMvc_Should.cs",
     "title": "NSelene/TodoMvc_Should.cs at master · yashaka/NSelene · GitHub",
     "count": 2,
@@ -50,12 +56,6 @@
   {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests/Examples/SharedDriver",
     "title": "NSelene/NSeleneTests/Examples/SharedDriver at master · yashaka/NSelene · GitHub",
-    "count": 2,
-    "uniques": 2
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSeleneTests/Examples/SharedDriver/Straightforward",
-    "title": "NSelene/NSeleneTests/Examples/SharedDriver/Straightforward at master · yashak...",
     "count": 2,
     "uniques": 2
   }
