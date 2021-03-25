@@ -145,6 +145,11 @@ namespace NSelene
             return this;
         }
 
+        public override string ToString()
+        {
+            return "Browser";
+        }
+
         //
         // SDriver methods
         //

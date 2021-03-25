@@ -25,6 +25,9 @@
 - made Configuration ThreadLocal
 - added SeleneElement methods:
   - Matching(Condition)
+- tuned selene elements representation in error messages
+  - now code like `SS(".parent").FilterBy(Be.Visible)[0].SS(".child").FindBy(Have.CssClass("special")).S("./following-sibling::*")`
+  - renders to: `Browser.All(.parent).By(Visible)[0].All(.child).FirstBy(has CSS class 'special').Element(./following-sibling::*)`
 
 ## 1.0.0-alpha03 (to be released on 2020.06.03)
 - added `SeleneElement#Type(string keys)`, i.e. `S(selector).Type(text)`

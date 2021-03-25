@@ -30,7 +30,7 @@ namespace NSelene
 
             public override string DescribeExpected()
             {
-                return "has '" + this.expected + "'";
+                return "has CSS class '" + this.expected + "'";
             }
         }
 

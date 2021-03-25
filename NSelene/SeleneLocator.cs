@@ -48,7 +48,11 @@ namespace NSelene
 
         public override string Description {
             get {
-                return string.Format("By.Selene: ({0}).Find({1})", this.context, driverLocator); //TODO: check the case of message when context is IWebDriver :)
+                return (
+                    $"{this.context}.Element({this.driverLocator})"
+                    .Replace("By.CssSelector: ", "")
+                    .Replace("By.XPath: ", "")
+                );
             }
         }
 
@@ -97,7 +101,7 @@ namespace NSelene
 
         public override string Description {
             get {
-                return string.Format("By.Selene: ({0})[{1}]", this.context, index);
+                return $"{this.context}[{index}]";
             }
         }
 
@@ -122,9 +126,7 @@ namespace NSelene
 
         public override string Description {
             get {
-                return string.Format("By.Selene: ({0}).FindBy({1})"
-                                     , this.context
-                                     , this.condition.Explain());
+                return $"{this.context}.FirstBy({this.condition.Explain()})";
             }
         }
 
@@ -182,7 +184,11 @@ namespace NSelene
 
         public override string Description {
             get {
-                return string.Format("By.Selene: ({0}).FindAll({1})", this.context, driverLocator);
+                return (
+                    $"{this.context}.All({this.driverLocator})"
+                    .Replace("By.CssSelector: ", "")  // TODO: DRY it and make configurable
+                    .Replace("By.XPath: ", "")
+                );
             }
         }
 
@@ -233,7 +239,7 @@ namespace NSelene
 
         public override string Description {
             get {
-                return string.Format("By.Selene: ({0}).FilterBy({1})", this.context, this.condition.Explain());
+                return $"{this.context}.By({this.condition.Explain()})";
             }
         }
 
@@ -244,10 +250,12 @@ namespace NSelene
                 return condition.Apply(
                     new SeleneElement(
                         new WrappedWebElementSLocator(
-                            string.Format("By.Selene: ({0}).FindBy({1})"
-                                          , this.context
-                                          , this.condition.Explain())
-                            , element), this.driver));
+                            $"{this.context}.FindBy({this.condition.Explain()})"
+                            , element
+                        ), 
+                        this.driver
+                    )
+                );
             };
 
             return new ReadOnlyCollection<IWebElement>(  // TODO: don't we need here ReadONlyCollection<SElement> ?
