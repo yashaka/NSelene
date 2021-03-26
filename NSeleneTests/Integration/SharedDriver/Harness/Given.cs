@@ -5,7 +5,7 @@ using OpenQA.Selenium;
 
 namespace NSelene.Tests.Integration.SharedDriver.Harness
 {
-    public static class When
+    public class When
     {
         public static void WithBody(string html)
         {
@@ -23,8 +23,7 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
             );
         }
 
-        // TODO: consider renaming to WithBodyTimedOut
-        public static void WithBodyTimedOut(string html, int timeout)
+        public static void WithBodyTimedOut(string html, double timeout)
         {
             Selene.ExecuteScript(@"
                 setTimeout(
@@ -35,7 +34,7 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
             );
         }
 
-        public static void WithBodyTimedOut(string html, int timeout, IWebDriver driver)
+        public static void WithBodyTimedOut(string html, double timeout, IWebDriver driver)
         {
             (driver as IJavaScriptExecutor).ExecuteScript(@"
                 setTimeout(
@@ -46,18 +45,14 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
             );
         }
 
-        public static void ExecuteScriptWithTimeout(string js, int timeout)
+        public static void ExecuteScriptWithTimeout(string js, double timeout)
         {
-            Selene.ExecuteScript(@"
-                setTimeout(
-                    function(){
-                        " + js + @"
-                    }, 
-                    " + timeout + ");"
+            Selene.ExecuteScript(
+                $"setTimeout(function () {{ {js} }}, {timeout})"
             );
         }
 
-        public static void ExecuteScriptWithTimeout(string js, int timeout, IWebDriver driver)
+        public static void ExecuteScriptWithTimeout(string js, double timeout, IWebDriver driver)
         {
             (driver as IJavaScriptExecutor).ExecuteScript(@"
                 setTimeout(
@@ -69,7 +64,7 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
         }
     }
 
-    public static class Given
+    public class Given : When
     {
 
         public static void OpenedEmptyPage(){
@@ -94,6 +89,12 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
         {
             Given.OpenedEmptyPage();
             When.WithBody(html);
+        }
+
+        public static void OpenedPageWithBodyTimedOut(string html, double timeout)
+        {
+            Given.OpenedEmptyPage();
+            When.WithBodyTimedOut(html, timeout);
         }
 
         public static void OpenedPageWithBody(string html, IWebDriver driver)

@@ -74,6 +74,18 @@ namespace NSelene
                 return false;
             }
         }
+        public bool WaitUntil(Condition<SeleneElement> condition)
+        {
+            try 
+            {
+                this.Should(condition);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
 
         public SeleneElement PressEnter()
         {

@@ -24,7 +24,8 @@
     - proper tests coverage is yet needed
 - made Configuration ThreadLocal
 - added SeleneElement methods:
-  - Matching(Condition)
+  - WaitUntil(Condition) – like Should, but returns false on failure
+  - Matching(Condition) - the predicate, like WaitUntil but without waiting
 - tuned selene elements representation in error messages
   - now code like `SS(".parent").FilterBy(Be.Visible)[0].SS(".child").FindBy(Have.CssClass("special")).S("./following-sibling::*")`
   - renders to: `Browser.All(.parent).By(Visible)[0].All(.child).FirstBy(has CSS class 'special').Element(./following-sibling::*)`
