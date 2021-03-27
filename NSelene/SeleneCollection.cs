@@ -66,6 +66,30 @@ namespace NSelene
             return Selene.WaitForNot(this, condition);
         }
 
+        public bool Matching(Condition<SeleneCollection> condition)
+        {
+            try 
+            {
+                return condition.Apply(this);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool WaitUntil(Condition<SeleneCollection> condition)
+        {
+            try 
+            {
+                this.Should(condition);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
         public SeleneElement FindBy(Condition<SeleneElement> condition)
         {
             return new SeleneElement(new SCollectionWebElementByConditionSLocator(condition, this, this.driver), this.driver);
