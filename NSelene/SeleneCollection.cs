@@ -31,7 +31,7 @@ namespace NSelene
             : this(new SearchContextWebElementsCollectionSLocator(byLocator, driver), driver) {}
 
         internal SeleneCollection(By byLocator) 
-            : this(new SearchContextWebElementsCollectionSLocator(byLocator, Selene.SharedDriver), Selene.SharedDriver) {}
+            : this(new SearchContextWebElementsCollectionSLocator(byLocator, Selene.SharedBrowser), Selene.SharedBrowser) {}
 
         internal SeleneCollection(IList<IWebElement> elementsListToWrap, IWebDriver driver)
             : this(new WrappedWebElementsCollectionSLocator(elementsListToWrap), new SeleneDriver(driver)) {}

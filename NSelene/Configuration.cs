@@ -52,7 +52,11 @@ namespace NSelene
 
         static ThreadLocal<IWebDriver> _webDriver = (
             new ThreadLocal<IWebDriver>(
+                /*
+                // commented because automatic start should be aligned 
+                // with automatic closure that is not a case for now
                 () => new ChromeDriver()
+                 */
                 /* // TODO: add automatic install?
                 () => {
                     new DriverManager().SetUpDriver(new ChromeConfig(), version: chromeVersion);

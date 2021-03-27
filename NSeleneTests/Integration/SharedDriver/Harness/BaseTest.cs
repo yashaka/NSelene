@@ -13,7 +13,7 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
         [OneTimeSetUp]
         public void initDriver()
         {
-            string chromeVersion = "Latest"; // e.g. "83.0.4103.39" or "Latest", see https://chromedriver.chromium.org/downloads
+            string chromeVersion = "Latest";
             new DriverManager().SetUpDriver(new ChromeConfig(), version: chromeVersion);
 
             var options = new ChromeOptions();

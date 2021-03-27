@@ -29,7 +29,7 @@ namespace NSelene
             : this(new SearchContextWebElementSLocator(locator, driver), driver) {}
 
         internal SeleneElement(By locator) 
-            : this(new SearchContextWebElementSLocator(locator, Selene.SharedDriver), Selene.SharedDriver) {}
+            : this(new SearchContextWebElementSLocator(locator, Selene.SharedBrowser), Selene.SharedBrowser) {}
 
         internal SeleneElement(IWebElement elementToWrap, IWebDriver driver)
             : this(new WrappedWebElementSLocator(elementToWrap), new SeleneDriver(driver)) {}

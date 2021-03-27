@@ -12,68 +12,30 @@ namespace NSelene
     // todo: why the function over class would not be enough in c#? 
     //       seems like there was some delegates limitation... 
     // todo: should we make it internal?
-    public interface IWebDriverSource : IDisposable
+    public interface IWebDriverSource
     {
         IWebDriver Driver { get; set; }
     }
 
-    internal class SharedThreadLocalDriverSource : IWebDriverSource, IDisposable
+    internal class SharedThreadLocalDriverSource : IWebDriverSource
     {
-
-        ThreadLocal<IWebDriver> driver = new ThreadLocal<IWebDriver>();
-
         public IWebDriver Driver {
             get {
-                // return this.driver.Value;
                 return Configuration.WebDriver;
             }
 
             set {
-                // this.driver.Value = value;
                 Configuration.WebDriver = value;
             }
         }
 
-        // todo: do we need this instance to be created in forward? not on demand?
-        public static SharedThreadLocalDriverSource Instance = new SharedThreadLocalDriverSource();
-
-        #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
-
-        protected virtual void Dispose (bool disposing)
+        public void Dispose()
         {
-            if (!disposedValue) {
-                if (disposing) {
-                    // dispose managed state (managed objects).
-                    foreach(IWebDriver local in this.driver.Values)
-                    {
-                        local.Quit();
-                    }
-                    /* TODO: is this.driver - managed or not managed? :D
-                     * TODO: Do we actually need this code? Maybe the following will be enouth:
-                    this.driver.Dispose()
-                     */
-                }
-
-                //TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                //TODO: set large fields to null.
-
-                disposedValue = true;
-            }
+            throw new NotImplementedException();
         }
-
-        // This code added to correctly implement the disposable pattern.
-        void IDisposable.Dispose ()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose (true);
-            // TODO: uncomment the following line if the finalizer is overridden above.
-            // GC.SuppressFinalize(this);
-        }
-        #endregion
     }
 
-    public class ExplicitDriverSource : IWebDriverSource, IDisposable
+    public class ExplicitDriverSource : IWebDriverSource
     {
 
         public IWebDriver Driver { get; set; }
@@ -82,38 +44,6 @@ namespace NSelene
         {
             this.Driver = driver;
         }
-
-        #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
-
-        protected virtual void Dispose (bool disposing)
-        {
-            if (!disposedValue) {
-                if (disposing) {
-                    // dispose managed state (managed objects).
-                    this.Driver.Quit();
-                    /* TODO: is this.driver - managed or not managed? :D
-                     * TODO: Do we actually need this code? Maybe the following will be enouth:
-                    this.driver.Dispose()
-                     */
-                }
-
-                //TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                //TODO: set large fields to null.
-
-                disposedValue = true;
-            }
-        }
-
-        // This code added to correctly implement the disposable pattern.
-        void IDisposable.Dispose ()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose (true);
-            // TODO: uncomment the following line if the finalizer is overridden above.
-            // GC.SuppressFinalize(this);
-        }
-        #endregion
     }
 
     // TODO: consider implementing Browser as pure user oriented abstraction, 
@@ -138,7 +68,7 @@ namespace NSelene
             this.source = source;
         }
 
-        public SeleneDriver() : this(SharedThreadLocalDriverSource.Instance) {}
+        public SeleneDriver() : this(new SharedThreadLocalDriverSource()) {}
 
         public SeleneDriver(IWebDriver driver) : this(new ExplicitDriverSource(driver)) {} 
 
@@ -359,17 +289,16 @@ namespace NSelene
         {
             return this.Value.FindElements(by);
         }
-
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
         protected virtual void Dispose (bool disposing)
         {
-            this.source.Dispose();
+            this.source.Driver.Dispose();
             if (!disposedValue) {
                 if (disposing) {
                     // dispose managed state (managed objects).
-                    this.source.Dispose();
+                    this.source.Driver.Dispose();
                     /* TODO: is this.driver - managed or not managed? :D
                      * TODO: Do we actually need this code? Maybe the following will be enouth:
                     this.driver.Dispose()
