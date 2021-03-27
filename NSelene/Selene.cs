@@ -10,7 +10,7 @@ namespace NSelene
 {
     public static partial class Selene
     {
-        internal static SeleneDriver SharedDriver = new SeleneDriver();
+        internal static SeleneDriver SharedBrowser = new SeleneDriver();
 
         public static void SetWebDriver(IWebDriver driver)
         {

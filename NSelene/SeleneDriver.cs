@@ -478,9 +478,9 @@ namespace NSelene
     }
 
     // [Obsolete("Browser is deprecated and will be removed in next version, please use SeleneDriver class instead.")]
-    // public class Browser : SeleneDriver
+    // public class Browser_ : SeleneDriver
     // {
-    //     public Browser(IWebDriver driver) : base(new ExplicitDriverSource(driver)) {}      
+    //     public Browser_(IWebDriver driver) : base(new ExplicitDriverSource(driver)) {}      
     // }
 }
 
