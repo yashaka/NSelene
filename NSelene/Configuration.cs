@@ -1,13 +1,9 @@
 using System.Threading;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 
 namespace NSelene
 {
-    internal static class PrivateConfiguration  // todo: consider renaming
-    {
-        public static SeleneDriver SharedDriver = new SeleneDriver();
-    }
-
     public static class Configuration
     {
         static ThreadLocal<double> _timeout = new ThreadLocal<double>(() => 4);
@@ -54,16 +50,26 @@ namespace NSelene
             }
         }
 
+        static ThreadLocal<IWebDriver> _webDriver = (
+            new ThreadLocal<IWebDriver>(
+                () => new ChromeDriver()
+                /* // TODO: add automatic install?
+                () => {
+                    new DriverManager().SetUpDriver(new ChromeConfig(), version: chromeVersion);
+                    return new ChromeDriver();
+                }
+                 */
+            )
+        );
         public static IWebDriver WebDriver
         {
             get
             {
-                // todo: simplify the impl to same style as above... 
-                return PrivateConfiguration.SharedDriver.Value;
+                return _webDriver.Value;
             }
             set
             {
-                PrivateConfiguration.SharedDriver.Value = value;
+                _webDriver.Value = value;
             }
         }
     }

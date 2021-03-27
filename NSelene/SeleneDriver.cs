@@ -24,11 +24,13 @@ namespace NSelene
 
         public IWebDriver Driver {
             get {
-                return this.driver.Value;
+                // return this.driver.Value;
+                return Configuration.WebDriver;
             }
 
             set {
-                this.driver.Value = value;
+                // this.driver.Value = value;
+                Configuration.WebDriver = value;
             }
         }
 

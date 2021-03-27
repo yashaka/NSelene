@@ -10,14 +10,16 @@ namespace NSelene
 {
     public static partial class Selene
     {
+        internal static SeleneDriver SharedDriver = new SeleneDriver();
+
         public static void SetWebDriver(IWebDriver driver)
         {
-            PrivateConfiguration.SharedDriver.Value = driver;
+            Configuration.WebDriver = driver;
         }
 
         public static IWebDriver GetWebDriver()
         {
-            return PrivateConfiguration.SharedDriver.Value;
+            return Configuration.WebDriver;
         }
         public static object ExecuteScript(string script)
         {
