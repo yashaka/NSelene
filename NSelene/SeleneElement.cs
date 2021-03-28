@@ -60,7 +60,11 @@ namespace NSelene
         {
             return new SeleneElement(
                 this.locator, 
-                this.config.With(Configuration._With_(timeout:timeout))
+                this.config.With(Configuration._With_(
+                    timeout:timeout,
+                    pollDuringWaits:pollDuringWaits,
+                    setValueByJs:setValueByJs
+                ))
             );
         }
 
