@@ -24,8 +24,11 @@
     - proper tests coverage is yet needed
 - made Configuration ThreadLocal
 - added SeleneElement methods:
-  - WaitUntil(Condition) – like Should, but returns false on failure
-  - Matching(Condition) - the predicate, like WaitUntil but without waiting
+  - `WaitUntil(Condition)` – like Should, but returns false on failure
+  - `Matching(Condition)` - the predicate, like WaitUntil but without waiting
+  - `With([timeout], [pollDuringWaits], [setValueByJs])` - to override corresponding selene setting from Configuration
+  - `_With_(_SeleneSettings_)` option to fully disconnect element config from shared Configuration
+    - underscores mean that method is signature might change...
 - tuned selene elements representation in error messages
   - now code like `SS(".parent").FilterBy(Be.Visible)[0].SS(".child").FindBy(Have.CssClass("special")).S("./following-sibling::*")`
   - renders to: `Browser.All(.parent).By(Visible)[0].All(.child).FirstBy(has CSS class 'special').Element(./following-sibling::*)`

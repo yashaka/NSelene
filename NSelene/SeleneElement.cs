@@ -18,21 +18,59 @@ namespace NSelene
         readonly SeleneLocator<IWebElement> locator;
 
         readonly SeleneDriver driver;
+        private readonly _SeleneSettings_ config;
 
         internal SeleneElement(SeleneLocator<IWebElement> locator, SeleneDriver driver)
         {
             this.locator = locator;
             this.driver = driver;
+            this.config = Configuration._With_(driver: driver.Value);
         }
 
         internal SeleneElement(By locator, SeleneDriver driver) 
             : this(new SearchContextWebElementSLocator(locator, driver), driver) {}
 
         internal SeleneElement(By locator) 
-            : this(new SearchContextWebElementSLocator(locator, Selene.SharedBrowser), Selene.SharedBrowser) {}
+        : this(
+            new SearchContextWebElementSLocator(locator, Selene.SharedSeleneDriver), 
+            Selene.SharedSeleneDriver
+        ) 
+        {}
 
         internal SeleneElement(IWebElement elementToWrap, IWebDriver driver)
             : this(new WrappedWebElementSLocator(elementToWrap), new SeleneDriver(driver)) {}
+
+        internal SeleneElement(By locator, _SeleneSettings_ config) 
+        : this(locator)
+        {
+            this.config = config;
+        }
+        
+        internal SeleneElement(SeleneLocator<IWebElement> locator, _SeleneSettings_ config) 
+        : this(locator, Selene.SharedSeleneDriver)
+        {
+            this.config = config;
+        }
+
+        public SeleneElement With(
+            double? timeout = null,
+            double? pollDuringWaits = null,
+            bool? setValueByJs = null
+        )
+        {
+            return new SeleneElement(
+                this.locator, 
+                this.config.With(Configuration._With_(timeout:timeout))
+            );
+        }
+
+        public SeleneElement _With_(_SeleneSettings_ config)
+        {
+            return new SeleneElement(
+                this.locator, 
+                config
+            );
+        }
 
         // TODO: consider making it just a field initialized in constructor
         Actions Actions {
@@ -54,7 +92,11 @@ namespace NSelene
 
         public SeleneElement Should(Condition<SeleneElement> condition)
         {
-            return Selene.WaitFor(this, condition);
+            return Selene.WaitFor(
+                this, 
+                condition, 
+                this.config.Timeout ?? Configuration.Timeout
+            );
         }
 
         [Obsolete("Use the negative condition instead")]

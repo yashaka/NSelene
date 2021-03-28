@@ -21,11 +21,11 @@ namespace NSelene
     {
         public IWebDriver Driver {
             get {
-                return Configuration.WebDriver;
+                return Configuration.Driver;
             }
 
             set {
-                Configuration.WebDriver = value;
+                Configuration.Driver = value;
             }
         }
 
