@@ -151,6 +151,12 @@ namespace NSelene
             return this.Find(Utils.ToBy(cssOrXPathSelector));
         }
 
+        public SeleneElement Shadow(string cssOrXPathSelector)
+        {
+            var webElement = NSelene.Shadow.FindShadow(this, cssOrXPathSelector);
+            return new SeleneElement(webElement, driver.Value);
+        }
+
         public SeleneCollection FindAll(By locator)
         {
             return new SeleneCollection(new SearchContextWebElementsCollectionSLocator(locator, this), this.driver);
