@@ -82,7 +82,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
                     250);"
             );
             SS("a").FindBy(Be.Visible).Click();
-            Assert.IsTrue(Selene.GetWebDriver().Url.Contains("second"));
+            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
         }
 
         [Test]
@@ -129,7 +129,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
                 SS("a").FindBy(Be.Visible).Click();
                 Assert.Fail("should fail on timeout before can be clicked");
             } catch (WebDriverTimeoutException) {
-                Assert.IsFalse(Selene.GetWebDriver().Url.Contains("second"));
+                Assert.IsFalse(Configuration.Driver.Url.Contains("second"));
                 //TODO: consider asserting that actually 250ms passed
             }
         }

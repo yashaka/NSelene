@@ -4,6 +4,7 @@ using NSelene.Tests.Integration.SharedDriver.Harness;
 using NSelene.Conditions;
 using OpenQA.Selenium;
 using NSelene.Support.SeleneElementJsExtensions;
+using System;
 
 namespace NSelene.Tests.Integration.SharedDriver
 {
@@ -25,14 +26,14 @@ namespace NSelene.Tests.Integration.SharedDriver
         {
             Given.OpenedPageWithBody("<input style='margin-top:100cm;' type='text' value='ku ku'/>");
             SeleneElement element = S("input");
-            new SeleneDriver(Selene.GetWebDriver()).Should(Have.No.JSReturnedTrue(ELEMENT_IN_VIEEW, element.ActualWebElement));
+            new SeleneDriver(Configuration.Driver).Should(Have.No.JSReturnedTrue(ELEMENT_IN_VIEEW, element.ActualWebElement));
 
             element.JsScrollIntoView();
 
-            new SeleneDriver(Selene.GetWebDriver()).Should(Have.JSReturnedTrue(ELEMENT_IN_VIEEW, element.ActualWebElement));
+            new SeleneDriver(Configuration.Driver).Should(Have.JSReturnedTrue(ELEMENT_IN_VIEEW, element.ActualWebElement));
         }
 
-        //[Test]
+        [Test]
         public void JsClick_ClicksOnHiddenElement()
         {
             Given.OpenedPageWithBody(@"
@@ -40,9 +41,32 @@ namespace NSelene.Tests.Integration.SharedDriver
                 <h2 id='second'>Heading 2</h2>"
             );
 
-            //S("a").JsClick();
+            S("a").JsClick();
             
-            Assert.IsTrue(Selene.GetWebDriver().Url.Contains("second"));
+            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
+        }
+
+        [Test]
+        public void JsSetValue_SetsItFasterThanSendKeysLikeType()
+        {
+            Given.OpenedPageWithBody(@"
+                <input id='field1'>
+                <input id='field2'>
+            ");
+
+            var beforeType = DateTime.Now;
+            S("#field1").Type(new string('*', 100));
+            var afterType = DateTime.Now;
+            var typeTime = afterType - beforeType;
+            var beforeJsSetValue = afterType;
+            S("#field2").JsSetValue(new string('*', 100));
+            var afterJsSetValue = DateTime.Now;
+            var jsTime = afterJsSetValue - beforeJsSetValue;
+            
+            S("#field1").Should(Have.Value(new string('*', 100)));
+            S("#field2").Should(Have.Value(new string('*', 100)));
+            
+            Assert.Less(jsTime, typeTime / 5);
         }
 
         // TODO: make it work and pass:)
@@ -61,7 +85,7 @@ namespace NSelene.Tests.Integration.SharedDriver
             
         //     toSecond.JsClick(0, -toSecond.Size.Height);
             
-        //     Assert.IsTrue(Selene.GetWebDriver().Url.Contains("first"));
+        //     Assert.IsTrue(Configuration.Driver.Url.Contains("first"));
         // }
     }
 }
