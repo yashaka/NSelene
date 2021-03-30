@@ -10,7 +10,6 @@ namespace NSelene
 {
     public static partial class Selene
     {
-        internal static SeleneDriver SharedSeleneDriver = new SeleneDriver();
 
         public static void SetWebDriver(IWebDriver driver)
         {
@@ -28,7 +27,7 @@ namespace NSelene
 
         public static SeleneElement S(By locator)
         {
-            return new SeleneElement(locator);
+            return new SeleneElement(locator, Configuration.Shared);
         }
 
         public static SeleneElement S(string cssOrXPathSelector)
@@ -38,12 +37,14 @@ namespace NSelene
 
         public static SeleneElement S(IWebElement pageFactoryElement, IWebDriver driver)
         {
-            return new SeleneElement(pageFactoryElement, driver);
+            return new SeleneElement(
+                pageFactoryElement, Configuration._With_(driver: driver)
+            );
         }
 
         public static SeleneElement S(By locator, IWebDriver driver)
         {
-            return new SeleneElement(locator, new SeleneDriver(driver));
+            return new SeleneElement(locator, Configuration._With_(driver: driver));
         }
 
         public static SeleneElement S(string cssOrXPathSelector, IWebDriver driver)
@@ -53,7 +54,7 @@ namespace NSelene
 
         public static SeleneCollection SS(By locator)
         {
-            return new SeleneCollection(locator);
+            return new SeleneCollection(locator, Configuration.Shared);
         }
 
         public static SeleneCollection SS(string cssOrXPathSelector)
@@ -63,12 +64,14 @@ namespace NSelene
 
         public static SeleneCollection SS(IList<IWebElement> pageFactoryElementsList, IWebDriver driver)
         {
-            return new SeleneCollection(pageFactoryElementsList, driver);
+            return new SeleneCollection(
+                pageFactoryElementsList, Configuration._With_(driver: driver)
+            );
         }
 
         public static SeleneCollection SS(By locator, IWebDriver driver)
         {
-            return new SeleneCollection(locator, new SeleneDriver(driver));
+            return new SeleneCollection(locator, Configuration._With_(driver: driver));
         }
 
         public static SeleneCollection SS(string cssOrXPathSelector, IWebDriver driver)
@@ -102,17 +105,38 @@ namespace NSelene
             return WaitFor(GetWebDriver(), condition);
         }
 
-        public static TResult WaitFor<TResult>(TResult sEntity, Condition<TResult> condition)
+        public static TResult WaitFor<TResult>(
+            TResult sEntity, 
+            Condition<TResult> condition
+        )
         {
-            return WaitFor(sEntity, condition, Configuration.Timeout);
+            return WaitFor(
+                sEntity, 
+                condition, 
+                Configuration.Timeout, 
+                Configuration.PollDuringWaits
+            );
         }
 
-        public static TResult WaitForNot<TResult>(TResult sEntity, Condition<TResult> condition)
+        public static TResult WaitForNot<TResult>(
+            TResult sEntity, 
+            Condition<TResult> condition
+        )
         {
-            return WaitForNot(sEntity, condition, Configuration.Timeout);
+            return WaitForNot(
+                sEntity, 
+                condition, 
+                Configuration.Timeout, 
+                Configuration.PollDuringWaits
+            );
         }
 
-        public static TResult WaitFor<TResult>(TResult entity, Condition<TResult> condition, double timeout)
+        public static TResult WaitFor<TResult>(
+            TResult entity, 
+            Condition<TResult> condition, 
+            double timeout, 
+            double pollDuringWaits=0
+        )
         {
             Exception lastException = null;
             var timeoutSpan = TimeSpan.FromSeconds(timeout);
@@ -146,12 +170,17 @@ namespace NSelene
                                   $"\nfor condition: {condition}";
                     throw new WebDriverTimeoutException(text, lastException);
                 }
-                Thread.Sleep(TimeSpan.FromSeconds(Configuration.PollDuringWaits).Milliseconds);
+                Thread.Sleep(TimeSpan.FromSeconds(pollDuringWaits).Milliseconds);
             }
             return entity;
         }
 
-        public static TResult WaitForNot<TResult>(TResult entity, Condition<TResult> condition, double timeout)
+        public static TResult WaitForNot<TResult>(
+            TResult entity, 
+            Condition<TResult> condition, 
+            double timeout, 
+            double pollDuringWaits=0
+        )
         {
             Exception lastException = null;
             var timeoutSpan = TimeSpan.FromSeconds(timeout);
@@ -183,7 +212,7 @@ namespace NSelene
                     text = text + condition;
                     throw new WebDriverTimeoutException(text, lastException);
                 }
-                Thread.Sleep(TimeSpan.FromSeconds(Configuration.PollDuringWaits).Milliseconds);
+                Thread.Sleep(TimeSpan.FromSeconds(pollDuringWaits).Milliseconds);
             }
             return entity;
         }

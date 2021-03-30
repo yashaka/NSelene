@@ -28,11 +28,6 @@ namespace NSelene
                 Configuration.Driver = value;
             }
         }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public class ExplicitDriverSource : IWebDriverSource
@@ -43,6 +38,28 @@ namespace NSelene
         public ExplicitDriverSource(IWebDriver driver)
         {
             this.Driver = driver;
+        }
+    }
+
+    internal class ConfigDriverSource : IWebDriverSource
+    {
+
+        public IWebDriver Driver 
+        { 
+            get
+            {
+                return this.config.Driver;
+            } 
+            set
+            {
+                this.config.Driver = value;
+            } 
+        }
+        private readonly _SeleneSettings_ config;
+
+        public ConfigDriverSource(_SeleneSettings_ config)
+        {
+            this.config = config;
         }
     }
 
@@ -62,15 +79,29 @@ namespace NSelene
                 this.source.Driver = value;
             }
         }
+        private readonly _SeleneSettings_ config;
+
+        internal SeleneDriver(_SeleneSettings_ config)
+        : this(new ConfigDriverSource(config), config)
+        {}
 
         public SeleneDriver(IWebDriverSource source)
+        : this(source, Configuration.Shared)
+        {}
+
+        internal SeleneDriver(IWebDriverSource source, _SeleneSettings_ config)
         {
             this.source = source;
+            this.config = config;
         }
 
-        public SeleneDriver() : this(new SharedThreadLocalDriverSource()) {}
+        public SeleneDriver() 
+        : this(Configuration.Shared) 
+        {}
 
-        public SeleneDriver(IWebDriver driver) : this(new ExplicitDriverSource(driver)) {} 
+        public SeleneDriver(IWebDriver driver) 
+        : this(Configuration._With_(driver: driver)) 
+        {} 
 
         IWebDriver asWebDriver()
         {
@@ -82,6 +113,32 @@ namespace NSelene
             return "Browser";
         }
 
+        public SeleneDriver With(
+            IWebDriver driver = null,
+            double? timeout = null,
+            double? pollDuringWaits = null,
+            bool? setValueByJs = null
+        )
+        {
+            _SeleneSettings_ customized = new Configuration();
+
+            customized.Driver = driver;
+            customized.Timeout = timeout;
+            customized.PollDuringWaits = pollDuringWaits;
+            customized.SetValueByJs = setValueByJs;
+
+            return new SeleneDriver(
+                this.config.With(customized)
+            );
+        }
+
+        public SeleneDriver _With_(_SeleneSettings_ config)
+        {
+            return new SeleneDriver(
+                config
+            );
+        }
+
         //
         // SDriver methods
         //
@@ -90,7 +147,7 @@ namespace NSelene
         // becuase SDriver#Find sounds better than SDriver#Element (Element sounded when we had Browser#Element in the past...)
         public SeleneElement Find(By by)
         {
-            return new SeleneElement(by, this);
+            return new SeleneElement(by, this.config);
         }
 
         public SeleneElement Find(string cssSelector)
@@ -100,12 +157,12 @@ namespace NSelene
 
         public SeleneElement Find(IWebElement pageFactoryElement)
         {
-            return new SeleneElement(pageFactoryElement, this);
+            return new SeleneElement(pageFactoryElement, this.config);
         }
 
         public SeleneCollection FindAll(By by)
         {
-            return new SeleneCollection(by, this);
+            return new SeleneCollection(by, this.config);
         }
 
         public SeleneCollection FindAll(string cssSelector)
@@ -115,10 +172,9 @@ namespace NSelene
 
         public SeleneCollection FindAll(IList<IWebElement> pageFactoryElements)
         {
-            return new SeleneCollection(pageFactoryElements, this);
+            return new SeleneCollection(pageFactoryElements, this.config);
         }
 
-        // TODO: this method works with driver's value, not source... this make it possibly not thread safe... 
         public Actions Actions()
         {
             return new Actions(this.Value);
@@ -126,8 +182,38 @@ namespace NSelene
 
         public SeleneDriver Should(Condition<IWebDriver> condition) 
         {
-            Selene.WaitFor(this.Value, condition);
+            Selene.WaitFor(
+                this.Value, 
+                condition, 
+                this.config.Timeout ?? Configuration.Timeout,
+                this.config.PollDuringWaits ?? Configuration.PollDuringWaits
+            );
             return this;
+        }
+
+        public bool Matching(Condition<IWebDriver> condition)
+        {
+            try 
+            {
+                return condition.Apply(this);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool WaitUntil(Condition<IWebDriver> condition)
+        {
+            try 
+            {
+                this.Should(condition);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
  
         //
@@ -268,12 +354,12 @@ namespace NSelene
 
         IWebElement ISearchContext.FindElement (By by)
         {
-            return new SeleneElement(by, this);
+            return new SeleneElement(by, this.config);
         }
 
         ReadOnlyCollection<IWebElement> ISearchContext.FindElements (By by)
         {
-            return new SeleneCollection(by, this).ToReadOnlyWebElementsCollection();
+            return new SeleneCollection(by, this.config).ToReadOnlyWebElementsCollection();
         }
 
         //

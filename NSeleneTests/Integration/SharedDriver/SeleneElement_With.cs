@@ -107,8 +107,49 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             customized.WaitUntil(Be.Visible);
             var afterCall = DateTime.Now;
 
-            // THEN the default polling value is used making waiting shorter correspondingly 
+            // THEN the default 0.1 polling value is used making waiting shorter correspondingly 
             Assert.GreaterOrEqual(afterCall, beforeCall.AddSeconds(0.2));
+            Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
+        }
+        
+        [Test]
+        public void CustomizingComplexCollectionElementYetSharedOverride()
+        {
+            // GIVEN overriden twice for collection element
+            Configuration.PollDuringWaits = 1.0;
+            var customizedCollection 
+            = SS(".absent").With(timeout: 0.2);
+            var customized 
+            = customizedCollection.FindBy(Be.Visible).With(timeout: 0.5);
+
+            // WHEN shared setting updated one more time
+            Configuration.PollDuringWaits = 0.3;
+            var beforeCall = DateTime.Now;
+            customized.WaitUntil(Be.Visible);
+            var afterCall = DateTime.Now;
+
+            // THEN 
+            Assert.GreaterOrEqual(afterCall, beforeCall.AddSeconds(0.6));
+            Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
+        }
+        
+        [Test]
+        public void CustomizingComplexCollectionElementYetCollectionOverride()
+        {
+            // GIVEN overriden twice for collection element
+            Configuration.PollDuringWaits = 1.0;
+            var customizedCollection 
+            = SS(".absent").With(timeout: 0.2, pollDuringWaits: 0.3);
+            var customized 
+            = customizedCollection.FindBy(Be.Visible).With(timeout: 0.5);
+
+            // WHEN
+            var beforeCall = DateTime.Now;
+            customized.WaitUntil(Be.Visible);
+            var afterCall = DateTime.Now;
+
+            // THEN 
+            Assert.GreaterOrEqual(afterCall, beforeCall.AddSeconds(0.6));
             Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
         }
     }

@@ -4,7 +4,6 @@ using System.Linq;
 using NSelene.Conditions;
 using System.Collections.ObjectModel;
 using System;
-using System.Threading;
 using System.Collections;
 
 namespace NSelene
@@ -15,26 +14,94 @@ namespace NSelene
     }
 
     public sealed class SeleneCollection 
-        :  WrapsWebElementsCollection, IReadOnlyList<SeleneElement>, IReadOnlyCollection<SeleneElement>, IList<SeleneElement>, IList<IWebElement>, ICollection<SeleneElement>, IEnumerable<SeleneElement>, IEnumerable
+        :  WrapsWebElementsCollection
+        , IReadOnlyList<SeleneElement>
+        , IReadOnlyCollection<SeleneElement>
+        , IList<SeleneElement>
+        , IList<IWebElement>
+        , ICollection<SeleneElement>
+        , IEnumerable<SeleneElement>
+        , IEnumerable
     {
         readonly SeleneLocator<ReadOnlyCollection<IWebElement>> locator;
 
-        readonly SeleneDriver driver;
-
-        internal SeleneCollection(SeleneLocator<ReadOnlyCollection<IWebElement>> locator, SeleneDriver driver)
+        public readonly _SeleneSettings_ config; // TODO: remove
+        // private readonly _SeleneSettings_ config;
+        
+        internal SeleneCollection(
+            SeleneLocator<ReadOnlyCollection<IWebElement>> locator, 
+            _SeleneSettings_ config
+        ) 
         {
             this.locator = locator;
-            this.driver = driver;
+            this.config = config;
         }
 
-        internal SeleneCollection(By byLocator, SeleneDriver driver) 
-            : this(new SearchContextWebElementsCollectionSLocator(byLocator, driver), driver) {}
+        internal SeleneCollection(
+            SeleneLocator<ReadOnlyCollection<IWebElement>> locator
+        )
+        : this(locator, Configuration.Shared) {}        
+        
+        internal SeleneCollection(
+            By locator, 
+            _SeleneSettings_ config
+        ) 
+        : this (
+            new SearchContextWebElementsCollectionSLocator(
+                locator, 
+                config
+            ),
+            config
+        ) {}
 
-        internal SeleneCollection(By byLocator) 
-            : this(new SearchContextWebElementsCollectionSLocator(byLocator, Selene.SharedSeleneDriver), Selene.SharedSeleneDriver) {}
+        internal SeleneCollection(
+            IList<IWebElement> elementsListToWrap, 
+            _SeleneSettings_ config
+        )
+        : this(
+            new WrappedWebElementsCollectionSLocator(elementsListToWrap), 
+            config
+        ) 
+        {}
 
-        internal SeleneCollection(IList<IWebElement> elementsListToWrap, IWebDriver driver)
-            : this(new WrappedWebElementsCollectionSLocator(elementsListToWrap), new SeleneDriver(driver)) {}
+        public SeleneCollection With(
+            IWebDriver driver = null,
+            double? timeout = null,
+            double? pollDuringWaits = null,
+            bool? setValueByJs = null
+        )
+        {
+            _SeleneSettings_ customized = new Configuration();
+
+            customized.Driver = driver;
+            customized.Timeout = timeout;
+            customized.PollDuringWaits = pollDuringWaits;
+            customized.SetValueByJs = setValueByJs;
+
+            /* same but another style and not so obvious with harder override logic: 
+            // mentioned here just for an example, to think about later on API improvements
+
+            _SeleneSettings_ customized = Configuration._With_(
+                driver: driver ?? this.config.Driver,
+                timeout: timeout ?? this.config.Timeout,
+                pollDuringWaits: pollDuringWaits ?? this.config.PollDuringWaits,
+                setValueByJs: setValueByJs ?? this.config.SetValueByJs
+            );
+            */
+
+            return new SeleneCollection(
+                this.locator, 
+                this.config.With(customized)
+            );
+        }
+
+        public SeleneCollection _With_(_SeleneSettings_ config)
+        {
+            return new SeleneCollection(
+                this.locator, 
+                config
+            );
+        }
         
         public ReadOnlyCollection<IWebElement> ActualWebElements
         {
@@ -57,7 +124,12 @@ namespace NSelene
 
         public SeleneCollection Should(Condition<SeleneCollection> condition)
         {
-            return Selene.WaitFor(this, condition);
+            return Selene.WaitFor(
+                this, 
+                condition,
+                this.config.Timeout ?? Configuration.Timeout,
+                this.config.PollDuringWaits ?? Configuration.PollDuringWaits
+            );
         }
 
         [Obsolete("Use the negative condition instead, e.g. Should(Have.No.Count(0))")]
@@ -92,12 +164,20 @@ namespace NSelene
 
         public SeleneElement FindBy(Condition<SeleneElement> condition)
         {
-            return new SeleneElement(new SCollectionWebElementByConditionSLocator(condition, this, this.driver), this.driver);
+            return new SeleneElement(
+                new SCollectionWebElementByConditionSLocator(condition, this, this.config), 
+                this.config
+            );
         }
 
         public SeleneCollection FilterBy(Condition<SeleneElement> condition)
         {
-            return new SeleneCollection(new SCollectionFilteredWebElementsCollectionSLocator(condition, this, this.driver), this.driver);
+            return new SeleneCollection(
+                new SCollectionFilteredWebElementsCollectionSLocator(
+                    condition, this, this.config
+                ), 
+                this.config
+            );
         }
 
         public ReadOnlyCollection<IWebElement> ToReadOnlyWebElementsCollection()
@@ -111,7 +191,10 @@ namespace NSelene
 
         public SeleneElement this [int index] {
             get {
-                return new SeleneElement(new SCollectionWebElementByIndexSLocator(index, this), this.driver);
+                return new SeleneElement(
+                    new SCollectionWebElementByIndexSLocator(index, this), 
+                    this.config
+                );
             }
         }
 
@@ -135,7 +218,11 @@ namespace NSelene
         {
             //TODO: is it lazy? seems like not... because of ToList() conversion? should it be lazy?
             return new ReadOnlyCollection<SeleneElement>(
-                this.ActualWebElements.Select(webelement => new SeleneElement(webelement, this.driver)).ToList()).GetEnumerator();
+                this.ActualWebElements.Select(
+                    webelement 
+                    => 
+                    new SeleneElement(webelement, this.config)).ToList()
+                ).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator ()

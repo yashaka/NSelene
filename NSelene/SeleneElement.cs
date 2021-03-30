@@ -13,58 +13,55 @@ namespace NSelene
     }
 
     // TODO: consider extracting SElement as interface... 
-    public sealed class SeleneElement : WrapsWebElement, IWebElement, ISearchContext, SeleneContext
+    public sealed class SeleneElement 
+    : WrapsWebElement, IWebElement, ISearchContext, SeleneContext
     {
         readonly SeleneLocator<IWebElement> locator;
 
-        readonly SeleneDriver driver;
-        private readonly _SeleneSettings_ config;
-
-        internal SeleneElement(SeleneLocator<IWebElement> locator, SeleneDriver driver)
+        public readonly _SeleneSettings_ config; // TODO: remove this
+        // private readonly _SeleneSettings_ config;
+        
+        internal SeleneElement(
+            SeleneLocator<IWebElement> locator, 
+            _SeleneSettings_ config
+        ) 
         {
             this.locator = locator;
-            this.driver = driver;
-            this.config = Configuration._With_(driver: driver.Value);
-        }
-
-        internal SeleneElement(By locator, SeleneDriver driver) 
-            : this(new SearchContextWebElementSLocator(locator, driver), driver) {}
-
-        internal SeleneElement(By locator) 
-        : this(
-            new SearchContextWebElementSLocator(locator, Selene.SharedSeleneDriver), 
-            Selene.SharedSeleneDriver
-        ) 
-        {}
-
-        internal SeleneElement(IWebElement elementToWrap, IWebDriver driver)
-            : this(new WrappedWebElementSLocator(elementToWrap), new SeleneDriver(driver)) {}
-
-        internal SeleneElement(By locator, _SeleneSettings_ config) 
-        : this(locator)
-        {
             this.config = config;
-        }
+        }        
         
-        internal SeleneElement(SeleneLocator<IWebElement> locator, _SeleneSettings_ config) 
-        : this(locator, Selene.SharedSeleneDriver)
-        {
-            this.config = config;
-        }
+        internal SeleneElement(
+            By locator, 
+            _SeleneSettings_ config
+        ) 
+        : this (
+            new SearchContextWebElementSLocator(
+                locator, 
+                config
+            ),
+            config
+        ) {}
+
+        internal SeleneElement(IWebElement elementToWrap, _SeleneSettings_ config)
+        : this(new WrappedWebElementSLocator(elementToWrap), config) {}
 
         public SeleneElement With(
+            IWebDriver driver = null,
             double? timeout = null,
             double? pollDuringWaits = null,
             bool? setValueByJs = null
         )
         {
+            _SeleneSettings_ customized = new Configuration();
+
+            customized.Driver = driver;
+            customized.Timeout = timeout;
+            customized.PollDuringWaits = pollDuringWaits;
+            customized.SetValueByJs = setValueByJs;
+
             return new SeleneElement(
                 this.locator, 
-                this.config.With(Configuration._With_(
-                    timeout:timeout,
-                    pollDuringWaits:pollDuringWaits,
-                    setValueByJs:setValueByJs
-                ))
+                this.config.With(customized)
             );
         }
 
@@ -76,10 +73,10 @@ namespace NSelene
             );
         }
 
-        // TODO: consider making it just a field initialized in constructor
+        // TODO: consider making it Obsolete, actions is an object with broader context than Element
         Actions Actions {
             get {
-                return this.driver.Actions();
+                return new Actions(this.config.Driver);
             }
         }
 
@@ -99,7 +96,8 @@ namespace NSelene
             return Selene.WaitFor(
                 this, 
                 condition, 
-                this.config.Timeout ?? Configuration.Timeout
+                this.config.Timeout ?? Configuration.Timeout,
+                this.config.PollDuringWaits ?? Configuration.PollDuringWaits
             );
         }
 
@@ -120,6 +118,7 @@ namespace NSelene
                 return false;
             }
         }
+
         public bool WaitUntil(Condition<SeleneElement> condition)
         {
             try 
@@ -158,7 +157,7 @@ namespace NSelene
             if (Configuration.SetValueByJs) 
             {
                 // todo: refactor to make it possible to write this.ExecuteScript(...)
-                IJavaScriptExecutor js = (IJavaScriptExecutor) this.driver.Value;
+                IJavaScriptExecutor js = (IJavaScriptExecutor) this.config.Driver;
                 js.ExecuteScript(
                     @"return (function(element, text) {
                         var maxlength = element.getAttribute('maxlength') === null
@@ -201,7 +200,10 @@ namespace NSelene
 
         public SeleneElement Find(By locator)
         {
-            return new SeleneElement(new SearchContextWebElementSLocator(locator, this), this.driver);
+            return new SeleneElement(
+                new SearchContextWebElementSLocator(locator, this), 
+                this.config
+            );
         }
 
         public SeleneElement Find(string cssOrXPathSelector)
@@ -211,7 +213,10 @@ namespace NSelene
 
         public SeleneCollection FindAll(By locator)
         {
-            return new SeleneCollection(new SearchContextWebElementsCollectionSLocator(locator, this), this.driver);
+            return new SeleneCollection(
+                new SearchContextWebElementsCollectionSLocator(locator, this), 
+                this.config
+            );
         }
 
         public SeleneCollection FindAll(string cssOrXPathSelector)
@@ -373,16 +378,18 @@ namespace NSelene
 
         IWebElement ISearchContext.FindElement (By by)
         {
-            //Should(Be.Visible);
-            //return this.ActualWebElement.FindElement(by);
-            return new SeleneElement(new SearchContextWebElementSLocator(by, this), this.driver);
+            return new SeleneElement(
+                new SearchContextWebElementSLocator(by, this),
+                this.config
+            );
         }
 
         ReadOnlyCollection<IWebElement> ISearchContext.FindElements (By by)
         {
-            //Should(Be.Visible);
-            //return this.ActualWebElement.FindElements(by);
-            return new SeleneCollection(new SearchContextWebElementsCollectionSLocator(by, this), this.driver).ToReadOnlyWebElementsCollection();
+            return new SeleneCollection(
+                new SearchContextWebElementsCollectionSLocator(by, this), 
+                this.config
+            ).ToReadOnlyWebElementsCollection();
         }
 
         //
@@ -391,7 +398,7 @@ namespace NSelene
 
         IWebElement SeleneContext.FindElement (By by)
         {
-            Should(Be.Visible);
+            Should(Be.Visible); // TODO: do we need it here?
             return this.ActualWebElement.FindElement(by);
         }
 
@@ -404,10 +411,10 @@ namespace NSelene
         /// <remarks>
         ///     This method executes JavaScript in the context of the currently selected frame or window.
         ///     This means that "document" will refer to the current document and "element" will refer to this element
-        ///  </remarks>
+        /// </remarks>
         public object ExecuteScript(string scriptOnElementAndArgs, params object[] args)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)this.driver.Value;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)this.config.Driver;
             return js.ExecuteScript($@"
                 return (function(element, args) {{
                     {scriptOnElementAndArgs}

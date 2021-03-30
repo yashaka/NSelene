@@ -21,7 +21,6 @@ namespace NSelene
     // TODO: consider making it internal
     public abstract class SeleneLocator<TEntity>
     {
-
         public abstract string Description { get; }
         public abstract TEntity Find();
 
@@ -52,6 +51,7 @@ namespace NSelene
                     $"{this.context}.Element({this.driverLocator})"
                     .Replace("By.CssSelector: ", "")
                     .Replace("By.XPath: ", "")
+                    .Replace("NSelene.Configuration", "Browser") // TODO: remove once refactored
                 );
             }
         }
@@ -115,13 +115,17 @@ namespace NSelene
     {
         readonly Condition<SeleneElement> condition;
         readonly SeleneCollection context;
-        readonly SeleneDriver driver;
+        readonly _SeleneSettings_ config;
 
-        public SCollectionWebElementByConditionSLocator(Condition<SeleneElement> condition, SeleneCollection context, SeleneDriver driver)
+        public SCollectionWebElementByConditionSLocator(
+            Condition<SeleneElement> condition, 
+            SeleneCollection context, 
+            _SeleneSettings_ config
+        )
         {
             this.condition = condition;
             this.context = context;
-            this.driver = driver;
+            this.config = config;
         }
 
         public override string Description {
@@ -139,7 +143,7 @@ namespace NSelene
                     new SeleneElement(
                         new WrappedWebElementSLocator(
                             string.Format("By.Selene: ({0}).FindBy({1})", this.context, condition.Explain())
-                            , element), this.driver));/* 
+                            , element), this.config));/* 
                             * ??? TODO: do we actually need here so meaningful desctiption?
                             * does it make sense to use it but to put index for each element?
                             * via using FindIndex ?
@@ -176,7 +180,10 @@ namespace NSelene
         readonly SeleneContext context;
         readonly By driverLocator;
 
-        public SearchContextWebElementsCollectionSLocator(By driverLocator, SeleneContext context)
+        public SearchContextWebElementsCollectionSLocator(
+            By driverLocator, 
+            SeleneContext context
+        )
         {
             this.driverLocator = driverLocator;
             this.context = context;
@@ -188,6 +195,7 @@ namespace NSelene
                     $"{this.context}.All({this.driverLocator})"
                     .Replace("By.CssSelector: ", "")  // TODO: DRY it and make configurable
                     .Replace("By.XPath: ", "")
+                    .Replace("NSelene.Configuration", "Browser") // TODO: remove once refactored
                 );
             }
         }
@@ -224,17 +232,22 @@ namespace NSelene
         }
     }
 
-    sealed class SCollectionFilteredWebElementsCollectionSLocator : WebElementsCollectionSLocator
+    sealed class SCollectionFilteredWebElementsCollectionSLocator 
+    : WebElementsCollectionSLocator
     {
         readonly Condition<SeleneElement> condition;
         readonly SeleneCollection context;
-        readonly SeleneDriver driver;
+        readonly _SeleneSettings_ config;
 
-        public SCollectionFilteredWebElementsCollectionSLocator(Condition<SeleneElement> condition, SeleneCollection context, SeleneDriver driver)
+        public SCollectionFilteredWebElementsCollectionSLocator(
+            Condition<SeleneElement> condition, 
+            SeleneCollection context, 
+            _SeleneSettings_ config
+        )
         {
             this.condition = condition;
             this.context = context;
-            this.driver = driver;
+            this.config = config;
         }
 
         public override string Description {
@@ -253,12 +266,13 @@ namespace NSelene
                             $"{this.context}.FindBy({this.condition.Explain()})"
                             , element
                         ), 
-                        this.driver
+                        this.config
                     )
                 );
             };
 
-            return new ReadOnlyCollection<IWebElement>(  // TODO: don't we need here ReadONlyCollection<SElement> ?
+            return new ReadOnlyCollection<IWebElement>(  
+                // TODO: don't we need here ReadONlyCollection<SElement> ?
                 context.ActualWebElements.Where(byCondition).ToList());
         }
     }

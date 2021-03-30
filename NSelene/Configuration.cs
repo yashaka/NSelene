@@ -1,17 +1,26 @@
 using System;
+using System.Collections.ObjectModel;
 using System.Threading;
+using NSelene.Helpers;
 using OpenQA.Selenium;
 
 namespace NSelene
 {
 
-    public interface _SupportsCopyWithOverride_<T> 
+    public interface _SupportsCopyWithOverride_<T>
     where T : _SupportsCopyWithOverride_<T>
     {
         T With(T overrides);
     }
 
-    public interface _SeleneSettings_ : _SupportsCopyWithOverride_<_SeleneSettings_>
+    /// SeleneSettings interface defines a Set of valid settins
+    /// Corresponding settings fields are nullable reflecting the fact
+    /// that not all settings can be defined for specific context
+    public interface _SeleneSettings_ 
+    : _SupportsCopyWithOverride_<_SeleneSettings_>
+    , SeleneContext // TODO: it's a temporal solution, 
+                    // will be removed after Should(Be.Visible) is removed 
+                    // from (SeleneElement as SeleneContext).FindElement
     {
         IWebDriver Driver { get; set; }
         double? Timeout { get; set; }
@@ -19,81 +28,107 @@ namespace NSelene
         bool? SetValueByJs { get; set; }
     }
 
-    internal class Ref<T>
-    {
-        public T Value { get; set; }
-        public Ref(T value)
-        {
-            Value = value;
-        }
-        public Ref()
-        {
-        }
-
-    }
-
+    /// Configuration is considered as a defined group of all settings
+    /// "all settings" are reflected by the _SeleneSettings_ interface
+    /// Why would we need both? and separate them in context of naming?
+    /// That's becausee historically Configuration was implemented as
+    /// a shared static storage of all settings
+    /// but then we decided to implement the non-static version
+    /// yet keeping the same "already existing class and its fields naming" in use
+    /// without adding one more API end point like some "non static new class".
+    /// Hence, we yet added SeleneSettings interface, but it's kept under the hood.
+    /// The user can freely use old-fashined thread local Configuration.Timeout, etc.
+    /// Yet when he needs his own configuration instance he han create it by 
+    ///     var configuration = Configuration.New(timeout: 6.0)
+    /// 
+    /// and yet call the timeout by same name
+    ///     configuration.Timeout
+    /// 
+    /// I.e. by this we achieved creating a property 
+    /// with same name for both class (as static) and its objects (as non-static), 
+    /// that is not possible in C# ;)
+    /// the main tradeoff in context of "quirky style" 
+    /// is using Configuration.New(...) over new Configuration(...)
+    /// That's why everything below is so complicated and overengineered;p 
+    /// Later, we might simplify implementation by actually adding one more 
+    /// non-static version of the configuration class, let's see.
+    /// That's why we keep current interfaces 
+    /// and some methods as "marked as risky API that might change"
+    /// by adding _..._ around some names like in _SeleneSettings_ ;)
     public class Configuration : _SeleneSettings_
     {
         private Ref<IWebDriver> _refDriver;
         IWebDriver _SeleneSettings_.Driver
-        { 
-            get 
+        {
+            get
             {
                 return this._refDriver.Value;
-            } 
+            }
             set
             {
                 this._refDriver.Value = value;
-            } 
+            }
         }
         private Ref<double?> _refTimeout = new Ref<double?>();
         double? _SeleneSettings_.Timeout
-        { 
-            get 
+        {
+            get
             {
                 return this._refTimeout.Value;
-            } 
+            }
             set
             {
                 this._refTimeout.Value = value;
-            } 
+            }
         }
         private Ref<double?> _refPollDuringWaits = new Ref<double?>();
         double? _SeleneSettings_.PollDuringWaits
-        { 
-            get 
+        {
+            get
             {
                 return this._refPollDuringWaits.Value;
-            } 
+            }
             set
             {
                 this._refPollDuringWaits.Value = value;
-            } 
+            }
         }
         private Ref<bool?> _refSetValueByJs = new Ref<bool?>();
         bool? _SeleneSettings_.SetValueByJs
-        { 
-            get 
+        {
+            get
             {
                 return this._refSetValueByJs.Value;
-            } 
+            }
             set
             {
                 this._refSetValueByJs.Value = value;
-            } 
+            }
         }
 
         private Configuration(
-            Ref<IWebDriver> refDriver = null, 
-            Ref<double?> refTimeout = null,
-            Ref<double?> refPollDuringWaits = null, 
-            Ref<bool?> refSetValueByJs = null)
+            Ref<IWebDriver> refDriver,
+            Ref<double?> refTimeout,
+            Ref<double?> refPollDuringWaits,
+            Ref<bool?> refSetValueByJs
+        )
         {
             _refDriver = refDriver ?? new Ref<IWebDriver>();
             _refTimeout = refTimeout ?? new Ref<double?>();
             _refPollDuringWaits = refPollDuringWaits ?? new Ref<double?>();
             _refSetValueByJs = refSetValueByJs ?? new Ref<bool?>();
         }
+
+        // TODO: consider making public
+        //       here we can choose between making it public of finally 
+        //       making a public class from "hidden" interface _SeleneSettings_
+        internal Configuration() 
+        : this(
+            refDriver: null,
+            refTimeout: null,
+            refPollDuringWaits: null,
+            refSetValueByJs: null
+        ) {}
 
         public static _SeleneSettings_ _New_(
             IWebDriver driver = null,
@@ -102,7 +137,7 @@ namespace NSelene
             bool setValueByJs = false)
         {
             _SeleneSettings_ next = new Configuration();
-            
+
             next.Driver = driver;
             next.Timeout = timeout;
             next.PollDuringWaits = pollDuringWaits;
@@ -111,9 +146,30 @@ namespace NSelene
             return next;
         }
 
-        internal static ThreadLocal<_SeleneSettings_> Shared 
-        = new ThreadLocal<_SeleneSettings_>(() => Configuration._New_());
+        internal static _SeleneSettings_ Shared
+        = new Configuration(
+            refDriver: new Ref<IWebDriver>(
+                getter: () => Configuration.Driver,
+                setter: value => Configuration.Driver = value
+            ),
+            refTimeout: new Ref<double?>(
+                getter: () => Configuration.Timeout,
+                setter: value => Configuration.Timeout = value ?? 4.0
+                // TODO: consider moving all these defaults to Configuration.Defaults.*
+            ),
+            refPollDuringWaits: new Ref<double?>(
+                getter: () => Configuration.PollDuringWaits,
+                setter: value => Configuration.PollDuringWaits = value ?? 0.1
+            ),
+            refSetValueByJs: new Ref<bool?>(
+                getter: () => Configuration.SetValueByJs,
+                setter: value => Configuration.SetValueByJs = value ?? false
+            )
+        );
 
+        // TODO: how to differentiate between _With_(driver: null) and _With_() ?
+        //       e.g. what if user want to override with null? i.e. reset? how to do this now?
+        //       how to differentiate undefined/not-specified-yet and explicit-nothing?
         public static _SeleneSettings_ _With_(
             IWebDriver driver = null,
             double? timeout = null,
@@ -127,10 +183,12 @@ namespace NSelene
             next.PollDuringWaits = pollDuringWaits;
             next.SetValueByJs = setValueByJs;
 
-            return Configuration.Shared.Value.With(next);
+            return Configuration.Shared.With(next);
         }
 
-        _SeleneSettings_ _SupportsCopyWithOverride_<_SeleneSettings_>.With(_SeleneSettings_ overrides)
+        _SeleneSettings_ _SupportsCopyWithOverride_<_SeleneSettings_>.With(
+            _SeleneSettings_ overrides
+        )
         {
             return new Configuration(
                 refDriver: overrides.Driver == null
@@ -148,51 +206,68 @@ namespace NSelene
             );
         }
 
-        public static double Timeout
+        IWebElement SeleneContext.FindElement(By by)
         {
-            get
-            {
-                return Configuration.Shared.Value.Timeout ?? 4.0;
-            }
-            set
-            {
-                Configuration.Shared.Value.Timeout = value;
-            }
+            _SeleneSettings_ self = this;
+            return self.Driver.FindElement(by);
         }
 
-        public static double PollDuringWaits
+        ReadOnlyCollection<IWebElement> SeleneContext.FindElements(By by)
         {
-            get
-            {
-                return Configuration.Shared.Value.PollDuringWaits ?? 0.1;
-            }
-            set
-            {
-                Configuration.Shared.Value.PollDuringWaits = value;
-            }
+            _SeleneSettings_ self = this;
+            return self.Driver.FindElements(by);
         }
 
-        public static bool SetValueByJs
-        {
-            get
-            {
-                return Configuration.Shared.Value.SetValueByJs ?? false;
-            }
-            set
-            {
-                Configuration.Shared.Value.SetValueByJs = value;
-            }
-        }
-        
+        private static ThreadLocal<IWebDriver> _Driver = new ThreadLocal<IWebDriver>();
+
         public static IWebDriver Driver
         {
             get
             {
-                return Configuration.Shared.Value.Driver;
+                return Configuration._Driver.Value;
             }
             set
             {
-                Configuration.Shared.Value.Driver = value;
+                Configuration._Driver.Value = value;
+            }
+        }
+
+        private static ThreadLocal<double?> _Timeout = new ThreadLocal<double?>();
+        public static double Timeout
+        {
+            get
+            {
+                return Configuration._Timeout.Value ?? 4.0;
+            }
+            set
+            {
+                Configuration._Timeout.Value = value;
+            }
+        }
+
+        private static ThreadLocal<double?> _PollDuringWaits = new ThreadLocal<double?>();
+        public static double PollDuringWaits
+        {
+            get
+            {
+                return Configuration._PollDuringWaits.Value ?? 0.1;
+            }
+            set
+            {
+                Configuration._PollDuringWaits.Value = value;
+            }
+        }
+
+        private static ThreadLocal<bool?> _SetValueByJs = new ThreadLocal<bool?>();
+        public static bool SetValueByJs
+        {
+            get
+            {
+                return Configuration._SetValueByJs.Value ?? false;
+            }
+            set
+            {
+                Configuration._SetValueByJs.Value = value;
             }
         }
 
