@@ -18,13 +18,13 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
 
             var options = new ChromeOptions();
             options.AddArguments("headless");
-            SetWebDriver(new ChromeDriver(options));
+            Configuration.Driver = new ChromeDriver(options);
         }
 
         [OneTimeTearDown]
         public void disposeDriver()
         {
-            GetWebDriver().Quit();
+            Configuration.Driver.Quit();
         }
     }
 }

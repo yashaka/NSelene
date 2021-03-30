@@ -16,13 +16,13 @@ namespace NSelene.Tests.Examples.SharedDriver.StraightForward
             new DriverManager().SetUpDriver(new ChromeConfig(), version: chromeVersion);
             var options = new ChromeOptions();
             options.AddArguments("headless");
-            SetWebDriver(new ChromeDriver(options));
+            Configuration.Driver = new ChromeDriver(options);
         }
 
         [OneTimeTearDown]
         public void disposeDriver()
         {
-            GetWebDriver().Quit();
+            Configuration.Driver.Quit();
         }
     }
 
