@@ -11,7 +11,7 @@ namespace NSelene.Tests.Integration.SharedDriver
     [TestFixture]
     public class SeleneElementJsExtensionsSpecs : BaseTest
     {
-        private const string ELEMENT_IN_VIEEW = @"
+        private const string ELEMENT_IN_VIEW = @"
                 var windowHeight = window.innerHeight;
                 var height = document.documentElement.clientHeight;
                 var r = arguments[0].getClientRects()[0]; 
@@ -26,11 +26,11 @@ namespace NSelene.Tests.Integration.SharedDriver
         {
             Given.OpenedPageWithBody("<input style='margin-top:100cm;' type='text' value='ku ku'/>");
             SeleneElement element = S("input");
-            new SeleneDriver(Configuration.Driver).Should(Have.No.JSReturnedTrue(ELEMENT_IN_VIEEW, element.ActualWebElement));
+            Selene.WaitTo(Have.No.JSReturnedTrue(ELEMENT_IN_VIEW, element.ActualWebElement));
 
             element.JsScrollIntoView();
 
-            new SeleneDriver(Configuration.Driver).Should(Have.JSReturnedTrue(ELEMENT_IN_VIEEW, element.ActualWebElement));
+            Selene.WaitTo(Have.JSReturnedTrue(ELEMENT_IN_VIEW, element.ActualWebElement));
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace NSelene.Tests.Integration.SharedDriver
             S("#field1").Should(Have.Value(new string('*', 100)));
             S("#field2").Should(Have.Value(new string('*', 100)));
             
-            Assert.Less(jsTime, typeTime / 5);
+            Assert.Less(jsTime, typeTime / 3);
         }
 
         // TODO: make it work and pass:)
