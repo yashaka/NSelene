@@ -139,7 +139,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                     function(){
                         document.getElementsByTagName('a')[0].style = 'display:block';
                     }, 
-                    500);"
+                    750);"
             );
             try {
                 S("p").Find("a").Click();
@@ -147,6 +147,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             } catch (WebDriverTimeoutException) {
                 Assert.IsFalse(Configuration.Driver.Url.Contains("second"));
             }
+            TestContext.Progress.WriteLine("IN TEST END: Driver: " + Configuration.Driver);
         }
     }
 }

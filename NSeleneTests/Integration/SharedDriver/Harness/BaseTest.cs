@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
@@ -10,6 +11,8 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
     [TestFixture]
     public class BaseTest
     {
+        IWebDriver _driver; 
+
         [OneTimeSetUp]
         public void initDriver()
         {
@@ -18,13 +21,19 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
 
             var options = new ChromeOptions();
             options.AddArguments("headless");
-            Configuration.Driver = new ChromeDriver(options);
+            this._driver = new ChromeDriver(options);
+
+            Configuration.Driver = this._driver;
+            Configuration.Timeout = 4.0;
+            Configuration.PollDuringWaits = 0.1;
+            Configuration.SetValueByJs = false;
         }
 
         [OneTimeTearDown]
         public void disposeDriver()
         {
-            Configuration.Driver.Quit();
+            this._driver?.Quit();
+            this._driver?.Dispose();
         }
     }
 }
