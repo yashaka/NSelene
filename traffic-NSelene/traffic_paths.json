@@ -2,12 +2,18 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 27,
-    "uniques": 17
+    "count": 29,
+    "uniques": 18
   },
   {
     "path": "/yashaka/NSelene/issues",
     "title": "Issues · yashaka/NSelene · GitHub",
+    "count": 6,
+    "uniques": 3
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSelene",
+    "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
     "count": 6,
     "uniques": 3
   },
@@ -24,12 +30,6 @@
     "uniques": 3
   },
   {
-    "path": "/yashaka/NSelene/tree/master/NSelene",
-    "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
-    "count": 4,
-    "uniques": 2
-  },
-  {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests",
     "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
     "count": 3,
@@ -42,6 +42,12 @@
     "uniques": 1
   },
   {
+    "path": "/yashaka/NSelene/search",
+    "title": "Search · moveto",
+    "count": 3,
+    "uniques": 1
+  },
+  {
     "path": "/yashaka/NSelene/blob/master/NSelene/NSelene.csproj",
     "title": "NSelene/NSelene.csproj at master · yashaka/NSelene · GitHub",
     "count": 2,
@@ -50,12 +56,6 @@
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/Selene.cs",
     "title": "NSelene/Selene.cs at master · yashaka/NSelene · GitHub",
-    "count": 2,
-    "uniques": 2
-  },
-  {
-    "path": "/yashaka/NSelene/pull/77/files",
-    "title": "Shadow DOM PoC by OlegZarevych · Pull Request #77 · yashaka/NSelene · GitHub",
     "count": 2,
     "uniques": 2
   }
