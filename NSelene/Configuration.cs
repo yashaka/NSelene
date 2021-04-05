@@ -26,6 +26,7 @@ namespace NSelene
         double? Timeout { get; set; }
         double? PollDuringWaits { get; set; }
         bool? SetValueByJs { get; set; }
+        bool? TypeByJs { get; set; }
     }
 
     /// Configuration is considered as a defined group of all settings
@@ -105,18 +106,32 @@ namespace NSelene
                 this._refSetValueByJs.Value = value;
             }
         }
+        private Ref<bool?> _refTypeByJs = new Ref<bool?>();
+        bool? _SeleneSettings_.TypeByJs
+        {
+            get
+            {
+                return this._refTypeByJs.Value;
+            }
+            set
+            {
+                this._refTypeByJs.Value = value;
+            }
+        }
 
         private Configuration(
             Ref<IWebDriver> refDriver,
             Ref<double?> refTimeout,
             Ref<double?> refPollDuringWaits,
-            Ref<bool?> refSetValueByJs
+            Ref<bool?> refSetValueByJs,
+            Ref<bool?> refTypeByJs
         )
         {
             _refDriver = refDriver ?? new Ref<IWebDriver>();
             _refTimeout = refTimeout ?? new Ref<double?>();
             _refPollDuringWaits = refPollDuringWaits ?? new Ref<double?>();
             _refSetValueByJs = refSetValueByJs ?? new Ref<bool?>();
+            _refTypeByJs = refTypeByJs ?? new Ref<bool?>();
         }
 
         // TODO: consider making public
@@ -127,14 +142,17 @@ namespace NSelene
             refDriver: null,
             refTimeout: null,
             refPollDuringWaits: null,
-            refSetValueByJs: null
+            refSetValueByJs: null,
+            refTypeByJs: null
         ) {}
 
         public static _SeleneSettings_ _New_(
             IWebDriver driver = null,
             double timeout = 4.0,
             double pollDuringWaits = 0.1,
-            bool setValueByJs = false)
+            bool setValueByJs = false,
+            bool typeByJs = false
+        )
         {
             _SeleneSettings_ next = new Configuration();
 
@@ -142,6 +160,7 @@ namespace NSelene
             next.Timeout = timeout;
             next.PollDuringWaits = pollDuringWaits;
             next.SetValueByJs = setValueByJs;
+            next.TypeByJs = typeByJs;
 
             return next;
         }
@@ -164,6 +183,10 @@ namespace NSelene
             refSetValueByJs: new Ref<bool?>(
                 getter: () => Configuration.SetValueByJs,
                 setter: value => Configuration.SetValueByJs = value ?? false
+            ),
+            refTypeByJs: new Ref<bool?>(
+                getter: () => Configuration.TypeByJs,
+                setter: value => Configuration.TypeByJs = value ?? false
             )
         );
 
@@ -174,7 +197,9 @@ namespace NSelene
             IWebDriver driver = null,
             double? timeout = null,
             double? pollDuringWaits = null,
-            bool? setValueByJs = null)
+            bool? setValueByJs = null,
+            bool? typeByJs = null
+        )
         {
             _SeleneSettings_ next = new Configuration();
 
@@ -182,6 +207,7 @@ namespace NSelene
             next.Timeout = timeout;
             next.PollDuringWaits = pollDuringWaits;
             next.SetValueByJs = setValueByJs;
+            next.TypeByJs = typeByJs;
 
             return Configuration.Shared.With(next);
         }
@@ -202,7 +228,10 @@ namespace NSelene
                 : new Ref<double?>(overrides.PollDuringWaits),
                 refSetValueByJs: overrides.SetValueByJs == null
                 ? this._refSetValueByJs
-                : new Ref<bool?>(overrides.SetValueByJs)
+                : new Ref<bool?>(overrides.SetValueByJs),
+                refTypeByJs: overrides.TypeByJs == null
+                ? this._refTypeByJs
+                : new Ref<bool?>(overrides.TypeByJs)
             );
         }
 
@@ -268,6 +297,19 @@ namespace NSelene
             set
             {
                 Configuration._SetValueByJs.Value = value;
+            }
+        }
+
+        private static ThreadLocal<bool?> _TypeByJs = new ThreadLocal<bool?>();
+        public static bool TypeByJs
+        {
+            get
+            {
+                return Configuration._TypeByJs.Value ?? false;
+            }
+            set
+            {
+                Configuration._TypeByJs.Value = value;
             }
         }
 

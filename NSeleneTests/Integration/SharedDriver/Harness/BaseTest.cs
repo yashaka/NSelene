@@ -27,6 +27,7 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
             Configuration.Timeout = 4.0;
             Configuration.PollDuringWaits = 0.1;
             Configuration.SetValueByJs = false;
+            Configuration.TypeByJs = false;
         }
 
         [OneTimeTearDown]

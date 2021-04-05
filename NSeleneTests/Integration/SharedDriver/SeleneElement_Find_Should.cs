@@ -147,7 +147,6 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             } catch (WebDriverTimeoutException) {
                 Assert.IsFalse(Configuration.Driver.Url.Contains("second"));
             }
-            TestContext.Progress.WriteLine("IN TEST END: Driver: " + Configuration.Driver);
         }
     }
 }

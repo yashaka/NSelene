@@ -56,5 +56,29 @@ namespace NSelene.Support.SeleneElementJsExtensions
             
             return element;
         }
+
+        public static SeleneElement JsType(this SeleneElement element, string value)
+        {
+            // TODO: should we call here and above the Should(Be.Visible) ?
+            // element.Should(Be.Visible);
+
+            element.ExecuteScript(@"
+                var value = args[0];
+
+                const text = element.getAttribute('value').concat(value);
+                const maxlength = element.getAttribute('maxlength') === null
+                    ? -1
+                    : parseInt(element.getAttribute('maxlength'));
+                element.value = maxlength === -1
+                    ? text
+                    : text.length <= maxlength
+                        ? text
+                        : text.substring(0, maxlength);
+                ",
+                value
+            );
+            
+            return element;
+        }
     }
 }

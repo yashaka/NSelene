@@ -23,8 +23,11 @@
   - `.JsClick(centerXOffset=0, centerYOffset=0)`
     - proper tests coverage is yet needed
   - `.JsSetValue(value)`
-    - though almost the same can be achieved through 
+    - the same can be achieved through 
       `element.With(setValueByJs: true).SetValue(value)`
+  - `.JsType(value)`
+    - the same can be achieved through 
+      `element.With(typeByJs: true).SetValue(value)`
 - made Configuration ThreadLocal
 - added SeleneElement methods:
   - `WaitUntil(Condition)` – like Should, but returns false on failure

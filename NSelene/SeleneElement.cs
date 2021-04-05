@@ -50,7 +50,8 @@ namespace NSelene
             IWebDriver driver = null,
             double? timeout = null,
             double? pollDuringWaits = null,
-            bool? setValueByJs = null
+            bool? setValueByJs = null,
+            bool? typeByJs = null
         )
         {
             _SeleneSettings_ customized = new Configuration();
@@ -59,6 +60,7 @@ namespace NSelene
             customized.Timeout = timeout;
             customized.PollDuringWaits = pollDuringWaits;
             customized.SetValueByJs = setValueByJs;
+            customized.TypeByJs = typeByJs;
 
             return new SeleneElement(
                 this.locator, 
@@ -226,7 +228,14 @@ namespace NSelene
         public SeleneElement Type(string keys)
         {
             Should(Be.Visible);
-            this.ActualWebElement.SendKeys(keys);
+            var webelement = this.ActualWebElement;
+            if (this.config.TypeByJs ?? Configuration.TypeByJs) 
+            {
+                this.JsType(keys);
+            } else 
+            {
+                webelement.SendKeys(keys);
+            }
             return this;
         }
 
