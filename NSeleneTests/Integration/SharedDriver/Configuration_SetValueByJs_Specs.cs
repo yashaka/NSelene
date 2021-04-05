@@ -11,12 +11,6 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
     public class Configuration_SetValueByJs_Specs : BaseTest
     {
 
-        [TearDown]
-        public void TeardownTest()
-        {
-            Configuration.SetValueByJs = false;
-        }
-
         [Test]
         public void SetValue_ViaElementCustomizedToJs_SetsItFasterThanNormalSetValue()
         {
