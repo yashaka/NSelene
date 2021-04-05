@@ -4,6 +4,7 @@ using OpenQA.Selenium;
 
 namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
 {
+    using System;
     using Harness;
 
     [TestFixture]
@@ -17,42 +18,54 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
         }
 
         [Test]
-        public void WaitForVisibility_OnActionsLikeClick()
+        public void SetValue_ViaElementCustomizedToJs_SetsItFasterThanNormalSetValue()
         {
+            Configuration.SetValueByJs = false;
+            Given.OpenedPageWithBody(@"
+                <input id='field1'>
+                <input id='field2'>
+            ");
+            var beforeType = DateTime.Now;
+            S("#field1").SetValue(new string('*', 100));
+            var afterType = DateTime.Now;
+            var setValueTime = afterType - beforeType;
+
+            var beforeJsSetValue = afterType;
+            S("#field2").With(setValueByJs: true).SetValue(new string('*', 100));
+            var afterJsSetValue = DateTime.Now;
+            
+            // THEN
+            S("#field1").Should(Have.Value(new string('*', 100)));
+            S("#field2").Should(Have.Value(new string('*', 100)));
+            
+            var jsTime = afterJsSetValue - beforeJsSetValue;
+            Assert.Less(jsTime, setValueTime / 3);
+        }
+
+        [Test]
+        public void SetValue_ViaConfiguredGloballyToJs_SetsItFasterThanNormalSetValue()
+        {
+            Configuration.SetValueByJs = false;
+            Given.OpenedPageWithBody(@"
+                <input id='field1'>
+                <input id='field2'>
+            ");
+            var beforeType = DateTime.Now;
+            S("#field1").SetValue(new string('*', 100));
+            var afterType = DateTime.Now;
+            var setValueTime = afterType - beforeType;
+
+            var beforeJsSetValue = afterType;
             Configuration.SetValueByJs = true;
-
-            // todo: fix to work only when SetValueByJs
-            // Given.OpenedPageWithBody(@"
-            //         <div id='todo-app'>
-            //           <input id='new-todo' placeholder='what needs to be done?' />
-            //           <ul id='todo-list'>
-            //           </ul>
-            //         </div>"
-            // );
-            // Selene.ExecuteScript(@"
-            //         let addTodo = function(event) {
-            //           let inputField = event.target;
-            //           let text = inputField.value.trim();
-
-            //           if (event.which === enterCode && text !== '') {
-            //             let newli = document.createElement('li');
-            //             newli.textContent = text;
-
-            //             document.getElementById('todo-list').appendChild(newli);
-            //             inputField.value = '';
-            //           }
-            //         };
-
-            //         let teachNewTodoFieldToAddTodos = function() {
-            //           document.getElementById('new-todo').addEventListener('keyup', addTodo);
-            //         };
-
-            //         document.addEventListener('DOMContentLoaded', teachNewTodoFieldToAddTodos)
-            //     "
-            // );
-            Open("http://todomvc.com/examples/emberjs");
-            S("#new-todo").SetValue("very long task description set instantly").PressEnter();
-            SS("#todo-list>li").Should(Have.Texts("long task"));
+            S("#field2").SetValue(new string('*', 100));
+            var afterJsSetValue = DateTime.Now;
+            
+            // THEN
+            S("#field1").Should(Have.Value(new string('*', 100)));
+            S("#field2").Should(Have.Value(new string('*', 100)));
+            
+            var jsTime = afterJsSetValue - beforeJsSetValue;
+            Assert.Less(jsTime, setValueTime / 3);
         }
     }
 }

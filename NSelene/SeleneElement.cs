@@ -4,6 +4,7 @@ using System.Drawing;
 using OpenQA.Selenium.Interactions;
 using System.Collections.ObjectModel;
 using System;
+using NSelene.Support.SeleneElementJsExtensions;
 
 namespace NSelene
 {
@@ -154,22 +155,9 @@ namespace NSelene
         {
             Should(Be.Visible);
             var webelement = this.ActualWebElement;
-            if (Configuration.SetValueByJs) 
+            if (this.config.SetValueByJs ?? Configuration.SetValueByJs) 
             {
-                // todo: refactor to make it possible to write this.ExecuteScript(...)
-                IJavaScriptExecutor js = (IJavaScriptExecutor) this.config.Driver;
-                js.ExecuteScript(
-                    @"return (function(element, text) {
-                        var maxlength = element.getAttribute('maxlength') === null
-                            ? -1
-                            : parseInt(element.getAttribute('maxlength'));
-                        element.value = maxlength === -1
-                            ? text
-                            : text.length <= maxlength
-                                ? text
-                                : text.substring(0, maxlength);
-                        return null;
-                    })(arguments[0], arguments[1]);", webelement, keys);
+                this.JsSetValue(keys);
             } else 
             {
                 webelement.Clear();
