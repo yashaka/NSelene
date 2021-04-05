@@ -8,7 +8,7 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
     using Harness;
 
     [TestFixture]
-    public class Configuration_SetValueByJs_Should : BaseTest
+    public class Configuration_SetValueByJs_Specs : BaseTest
     {
 
         [TearDown]
