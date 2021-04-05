@@ -22,8 +22,8 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
         {
             Configuration.SetValueByJs = false;
             Given.OpenedPageWithBody(@"
-                <input id='field1'>
-                <input id='field2'>
+                <input id='field1' value='should be cleared'>
+                <input id='field2' value='should be cleared'>
             ");
             var beforeType = DateTime.Now;
             S("#field1").SetValue(new string('*', 100));
@@ -47,8 +47,8 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
         {
             Configuration.SetValueByJs = false;
             Given.OpenedPageWithBody(@"
-                <input id='field1'>
-                <input id='field2'>
+                <input id='field1' value='should be cleared'>
+                <input id='field2' value='should be cleared'>
             ");
             var beforeType = DateTime.Now;
             S("#field1").SetValue(new string('*', 100));
