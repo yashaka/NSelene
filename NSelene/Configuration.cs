@@ -27,6 +27,7 @@ namespace NSelene
         double? PollDuringWaits { get; set; }
         bool? SetValueByJs { get; set; }
         bool? TypeByJs { get; set; }
+        bool? ClickByJs { get; set; }
     }
 
     /// Configuration is considered as a defined group of all settings
@@ -118,13 +119,26 @@ namespace NSelene
                 this._refTypeByJs.Value = value;
             }
         }
+        private Ref<bool?> _refClickByJs = new Ref<bool?>();
+        bool? _SeleneSettings_.ClickByJs
+        {
+            get
+            {
+                return this._refClickByJs.Value;
+            }
+            set
+            {
+                this._refClickByJs.Value = value;
+            }
+        }
 
         private Configuration(
             Ref<IWebDriver> refDriver,
             Ref<double?> refTimeout,
             Ref<double?> refPollDuringWaits,
             Ref<bool?> refSetValueByJs,
-            Ref<bool?> refTypeByJs
+            Ref<bool?> refTypeByJs,
+            Ref<bool?> refClickByJs
         )
         {
             _refDriver = refDriver ?? new Ref<IWebDriver>();
@@ -132,6 +146,7 @@ namespace NSelene
             _refPollDuringWaits = refPollDuringWaits ?? new Ref<double?>();
             _refSetValueByJs = refSetValueByJs ?? new Ref<bool?>();
             _refTypeByJs = refTypeByJs ?? new Ref<bool?>();
+            _refClickByJs = refClickByJs ?? new Ref<bool?>();
         }
 
         // TODO: consider making public
@@ -143,7 +158,8 @@ namespace NSelene
             refTimeout: null,
             refPollDuringWaits: null,
             refSetValueByJs: null,
-            refTypeByJs: null
+            refTypeByJs: null,
+            refClickByJs: null
         ) {}
 
         public static _SeleneSettings_ _New_(
@@ -151,7 +167,8 @@ namespace NSelene
             double timeout = 4.0,
             double pollDuringWaits = 0.1,
             bool setValueByJs = false,
-            bool typeByJs = false
+            bool typeByJs = false,
+            bool clickByJs = false
         )
         {
             _SeleneSettings_ next = new Configuration();
@@ -161,6 +178,7 @@ namespace NSelene
             next.PollDuringWaits = pollDuringWaits;
             next.SetValueByJs = setValueByJs;
             next.TypeByJs = typeByJs;
+            next.ClickByJs = clickByJs;
 
             return next;
         }
@@ -187,6 +205,10 @@ namespace NSelene
             refTypeByJs: new Ref<bool?>(
                 getter: () => Configuration.TypeByJs,
                 setter: value => Configuration.TypeByJs = value ?? false
+            ),
+            refClickByJs: new Ref<bool?>(
+                getter: () => Configuration.ClickByJs,
+                setter: value => Configuration.ClickByJs = value ?? false
             )
         );
 
@@ -198,7 +220,8 @@ namespace NSelene
             double? timeout = null,
             double? pollDuringWaits = null,
             bool? setValueByJs = null,
-            bool? typeByJs = null
+            bool? typeByJs = null,
+            bool? clickByJs = null
         )
         {
             _SeleneSettings_ next = new Configuration();
@@ -208,6 +231,7 @@ namespace NSelene
             next.PollDuringWaits = pollDuringWaits;
             next.SetValueByJs = setValueByJs;
             next.TypeByJs = typeByJs;
+            next.ClickByJs = clickByJs;
 
             return Configuration.Shared.With(next);
         }
@@ -231,7 +255,10 @@ namespace NSelene
                 : new Ref<bool?>(overrides.SetValueByJs),
                 refTypeByJs: overrides.TypeByJs == null
                 ? this._refTypeByJs
-                : new Ref<bool?>(overrides.TypeByJs)
+                : new Ref<bool?>(overrides.TypeByJs),
+                refClickByJs: overrides.ClickByJs == null
+                ? this._refClickByJs
+                : new Ref<bool?>(overrides.ClickByJs)
             );
         }
 
@@ -310,6 +337,19 @@ namespace NSelene
             set
             {
                 Configuration._TypeByJs.Value = value;
+            }
+        }
+
+        private static ThreadLocal<bool?> _ClickByJs = new ThreadLocal<bool?>();
+        public static bool ClickByJs
+        {
+            get
+            {
+                return Configuration._ClickByJs.Value ?? false;
+            }
+            set
+            {
+                Configuration._ClickByJs.Value = value;
             }
         }
 

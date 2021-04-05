@@ -47,6 +47,35 @@ namespace NSelene.Tests.Integration.SharedDriver
         }
 
         [Test]
+        public void JsClick_WhenImplicitViaCustomizedElement_ClicksOnHiddenElement()
+        {
+            Configuration.ClickByJs = false;
+            Given.OpenedPageWithBody(@"
+                <a href='#second' style='display:none'>go to Heading 2</a>
+                <h2 id='second'>Heading 2</h2>"
+            );
+
+            S("a").With(clickByJs: true).Click();
+            
+            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
+        }
+
+        [Test]
+        public void JsClick_WhenImplicitViaGlobalConfiguration_ClicksOnHiddenElement()
+        {
+            Configuration.ClickByJs = false;
+            Given.OpenedPageWithBody(@"
+                <a href='#second' style='display:none'>go to Heading 2</a>
+                <h2 id='second'>Heading 2</h2>"
+            );
+
+            Configuration.ClickByJs = true;
+            S("a").Click();
+            
+            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
+        }
+
+        [Test]
         public void JsSetValue_SetsItFasterThanSendKeysLikeType()
         {
             Given.OpenedPageWithBody(@"

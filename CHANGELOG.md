@@ -22,12 +22,14 @@
   - `.JsScrollIntoView()`
   - `.JsClick(centerXOffset=0, centerYOffset=0)`
     - proper tests coverage is yet needed
+    - the same can be achieved through (can be handy when storing element in var)
+      `element.With(clickByJs: true).Click()`
   - `.JsSetValue(value)`
     - the same can be achieved through 
       `element.With(setValueByJs: true).SetValue(value)`
   - `.JsType(value)`
     - the same can be achieved through 
-      `element.With(typeByJs: true).SetValue(value)`
+      `element.With(typeByJs: true).Type(value)`****
 - made Configuration ThreadLocal
 - added SeleneElement methods:
   - `WaitUntil(Condition)` – like Should, but returns false on failure

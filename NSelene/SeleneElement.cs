@@ -51,7 +51,8 @@ namespace NSelene
             double? timeout = null,
             double? pollDuringWaits = null,
             bool? setValueByJs = null,
-            bool? typeByJs = null
+            bool? typeByJs = null,
+            bool? clickByJs = null
         )
         {
             _SeleneSettings_ customized = new Configuration();
@@ -61,6 +62,7 @@ namespace NSelene
             customized.PollDuringWaits = pollDuringWaits;
             customized.SetValueByJs = setValueByJs;
             customized.TypeByJs = typeByJs;
+            customized.ClickByJs = clickByJs;
 
             return new SeleneElement(
                 this.locator, 
@@ -255,8 +257,17 @@ namespace NSelene
 
         public SeleneElement Click()
         {
-            Should(Be.Visible);
-            this.ActualWebElement.Click();
+            if (this.config.ClickByJs ?? Configuration.ClickByJs) 
+            {
+                this.Should(Be.InDom);
+                this.JsClick();
+            } 
+            else 
+            {
+                Should(Be.Visible);
+                var webelement = this.ActualWebElement;
+                webelement.Click();
+            }
             return this;
         }
 
