@@ -5,6 +5,7 @@ using OpenQA.Selenium.Interactions;
 using System.Collections.ObjectModel;
 using System;
 using NSelene.Support.SeleneElementJsExtensions;
+using System.Text.RegularExpressions;
 
 namespace NSelene
 {
@@ -79,12 +80,48 @@ namespace NSelene
         }
 
         // TODO: consider making it Obsolete, actions is an object with broader context than Element
-        Actions Actions {
-            get {
-                return new Actions(this.config.Driver);
+        Actions Actions => new Actions(this.config.Driver);
+        Wait<SeleneElement> Wait
+        {
+            get
+            {
+                var paramsAndTheirUsagePattern = new Regex(@"\(?(\w+)\)?\s*=>\s*?\1\.");
+                return new Wait<SeleneElement>(
+                    entity: this,
+                    timeout: this.config.Timeout ?? Configuration.Timeout,
+                    polling: this.config.PollDuringWaits ?? Configuration.PollDuringWaits,
+                    _describeLambdaName: it => paramsAndTheirUsagePattern.Replace(
+                        it, 
+                        ""
+                    )
+                );
             }
         }
 
+        // TODO: consider renaming it to something more concise and handy in use...
+        //       take into account that maybe it's good to just add an alias
+        //       because in failures it looks pretty good now:
+        //       > Timed out after 0.25s, while waiting for:
+        //       > Browser.Element(a).ActualWebElement.Click()
+        //       
+        //       some alias candidates:
+        //       * Browser.Element(...).Get()
+        //         - kind of tells that we get Element, not raw WebElement
+        //         + one of the concisest
+        //       * Browser.Element(...).Find()
+        //         - not consistent with Find(selector), 
+        //         + but tells that we actually finding something
+        //       * Browser.Element(...).Locate()
+        //         + like above but does not interfere with other names
+        //         + consistent with Element.locator
+        //         - not the concisest
+        //       * Browser.Element(...).Raw
+        //         + !!! in fact it's "raw" in its nature, and the most concise
+        //         - maybe a bit "too technical", but for tech-guys probably pretty obvious
+        //           yeah, Selene is for users not for coders, 
+        //           + but actual raw webelement is also not for users;)
+        //       - Browser.Element(...).Invoke()
+        //       - Browser.Element(...).Call()
         public IWebElement ActualWebElement {
             get {
                 return locator.Find();
@@ -257,16 +294,15 @@ namespace NSelene
 
         public SeleneElement Click()
         {
-            if (this.config.ClickByJs ?? Configuration.ClickByJs) 
+            if (this.config.ClickByJs ?? Configuration.ClickByJs)
             {
-                this.Should(Be.InDom);
-                this.JsClick();
+                // TODO: should we incorporate wait into this.ExecuteScript ?
+                // TODO: to keep here just this.JsClick(); ?
+                this.Wait.For(self => self.JsClick(0, 0));
             } 
             else 
             {
-                Should(Be.Visible);
-                var webelement = this.ActualWebElement;
-                webelement.Click();
+                this.Wait.For(self => self.ActualWebElement.Click());
             }
             return this;
         }
@@ -422,6 +458,8 @@ namespace NSelene
         /// </remarks>
         public object ExecuteScript(string scriptOnElementAndArgs, params object[] args)
         {
+            // TODO: this method fails if this.ActualWebElement failed – this is pretty not in NSelene style!
+            //       probably we have to  wrap it inside wait!
             IJavaScriptExecutor js = (IJavaScriptExecutor)this.config.Driver;
             return js.ExecuteScript($@"
                 return (function(element, args) {{

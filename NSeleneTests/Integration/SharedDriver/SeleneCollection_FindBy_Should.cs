@@ -4,6 +4,7 @@ using OpenQA.Selenium;
 
 namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
 {
+    using System;
     using Harness;
 
     [TestFixture]
@@ -128,7 +129,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
             try {
                 SS("a").FindBy(Be.Visible).Click();
                 Assert.Fail("should fail on timeout before can be clicked");
-            } catch (WebDriverTimeoutException) {
+            } catch (TimeoutException) {
                 Assert.IsFalse(Configuration.Driver.Url.Contains("second"));
                 //TODO: consider asserting that actually 250ms passed
             }

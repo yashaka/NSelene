@@ -95,7 +95,7 @@ namespace NSelene.Tests.Integration.SharedDriver
             S("#field1").Should(Have.Value(new string('*', 100)));
             S("#field2").Should(Have.Value(new string('*', 100)));
             
-            Assert.Less(jsTime, typeTime / 3);
+            Assert.Less(jsTime, typeTime / 2.0);
         }
 
         // TODO: make it work and pass:)

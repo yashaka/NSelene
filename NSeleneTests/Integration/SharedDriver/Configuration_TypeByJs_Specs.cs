@@ -33,7 +33,7 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
             S("#field2").Should(Have.Value("prefix to append to " + new string('*', 100)));
             
             var jsTime = afterJsSetValue - beforeJsSetValue;
-            Assert.Less(jsTime, setValueTime / 2.5);
+            Assert.Less(jsTime, setValueTime / 2.0);
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
             S("#field2").Should(Have.Value("prefix to append to " + new string('*', 100)));
             
             var jsTime = afterJsSetValue - beforeJsSetValue;
-            Assert.Less(jsTime, setValueTime / 2.5);
+            Assert.Less(jsTime, setValueTime / 2.0);
         }
     }
 }

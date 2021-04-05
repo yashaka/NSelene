@@ -33,7 +33,7 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
             S("#field2").Should(Have.Value(new string('*', 100)));
             
             var jsTime = afterJsSetValue - beforeJsSetValue;
-            Assert.Less(jsTime, setValueTime / 3);
+            Assert.Less(jsTime, setValueTime / 2);
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
             S("#field2").Should(Have.Value(new string('*', 100)));
             
             var jsTime = afterJsSetValue - beforeJsSetValue;
-            Assert.Less(jsTime, setValueTime / 3);
+            Assert.Less(jsTime, setValueTime / 2);
         }
     }
 }
