@@ -8,7 +8,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
 {
 
     [TestFixture]
-    public class ConfigurationSpecs
+    public class Configuration_Specs
     {
         IWebDriver _driver1 { get; set;}
         IWebDriver _driver2 { get; set;}

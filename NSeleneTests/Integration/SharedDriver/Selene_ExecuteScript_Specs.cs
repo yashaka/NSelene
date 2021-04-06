@@ -3,7 +3,7 @@ using NSelene;
 
 namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 {
-    public class Selene_ExecuteScriptShould
+    public class Selene_ExecuteScript_Specs
     {
         // [SetUp]
         // public void Setup()

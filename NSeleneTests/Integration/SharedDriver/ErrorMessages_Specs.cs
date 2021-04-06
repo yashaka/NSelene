@@ -11,7 +11,7 @@ namespace NSelene.Tests.Integration.SharedDriver
     using Harness;
 
     [TestFixture]
-    public class ErrorMessagesSpecs : BaseTest
+    public class ErrorMessages_Specs : BaseTest
     {
         // todo: make it "condition tests"
 

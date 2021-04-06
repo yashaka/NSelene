@@ -8,7 +8,7 @@ using System;
 namespace NSeleneTests.Integration.SharedDriver.SeleneCollectionSpec
 {
     [TestFixture]
-    public class SeleneCollection_Enumerable_Should : BaseTest
+    public class SeleneCollection_Enumerable_Specs : BaseTest
     {
 
         [TearDown]

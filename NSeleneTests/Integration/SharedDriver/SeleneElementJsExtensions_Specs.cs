@@ -9,7 +9,7 @@ using System;
 namespace NSelene.Tests.Integration.SharedDriver
 {
     [TestFixture]
-    public class SeleneElementJsExtensionsSpecs : BaseTest
+    public class SeleneElementJsExtensions_Specs : BaseTest
     {
         private const string ELEMENT_IN_VIEW = @"
                 var windowHeight = window.innerHeight;

@@ -2,14 +2,13 @@ using NUnit.Framework;
 using static NSelene.Selene;
 using OpenQA.Selenium;
 
-namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
+namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
 {
     using System;
-    using System.Linq;
     using Harness;
 
     [TestFixture]
-    public class Selene_S_Should : BaseTest
+    public class SeleneElement_Displayed_Specs : BaseTest
     {
 
         [TearDown]

@@ -6,7 +6,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionQueriesSpecs
     using Harness;
 
     [TestFixture]
-    public class SeleneCollection_Count_Should : BaseTest
+    public class SeleneCollection_Count_Specs : BaseTest
     {
         [Test]
         public void CountInvisible()

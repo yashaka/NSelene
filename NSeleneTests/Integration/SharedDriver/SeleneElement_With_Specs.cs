@@ -7,7 +7,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
     using Harness;
 
     [TestFixture]
-    public class SeleneElement_With: BaseTest
+    public class SeleneElement_With_Specs: BaseTest
     {
 
         [SetUp]

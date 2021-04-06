@@ -5,7 +5,7 @@ using NSelene.Tests.Integration.SharedDriver.Harness;
 namespace NSelene.Tests.Integration.SharedDriver
 {
     [TestFixture]
-    public class SeleneElementActionsSpecs : BaseTest
+    public class SeleneElementActions_Specs : BaseTest
     {
         //TODO: consider not using shoulds here...
 

@@ -6,7 +6,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
     using Harness;
 
     [TestFixture]
-    public class SeleneElement_ExecuteScript_Should : BaseTest
+    public class SeleneElement_ExecuteScript_Specs : BaseTest
     {
 
         [TearDown]

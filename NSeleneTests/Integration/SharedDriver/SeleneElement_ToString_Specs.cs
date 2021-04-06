@@ -9,7 +9,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
     using NSelene.Support.Extensions;
 
     [TestFixture]
-    public class SeleneElement_ToString: BaseTest
+    public class SeleneElement_ToString_Specs : BaseTest
     {
 
         [TearDown]

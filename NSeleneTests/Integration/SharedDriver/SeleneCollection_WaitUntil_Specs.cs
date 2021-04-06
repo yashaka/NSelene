@@ -8,7 +8,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
     using Harness;
 
     [TestFixture]
-    public class SeleneCollection_WaitUntil: BaseTest
+    public class SeleneCollection_WaitUntil_Specs : BaseTest
     {
 
         [TearDown]

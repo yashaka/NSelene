@@ -8,7 +8,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
     using Harness;
 
     [TestFixture]
-    public class SeleneCollection_Indexer_Should : BaseTest
+    public class SeleneCollection_Indexer_Specs : BaseTest
     {
 
         [TearDown]

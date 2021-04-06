@@ -8,7 +8,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
     using Harness;
 
     [TestFixture]
-    public class SeleneCollection_Matching: BaseTest
+    public class SeleneElement_Matching_Specs : BaseTest
     {
 
         [TearDown]
@@ -24,11 +24,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Given.OpenedPageWithBody("<p id='existing'>Hello!</p>");
 
             // EXPECT
-            Assert.IsFalse(SS("#absent").Matching(Have.Count(2)));
-            Assert.IsTrue(SS("#absent").Matching(Have.No.Count(2)));
+            Assert.IsFalse(S("#absent").Matching(Be.Visible));
+            Assert.IsTrue(S("#absent").Matching(Be.Not.Visible));
 
-            Assert.IsTrue(SS("#existing").Matching(Have.Count(1)));
-            Assert.IsFalse(SS("#existing").Matching(Have.No.Count(1)));
+            Assert.IsTrue(S("#existing").Matching(Be.Visible));
+            Assert.IsFalse(S("#existing").Matching(Be.Not.Visible));
 
             var afterCall = DateTime.Now;
             Assert.IsTrue(afterCall < beforeCall.AddSeconds(Configuration.Timeout / 2));

@@ -8,7 +8,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
     using Harness;
 
     [TestFixture]
-    public class SeleneElement_Find_Should : BaseTest
+    public class SeleneElement_Find_Specs : BaseTest
     {
 
         [TearDown]
