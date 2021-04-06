@@ -2,20 +2,14 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 39,
-    "uniques": 19
+    "count": 34,
+    "uniques": 17
   },
   {
     "path": "/yashaka/NSelene/issues",
     "title": "Issues · yashaka/NSelene · GitHub",
     "count": 11,
     "uniques": 4
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSelene",
-    "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
-    "count": 6,
-    "uniques": 3
   },
   {
     "path": "/yashaka/NSelene/pulls",
@@ -30,12 +24,6 @@
     "uniques": 1
   },
   {
-    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
-    "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene",
-    "count": 4,
-    "uniques": 3
-  },
-  {
     "path": "/yashaka/NSelene/issues/75",
     "title": "Fix Memory leaked webdriver on parallel run of nselene tests in latest master...",
     "count": 3,
@@ -48,14 +36,26 @@
     "uniques": 2
   },
   {
+    "path": "/yashaka/NSelene/tree/master/NSelene",
+    "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
+    "count": 3,
+    "uniques": 2
+  },
+  {
     "path": "/yashaka/NSelene/search",
     "title": "Search · moveto",
     "count": 3,
     "uniques": 1
   },
   {
-    "path": "/yashaka/NSelene/blob/master/NSelene/NSelene.csproj",
-    "title": "NSelene/NSelene.csproj at master · yashaka/NSelene · GitHub",
+    "path": "/yashaka/NSelene/issues/78",
+    "title": "Consider implementing something like collection.IndexOfElementBy(condition) ·...",
+    "count": 2,
+    "uniques": 2
+  },
+  {
+    "path": "/yashaka/NSelene/pull/77/files",
+    "title": "Shadow DOM PoC by OlegZarevych · Pull Request #77 · yashaka/NSelene · GitHub",
     "count": 2,
     "uniques": 2
   }
