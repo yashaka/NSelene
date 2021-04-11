@@ -14,7 +14,8 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             Configuration.Timeout = 0.6;
             Configuration.PollDuringWaits = 0.1;
             Given.OpenedEmptyPage();
-            Given.OpenedPageWithBodyTimedOut(@"
+            Given.OpenedPageWithBodyTimedOut(
+                @"
                 <a href='#second'>go to Heading 2</a>
                 <h2 id='second'>Heading 2</h2>
                 ",
@@ -31,11 +32,14 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         {
             Configuration.Timeout = 0.6;
             Configuration.PollDuringWaits = 0.1;
-            Given.OpenedPageWithBody(@"
+            Given.OpenedPageWithBody(
+                @"
                 <a id='link' href='#second' style='display:none'>go to Heading 2</a>
                 <h2 id='second'>Heading 2</h2>
-            ");
-            Given.ExecuteScriptWithTimeout(@"
+                "
+            );
+            Given.ExecuteScriptWithTimeout(
+                @"
                 document.getElementById('link').style.display = 'block';
                 ",
                 300
@@ -51,8 +55,8 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         {
             Configuration.Timeout = 0.6;
             Configuration.PollDuringWaits = 0.1;
-            Given.OpenedPageWithBody(@"
-                <a id='link' href='#second' style='display:block'>go to Heading 2</a>
+            Given.OpenedPageWithBody(
+                @"
                 <div id='overlay' 
                      style='display:block;
                             position: fixed;
@@ -66,10 +70,15 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                             background-color: rgba(0,0,0,0.1);
                             z-index: 2;
                             cursor: pointer;
-                    '></div>
+                           '>
+                </div>
+
+                <a id='link' href='#second' style='display:block'>go to Heading 2</a>
                 <h2 id='second'>Heading 2</h2>
-            ");
-            Given.ExecuteScriptWithTimeout(@"
+                "
+            );
+            Given.ExecuteScriptWithTimeout(
+                @"
                 document.getElementById('overlay').style.display = 'none';
                 ",
                 300
