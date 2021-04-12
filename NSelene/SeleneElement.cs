@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System;
 using NSelene.Support.SeleneElementJsExtensions;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace NSelene
 {
@@ -126,6 +127,94 @@ namespace NSelene
             get {
                 return locator.Find();
             }
+        }
+
+        private IWebElement ActualVisibleWebElement {
+            get {
+                var webElement = locator.Find();
+                if (! webElement.Displayed)
+                {
+                    throw new WebDriverException("Element not visible");
+                }
+                return webElement;
+            }
+        }
+
+        private IWebElement ActualNotOverlappedWebElement {
+            get {
+                var (webElement, cover) = this.ActualVisibleWebElementAndMaybeItsCover();
+                if (cover != null)
+                {
+                    throw new WebDriverException($"Element is overlapped by: {cover}");
+                }
+                return webElement;
+            }
+        }
+
+        /// 
+        /// Summary:
+        ///     Checks wether visible element is covered/overlapped 
+        ///     by another element at point from element's center with...
+        ///
+        /// Parameters:
+        ///     centerXOffset
+        ///     centerYOffset
+        ///
+        /// Returns:
+        ///     Tuple<IWebElement> with:
+        ///         [webelement, null] if not overlapped else [webelement, coveredWebElement]
+        /// Throws: 
+        ///     if element is not visible: 
+        ///         javascript error: element is not visible
+        private (IWebElement, IWebElement) ActualVisibleWebElementAndMaybeItsCover(
+            int centerXOffset = 0, 
+            int centerYOffset = 0
+        )
+        {
+            // TODO: will it work if element is not in view but is not covered?
+            // check in https://developer.mozilla.org/en-US/docs/Web/API/Document/elementFromPoint:
+            // > If the specified point is outside the visible bounds of the document 
+            // > or either coordinate is negative, the result is null.
+            // TODO: cover it by tests (also the iframe case (check the docs by above link))
+            var results = (ReadOnlyCollection<object>) this.ExecuteScript(
+                @"
+                var centerXOffset = args[0];
+                var centerYOffset = args[1];
+
+                var isVisible = !!( 
+                    element.offsetWidth 
+                    || element.offsetHeight 
+                    || element.getClientRects().length 
+                ) && window.getComputedStyle(element).visibility !== 'hidden'
+
+                if (!isVisible) {
+                    throw 'element is not visible'
+                }
+
+                var rect = element.getBoundingClientRect();
+                var x = rect.left + rect.width/2 + centerXOffset;
+                var y = rect.top + rect.height/2 + centerYOffset;
+
+                // TODO: now we return [element, null] in case of elementFromPoint returns null
+                //       (kind of – if we don't know what to do, let's at least not block the execution...)
+                //       rethink this... and handle the iframe case
+                //       read more in https://developer.mozilla.org/en-US/docs/Web/API/Document/elementFromPoint
+
+                var elementByXnY = document.elementFromPoint(x,y);
+                if (elementByXnY == null) {
+                    return [element, null];
+                }
+
+                var isNotOverlapped = element.isSameNode(elementByXnY);
+
+                return isNotOverlapped 
+                       ? [element, null] 
+                       : [element, elementByXnY];
+                "
+                , centerXOffset
+                , centerYOffset
+            );
+            return ((IWebElement) results[0], results[1] as IWebElement);
         }
 
         public override string ToString()
@@ -254,7 +343,8 @@ namespace NSelene
         }
 
         //
-        // SElement chainable alternatives to IWebElement void methods
+        // SeleneElement Commands
+        // (chainable alternatives to IWebElement void methods)
         //
 
         public SeleneElement Clear()
@@ -287,8 +377,8 @@ namespace NSelene
 
         public SeleneElement Submit()
         {
-            Should(Be.Visible);
-            this.ActualWebElement.Submit();
+            // this.Wait.For(self => self.ActualVisibleWebElement.Submit());
+            this.Wait.For(self => self.ActualNotOverlappedWebElement.Submit());
             return this;
         }
 
@@ -306,6 +396,10 @@ namespace NSelene
             }
             return this;
         }
+
+        //
+        // Queries
+        //
 
         public string Value
         {
