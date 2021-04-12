@@ -57,20 +57,23 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
-                <div id='overlay' 
-                     style='display:block;
-                            position: fixed;
-                            display: block;
-                            width: 100%;
-                            height: 100%;
-                            top: 0;
-                            left: 0;
-                            right: 0;
-                            bottom: 0;
-                            background-color: rgba(0,0,0,0.1);
-                            z-index: 2;
-                            cursor: pointer;
-                           '>
+                <div 
+                    id='overlay' 
+                    style='
+                        display:block;
+                        position: fixed;
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background-color: rgba(0,0,0,0.1);
+                        z-index: 2;
+                        cursor: pointer;
+                    '
+                >
                 </div>
 
                 <a id='link' href='#second' style='display:block'>go to Heading 2</a>
