@@ -154,7 +154,7 @@ namespace NSelene
                 var (webElement, cover) = this.ActualVisibleWebElementAndMaybeItsCover();
                 if (cover != null)
                 {
-                    throw new WebDriverException($"Element is overlapped by: {cover}");
+                    throw new WebDriverException($"Element is overlapped by: {cover.GetAttribute("outerHTML")}");
                 }
                 return webElement;
             }
@@ -185,7 +185,7 @@ namespace NSelene
             // > If the specified point is outside the visible bounds of the document 
             // > or either coordinate is negative, the result is null.
             // TODO: cover it by tests (also the iframe case (check the docs by above link))
-            var results = (ReadOnlyCollection<object>) this.ExecuteScript(
+            var results = this.ExecuteScript(
                 @"
                 var centerXOffset = args[0];
                 var centerYOffset = args[1];
@@ -217,13 +217,19 @@ namespace NSelene
                 var isNotOverlapped = element.isSameNode(elementByXnY);
 
                 return isNotOverlapped 
-                       ? [element, null] 
+                       ? [element, null]
                        : [element, elementByXnY];
                 "
                 , centerXOffset
                 , centerYOffset
             );
-            return ((IWebElement) results[0], results[1] as IWebElement);
+            if (results.GetType() == typeof(ReadOnlyCollection<IWebElement>))
+            {
+                var webelements = (ReadOnlyCollection<IWebElement>) results;
+                return (webelements[0], webelements[1]);
+            }
+            var objects = (ReadOnlyCollection<object>) results;
+            return ((IWebElement) objects[0], objects[1] as IWebElement);
         }
 
         public override string ToString()

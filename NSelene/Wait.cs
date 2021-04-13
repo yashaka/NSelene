@@ -149,11 +149,17 @@ internal class Wait<T> {
         var timeoutSpan = TimeSpan.FromSeconds(this.timeout);
         var finishTime = DateTime.Now.Add(timeoutSpan);
 
+        // System.Exception failFastError; // TODO: consider some failfast logic...
         while (true) {
             try 
             {
                 return lambda.Invoke(this.entity);
             } 
+            // catch (InvalidCastException error)
+            // {
+            //     failFastError = error;
+            //     break;
+            // }
             catch (System.Exception error) 
             {
                 if (DateTime.Now > finishTime) {
@@ -174,6 +180,7 @@ internal class Wait<T> {
                 Thread.Sleep(TimeSpan.FromSeconds(this.polling).Milliseconds);
             }
         }
+        // throw failFastError;
     }
 }
 }
