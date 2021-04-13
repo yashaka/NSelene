@@ -140,6 +140,15 @@ namespace NSelene
             }
         }
 
+        /// 
+        /// Returns:
+        ///     actual not overlapped (and so visible too) webelement
+        ///     or...
+        /// 
+        /// Throws:
+        ///     WebDriverException if overlapped
+        ///     Or whatever ActualVisibleWebElementAndMaybeItsCover throws
+        ///
         private IWebElement ActualNotOverlappedWebElement {
             get {
                 var (webElement, cover) = this.ActualVisibleWebElementAndMaybeItsCover();
@@ -296,7 +305,7 @@ namespace NSelene
             return this;
         }
 
-        // TODO: consider moving to Extensions
+        // TODO: consider moving to Extensions or even deprecate
         public SeleneElement Set(string value)
         {
             return SetValue(value);
@@ -377,7 +386,7 @@ namespace NSelene
 
         public SeleneElement Submit()
         {
-            // this.Wait.For(self => self.ActualVisibleWebElement.Submit());
+            // TODO: consider making ActualNotOverlappedWebElement configurable, cause somebody may not want extra js checks....
             this.Wait.For(self => self.ActualNotOverlappedWebElement.Submit());
             return this;
         }

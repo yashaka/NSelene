@@ -58,6 +58,7 @@
   - renders to: `Browser.All(.parent).By(Visible)[0].All(.child).FirstBy(has CSS class 'special').Element(./following-sibling::*)`
 - improved waiting (waits not just for visibility but till "being passed") at SeleneElement's:
   - Click()
+  - Submit()
 - *Deprecated (Marked as Obsolete)*
   - Configuration.WebDriver (use Configuration.Driver instead)
 - **potential breaking changes**:
