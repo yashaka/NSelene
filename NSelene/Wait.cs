@@ -58,8 +58,8 @@ public struct Optionally<T>
 
     internal class _Lambda<TEntity, TResult>
     {
-        Action<TEntity> Action { get; }
-        Func<TEntity, TResult> Func { get; }
+        Action<TEntity> Action { get; }      // TODO: rename to MaybeAction? ;) cause might be null
+        Func<TEntity, TResult> Func { get; } // TODO: rename to MaybeFunc? ;) ...
         string Name { get; }
 
         internal _Lambda(Expression<Action<TEntity>> action) 
@@ -68,6 +68,14 @@ public struct Optionally<T>
 
         internal _Lambda(Expression<Func<TEntity, TResult>> func)
         : this(func.ToString(), null, func.Compile())
+        {}
+
+        internal _Lambda(string name, Action<TEntity> action) 
+        : this(name, action, null) 
+        {}
+
+        internal _Lambda(string name, Func<TEntity, TResult> func)
+        : this(name, null, func)
         {}
 
         private _Lambda(

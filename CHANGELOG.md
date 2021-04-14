@@ -57,9 +57,12 @@
   - now code like `SS(".parent").FilterBy(Be.Visible)[0].SS(".child").FindBy(Have.CssClass("special")).S("./following-sibling::*")`
   - renders to: `Browser.All(.parent).By(Visible)[0].All(.child).FirstBy(has CSS class 'special').Element(./following-sibling::*)`
 - improved waiting (waits not just for visibility but till "being passed") at SeleneElement's:
-  - Click()
-  - Submit()
-  - Clear()
+  - (... wait till visible and not overlapped)
+    - Click()
+    - Submit()
+    - Clear()
+  - (... wait till visible for all but `input[type=file]`)
+    - SendKeys(keys)
 - *Deprecated (Marked as Obsolete)*
   - Configuration.WebDriver (use Configuration.Driver instead)
 - **potential breaking changes**:

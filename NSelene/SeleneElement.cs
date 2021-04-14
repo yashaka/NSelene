@@ -368,7 +368,7 @@ namespace NSelene
             //       is it enough? should we separate AllowActionOnOverlapped and AllowActionOnHidden?
             //       (overlapped is is also kind of "hidden" in context of normal meaning...)
             //       why we would want to allow clear on hidden? for example to clear upload file hidden input;)
-            //       (it's weird that selenium allows sendKeys but does not allow clear for such cases...)
+            //       (TODO: by the way clear is not allowed on input[type=file] while sendKeys is, why?)
             /*
             if (this.config.AllowActionOnHidden ?? Configuration.AllowActionOnHidden) 
             {
@@ -402,10 +402,31 @@ namespace NSelene
             return this;
         }
 
+
+
+        /// 
+        /// Summary:
+        ///     A low level method similar to raw selenium webdriver one, 
+        ///     with similar behaviour in context of "hidden" elements.
+        ///     Waits only till "Be.InDom".
+        ///     Useful to send keys to hidden elements, like "upload file input"
+        ///     Also it is chainable, like other SeleneElement's methods.
+        ///
         public SeleneElement SendKeys(string keys)
         {
-            Should(Be.InDom);
-            this.ActualWebElement.SendKeys(keys);
+            // TODO: should we deprecate it? and keep just something like:
+            //           element.With(allowActionOnHidden: true).Type(keys)
+            //       ?
+            //       should we consider adding Upload(string file)?
+            //       * to cover the corresponding case...
+            //       * yet be valid only for web... not for mobile :(
+
+            // TODO: consider failing fast (skip waiting) if got something like "WebDriverException : invalid argument: File not found"
+            //       how would we implement it by the way? :D
+            this.Wait.For(new _Lambda<SeleneElement, object>(
+                $"ActualWebElement.SendKeys({keys})",
+                self => self.ActualWebElement.SendKeys(keys)
+            ));
             return this;
         }
 

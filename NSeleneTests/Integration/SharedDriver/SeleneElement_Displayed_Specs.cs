@@ -67,16 +67,17 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
         public void FailWithTimeout_DuringWaitingForVisibilityOnActionsLikeClick()
         {
             Configuration.Timeout = 0.25;
-            Given.OpenedPageWithBody(@"
+            Given.OpenedPageWithBody(
+                @"
                 <a href='#second' style='display:none'>go to Heading 2</a>
-                <h2 id='second'>Heading 2</h2>"
+                <h2 id='second'>Heading 2</h2>
+                "
             );
-            Selene.ExecuteScript(@"
-                setTimeout(
-                    function(){
-                        document.getElementsByTagName('a')[0].style = 'display:block';
-                    }, 
-                    500);"
+            Given.ExecuteScriptWithTimeout(
+                @"
+                document.getElementById('a').style.display = 'block';
+                ",
+                300
             );
 
             // TODO: consider using Assert.Throws<WebDriverTimeoutException>(() => { ... })
