@@ -61,6 +61,7 @@
     - Click()
     - Submit()
     - Clear()
+    - Type(keys)
   - (... wait till visible for all but `input[type=file]`)
     - SendKeys(keys)
 - *Deprecated (Marked as Obsolete)*

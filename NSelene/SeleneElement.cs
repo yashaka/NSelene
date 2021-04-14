@@ -390,19 +390,21 @@ namespace NSelene
 
         public SeleneElement Type(string keys)
         {
-            Should(Be.Visible);
-            var webelement = this.ActualWebElement;
             if (this.config.TypeByJs ?? Configuration.TypeByJs) 
             {
-                this.JsType(keys);
-            } else 
+                this.Wait.For(new _Lambda<SeleneElement, object>(
+                    $"JsType({keys})",
+                    self => self.JsType(keys)
+                ));
+            } else
             {
-                webelement.SendKeys(keys);
+                this.Wait.For(new _Lambda<SeleneElement, object>(
+                    $"ActualNotOverlappedWebElement.SendKeys({keys})", // TODO: should we render it as Type({keys})?
+                    self => self.ActualNotOverlappedWebElement.SendKeys(keys)
+                ));
             }
             return this;
         }
-
-
 
         /// 
         /// Summary:
@@ -441,7 +443,7 @@ namespace NSelene
         {
             if (this.config.ClickByJs ?? Configuration.ClickByJs)
             {
-                // TODO: should we incorporate wait into this.ExecuteScript ?
+                // TODO: should we incorporate wait into this.ExecuteScript ? maybe make it configurable (Configuration.WaitForExecuteScript, false by default)?
                 // TODO: to keep here just this.JsClick(); ?
                 this.Wait.For(self => self.JsClick(0, 0));
             } 

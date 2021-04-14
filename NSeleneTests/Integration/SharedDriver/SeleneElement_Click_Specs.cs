@@ -8,6 +8,8 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
     [TestFixture]
     public class SeleneElement_Click_Specs : BaseTest
     {
+        // TODO: move here error messages tests, and at least some ClickByJs tests...
+        
         [Test]
         public void Click_WaitsForVisibility_OfInitiialyAbsent()
         {
