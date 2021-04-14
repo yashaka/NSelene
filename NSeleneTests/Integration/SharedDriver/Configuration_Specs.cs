@@ -15,8 +15,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
 
         [OneTimeSetUp]
         public void InitConfiguration()
-        {
-            new DriverManager().SetUpDriver(new ChromeConfig());
+        {            
+            new DriverManager().SetUpDriver(
+                // new ChromeConfig(), version: "Latest"
+                new ChromeConfig(), version: "89.0.4389.23"
+            );
 
             var options = new ChromeOptions();
             options.AddArguments("headless");

@@ -68,7 +68,8 @@ NSelene has no fully automatic driver management. Given the [WebDriverManager] i
         [SetUp]
         public void InitDriver()
         {
-            new DriverManager().SetUpDriver(new ChromeConfig());
+            string chromeVersion = "Latest"; // e.g. "83.0.4103.39" or "Latest", see https://chromedriver.chromium.org/downloads
+            new DriverManager().SetUpDriver(new ChromeConfig(), version: chromeVersion)
             Selene.SetWebDriver(new ChromeDriver());
         }
 

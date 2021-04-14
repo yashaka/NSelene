@@ -20,17 +20,17 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
                 <input id='field2' value='should be cleared'>
             ");
             var beforeType = DateTime.Now;
-            S("#field1").SetValue(new string('*', 100));
+            S("#field1").SetValue(new string('*', 200));
             var afterType = DateTime.Now;
             var setValueTime = afterType - beforeType;
 
             var beforeJsSetValue = afterType;
-            S("#field2").With(setValueByJs: true).SetValue(new string('*', 100));
+            S("#field2").With(setValueByJs: true).SetValue(new string('*', 200));
             var afterJsSetValue = DateTime.Now;
             
             // THEN
-            S("#field1").Should(Have.Value(new string('*', 100)));
-            S("#field2").Should(Have.Value(new string('*', 100)));
+            S("#field1").Should(Have.Value(new string('*', 200)));
+            S("#field2").Should(Have.Value(new string('*', 200)));
             
             var jsTime = afterJsSetValue - beforeJsSetValue;
             Assert.Less(jsTime, setValueTime / 2);
@@ -45,18 +45,18 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
                 <input id='field2' value='should be cleared'>
             ");
             var beforeType = DateTime.Now;
-            S("#field1").SetValue(new string('*', 100));
+            S("#field1").SetValue(new string('*', 200));
             var afterType = DateTime.Now;
             var setValueTime = afterType - beforeType;
 
             var beforeJsSetValue = afterType;
             Configuration.SetValueByJs = true;
-            S("#field2").SetValue(new string('*', 100));
+            S("#field2").SetValue(new string('*', 200));
             var afterJsSetValue = DateTime.Now;
             
             // THEN
-            S("#field1").Should(Have.Value(new string('*', 100)));
-            S("#field2").Should(Have.Value(new string('*', 100)));
+            S("#field1").Should(Have.Value(new string('*', 200)));
+            S("#field2").Should(Have.Value(new string('*', 200)));
             
             var jsTime = afterJsSetValue - beforeJsSetValue;
             Assert.Less(jsTime, setValueTime / 2);

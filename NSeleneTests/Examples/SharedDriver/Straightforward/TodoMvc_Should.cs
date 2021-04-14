@@ -12,8 +12,10 @@ namespace NSelene.Tests.Examples.SharedDriver.StraightForward
         [OneTimeSetUp]
         public void initDriver()
         {
-            string chromeVersion = "Latest"; // e.g. "83.0.4103.39" or "Latest", see https://chromedriver.chromium.org/downloads
-            new DriverManager().SetUpDriver(new ChromeConfig(), version: chromeVersion);
+            new DriverManager().SetUpDriver(
+                // new ChromeConfig(), version: "Latest"
+                new ChromeConfig(), version: "89.0.4389.23"
+            );
             var options = new ChromeOptions();
             options.AddArguments("headless");
             Configuration.Driver = new ChromeDriver(options);
