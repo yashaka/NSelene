@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
+using WebDriverManager.Helpers;
 using static NSelene.Selene;
 
 namespace NSelene.Tests.Integration.SharedDriver.Harness
@@ -16,8 +17,10 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
         [OneTimeSetUp]
         public void initDriver()
         {
-            string chromeVersion = "Latest";
-            new DriverManager().SetUpDriver(new ChromeConfig(), version: chromeVersion);
+            new DriverManager().SetUpDriver(
+                // new ChromeConfig(), version: "Latest"
+                new ChromeConfig(), version: "89.0.4389.23"
+            );
 
             var options = new ChromeOptions();
             options.AddArguments("headless");

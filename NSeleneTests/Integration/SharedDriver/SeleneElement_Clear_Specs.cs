@@ -6,12 +6,13 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
     using System;
     using System.Linq;
     using Harness;
+    using OpenQA.Selenium;
 
     [TestFixture]
-    public class SeleneElement_Submit_Specs : BaseTest
+    public class SeleneElement_Clear_Specs : BaseTest
     {
         [Test]
-        public void Submit_WaitsForVisibility_OfInitiialyAbsent()
+        public void Clear_WaitsForVisibility_OfInitiialyAbsent()
         {
             Configuration.Timeout = 0.6;
             Configuration.PollDuringWaits = 0.1;
@@ -19,22 +20,30 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             var beforeCall = DateTime.Now;
             Given.OpenedPageWithBodyTimedOut(
                 @"
-                <form action='#second'>go to Heading 2</form>
-                <h2 id='second'>Heading 2</h2>
+                <input value='abracadabra'></input>
                 ",
                 300
             );
 
-            S("form").Submit();
+            S("input").Clear();
             var afterCall = DateTime.Now;
 
-            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
+            Assert.AreEqual(
+                "", 
+                Configuration.Driver
+                .FindElement(By.TagName("input")).GetAttribute("value")
+            );
+            Assert.AreEqual(
+                "", 
+                Configuration.Driver
+                .FindElement(By.TagName("input")).GetProperty("value")
+            );
             Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
             Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
         }
         
         [Test]
-        public void Submit_IsRenderedInError_OnAbsentElementFailure()
+        public void Clear_IsRenderedInError_OnAbsentElementFailure()
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
@@ -42,69 +51,102 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             try 
             {
-                S("form").Submit();
+                S("input").Clear();
             }
 
             catch (TimeoutException error)
             {
+                // TODO: shoud we check timing here too?
                 var lines = error.Message.Split("\n").Select(
                     item => item.Trim()
                 ).ToList();
 
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(form).ActualNotOverlappedWebElement.Submit()", lines);
+                Assert.Contains("Browser.Element(input).ActualNotOverlappedWebElement.Clear()", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.Contains(
                     "no such element: Unable to locate element: "
-                    + "{\"method\":\"css selector\",\"selector\":\"form\"}"
+                    + "{\"method\":\"css selector\",\"selector\":\"input\"}"
                     , 
                     lines
                 );
             }
         }
+        
+        // [Test]
+        // public void Clear_PassesOnHidden_IfAllowed() // NOT IMPLEMENTED
+        // {
+        //     Configuration.Timeout = 0.25;
+        //     Configuration.PollDuringWaits = 0.1;
+        //     Given.OpenedPageWithBody(
+        //         @"
+        //         <input value='abracadabra' style='display:none'></input>
+        //         "
+        //     );
+
+        //     S("input").Clear();
+            
+        //     Assert.AreEqual(
+        //         "", 
+        //         Configuration.Driver
+        //         .FindElement(By.TagName("input")).GetAttribute("value")
+        //     );
+        //     Assert.AreEqual(
+        //         "", 
+        //         Configuration.Driver
+        //         .FindElement(By.TagName("input")).GetProperty("value")
+        //     );
+        // }
 
         [Test]
-        public void Submit_WaitsForVisibility_OfInitialyHidden()
+        public void Clear_WaitsForVisibility_OfInitialyHidden()
         {
             Configuration.Timeout = 0.6;
             Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
-                <form action='#second' style='display:none'>go to Heading 2</form>
-                <h2 id='second'>Heading 2</h2>
+                <input value='abracadabra' style='display:none'></input>
                 "
             );
             var beforeCall = DateTime.Now;
             Given.ExecuteScriptWithTimeout(
                 @"
-                document.getElementsByTagName('form')[0].style.display = 'block';
+                document.getElementsByTagName('input')[0].style.display = 'block';
                 ",
                 300
             );
 
-            S("form").Submit();
+            S("input").Clear();
             var afterCall = DateTime.Now;
 
-            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
+            Assert.AreEqual(
+                "", 
+                Configuration.Driver
+                .FindElement(By.TagName("input")).GetAttribute("value")
+            );
+            Assert.AreEqual(
+                "", 
+                Configuration.Driver
+                .FindElement(By.TagName("input")).GetProperty("value")
+            );
             Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
             Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
         }
         
         [Test]
-        public void Submit_IsRenderedInError_OnHiddenElementFailure()
+        public void Clear_IsRenderedInError_OnHiddenElementFailure()
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
-                <form action='#second' style='display:none'>go to Heading 2</form>
-                <h2 id='second'>Heading 2</h2>
+                <input value='abracadabra' style='display:none'></input>
                 "
             );
 
             try 
             {
-                S("form").Submit();
+                S("input").Clear();
             }
 
             catch (TimeoutException error)
@@ -114,14 +156,25 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 ).ToList();
 
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(form).ActualNotOverlappedWebElement.Submit()", lines);
+                Assert.Contains("Browser.Element(input).ActualNotOverlappedWebElement.Clear()", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.Contains("javascript error: element is not visible", lines);
+
+                Assert.AreEqual(
+                    "abracadabra", 
+                    Configuration.Driver
+                    .FindElement(By.TagName("input")).GetAttribute("value")
+                );
+                Assert.AreEqual(
+                    "abracadabra", 
+                    Configuration.Driver
+                    .FindElement(By.TagName("input")).GetProperty("value")
+                );
             }
         }
 
         [Test]
-        public void Submit_Waits_For_NoOverlay()
+        public void Clear_Waits_For_NoOverlay()
         {
             Configuration.Timeout = 0.6;
             Configuration.PollDuringWaits = 0.1;
@@ -146,8 +199,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 >
                 </div>
 
-                <form action='#second'>go to Heading 2</form>
-                <h2 id='second'>Heading 2</h2>
+                <input value='abracadabra'></input>
                 "
             );
             var beforeCall = DateTime.Now;
@@ -158,16 +210,25 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 300
             );
 
-            S("form").Submit(); // TODO: this overlay works only for "overlayying at center of element", handle the "partial overlay" cases too!
+            S("input").Clear(); // TODO: this overlay works only for "overlayying at center of element", handle the "partial overlay" cases too!
             var afterCall = DateTime.Now;
 
-            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
+            Assert.AreEqual(
+                "", 
+                Configuration.Driver
+                .FindElement(By.TagName("input")).GetAttribute("value")
+            );
+            Assert.AreEqual(
+                "", 
+                Configuration.Driver
+                .FindElement(By.TagName("input")).GetProperty("value")
+            );
             Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
             Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
         }
 
         [Test]
-        public void Submit_IsRenderedInError_OnOverlappedWithOverlayFailure()
+        public void Clear_IsRenderedInError_OnOverlappedWithOverlayFailure()
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
@@ -192,14 +253,14 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 >
                 </div>
 
-                <form action='#second'>go to Heading 2</form>
-                <h2 id='second'>Heading 2</h2>
+
+                <input value='abracadabra'></input>
                 "
             );
 
             try 
             {
-                S("form").Submit();
+                S("input").Clear();
             }
 
             catch (TimeoutException error)
@@ -209,48 +270,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 ).ToList();
 
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(form).ActualNotOverlappedWebElement.Submit()", lines);
+                Assert.Contains("Browser.Element(input).ActualNotOverlappedWebElement.Clear()", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.NotNull(lines.Find(item => item.Contains(
                     "Element is overlapped by: <div id=\"overlay\" "
                 )));
-            }
-        }
-
-        [Test]
-        public void Submit_Fails_OnNonFormElement()
-        {
-            Configuration.Timeout = 0.6;
-            Configuration.PollDuringWaits = 0.1;
-            Given.OpenedEmptyPage();
-            Given.OpenedPageWithBodyTimedOut(
-                @"
-                <a href='#second'>go to Heading 2</a>
-                <h2 id='second'>Heading 2</h2>
-                ",
-                300
-            );
-
-            try 
-            {
-                S("a").Submit();
-            }
-
-            catch (TimeoutException error)
-            {
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Reason:", lines);
-                Assert.Contains(
-                    "no such element: Unable to locate element: "
-                    + "{\"method\":\"xpath\",\"selector\":\"./ancestor-or-self::form\"}"
-                    , 
-                    lines
-                );
-
-                Assert.IsFalse(Configuration.Driver.Url.Contains("second"));
             }
         }
     }

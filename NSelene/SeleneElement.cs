@@ -364,8 +364,27 @@ namespace NSelene
 
         public SeleneElement Clear()
         {
-            Should(Be.Visible);
-            this.ActualWebElement.Clear();
+            // TODO: consider something like AllowActionOnHidden
+            //       is it enough? should we separate AllowActionOnOverlapped and AllowActionOnHidden?
+            //       (overlapped is is also kind of "hidden" in context of normal meaning...)
+            //       why we would want to allow clear on hidden? for example to clear upload file hidden input;)
+            //       (it's weird that selenium allows sendKeys but does not allow clear for such cases...)
+            /*
+            if (this.config.AllowActionOnHidden ?? Configuration.AllowActionOnHidden) 
+            {
+                // this.Wait.For(self => self.ActualWebElement.Clear()); // this will yet fail with ElementNotInteractableException
+                // so to really allow, we should do here something like:
+                this.Wait.For(self => self.JsClear());
+                // should we?
+                // - use AllowActionOnHidden for this, or use ClearByJs? (consistent with other...)
+
+            } else 
+            {
+                this.Wait.For(self => self.ActualNotOverlappedWebElement.Clear());
+            }
+             */
+
+            this.Wait.For(self => self.ActualNotOverlappedWebElement.Clear());
             return this;
         }
 
