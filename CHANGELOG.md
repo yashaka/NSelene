@@ -59,6 +59,8 @@
 - improved waiting (waits not just for visibility but till "being passed") at SeleneElement's:
   - (... wait till visible and not overlapped)
     - Click()
+    - Hover()
+    - DoubleClick()
     - Submit()
     - Clear()
     - SetValue(keys)

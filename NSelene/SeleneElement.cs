@@ -350,15 +350,21 @@ namespace NSelene
 
         public SeleneElement Hover()
         {
-            Should(Be.Visible);
-            this.Actions.MoveToElement(this.ActualWebElement).Perform();
+            this.Wait.For(
+                self 
+                => 
+                self.Actions.MoveToElement(self.ActualNotOverlappedWebElement).Perform()
+            );
             return this;
         }
 
         public SeleneElement DoubleClick()
         {
-            Should(Be.Visible);
-            this.Actions.DoubleClick(this.ActualWebElement).Perform();
+            this.Wait.For(
+                self 
+                => 
+                self.Actions.DoubleClick(self.ActualNotOverlappedWebElement).Perform()
+            );
             return this;
         }
 
