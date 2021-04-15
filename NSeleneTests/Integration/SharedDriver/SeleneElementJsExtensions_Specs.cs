@@ -84,16 +84,16 @@ namespace NSelene.Tests.Integration.SharedDriver
             ");
 
             var beforeType = DateTime.Now;
-            S("#field1").Type(new string('*', 100));
+            S("#field1").Type(new string('*', 200));
             var afterType = DateTime.Now;
             var typeTime = afterType - beforeType;
             var beforeJsSetValue = afterType;
-            S("#field2").JsSetValue(new string('*', 100));
+            S("#field2").JsSetValue(new string('*', 200));
             var afterJsSetValue = DateTime.Now;
             var jsTime = afterJsSetValue - beforeJsSetValue;
             
-            S("#field1").Should(Have.Value(new string('*', 100)));
-            S("#field2").Should(Have.Value(new string('*', 100)));
+            S("#field1").Should(Have.Value(new string('*', 200)));
+            S("#field2").Should(Have.Value(new string('*', 200)));
             
             Assert.Less(jsTime, typeTime / 2.0);
         }
