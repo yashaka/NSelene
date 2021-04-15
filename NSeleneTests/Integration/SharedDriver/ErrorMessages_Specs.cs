@@ -70,18 +70,6 @@ namespace NSelene.Tests.Integration.SharedDriver
         }
 
         [Test]
-        public void SeleneElement_SetValue_FailsForHiddenElement()
-        {
-            Configuration.Timeout = 0.2;
-            Given.OpenedPageWithBody("<input id='new-text' type='text' value='ku ku' style='display:none'/>");
-            Assert.Throws(Is.TypeOf(typeof(WebDriverTimeoutException))
-                          .And.Message.Not.Contains("not " + Be.Visible.GetType().Name)
-                          .And.Message.Contains(Be.Visible.GetType().Name), () => {
-                S("#new-text").SetValue("will not happen");
-            });
-        }
-
-        [Test]
         public void SeleneElement_Click_Failure_OnHiddenElement()
         {
             Configuration.Timeout = 0.25;
@@ -94,7 +82,10 @@ namespace NSelene.Tests.Integration.SharedDriver
             try {
                 S("a").Click();
                 Assert.Fail("should fail on timeout before can be clicked");
-            } catch (TimeoutException error) {
+            } 
+            
+            catch (TimeoutException error) 
+            {
                 var lines = error.Message.Split("\n").Select(
                     item => item.Trim()
                 ).ToList();

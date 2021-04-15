@@ -61,6 +61,7 @@
     - Click()
     - Submit()
     - Clear()
+    - SetValue(keys)
     - Type(keys)
     - PressEnter()
     - PressEscape()

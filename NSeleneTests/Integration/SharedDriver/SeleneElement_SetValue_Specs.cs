@@ -10,45 +10,43 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
     using OpenQA.Selenium;
 
     [TestFixture]
-    public class SeleneElement_Type_Specs : BaseTest
+    public class SeleneElement_SetValue_Specs : BaseTest
     {
-        // TODO: should we cover cases when Type applied to field with cursor in the middle?
-
-        // TODO: move here some TypeByJs tests
+        // TODO: move here some SetValueByJs tests
 
         [Test]
-        public void Type_WaitsForVisibility_OfInitiialyAbsent()
+        public void SetValue_WaitsForVisibility_OfInitiialyAbsent()
         {
-            Configuration.Timeout = 0.7; // bigger than for other actions, because we simulate typing all keys...
+            Configuration.Timeout = 0.6; 
             Configuration.PollDuringWaits = 0.1;
             Given.OpenedEmptyPage();
             var beforeCall = DateTime.Now;
             Given.OpenedPageWithBodyTimedOut(
                 @"
-                <input value='before '></input>
+                <input value='initial'></input>
                 ",
                 300
             );
 
-            S("input").Type("and after");
+            S("input").SetValue("overwritten");
             var afterCall = DateTime.Now;
 
             Assert.AreEqual(
-                "before and after", 
+                "overwritten", 
                 Configuration.Driver
                 .FindElement(By.TagName("input")).GetAttribute("value")
             );
             Assert.AreEqual(
-                "before and after", 
+                "overwritten", 
                 Configuration.Driver
                 .FindElement(By.TagName("input")).GetProperty("value")
             );
             Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.7));
+            Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
         }
         
         [Test]
-        public void Type_IsRenderedInError_OnAbsentElementFailure()
+        public void SetValue_IsRenderedInError_OnAbsentElementFailure()
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
@@ -56,7 +54,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             try 
             {
-                S("input").Type("and after");
+                S("input").SetValue("overwritten");
             }
 
             catch (TimeoutException error)
@@ -67,7 +65,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 ).ToList();
 
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)", lines);
+                Assert.Contains("Browser.Element(input).ActualNotOverlappedWebElement.Clear().SendKeys(overwritten)", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.Contains(
                     "no such element: Unable to locate element: "
@@ -79,7 +77,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         }
         
         [Test]
-        public void Type_FailsOnHiddenInputOfTypeFile()
+        public void SetValue_FailsOnHiddenInputOfTypeFile() // TODO: should we allow it here like in send keys? kind of sounds natural... but can we do that without drawing performance?
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
@@ -96,7 +94,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             
             try 
             {
-                S("[type=file]").Type(path);
+                S("[type=file]").SetValue(path);
             }
 
             catch (TimeoutException error)
@@ -106,7 +104,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 ).ToList();
 
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains($"Browser.Element([type=file]).ActualNotOverlappedWebElement.SendKeys({path})", lines);
+                Assert.Contains($"Browser.Element([type=file]).ActualNotOverlappedWebElement.Clear().SendKeys({path})", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.Contains("javascript error: element is not visible", lines);
 
@@ -124,13 +122,13 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         }
 
         [Test]
-        public void Type_WaitsForVisibility_OfInitialyHidden()
+        public void SetValue_WaitsForVisibility_OfInitialyHidden()
         {
-            Configuration.Timeout = 0.7;
+            Configuration.Timeout = 0.6;
             Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
-                <input value='before ' style='display:none'></input>
+                <input value='initial' style='display:none'></input>
                 "
             );
             var beforeCall = DateTime.Now;
@@ -141,37 +139,37 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 300
             );
 
-            S("input").Type("and after");
+            S("input").SetValue("overwritten");
             var afterCall = DateTime.Now;
 
             Assert.AreEqual(
-                "before and after", 
+                "overwritten", 
                 Configuration.Driver
                 .FindElement(By.TagName("input")).GetAttribute("value")
             );
             Assert.AreEqual(
-                "before and after", 
+                "overwritten", 
                 Configuration.Driver
                 .FindElement(By.TagName("input")).GetProperty("value")
             );
             Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.7));
+            Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
         }
         
         [Test]
-        public void Type_IsRenderedInError_OnHiddenElementFailure()
+        public void SetValue_IsRenderedInError_OnHiddenElementFailure()
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
-                <input value='before ' style='display:none'></input>
+                <input value='initial' style='display:none'></input>
                 "
             );
 
             try 
             {
-                S("input").Type("and after");
+                S("input").SetValue("overwritten");
             }
 
             catch (TimeoutException error)
@@ -181,17 +179,17 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 ).ToList();
 
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)", lines);
+                Assert.Contains("Browser.Element(input).ActualNotOverlappedWebElement.Clear().SendKeys(overwritten)", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.Contains("javascript error: element is not visible", lines);
 
                 Assert.AreEqual(
-                    "before ", 
+                    "initial", 
                     Configuration.Driver
                     .FindElement(By.TagName("input")).GetAttribute("value")
                 );
                 Assert.AreEqual(
-                    "before ", 
+                    "initial", 
                     Configuration.Driver
                     .FindElement(By.TagName("input")).GetProperty("value")
                 );
@@ -199,9 +197,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         }
 
         [Test]
-        public void Type_WaitsForNoOverlay()
+        public void SetValue_WaitsForNoOverlay()
         {
-            Configuration.Timeout = 0.7;
+            Configuration.Timeout = 0.6;
             Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
@@ -224,7 +222,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 >
                 </div>
 
-                <input value='before '></input>
+                <input value='initial'></input>
                 "
             );
             var beforeCall = DateTime.Now;
@@ -235,25 +233,25 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 300
             );
 
-            S("input").Type("and after");
+            S("input").SetValue("overwritten");
             var afterCall = DateTime.Now;
 
             Assert.AreEqual(
-                "before and after", 
+                "overwritten", 
                 Configuration.Driver
                 .FindElement(By.TagName("input")).GetAttribute("value")
             );
             Assert.AreEqual(
-                "before and after", 
+                "overwritten", 
                 Configuration.Driver
                 .FindElement(By.TagName("input")).GetProperty("value")
             );
             Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.7));
+            Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
         }
 
         [Test]
-        public void Type_IsRenderedInError_OnOverlappedWithOverlayFailure()
+        public void SetValue_IsRenderedInError_OnOverlappedWithOverlayFailure()
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
@@ -279,13 +277,13 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 </div>
 
 
-                <input value='before '></input>
+                <input value='initial'></input>
                 "
             );
 
             try 
             {
-                S("input").Type("and after");
+                S("input").SetValue("overwritten");
             }
 
             catch (TimeoutException error)
@@ -295,7 +293,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 ).ToList();
 
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)", lines);
+                Assert.Contains("Browser.Element(input).ActualNotOverlappedWebElement.Clear().SendKeys(overwritten)", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.NotNull(lines.Find(item => item.Contains(
                     "Element is overlapped by: <div id=\"overlay\" "

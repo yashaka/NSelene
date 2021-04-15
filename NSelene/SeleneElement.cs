@@ -303,6 +303,13 @@ namespace NSelene
             //       yeah, almost useless when set globally on Configuration.ActByJs
             //       but pretty usefull when called like element.With(actByJs: true) ! 
             //       can this be implemented easy without interfering with all other like TypeByJs? o_O
+            //       but should they be different in context of waiting?
+            //       i mean... TypeByJs - should mean that we want to type with hack...
+            //                 i.e. allowing everything that js allow... so sometimes for overlapped elements too
+            //                 ActByJs - and this is something like... act ~ simulate by js... 
+            //                 i.e. we should simulate the real behaviour in context of waiting, but do the action via js...
+            //                 no?
+            //                 is it too much? :D
             this.Wait.For(new _Lambda<SeleneElement, object>(
                 $"ActualNotOverlappedWebElement.SendKeys(Escape)", // TODO: should we render it as PressEscape()?
                 self => self.ActualNotOverlappedWebElement.SendKeys(Keys.Escape)
@@ -313,17 +320,24 @@ namespace NSelene
         // TODO: Do we need an alias to Type(keys) – Press(keys) ?
         //       kind of for better logging in report (when we have full support for that)
 
-        public SeleneElement SetValue(string keys)
+        public SeleneElement SetValue(string keys) // TODO: why the param is named keys o_O :) Do we have time to rename it? )
         {
-            Should(Be.Visible);
-            var webelement = this.ActualWebElement;
             if (this.config.SetValueByJs ?? Configuration.SetValueByJs) 
             {
-                this.JsSetValue(keys);
-            } else 
+                this.Wait.For(new _Lambda<SeleneElement, object>(
+                    $"JsSetValue({keys})",
+                    self => self.JsSetValue(keys)
+                ));
+            } else
             {
-                webelement.Clear();
-                webelement.SendKeys(keys);
+                this.Wait.For(new _Lambda<SeleneElement, object>(
+                    $"ActualNotOverlappedWebElement.Clear().SendKeys({keys})", // TODO: should we render it as SetValue({keys})?
+                    self => {
+                        var webelement = self.ActualNotOverlappedWebElement;
+                        webelement.Clear();
+                        webelement.SendKeys(keys);
+                    }
+                ));
             }
             return this;
         }
