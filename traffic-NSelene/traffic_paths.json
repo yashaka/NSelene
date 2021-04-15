@@ -2,7 +2,7 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 52,
+    "count": 59,
     "uniques": 16
   },
   {
@@ -24,6 +24,18 @@
     "uniques": 4
   },
   {
+    "path": "/yashaka/NSelene/actions",
+    "title": "Actions · yashaka/NSelene",
+    "count": 5,
+    "uniques": 1
+  },
+  {
+    "path": "/yashaka/NSelene/graphs/contributors",
+    "title": "Contributors to yashaka/NSelene",
+    "count": 4,
+    "uniques": 2
+  },
+  {
     "path": "/yashaka/NSelene/commits/master",
     "title": "Commits · yashaka/NSelene · GitHub",
     "count": 4,
@@ -40,18 +52,6 @@
     "title": "Fix Memory leaked webdriver on parallel run of nselene tests in latest master...",
     "count": 3,
     "uniques": 3
-  },
-  {
-    "path": "/yashaka/NSelene/graphs/contributors",
-    "title": "Contributors to yashaka/NSelene",
-    "count": 3,
-    "uniques": 2
-  },
-  {
-    "path": "/yashaka/NSelene/actions",
-    "title": "Actions · yashaka/NSelene",
-    "count": 3,
-    "uniques": 1
   },
   {
     "path": "/yashaka/NSelene/issues/new",
