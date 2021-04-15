@@ -280,19 +280,19 @@ namespace NSelene
 
         public SeleneElement PressEnter()
         {
-            SendKeys(Keys.Enter);
+            Type(Keys.Enter);
             return this;
         }
 
         public SeleneElement PressTab()
         {
-            SendKeys(Keys.Tab);
+            Type(Keys.Tab);
             return this;
         }
 
         public SeleneElement PressEscape()
         {
-            SendKeys(Keys.Escape);
+            Type(Keys.Escape);
             return this;
         }
 
@@ -618,5 +618,4 @@ namespace NSelene
                 }})(arguments[0], arguments[1])", new object[] { this.ActualWebElement, args });
         }
     }
-
 }
