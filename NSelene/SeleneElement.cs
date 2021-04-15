@@ -280,21 +280,38 @@ namespace NSelene
 
         public SeleneElement PressEnter()
         {
-            Type(Keys.Enter);
+            this.Wait.For(new _Lambda<SeleneElement, object>(
+                $"ActualNotOverlappedWebElement.SendKeys(Enter)", // TODO: should we render it as PressEnter()?
+                self => self.ActualNotOverlappedWebElement.SendKeys(Keys.Enter)
+            ));
             return this;
         }
 
         public SeleneElement PressTab()
         {
-            Type(Keys.Tab);
+            this.Wait.For(new _Lambda<SeleneElement, object>(
+                $"ActualNotOverlappedWebElement.SendKeys(Tab)", // TODO: should we render it as PressTab()?
+                self => self.ActualNotOverlappedWebElement.SendKeys(Keys.Tab)
+            ));
             return this;
         }
 
         public SeleneElement PressEscape()
         {
-            Type(Keys.Escape);
+            // TODO: do we need PressEscapeByJs ? o_O do we need so much of this ByJs?
+            //       do we need something more general like ActByJs?
+            //       yeah, almost useless when set globally on Configuration.ActByJs
+            //       but pretty usefull when called like element.With(actByJs: true) ! 
+            //       can this be implemented easy without interfering with all other like TypeByJs? o_O
+            this.Wait.For(new _Lambda<SeleneElement, object>(
+                $"ActualNotOverlappedWebElement.SendKeys(Escape)", // TODO: should we render it as PressEscape()?
+                self => self.ActualNotOverlappedWebElement.SendKeys(Keys.Escape)
+            ));
             return this;
         }
+
+        // TODO: Do we need an alias to Type(keys) – Press(keys) ?
+        //       kind of for better logging in report (when we have full support for that)
 
         public SeleneElement SetValue(string keys)
         {
