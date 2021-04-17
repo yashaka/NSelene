@@ -2,14 +2,26 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 55,
-    "uniques": 15
+    "count": 63,
+    "uniques": 18
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene",
     "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
-    "count": 5,
-    "uniques": 4
+    "count": 6,
+    "uniques": 5
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
+    "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
+    "count": 6,
+    "uniques": 3
+  },
+  {
+    "path": "/yashaka/NSelene/actions",
+    "title": "Actions · yashaka/NSelene",
+    "count": 6,
+    "uniques": 1
   },
   {
     "path": "/yashaka/NSelene/issues",
@@ -18,22 +30,22 @@
     "uniques": 3
   },
   {
-    "path": "/yashaka/NSelene/actions",
-    "title": "Actions · yashaka/NSelene",
+    "path": "/yashaka/NSelene/commits/master",
+    "title": "Commits · yashaka/NSelene · GitHub",
     "count": 5,
-    "uniques": 1
+    "uniques": 2
   },
   {
     "path": "/yashaka/NSelene/graphs/contributors",
     "title": "Contributors to yashaka/NSelene",
-    "count": 4,
+    "count": 5,
     "uniques": 2
   },
   {
-    "path": "/yashaka/NSelene/commits/master",
-    "title": "Commits · yashaka/NSelene · GitHub",
+    "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
+    "title": "NSelene/NSelene/Conditions at master · yashaka/NSelene · GitHub",
     "count": 4,
-    "uniques": 1
+    "uniques": 3
   },
   {
     "path": "/yashaka/NSelene/pulls",
@@ -46,17 +58,5 @@
     "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene · GitHub",
     "count": 3,
     "uniques": 3
-  },
-  {
-    "path": "/yashaka/NSelene/issues/75",
-    "title": "Fix Memory leaked webdriver on parallel run of nselene tests in latest master...",
-    "count": 2,
-    "uniques": 2
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
-    "title": "NSelene/NSelene/Conditions at master · yashaka/NSelene · GitHub",
-    "count": 2,
-    "uniques": 2
   }
 ]
