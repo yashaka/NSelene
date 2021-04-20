@@ -2,7 +2,7 @@ namespace NSelene
 {
     namespace Conditions
     {
-        public class Selected : DescribedCondition<SeleneElement>
+        public class Selected : Condition<SeleneElement>
         {
 
             public override bool Apply(SeleneElement entity)

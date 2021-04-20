@@ -239,19 +239,13 @@ namespace NSelene
 
         public SeleneElement Should(Condition<SeleneElement> condition)
         {
-            return Selene.WaitFor(
-                this, 
-                condition, 
-                this.config.Timeout ?? Configuration.Timeout,
-                this.config.PollDuringWaits ?? Configuration.PollDuringWaits
-            );
+            this.Wait.For(condition);
+            return this;
         }
 
         [Obsolete("Use the negative condition instead")]
         public SeleneElement ShouldNot(Condition<SeleneElement> condition)
-        {
-            return Selene.WaitForNot(this, condition);
-        }
+        => this.Should(condition.Not);
 
         public bool Matching(Condition<SeleneElement> condition)
         {

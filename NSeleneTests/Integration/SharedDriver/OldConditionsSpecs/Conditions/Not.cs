@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using NSelene.Conditions;
 
-namespace NSelene.Conditions
+namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs.Conditions
 {
     // todo: consider renaming to Negated
     //       or maybe just NotCondition
-    public class Not<TEntity> : Condition<TEntity>
+    public class Not<TEntity> : Condition<TEntity>   
     {
         private readonly Condition<TEntity> condition;
 
@@ -19,14 +20,14 @@ namespace NSelene.Conditions
         {
             try
             {
-                return !condition.Apply(entity);
+                return ! condition.Apply(entity);
             }
             catch
             {
                 return true;
             }
         }
-
+        
         public override string Explain()
         {
             return $"not {condition.Explain()}";
@@ -45,23 +46,5 @@ namespace NSelene.Conditions
         //     return original == true.ToString() ? true.ToString()
         //         : $"not {original}";
         // }
-
-        public override _Optionally<object> _Invoke(TEntity entity)
-        {
-            bool result;
-            try
-            {
-                result = !this.condition.Apply(entity);
-            }
-            catch (Exception)
-            {
-                result = true;
-            }
-            if (!result)
-            {
-                throw new ConditionNotMatchedException("actual: " + this.DescribeActual());
-            }
-            return _Optionally<object>.Undefined;
-        }
     }
 }

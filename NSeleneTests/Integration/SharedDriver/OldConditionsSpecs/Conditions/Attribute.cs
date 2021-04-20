@@ -1,12 +1,14 @@
 using System.Linq;
+using NSelene.Conditions;
 
-namespace NSelene
+namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 {
     namespace Conditions
     {
-        public class Attribute : Condition<SeleneElement>
+        #pragma warning disable 0618
+        public class Attribute : DescribedCondition<SeleneElement>
+        #pragma warning restore 0618
         {
-
             private string name;
             private string expectedValue;
             private string actualValue;
@@ -36,7 +38,9 @@ namespace NSelene
             }
         }
 
-        class NoAttribute : Condition<SeleneElement>
+        #pragma warning disable 0618
+        class NoAttribute : DescribedCondition<SeleneElement>
+        #pragma warning restore 0618
         {
 
             private string name;
@@ -72,25 +76,24 @@ namespace NSelene
 
     public static partial class Have
     {
-        public static Conditions.Condition<SeleneElement> Attribute(string name, string value) => new Conditions.Attribute(name, value);
+        public static Condition<SeleneElement> Attribute(string name, string value) => new Conditions.Attribute(name, value);
 
-        public static Conditions.Condition<SeleneElement> Value(string expected) => new Conditions.Attribute("value", expected);
+        public static Condition<SeleneElement> Value(string expected) => new Conditions.Attribute("value", expected);
         public static partial class No
         {
-            public static Conditions.Condition<SeleneElement> Attribute(string name, string value) 
+            public static Condition<SeleneElement> Attribute(string name, string value) 
                 => new Conditions.NoAttribute(name, value);
-            public static Conditions.Condition<SeleneElement> Value(string expected) 
+            public static Condition<SeleneElement> Value(string expected) 
                 => new Conditions.Not<SeleneElement>(new Conditions.Attribute("value", expected));
         }
-
     }
 
     public static partial class Be
     {
-        public static Conditions.Condition<SeleneElement> Blank => new Conditions.Attribute("value", "");
+        public static Condition<SeleneElement> Blank => new Conditions.Attribute("value", "");
         public static partial class Not
         {
-            public static Conditions.Condition<SeleneElement> Blank => new Conditions.Not<SeleneElement>(new Conditions.Attribute("value", ""));
+            public static Condition<SeleneElement> Blank => new Conditions.Not<SeleneElement>(new Conditions.Attribute("value", ""));
         }
     }
 }

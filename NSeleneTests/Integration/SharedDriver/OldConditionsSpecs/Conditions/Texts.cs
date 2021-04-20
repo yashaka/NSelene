@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using NSelene.Conditions;
 
-namespace NSelene
+namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 {
     namespace Conditions
     {
@@ -17,8 +18,11 @@ namespace NSelene
 
         // TODO: ensure messages are relevant
 
-        public class Texts : Condition<SeleneCollection>
+        #pragma warning disable 0618
+        public class Texts : DescribedCondition<SeleneCollection>
+        #pragma warning restore 0618
         {
+
             protected string[] expected;
             protected string[] actual;
 
@@ -62,14 +66,14 @@ namespace NSelene
 
     public static partial class Have
     {
-        public static Conditions.Condition<SeleneCollection> Texts(params string[] expected) => new Conditions.Texts(expected);
+        public static Condition<SeleneCollection> Texts(params string[] expected) => new Conditions.Texts(expected);
 
-        public static Conditions.Condition<SeleneCollection> ExactTexts(params string[] expected) => new Conditions.ExactTexts(expected);
+        public static Condition<SeleneCollection> ExactTexts(params string[] expected) => new Conditions.ExactTexts(expected);
         static partial class No
         {
-            public static Conditions.Condition<SeleneCollection> Texts(params string[] expected) => new Conditions.Not<SeleneCollection>(new Conditions.Texts(expected));
+            public static Condition<SeleneCollection> Texts(params string[] expected) => new Conditions.Not<SeleneCollection>(new Conditions.Texts(expected));
 
-            public static Conditions.Condition<SeleneCollection> ExactTexts(params string[] expected) => new Conditions.Not<SeleneCollection>(new Conditions.ExactTexts(expected));
+            public static Condition<SeleneCollection> ExactTexts(params string[] expected) => new Conditions.Not<SeleneCollection>(new Conditions.ExactTexts(expected));
         }
     }
 

@@ -1,10 +1,13 @@
 using System.Linq;
+using NSelene.Conditions;
 
-namespace NSelene
+namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 {
     namespace Conditions
     {
-        public class Text : Condition<SeleneElement>
+        #pragma warning disable 0618
+        public class Text : DescribedCondition<SeleneElement>
+        #pragma warning restore 0618
         {
 
             protected string expected;
@@ -54,20 +57,20 @@ namespace NSelene
 
     public static partial class Have
     {
-        public static Conditions.Condition<SeleneElement> Text(string expected)
+        public static Condition<SeleneElement> Text(string expected)
         {
-            return new Conditions.Text(expected);
+            return new Text(expected);
         }
 
-        public static Conditions.Condition<SeleneElement> ExactText(string expected)
+        public static Condition<SeleneElement> ExactText(string expected)
         {
-            return new Conditions.ExactText(expected);
+            return new ExactText(expected);
         }
         static partial class No
         {
-            public static Conditions.Condition<SeleneElement> Text(string expected) => new Conditions.Not<SeleneElement>(new Conditions.Text(expected));
+            public static Condition<SeleneElement> Text(string expected) => new Conditions.Not<SeleneElement>(new Conditions.Text(expected));
 
-            public static Conditions.Condition<SeleneElement> ExactText(string expected) => new Conditions.Not<SeleneElement>(new Conditions.ExactText(expected));
+            public static Condition<SeleneElement> ExactText(string expected) => new Conditions.Not<SeleneElement>(new Conditions.ExactText(expected));
         }
     }
 

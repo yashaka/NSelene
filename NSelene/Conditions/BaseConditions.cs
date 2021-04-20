@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 
 namespace NSelene
@@ -5,11 +6,36 @@ namespace NSelene
     // TODO: consider refactoring "describing" logic for conditions... 
     namespace Conditions
     {
+        public class ConditionNotMatchedException : Exception
+        {
+            public ConditionNotMatchedException() : base()
+            {
+            }
+
+            public ConditionNotMatchedException(string message) : base(message)
+            {
+            }
+
+            public ConditionNotMatchedException(
+                string message, 
+                Exception innerException
+            ) 
+            : base(message, innerException)
+            {
+            }
+        }
 
         // TODO: find the way to DRY conditions:) Generics? keep it simple enough though...
 
-        public abstract class DescribedResult<TEntity>
+        public abstract class Condition<TEntity> : _Computation<TEntity, object> // object means void here:D 
         {
+            public abstract bool Apply(TEntity entity);
+
+            // todo: review and once finalized make public 
+            public Condition<TEntity> Not 
+                => new Not<TEntity>(this); 
+
+            // OBSOLETE (but we might need to keep it for backwards compatibility)
 
             public virtual string DescribeActual()
             {
@@ -24,14 +50,13 @@ namespace NSelene
                 return true.ToString();
             }
 
-            /*
-             * TODO: think on better names:)
-             */
             public virtual string Explain()
             {
                 var expected = this.DescribeExpected();
-                return expected == true.ToString() ? this.GetType().Name 
-                    : expected;
+
+                return expected == true.ToString() 
+                ? this.GetType().Name 
+                : expected;
             }
 
             public override string ToString()
@@ -39,27 +64,27 @@ namespace NSelene
                 //return this.GetType().Name +
                 //           "\n    Expected: " + DescribeExpected() +
                 //           (DescribeActual() ==  "" ? "" : "\n    " + DescribeActual());
-                return string.Format("{0}" +
-                    // "\n  Expected : {1}" +
-                    "\n       Actual: {1}\n", 
-                    this.Explain(), 
-                    // this.DescribeExpected(), 
-                    this.DescribeActual());
+                return this.Explain();
             }
-        }
 
-        public abstract class Condition<TEntity> : DescribedResult<TEntity>
-        {
+            public virtual _Optionally<object> _Invoke(TEntity entity)
+            {
+                var result = this.Apply(entity);
+                if (!result)
+                {
+                    throw new ConditionNotMatchedException("actual: " + this.DescribeActual());
+                }
+                return _Optionally<object>.Undefined;
+            }
 
-            public abstract bool Apply(TEntity entity);
-
-            // todo: review and once finalized make public 
-            public Condition<TEntity> Not 
-                => new Not<TEntity>(this); 
-
+            // TODO: consider allowing users to define custom conditions with void method
+            //       over Invoke with "optional" result
+            //       which name then would it have? Match? Pass?
+            //       apply we can keep for backwards compatibility... 
         }
 
         // todo: mark it as obsolete
+        [Obsolete("DescribedCondition is obsolete, use Condition class instead")]
         public abstract class DescribedCondition<TEntity> : Condition<TEntity>
         {
 

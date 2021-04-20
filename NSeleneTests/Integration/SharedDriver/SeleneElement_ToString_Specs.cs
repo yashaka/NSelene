@@ -28,7 +28,6 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             );
 
             var representation = element.ToString();
-            Console.WriteLine(representation);
 
             Assert.AreEqual(
                 "Browser.All(.parent).By(Visible)[0].All(.child).FirstBy(has CSS class 'special').Element(./following-sibling::*)",

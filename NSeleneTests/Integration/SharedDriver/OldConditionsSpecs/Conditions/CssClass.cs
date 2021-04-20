@@ -1,10 +1,13 @@
 using System.Linq;
+using NSelene.Conditions;
 
-namespace NSelene
+namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 {
     namespace Conditions
     {
-        public class CssClass : Condition<SeleneElement>
+        #pragma warning disable 0618
+        public class CssClass : DescribedCondition<SeleneElement>
+        #pragma warning restore 0618
         {
 
             private string expected;
@@ -35,7 +38,9 @@ namespace NSelene
         }
 
 
-        public class NoCssClass : Condition<SeleneElement>
+        #pragma warning disable 0618
+        public class NoCssClass : DescribedCondition<SeleneElement>
+        #pragma warning restore 0618
         {
 
             private string expected;
@@ -69,11 +74,11 @@ namespace NSelene
 
     public static partial class Have
     {
-        public static Conditions.Condition<SeleneElement> CssClass(string cssClass) => new Conditions.CssClass(cssClass);
+        public static Condition<SeleneElement> CssClass(string cssClass) => new Conditions.CssClass(cssClass);
 
         public static partial class No
         {
-            public static Conditions.Condition<SeleneElement> CssClass(string cssClass) => new Conditions.NoCssClass(cssClass);
+            public static Condition<SeleneElement> CssClass(string cssClass) => new Conditions.NoCssClass(cssClass);
          }
     }
 }
