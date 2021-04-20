@@ -5,6 +5,7 @@ using NSelene.Conditions;
 using System.Collections.ObjectModel;
 using System;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 namespace NSelene
 {
@@ -109,7 +110,24 @@ namespace NSelene
                 return locator.Find();
             }
         }
+        Wait<SeleneCollection> Wait
+        {
+            get
+            {
+                var paramsAndTheirUsagePattern = new Regex(@"\(?(\w+)\)?\s*=>\s*?\1\.");
+                return new Wait<SeleneCollection>(
+                    entity: this,
+                    timeout: this.config.Timeout ?? Configuration.Timeout,
+                    polling: this.config.PollDuringWaits ?? Configuration.PollDuringWaits,
+                    _describeLambdaName: it => paramsAndTheirUsagePattern.Replace(
+                        it, 
+                        ""
+                    )
+                );
+            }
+        }
 
+        // TODO: consider depracating
         SeleneLocator<ReadOnlyCollection<IWebElement>> SLocator 
         {
             get {
@@ -124,18 +142,14 @@ namespace NSelene
 
         public SeleneCollection Should(Condition<SeleneCollection> condition)
         {
-            return Selene.WaitFor(
-                this, 
-                condition,
-                this.config.Timeout ?? Configuration.Timeout,
-                this.config.PollDuringWaits ?? Configuration.PollDuringWaits
-            );
+            this.Wait.For(condition);
+            return this;
         }
 
         [Obsolete("Use the negative condition instead, e.g. Should(Have.No.Count(0))")]
         public SeleneCollection ShouldNot(Condition<SeleneCollection> condition)
         {
-            return Selene.WaitForNot(this, condition);
+            return this.Should(condition.Not);
         }
 
         public bool Matching(Condition<SeleneCollection> condition)

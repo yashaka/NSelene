@@ -26,12 +26,12 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 
             public override string DescribeActual()
             {
-                return this.actualCount.ToString();
+                return "count = " + this.actualCount;
             }
 
             public override string DescribeExpected()
             {
-                return this.expectedCount.ToString();
+                return "count = " + this.expectedCount;
             }
         }
 

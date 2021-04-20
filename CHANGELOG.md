@@ -70,8 +70,9 @@
     - PressTab()
   - (... wait till visible for all but `input[type=file]`)
     - SendKeys(keys)
-- upgraded waiting to new engine in
+- upgraded waiting to new engine in asserts (.Should(condition)) of
   - SeleneElement
+  - SeleneCollection
 - *Deprecated (Marked as Obsolete)*
   - Configuration.WebDriver (use Configuration.Driver instead)
   - `DescribedCondition<TEntity>`
