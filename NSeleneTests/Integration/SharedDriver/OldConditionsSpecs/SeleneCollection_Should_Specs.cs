@@ -10,7 +10,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
     using OpenQA.Selenium;
 
     [TestFixture]
-    public class SeleneCollection_Should_Specs : BaseTest
+    public class SeleneCollection_Should_OldStyleConditions_Specs : BaseTest
     {
         // TODO: imrove coverage and consider breaking down into separate test classes
 
