@@ -2,7 +2,7 @@
   {
     "referrer": "Google",
     "count": 24,
-    "uniques": 16
+    "uniques": 17
   },
   {
     "referrer": "DuckDuckGo",
@@ -16,12 +16,17 @@
   },
   {
     "referrer": "automated-testing.info",
-    "count": 3,
-    "uniques": 3
+    "count": 2,
+    "uniques": 2
   },
   {
     "referrer": "software-testing.ru",
     "count": 2,
     "uniques": 2
+  },
+  {
+    "referrer": "autotest.how",
+    "count": 1,
+    "uniques": 1
   }
 ]
