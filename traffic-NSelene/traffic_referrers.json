@@ -15,14 +15,19 @@
     "uniques": 4
   },
   {
-    "referrer": "automated-testing.info",
-    "count": 3,
-    "uniques": 3
-  },
-  {
     "referrer": "software-testing.ru",
     "count": 2,
     "uniques": 2
+  },
+  {
+    "referrer": "automated-testing.info",
+    "count": 2,
+    "uniques": 2
+  },
+  {
+    "referrer": "ecosia.org",
+    "count": 1,
+    "uniques": 1
   },
   {
     "referrer": "autotest.how",
