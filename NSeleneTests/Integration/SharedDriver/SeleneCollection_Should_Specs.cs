@@ -131,12 +131,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
                 Assert.Contains("Browser.All(p).not count = 2", lines);
                 Assert.Contains("Reason:", lines);
-                Assert.Contains(
-                    "Exception of type 'NSelene.Conditions.ConditionNotMatchedException'" 
-                    + " was thrown."
-                    , 
-                    lines
-                );
+                Assert.Contains("condition not matched", lines);
             }
         }
 

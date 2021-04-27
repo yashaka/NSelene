@@ -2,11 +2,18 @@ namespace NSelene
 {
     namespace Conditions
     {
-        public class Visible : DescribedCondition<SeleneElement>
+        public class Visible : Condition<SeleneElement>
         {
-            public override bool Apply(SeleneElement entity)
+            public override void Invoke(SeleneElement entity)
             {
-                return entity.ActualWebElement.Displayed;
+                var webelement = entity.ActualWebElement;
+                if (!webelement.Displayed) 
+                {
+                    throw new ConditionNotMatchedException(() => 
+                        "Found element is not visible: "
+                        + webelement.GetAttribute("outerHTML")
+                    );
+                }
             }
         }
 

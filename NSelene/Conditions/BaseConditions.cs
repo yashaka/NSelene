@@ -8,21 +8,39 @@ namespace NSelene
     {
         public class ConditionNotMatchedException : Exception // TODO: Should we use InvalidOperationException instead?
         {
-            public ConditionNotMatchedException() : base()
+            public ConditionNotMatchedException() : this("condition not matched")
             {
             }
 
-            public ConditionNotMatchedException(string message) : base(message)
+            public ConditionNotMatchedException(string message) : this(() => message)
             {
+            }
+
+            public ConditionNotMatchedException(Func<string> renderMessage) : base("")
+            {
+                this.RenderMessage = renderMessage;
             }
 
             public ConditionNotMatchedException(
                 string message, 
                 Exception innerException
             ) 
-            : base(message, innerException)
+            : this(() => message, innerException)
             {
             }
+
+            public ConditionNotMatchedException(
+                Func<string> renderMessage,
+                Exception innerException
+            )
+            : base("", innerException)
+            {
+                this.RenderMessage = renderMessage;
+            }
+
+            public Func<string> RenderMessage { get; }
+
+            public override string Message => this.RenderMessage();
         }
         
     // todo: consider renaming to Negated
@@ -91,7 +109,7 @@ namespace NSelene
                 }
                 catch (Exception)
                 {
-                    return false;
+                    return false; // actually original Condition.Apply could throw exceptions that will be handled in old Selene.WaitFor ... o_O ?
                 }
             }
 
@@ -134,6 +152,11 @@ namespace NSelene
                     return false;
                 }
             };
+
+            public override string ToString()
+            {
+                return this.GetType().Name;
+            }
 
             [Obsolete("condition.Explain is obsolete use condition.ToString() instead")]
             public virtual string Explain()

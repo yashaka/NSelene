@@ -4,52 +4,61 @@ namespace NSelene
 {
     namespace Conditions
     {
-        public class Text : DescribedCondition<SeleneElement>
+        public class Text : Condition<SeleneElement>
         {
-
             protected string expected;
-            protected string actual;
 
             public Text(string expected)
             {
                 this.expected = expected;
-                this.actual = "";
             }
 
-            public override bool Apply(SeleneElement entity)
+            public override string ToString()
             {
-                this.actual = entity.ActualWebElement.Text;
-                return this.actual.Contains(this.expected);
+                return $"TextContaining(«{this.expected}»)";
             }
 
-            public override string DescribeActual()
+            public override void Invoke(SeleneElement entity)
             {
-                return this.actual;
-            }
-
-            public override string DescribeExpected()
-            {
-                return "contains " + this.expected;
+                var webelement = entity.ActualWebElement;
+                var actual = webelement.Text;
+                if (!actual.Contains(this.expected))
+                {
+                    throw new ConditionNotMatchedException(() => 
+                        $"Actual text: «{actual}»\n"
+                        + $"Actual webelement: {webelement.GetAttribute("outerHTML")}"
+                    );
+                }
             }
         }
 
-        public class ExactText : Text
+        public class ExactText : Condition<SeleneElement>
         {
+            protected string expected;
 
-            public ExactText(string expected) : base(expected) {}
-
-            public override bool Apply(SeleneElement entity)
+            public ExactText(string expected)
             {
-                this.actual = entity.ActualWebElement.Text;
-                return this.actual.Equals(this.expected);
+                this.expected = expected;
             }
 
-            public override string DescribeExpected()
+            public override string ToString()
             {
-                return "is " + this.expected;
+                return $"ExactText({this.expected})";
+            }
+
+            public override void Invoke(SeleneElement entity)
+            {
+                var webelement = entity.ActualWebElement;
+                var actual = webelement.Text;
+                if (!actual.Equals(this.expected))
+                {
+                    throw new ConditionNotMatchedException(() => 
+                        $"Actual text: «{actual}»\n"
+                        + $"Actual webelement: {webelement.GetAttribute("outerHTML")}"
+                    );
+                }
             }
         }
-
     }
 
     public static partial class Have
@@ -63,11 +72,14 @@ namespace NSelene
         {
             return new Conditions.ExactText(expected);
         }
+
         static partial class No
         {
-            public static Conditions.Condition<SeleneElement> Text(string expected) => new Conditions.Not<SeleneElement>(new Conditions.Text(expected));
+            public static Conditions.Condition<SeleneElement> Text(string expected) 
+            => new Conditions.Text(expected).Not;
 
-            public static Conditions.Condition<SeleneElement> ExactText(string expected) => new Conditions.Not<SeleneElement>(new Conditions.ExactText(expected));
+            public static Conditions.Condition<SeleneElement> ExactText(string expected) 
+            => new Conditions.ExactText(expected).Not;
         }
     }
 
