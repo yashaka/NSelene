@@ -55,9 +55,9 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
         public static Condition<SeleneCollection> CountAtLeast(int count) => new Conditions.CountAtLeast(count);
         public static partial class No
         {
-            public static Condition<SeleneCollection> Count(int count) => new Conditions.Not<SeleneCollection>(new Conditions.Count(count));
+            public static Condition<SeleneCollection> Count(int count) => new Not<SeleneCollection>(new Conditions.Count(count));
 
-            public static Condition<SeleneCollection> CountAtLeast(int count) => new Conditions.Not<SeleneCollection>(new Conditions.CountAtLeast(count));
+            public static Condition<SeleneCollection> CountAtLeast(int count) => new Not<SeleneCollection>(new Conditions.CountAtLeast(count));
         }
     }
 
@@ -66,7 +66,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
         public static Condition<SeleneCollection> Empty => new Conditions.Count(0);
         public static partial class Not
         {
-            public static Condition<SeleneCollection> Empty => new Conditions.Not<SeleneCollection>(new Conditions.Count(0));
+            public static Condition<SeleneCollection> Empty => new Not<SeleneCollection>(new Conditions.Count(0));
         }
     }
 }

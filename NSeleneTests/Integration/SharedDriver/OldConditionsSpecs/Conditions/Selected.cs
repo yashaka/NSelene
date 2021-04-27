@@ -23,7 +23,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
         public static Condition<SeleneElement> Selected { get { return new Conditions.Selected(); } }
         static partial class Not
         {
-            public static Condition<SeleneElement> Selected { get { return new Conditions.Not<SeleneElement>(new Conditions.Selected()); } }
+            public static Condition<SeleneElement> Selected { get { return new Not<SeleneElement>(new Conditions.Selected()); } }
         }
 
     }

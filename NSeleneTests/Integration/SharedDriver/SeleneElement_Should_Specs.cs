@@ -140,7 +140,12 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
                 Assert.Contains("Browser.Element(input).not value='initial'", lines);
                 Assert.Contains("Reason:", lines);
-                Assert.Contains("actual: value='initial'", lines);
+                Assert.Contains(
+                    "Exception of type 'NSelene.Conditions.ConditionNotMatchedException'" 
+                    + " was thrown."
+                    , 
+                    lines
+                );
             }
         }
         
@@ -405,7 +410,12 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
                 Assert.Contains("Browser.Element(label).not Visible", lines);
                 Assert.Contains("Reason:", lines);
-                Assert.Contains("actual: False", lines);
+                Assert.Contains(
+                    "Exception of type 'NSelene.Conditions.ConditionNotMatchedException'" 
+                    + " was thrown."
+                    , 
+                    lines
+                );
 
                 Assert.AreEqual(
                     true,  Configuration.Driver.FindElement(By.TagName("label")).Displayed

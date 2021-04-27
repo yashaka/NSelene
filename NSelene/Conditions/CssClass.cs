@@ -4,7 +4,7 @@ namespace NSelene
 {
     namespace Conditions
     {
-        public class CssClass : Condition<SeleneElement>
+        public class CssClass : DescribedCondition<SeleneElement>
         {
 
             private string expected;
@@ -35,7 +35,7 @@ namespace NSelene
         }
 
 
-        public class NoCssClass : Condition<SeleneElement>
+        public class NoCssClass : DescribedCondition<SeleneElement>
         {
 
             private string expected;

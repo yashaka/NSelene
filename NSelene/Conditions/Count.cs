@@ -4,7 +4,7 @@ namespace NSelene
 {
     namespace Conditions
     {
-        public class Count : Condition<SeleneCollection>
+        public class Count : DescribedCondition<SeleneCollection>
         {
 
             protected int expectedCount;

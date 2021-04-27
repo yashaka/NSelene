@@ -176,7 +176,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         [Test]
         public void Clear_Waits_For_NoOverlay()
         {
-            Configuration.Timeout = 0.6;
+            Configuration.Timeout = 1.0;
             Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
@@ -224,7 +224,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 .FindElement(By.TagName("input")).GetProperty("value")
             );
             Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
+            Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
         }
 
         [Test]

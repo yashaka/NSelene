@@ -84,7 +84,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
             public static Condition<SeleneElement> Attribute(string name, string value) 
                 => new Conditions.NoAttribute(name, value);
             public static Condition<SeleneElement> Value(string expected) 
-                => new Conditions.Not<SeleneElement>(new Conditions.Attribute("value", expected));
+                => new Not<SeleneElement>(new Conditions.Attribute("value", expected));
         }
     }
 
@@ -93,7 +93,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
         public static Condition<SeleneElement> Blank => new Conditions.Attribute("value", "");
         public static partial class Not
         {
-            public static Condition<SeleneElement> Blank => new Conditions.Not<SeleneElement>(new Conditions.Attribute("value", ""));
+            public static Condition<SeleneElement> Blank => new Not<SeleneElement>(new Conditions.Attribute("value", ""));
         }
     }
 }

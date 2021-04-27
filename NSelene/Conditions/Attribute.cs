@@ -4,9 +4,8 @@ namespace NSelene
 {
     namespace Conditions
     {
-        public class Attribute : Condition<SeleneElement>
+        public class Attribute : DescribedCondition<SeleneElement>
         {
-
             private string name;
             private string expectedValue;
             private string actualValue;
@@ -36,7 +35,7 @@ namespace NSelene
             }
         }
 
-        class NoAttribute : Condition<SeleneElement>
+        class NoAttribute : DescribedCondition<SeleneElement>
         {
 
             private string name;

@@ -17,7 +17,7 @@ namespace NSelene
 
         // TODO: ensure messages are relevant
 
-        public class Texts : Condition<SeleneCollection>
+        public class Texts : DescribedCondition<SeleneCollection>
         {
             protected string[] expected;
             protected string[] actual;

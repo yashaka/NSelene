@@ -23,7 +23,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 
         public static partial class Not
         {
-            public static Condition<SeleneElement> Enabled => new Conditions.Not<SeleneElement>(new Conditions.Enabled());
+            public static Condition<SeleneElement> Enabled => new Not<SeleneElement>(new Conditions.Enabled());
         }
     }
 

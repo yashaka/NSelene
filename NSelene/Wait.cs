@@ -46,6 +46,7 @@ namespace NSelene
         public static _Optionally<T> Undefined => new _Optionally<T>(new T[] { });
     }
 
+    // TODO: SO... Computation vs Operation? - which is better? as a name... 
     public interface _Computation<TEntity, TResult> // TODO: TResult might be missed/undefined... how to reflect it?
     {
         _Optionally<TResult> _Invoke(TEntity entity); // TODO: should we name it as Perform?
@@ -57,7 +58,7 @@ namespace NSelene
     ///     called Lambda to represent its lambda-like nature of eather return value or be void
     /// TODO: keep it pseudo-internal (as _pre-underscored) unless sure about result of Invoke method :)
     ///       open points: should we return option-like Tuple instead of Optionally ?
-    public class _Lambda<TEntity, TResult> : _Computation<TEntity, TResult> // TODO: consider naming it as Task/Calling/Operation/Computation
+    public class _Lambda<TEntity, TResult> : _Computation<TEntity, TResult> // TODO: consider naming it as Task/Calling/Operation/Computation/DescribedComputation/NamedComputation
     {
         // TODO: consider public Action and Func, that build itself based on each other ;)
         //       like given func defined, the action would just call it without returning anything.

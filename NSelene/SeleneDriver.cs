@@ -195,7 +195,8 @@ namespace NSelene
         {
             try 
             {
-                return condition.Apply(this);
+                condition.Invoke(this);
+                return true;
             }
             catch
             {

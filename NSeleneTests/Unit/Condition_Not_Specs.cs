@@ -18,15 +18,12 @@ namespace NSeleneTests.Unit {
                 this.number = number;
             }
 
-            public override bool Apply(int[] entity)
+            public override void Invoke(int[] entity)
             {
-                try
+                var actual = entity[this.number-1];
+                if (actual == 0)
                 {
-                    return entity[this.number-1] != 0;
-                }
-                catch (Exception reason)
-                {
-                    throw new Exception("Condition failed, reason: " + reason.Message);
+                    throw new Exception($"Condition failed, reason: actual = {0}");
                 }
             }
         }
@@ -34,19 +31,19 @@ namespace NSeleneTests.Unit {
         [Test]
         public void AnswersFalse_AppliedTo_Truthy()
         {
-            Assert.IsFalse(new HasTruthyElement(1).Not.Apply(new [] {1, 2}));
+            Assert.IsFalse(new HasTruthyElement(1).Not._Predicate(new [] {1, 2}));
         }
 
         [Test]
         public void AnswersTrue_AppliedTo_Falsy()
         {
-            Assert.IsTrue(new HasTruthyElement(1).Not.Apply(new [] {0, 2}));
+            Assert.IsTrue(new HasTruthyElement(1).Not._Predicate(new [] {0, 2}));
         }
 
         [Test]
         public void AnswersTrue_AppliedTo_FalsyExceptionLike()
         {
-            Assert.IsTrue(new HasTruthyElement(3).Not.Apply(new [] {1, 2, /*no third*/}));
+            Assert.IsTrue(new HasTruthyElement(3).Not._Predicate(new [] {1, 2, /*no third*/}));
         }
     }
 }

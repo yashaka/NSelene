@@ -4,7 +4,7 @@ namespace NSelene
 {
     namespace Conditions
     {
-        public class InDom : Condition<SeleneElement>
+        public class InDom : DescribedCondition<SeleneElement>
         {
 
             public override bool Apply(SeleneElement entity)

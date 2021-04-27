@@ -75,8 +75,6 @@
   - SeleneCollection
 - *Deprecated (Marked as Obsolete)*
   - Configuration.WebDriver (use Configuration.Driver instead)
-  - `DescribedCondition<TEntity>`
-    - simply use `Condition<TEntity>` instead  
 - **potential breaking changes**:
   - Switched to System.TimeoutException in some waits (instead of WebDriverTimeoutException)
 

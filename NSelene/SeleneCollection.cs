@@ -153,16 +153,8 @@ namespace NSelene
         }
 
         public bool Matching(Condition<SeleneCollection> condition)
-        {
-            try 
-            {
-                return condition.Apply(this);
-            }
-            catch
-            {
-                return false;
-            }
-        }
+        => condition._Predicate(this);
+
         public bool WaitUntil(Condition<SeleneCollection> condition)
         {
             try 

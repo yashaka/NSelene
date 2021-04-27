@@ -4,7 +4,7 @@ namespace NSelene
 {
     namespace Conditions
     {
-        public class Text : Condition<SeleneElement>
+        public class Text : DescribedCondition<SeleneElement>
         {
 
             protected string expected;

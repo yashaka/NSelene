@@ -248,16 +248,7 @@ namespace NSelene
         => this.Should(condition.Not);
 
         public bool Matching(Condition<SeleneElement> condition)
-        {
-            try 
-            {
-                return condition.Apply(this);
-            }
-            catch
-            {
-                return false;
-            }
-        }
+        => condition._Predicate(this);
 
         public bool WaitUntil(Condition<SeleneElement> condition)
         {
@@ -274,7 +265,11 @@ namespace NSelene
 
         public SeleneElement PressEnter()
         {
-            this.Wait.For(new _Lambda<SeleneElement, object>(
+            // TODO: can find better synonym instead of Lambda to make it more obvious and self-explanatory when reading?
+            //       like Operation? DescribedComputation? NamedComputation? NamedLambda?
+            //       actually maybe lambda already pretty common for everybody term...
+            //       but should we add Named prefix to it?
+            this.Wait.For(new _Lambda<SeleneElement, object>( 
                 $"ActualNotOverlappedWebElement.SendKeys(Enter)", // TODO: should we render it as PressEnter()?
                 self => self.ActualNotOverlappedWebElement.SendKeys(Keys.Enter)
             ));

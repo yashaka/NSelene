@@ -6,7 +6,7 @@ namespace NSelene
 {
     namespace Conditions 
     {
-        public class JSReturnedTrue : Condition<IWebDriver>
+        public class JSReturnedTrue : DescribedCondition<IWebDriver>
         {
             private string script;
             private object [] arguments;

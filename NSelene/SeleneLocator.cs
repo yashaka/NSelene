@@ -130,7 +130,7 @@ namespace NSelene
 
         public override string Description {
             get {
-                return $"{this.context}.FirstBy({this.condition.Explain()})";
+                return $"{this.context}.FirstBy({this.condition})";
             }
         }
 
@@ -139,15 +139,16 @@ namespace NSelene
             var webelments = this.context.ActualWebElements;
 
             Predicate<IWebElement> byCondition = delegate(IWebElement element) {
-                return condition.Apply(
+                return condition._Predicate(
                     new SeleneElement(
                         new WrappedWebElementSLocator(
-                            string.Format("By.Selene: ({0}).FindBy({1})", this.context, condition.Explain())
-                            , element), this.config));/* 
-                            * ??? TODO: do we actually need here so meaningful desctiption?
-                            * does it make sense to use it but to put index for each element?
-                            * via using FindIndex ?
-                            */
+                            string.Format("By.Selene: ({0}).FindBy({1})", this.context, condition)
+                            , element), this.config)
+                );/* 
+                   * ??? TODO: do we actually need here so meaningful desctiption?
+                   * does it make sense to use it but to put index for each element?
+                   * via using FindIndex ?
+                   */
             };
 
             var found = webelments.ToList()
@@ -157,7 +158,7 @@ namespace NSelene
                 var actualTexts = webelments.ToList().Select(element => element.Text).ToArray();
                 var htmlelements = webelments.ToList().Select(element => element.GetAttribute("outerHTML")).ToArray();
                 throw new NotFoundException("element was not found in collection by condition "
-                                            + condition.Explain()
+                                            + condition
                                             + "\n  Actual visible texts : " + "[" + string.Join(",", actualTexts) + "]"  // TODO: think: this line is actually needed in the case of FindBy(ExactText ...) ... is there any way to add such information not here?
                                             + "\n  Actual html elements : " + "[" + string.Join(",", htmlelements) + "]" 
                                             // TODO: should we add here some other info about elements? e.g. visiblitiy?
@@ -252,7 +253,7 @@ namespace NSelene
 
         public override string Description {
             get {
-                return $"{this.context}.By({this.condition.Explain()})";
+                return $"{this.context}.By({this.condition})";
             }
         }
 
@@ -260,10 +261,10 @@ namespace NSelene
         {
 
             Func<IWebElement, bool> byCondition = delegate(IWebElement element) {
-                return condition.Apply(
+                return condition._Predicate(
                     new SeleneElement(
                         new WrappedWebElementSLocator(
-                            $"{this.context}.FindBy({this.condition.Explain()})"
+                            $"{this.context}.FindBy({this.condition})"
                             , element
                         ), 
                         this.config

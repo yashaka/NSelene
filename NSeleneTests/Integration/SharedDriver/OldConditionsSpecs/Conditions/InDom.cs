@@ -38,7 +38,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 
         public static partial class Not
         {
-            public static Condition<SeleneElement> InDom => new Conditions.Not<SeleneElement>(new Conditions.InDom());
+            public static Condition<SeleneElement> InDom => new Not<SeleneElement>(new Conditions.InDom());
         }
     }
 

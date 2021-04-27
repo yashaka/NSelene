@@ -71,9 +71,9 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
         public static Condition<SeleneCollection> ExactTexts(params string[] expected) => new Conditions.ExactTexts(expected);
         static partial class No
         {
-            public static Condition<SeleneCollection> Texts(params string[] expected) => new Conditions.Not<SeleneCollection>(new Conditions.Texts(expected));
+            public static Condition<SeleneCollection> Texts(params string[] expected) => new Not<SeleneCollection>(new Conditions.Texts(expected));
 
-            public static Condition<SeleneCollection> ExactTexts(params string[] expected) => new Conditions.Not<SeleneCollection>(new Conditions.ExactTexts(expected));
+            public static Condition<SeleneCollection> ExactTexts(params string[] expected) => new Not<SeleneCollection>(new Conditions.ExactTexts(expected));
         }
     }
 

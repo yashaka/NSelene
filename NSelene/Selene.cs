@@ -150,7 +150,9 @@ namespace NSelene
             {
                 try
                 {
+                    #pragma warning disable 0618
                     if (condition.Apply(entity))
+                    #pragma warning restore 0618
                     {
                         break;
                     }
@@ -190,7 +192,9 @@ namespace NSelene
             {
                 try
                 {
+                    #pragma warning disable 0618
                     if (!condition.Apply(entity))
+                    #pragma warning restore 0618
                     {
                         break;
                     }

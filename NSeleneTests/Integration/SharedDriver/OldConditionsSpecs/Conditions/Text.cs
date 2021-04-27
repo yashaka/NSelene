@@ -68,9 +68,9 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
         }
         static partial class No
         {
-            public static Condition<SeleneElement> Text(string expected) => new Conditions.Not<SeleneElement>(new Conditions.Text(expected));
+            public static Condition<SeleneElement> Text(string expected) => new Not<SeleneElement>(new Conditions.Text(expected));
 
-            public static Condition<SeleneElement> ExactText(string expected) => new Conditions.Not<SeleneElement>(new Conditions.ExactText(expected));
+            public static Condition<SeleneElement> ExactText(string expected) => new Not<SeleneElement>(new Conditions.ExactText(expected));
         }
     }
 
