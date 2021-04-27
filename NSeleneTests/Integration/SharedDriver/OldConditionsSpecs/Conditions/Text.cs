@@ -5,9 +5,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 {
     namespace Conditions
     {
-        #pragma warning disable 0618
         public class Text : DescribedCondition<SeleneElement>
-        #pragma warning restore 0618
         {
 
             protected string expected;
@@ -68,9 +66,9 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
         }
         static partial class No
         {
-            public static Condition<SeleneElement> Text(string expected) => new Not<SeleneElement>(new Conditions.Text(expected));
+            public static Condition<SeleneElement> Text(string expected) => new Conditions.Text(expected).Not;
 
-            public static Condition<SeleneElement> ExactText(string expected) => new Not<SeleneElement>(new Conditions.ExactText(expected));
+            public static Condition<SeleneElement> ExactText(string expected) => new Conditions.ExactText(expected);
         }
     }
 

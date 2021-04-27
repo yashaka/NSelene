@@ -5,9 +5,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 {
     namespace Conditions
     {
-        #pragma warning disable 0618
         public class CssClass : DescribedCondition<SeleneElement>
-        #pragma warning restore 0618
         {
 
             private string expected;

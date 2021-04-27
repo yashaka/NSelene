@@ -5,9 +5,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 {
     namespace Conditions
     {
-        #pragma warning disable 0618
         public class InDom : DescribedCondition<SeleneElement>
-        #pragma warning restore 0618
         {
 
             public override bool Apply(SeleneElement entity)
@@ -38,7 +36,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 
         public static partial class Not
         {
-            public static Condition<SeleneElement> InDom => new Not<SeleneElement>(new Conditions.InDom());
+            public static Condition<SeleneElement> InDom => new Conditions.InDom().Not;
         }
     }
 

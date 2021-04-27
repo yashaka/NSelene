@@ -43,9 +43,8 @@ namespace NSelene
             public override string Message => this.RenderMessage();
         }
 
-        // TODO: consider keeping it internal
         // todo: consider renaming to NotCondition
-        public class Not<TEntity> : Condition<TEntity>
+        internal class Not<TEntity> : Condition<TEntity>
         {
             private readonly Condition<TEntity> condition;
 

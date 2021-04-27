@@ -5,9 +5,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 {
     namespace Conditions
     {
-        #pragma warning disable 0618
         public class Attribute : DescribedCondition<SeleneElement>
-        #pragma warning restore 0618
         {
             private string name;
             private string expectedValue;
@@ -38,9 +36,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
             }
         }
 
-        #pragma warning disable 0618
         class NoAttribute : DescribedCondition<SeleneElement>
-        #pragma warning restore 0618
         {
 
             private string name;
@@ -84,16 +80,19 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
             public static Condition<SeleneElement> Attribute(string name, string value) 
                 => new Conditions.NoAttribute(name, value);
             public static Condition<SeleneElement> Value(string expected) 
-                => new Not<SeleneElement>(new Conditions.Attribute("value", expected));
+                => new Conditions.Attribute("value", expected).Not;
         }
     }
 
     public static partial class Be
     {
-        public static Condition<SeleneElement> Blank => new Conditions.Attribute("value", "");
+        public static Condition<SeleneElement> Blank 
+        => new Conditions.Attribute("value", "");
+        
         public static partial class Not
         {
-            public static Condition<SeleneElement> Blank => new Not<SeleneElement>(new Conditions.Attribute("value", ""));
+            public static Condition<SeleneElement> Blank 
+            => new Conditions.Attribute("value", "").Not;
         }
     }
 }

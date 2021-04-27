@@ -7,9 +7,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
     namespace Conditions 
     {
 
-        #pragma warning disable 0618
         public class JSReturnedTrue : DescribedCondition<IWebDriver>
-        #pragma warning restore 0618
         {
             private string script;
             private object [] arguments;
@@ -40,10 +38,13 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 
     public static partial class Have
     {
-        public static Condition<IWebDriver> JSReturnedTrue(string script, params object[] arguments) => new Conditions.JSReturnedTrue(script, arguments);
+        public static Condition<IWebDriver> JSReturnedTrue(string script, params object[] arguments) 
+        => new Conditions.JSReturnedTrue(script, arguments);
+
         public static partial class No
         {
-            public static Condition<IWebDriver> JSReturnedTrue(string script, params object[] arguments) => new Not<IWebDriver>(new JSReturnedTrue(script, arguments));
+            public static Condition<IWebDriver> JSReturnedTrue(string script, params object[] arguments) 
+            => new JSReturnedTrue(script, arguments).Not;
         }
     }
 }

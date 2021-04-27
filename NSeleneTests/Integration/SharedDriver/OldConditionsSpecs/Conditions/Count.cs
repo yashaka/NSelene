@@ -5,9 +5,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 {
     namespace Conditions
     {
-        #pragma warning disable 0618
         public class Count : DescribedCondition<SeleneCollection>
-        #pragma warning restore 0618
         {
 
             protected int expectedCount;
@@ -55,9 +53,9 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
         public static Condition<SeleneCollection> CountAtLeast(int count) => new Conditions.CountAtLeast(count);
         public static partial class No
         {
-            public static Condition<SeleneCollection> Count(int count) => new Not<SeleneCollection>(new Conditions.Count(count));
+            public static Condition<SeleneCollection> Count(int count) => new Conditions.Count(count).Not;
 
-            public static Condition<SeleneCollection> CountAtLeast(int count) => new Not<SeleneCollection>(new Conditions.CountAtLeast(count));
+            public static Condition<SeleneCollection> CountAtLeast(int count) => new Conditions.CountAtLeast(count).Not;
         }
     }
 
@@ -66,7 +64,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
         public static Condition<SeleneCollection> Empty => new Conditions.Count(0);
         public static partial class Not
         {
-            public static Condition<SeleneCollection> Empty => new Not<SeleneCollection>(new Conditions.Count(0));
+            public static Condition<SeleneCollection> Empty => new Conditions.Count(0).Not;
         }
     }
 }

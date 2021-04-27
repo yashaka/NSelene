@@ -18,9 +18,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 
         // TODO: ensure messages are relevant
 
-        #pragma warning disable 0618
         public class Texts : DescribedCondition<SeleneCollection>
-        #pragma warning restore 0618
         {
 
             protected string[] expected;
@@ -66,14 +64,19 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 
     public static partial class Have
     {
-        public static Condition<SeleneCollection> Texts(params string[] expected) => new Conditions.Texts(expected);
+        public static Condition<SeleneCollection> Texts(params string[] expected) 
+        => new Conditions.Texts(expected);
 
-        public static Condition<SeleneCollection> ExactTexts(params string[] expected) => new Conditions.ExactTexts(expected);
+        public static Condition<SeleneCollection> ExactTexts(params string[] expected) 
+        => new Conditions.ExactTexts(expected);
+
         static partial class No
         {
-            public static Condition<SeleneCollection> Texts(params string[] expected) => new Not<SeleneCollection>(new Conditions.Texts(expected));
+            public static Condition<SeleneCollection> Texts(params string[] expected) 
+            => new Conditions.Texts(expected).Not;
 
-            public static Condition<SeleneCollection> ExactTexts(params string[] expected) => new Not<SeleneCollection>(new Conditions.ExactTexts(expected));
+            public static Condition<SeleneCollection> ExactTexts(params string[] expected) 
+            => new Conditions.ExactTexts(expected).Not;
         }
     }
 

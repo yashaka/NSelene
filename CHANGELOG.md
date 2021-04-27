@@ -10,13 +10,14 @@
 ## 1.0.0-alpha04 (to be released on 2020.06.18)
 - added `Be.Not.*` and `Have.No.*` as entry points to "negated conditions"
 - `.ShouldNot` is obsolete now, use `.Should(Be.Not.*)` or `.Should(Have.No.*)` instead
-- added condition-builder classes
+- added condition-builder classes, yet marked as internal
   - `Not<TEntity> : Condition<TEntity>`
   - `Or<TEntity> : Condition<TEntity>`
   - `And<TEntity> : Condition<TEntity>`
   - yet they might be renamed in future... to something like NotCondition, OrConditioin, AndCondition
-    - TODO: consider making it internal for next release
   - let's finalize the naming in [#53](https://github.com/yashaka/NSelene/issues/53)
+  - yet you can already use them via conditon.Not, condition.Or(condition), condition.And(condition)
+    - this should not change:)
 - added `Condition#Not` property
 - added `Condition#Or(condition)`
 - added `Condition#And(condition)`
