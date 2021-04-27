@@ -187,6 +187,90 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 );
             }
         }
+
+        [Test]
+        public void Should_HaveValue_Or_HaveText_IsRenderedInError_OnDifferentActualAsEmptyFailure()
+        {
+            Configuration.Timeout = 0.25;
+            Configuration.PollDuringWaits = 0.1;
+            Given.OpenedPageWithBody(
+                @"
+                <label value='some'>thing</label>
+                "
+            );
+            var beforeCall = DateTime.Now;
+
+            try 
+            {
+                S("label").Should(Have.Value("").Or(Have.ExactText("")));
+            }
+
+            catch (TimeoutException error)
+            {
+                var afterCall = DateTime.Now;
+                Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
+                var accuracyDelta = 0.1;
+                Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
+
+                // TODO: shoud we check timing here too?
+                var lines = error.Message.Split("\n").Select(
+                    item => item.Trim()
+                ).ToList();
+
+                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
+                Assert.Contains("Browser.Element(label).Attribute(value = «») OR ExactText(«»)", lines);
+                Assert.Contains("Reason:", lines);
+                Assert.Contains("Actual value: «some»", lines);
+                Assert.Contains(
+                    "Actual webelement: <label value=\"some\">thing</label>", 
+                    lines
+                );
+                Assert.Contains("Actual text: «thing»", lines);
+                Assert.Contains( // this line will be repeated twice; we mention it here just to remember to refactor in future
+                    "Actual webelement: <label value=\"some\">thing</label>", 
+                    lines
+                );
+            }
+        }
+        [Test]
+        public void Should_HaveValue_And_HaveText_IsRenderedInError_OnDifferentActualAsEmptyFailure()
+        {
+            Configuration.Timeout = 0.25;
+            Configuration.PollDuringWaits = 0.1;
+            Given.OpenedPageWithBody(
+                @"
+                <label value='some'></label>
+                "
+            );
+            var beforeCall = DateTime.Now;
+
+            try 
+            {
+                S("label").Should(Have.Value("some").And(Have.ExactText("thing")));
+            }
+
+            catch (TimeoutException error)
+            {
+                var afterCall = DateTime.Now;
+                Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
+                var accuracyDelta = 0.1;
+                Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
+
+                // TODO: shoud we check timing here too?
+                var lines = error.Message.Split("\n").Select(
+                    item => item.Trim()
+                ).ToList();
+
+                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
+                Assert.Contains("Browser.Element(label).Attribute(value = «some») AND ExactText(«thing»)", lines);
+                Assert.Contains("Reason:", lines);
+                Assert.Contains("Actual text: «»", lines);
+                Assert.Contains( // this line will be repeated twice; we mention it here just to remember to refactor in future
+                    "Actual webelement: <label value=\"some\"></label>", 
+                    lines
+                );
+            }
+        }
         
         [Test]
         public void Should_HaveNoValue_IsRenderedInError_OnInDomElementTimeoutFailure()

@@ -1,9 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NSelene
 {
-    // TODO: consider refactoring "describing" logic for conditions... 
     namespace Conditions
     {
         public class ConditionNotMatchedException : Exception
@@ -22,9 +22,9 @@ namespace NSelene
             }
 
             public ConditionNotMatchedException(
-                string message, 
+                string message,
                 Exception innerException
-            ) 
+            )
             : this(() => message, innerException)
             {
             }
@@ -42,36 +42,97 @@ namespace NSelene
 
             public override string Message => this.RenderMessage();
         }
-        
-    // todo: consider renaming to Negated
-    //       or maybe just NotCondition
-    public class Not<TEntity> : Condition<TEntity>
-    {
-        private readonly Condition<TEntity> condition;
 
-        public Not(Condition<TEntity> condition)
+        // TODO: consider keeping it internal
+        // todo: consider renaming to NotCondition
+        public class Not<TEntity> : Condition<TEntity>
         {
-            this.condition = condition;
-        }
+            private readonly Condition<TEntity> condition;
 
-        public override void Invoke(TEntity entity)
-        {
-            try
+            public Not(Condition<TEntity> condition)
             {
-                this.condition.Invoke(entity);
+                this.condition = condition;
             }
-            catch (Exception)
+
+            public override void Invoke(TEntity entity)
             {
-                return;
+                try
+                {
+                    this.condition.Invoke(entity);
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+                throw new ConditionNotMatchedException();
             }
-            throw new ConditionNotMatchedException();
+
+            public override string ToString()
+            {
+                return $"not {this.condition}";
+            }
         }
 
-        public override string ToString()
+        // TODO: consider renaming to OrCondition
+        internal class Or<TEntity> : Condition<TEntity>
         {
-            return $"not {this.condition}";
+            private readonly Condition<TEntity>[] conditions;
+
+            public Or(params Condition<TEntity>[] conditions)
+            {
+                this.conditions = conditions;
+            }
+
+            public override string ToString()
+            {
+                return string.Join(" OR ", this.conditions.ToList());
+            }
+
+            public override void Invoke(TEntity entity)
+            {
+                var errors = new List<Exception>();
+                foreach (var condition in this.conditions)
+                {
+                    try
+                    {
+                        condition.Invoke(entity);
+                        return;
+                    }
+                    catch (System.Exception error)
+                    {
+                        errors.Add(error);
+                    }
+                }
+                // TODO: try fixing that following code will call webelement outerhtml rendering a few times, and log it with duplication in error message
+                throw new ConditionNotMatchedException(
+                    () => string.Join("\n", errors.Select(its => its.Message))
+                );
+            }
         }
-    }
+
+        // TODO: consider renaming to OrCondition
+        internal class And<TEntity> : Condition<TEntity>
+        {
+            private readonly Condition<TEntity>[] conditions;
+
+            public And(params Condition<TEntity>[] conditions)
+            {
+                this.conditions = conditions;
+            }
+
+            public override string ToString()
+            {
+                return string.Join(" AND ", this.conditions.ToList());
+            }
+
+            public override void Invoke(TEntity entity)
+            {
+                foreach (var condition in this.conditions)
+                {
+                    condition.Invoke(entity);
+                }
+            }
+        }
 
         // TODO: find the way to DRY conditions:) Generics? keep it simple enough though...
 
@@ -91,8 +152,16 @@ namespace NSelene
                 return _Optionally<object>.Undefined;
             }
 
-            public Condition<TEntity> Not 
+            public Condition<TEntity> Not
                 => new Not<TEntity>(this);
+
+            public Condition<TEntity> Or(Condition<TEntity> condition)
+                => new Or<TEntity>(this, condition);
+
+            // TODO: consider accepting conditions as params below
+            //       but not do that for Or in above... because separated by ',' conditions has more natural "and" style meaning
+            public Condition<TEntity> And(Condition<TEntity> condition) 
+                => new And<TEntity>(this, condition);
 
             [Obsolete(
                 "bool Condition#Apply is obsolete use void Condition#Invoke() "
@@ -183,7 +252,7 @@ namespace NSelene
                 // TODO: consider providing more "universal" approach... 
                 //       because this makes sense only 
                 //       in case of failed condition:(
-                return false.ToString(); 
+                return false.ToString();
             }
 
             public virtual string DescribeExpected()
@@ -201,8 +270,8 @@ namespace NSelene
             {
                 var expected = this.DescribeExpected();
 
-                return expected == true.ToString() 
-                ? this.GetType().Name 
+                return expected == true.ToString()
+                ? this.GetType().Name
                 : expected;
             }
         }

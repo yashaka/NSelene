@@ -43,7 +43,7 @@ namespace NSelene
 
             public override string ToString()
             {
-                return $"ExactText({this.expected})";
+                return $"ExactText(«{this.expected}»)";
             }
 
             public override void Invoke(SeleneElement entity)

@@ -10,14 +10,16 @@
 ## 1.0.0-alpha04 (to be released on 2020.06.18)
 - added `Be.Not.*` and `Have.No.*` as entry points to "negated conditions"
 - `.ShouldNot` is obsolete now, use `.Should(Be.Not.*)` or `.Should(Have.No.*)` instead
-- removed `Actual: ...` clause from the error messages (usually it is obvious according the condition name)
-- moved previous impl inside DescribedCondition to DescribedResult that is now the parent of the Condition class
-  - don't use DescribedResult in your code, it's kind of "internal", but so far can't be made non-public...
-  - DescribedCondition class probably will be maked as obsolete in future
-- added `Not<TEntity> : Condition<TEntity>` class, yet kept as internal
+- added condition-builder classes
+  - `Not<TEntity> : Condition<TEntity>`
+  - `Or<TEntity> : Condition<TEntity>`
+  - `And<TEntity> : Condition<TEntity>`
+  - yet they might be renamed in future... to something like NotCondition, OrConditioin, AndCondition
+    - TODO: consider making it internal for next release
   - let's finalize the naming in [#53](https://github.com/yashaka/NSelene/issues/53)
-- added `Condition#Not` property, yet keeping it as internal
-  - let's finalize the naming in [#53](https://github.com/yashaka/NSelene/issues/53)
+- added `Condition#Not` property
+- added `Condition#Or(condition)`
+- added `Condition#And(condition)`
 - added SeleneElement extensions
   - `.JsScrollIntoView()`
   - `.JsClick(centerXOffset=0, centerYOffset=0)`
