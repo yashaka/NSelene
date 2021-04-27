@@ -6,7 +6,7 @@ namespace NSelene
     // TODO: consider refactoring "describing" logic for conditions... 
     namespace Conditions
     {
-        public class ConditionNotMatchedException : Exception // TODO: Should we use InvalidOperationException instead?
+        public class ConditionNotMatchedException : Exception
         {
             public ConditionNotMatchedException() : this("condition not matched")
             {
