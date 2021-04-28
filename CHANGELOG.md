@@ -1,26 +1,24 @@
 # Changelog
 
 ## NEXT
-- refactor waiting logic in element actions
-  - to wait for command to pass not for specific condition
 - should we unmark ShouldNot as deprecated?
-- mark DescribedCondition as obsolete
-- make `Condition#Not` property public
+- do we need SeleneDriver anymore? (if we go the direction of SeleneBrowser)
 
-## 1.0.0-alpha04 (to be released on 2020.06.18)
+
+## 1.0.0-alpha05 (to be released on 2021.05.??)
+- deprecate the majority of Selene.* (except S, SS) when providing alternative API via Browser.*
+
+
+## 1.0.0-alpha04 (to be released on 2021.04.28)
 - added `Be.Not.*` and `Have.No.*` as entry points to "negated conditions"
 - `.ShouldNot` is obsolete now, use `.Should(Be.Not.*)` or `.Should(Have.No.*)` instead
-- added condition-builder classes, yet marked as internal
-  - `Not<TEntity> : Condition<TEntity>`
-  - `Or<TEntity> : Condition<TEntity>`
-  - `And<TEntity> : Condition<TEntity>`
-  - yet they might be renamed in future... to something like NotCondition, OrConditioin, AndCondition
-  - let's finalize the naming in [#53](https://github.com/yashaka/NSelene/issues/53)
-  - yet you can already use them via conditon.Not, condition.Or(condition), condition.And(condition)
-    - this should not change:)
-- added `Condition#Not` property
-- added `Condition#Or(condition)`
-- added `Condition#And(condition)`
+- added `Condition#Not` property, `Condition#Or(condition)`, `Condition#And(condition)`
+  - added condition-builder classes, yet marked as internal
+    - `Not<TEntity> : Condition<TEntity>`
+    - `Or<TEntity> : Condition<TEntity>`
+    - `And<TEntity> : Condition<TEntity>`
+    - yet they might be renamed in future... to something like NotCondition, OrConditioin, AndCondition
+    - let's finalize the naming in [#53](https://github.com/yashaka/NSelene/issues/53)
 - added SeleneElement extensions
   - `.JsScrollIntoView()`
   - `.JsClick(centerXOffset=0, centerYOffset=0)`
@@ -32,12 +30,12 @@
       `element.With(setValueByJs: true).SetValue(value)`
   - `.JsType(value)`
     - the same can be achieved through 
-      `element.With(typeByJs: true).Type(value)`****
-- made Configuration ThreadLocal
+      `element.With(typeByJs: true).Type(value)`
+- made Configuration.* ThreadLocal
 - added SeleneElement methods:
   - `WaitUntil(Condition)` – like Should, but returns false on failure
   - `Matching(Condition)` - the predicate, like WaitUntil but without waiting
-  - `With([driver], [timeout], [pollDuringWaits], [setValueByJs])` - to override corresponding selene setting from Configuration
+  - `With([driver], [timeout], [pollDuringWaits], [setValueByJs], [typeByJs], [clickByJs])` - to override corresponding selene setting from Configuration
     - usage: `element.With(timeout: 2.0)`
   - `_With_(_SeleneSettings_)` option to fully disconnect element config from shared Configuration
     - underscores mean that method signature might change...
@@ -45,14 +43,14 @@
 - added SeleneCollection methods:
   - `WaitUntil(Condition)` – like Should, but returns false on failure
   - `Matching(Condition)` - the predicate, like WaitUntil but without waiting
-  - `With([driver], [timeout], [pollDuringWaits], [setValueByJs])` - to override corresponding selene setting from Configuration
+  - `With([driver], [timeout], [pollDuringWaits], [setValueByJs], [typeByJs], [clickByJs])` - to override corresponding selene setting from Configuration
   - `_With_(_SeleneSettings_)` option to fully disconnect element config from shared Configuration
     - underscores mean that method signature might change...
     - usage: `elements._With_(Configuration.New(timeout: 2.0))`
 - added SeleneDriver methods:
   - `WaitUntil(Condition)` – like Should, but returns false on failure
   - `Matching(Condition)` - the predicate, like WaitUntil but without waiting
-  - `With([driver], [timeout], [pollDuringWaits], [setValueByJs])` - to override corresponding selene setting from Configuration
+  - `With([driver], [timeout], [pollDuringWaits], [setValueByJs], [typeByJs], [clickByJs])` - to override corresponding selene setting from Configuration
   - `_With_(_SeleneSettings_)` option to fully disconnect element config from shared Configuration
     - underscores mean that method signature might change...
     - usage: `elements._With_(Configuration.New(timeout: 2.0))`
@@ -77,7 +75,17 @@
   - SeleneElement
   - SeleneCollection
 - *Deprecated (Marked as Obsolete)*
-  - Configuration.WebDriver (use Configuration.Driver instead)
+  - `Configuration.WebDriver` (use `Configuration.Driver` instead)
+    - it also becomes a recommended wa
+      - to set driver: `Configuration.Driver = myDriverInstance`
+        - over `Selene.SetWebDriver(myDriverInstance)`
+          - that might be deprecated in future
+      - also take into account that in frameworks like NUnit3, 
+        when you tear down driver in OneTimeTearDown (that will be executed after all test methods)
+        ensure you do this by calling `Quit` on your own instance like `myDriverInstance.Quit()`
+        DON'T do it like `Configuration.Driver.Quit()` or `Selene.GetWebDriver().Quit()`
+        cause this will lead in memory leaked driver, this is NUnit thing, not NSelene:)
+        (you still can do the latter in TearDown method that will be executed after each test method)
 - **potential breaking changes**:
   - Switched to System.TimeoutException in some waits (instead of WebDriverTimeoutException)
 

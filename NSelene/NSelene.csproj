@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>NSelene</PackageId>
-    <Version>1.0.0-alpha03</Version>
+    <Version>1.0.0-alpha04</Version>
     <Authors>yashaka</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Copyright (c) 2015-2021 Iakiv Kramarenko</Copyright>

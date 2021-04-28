@@ -20,6 +20,7 @@ namespace NSelene
         {
             return Configuration.Driver;
         }
+        
         public static object ExecuteScript(string script)
         {
             return (GetWebDriver() as IJavaScriptExecutor).ExecuteScript(script);

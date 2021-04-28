@@ -34,15 +34,15 @@ For docs see tests in the [NSeleneTests](https://github.com/yashaka/NSelene/blob
 
 ## Versions
   
-* Upcomig version to use is just released [1.0.0-alpha03](https://www.nuget.org/packages/NSelene/1.0.0-alpha03)
+* Upcomig version to use is just released [1.0.0-alpha04](https://www.nuget.org/packages/NSelene/1.0.0-alpha04)
   * targets netstandard2.0
     * net45 support may be added later
   * it differs from [0.0.0.7](https://www.nuget.org/packages/NSelene/0.0.0.7) in the following:
     * repacked in sdk-style format
     * removed things marked as obsolete til 0.0.0.7
-    * added some small features, see CHANGELOG for more details
+    * upgraded waiting of commands, error messages, thread local configuration, etc. (see CHANGELOG for more details)
   * can be installed by:
-    `dotnet add package NSelene --version 1.0.0-alpha03`
+    `dotnet add package NSelene --version 1.0.0-alpha04`
 
 * Latest stable version: [0.0.0.7](https://www.nuget.org/packages/NSelene/0.0.0.7)
   * targets net45
@@ -70,13 +70,13 @@ NSelene has no fully automatic driver management. Given the [WebDriverManager] i
         {
             string chromeVersion = "Latest"; // e.g. "83.0.4103.39" or "Latest", see https://chromedriver.chromium.org/downloads
             new DriverManager().SetUpDriver(new ChromeConfig(), version: chromeVersion)
-            Selene.SetWebDriver(new ChromeDriver());
+            Configuration.Driver = new ChromeDriver();
         }
 
         [TearDown]
         public void QuitDriver()
         {
-            Selene.GetWebDriver().Quit();
+            Configuration.Driver.Quit();
         }
     }
 ```
@@ -202,24 +202,6 @@ namespace Web.Tests.Model
     }
 }
 ```
-
-So... 
-The main things are ported: 
-- Selenide.$
-- SelenideElement#should
-- SelenideElement#shouldNot
-- SelenideElement#find / SelenideElement#$
-- SelenideElement#findAll / SelenideElement#$$
-- Selenide.$$
-- EllementsCollection#should
-- EllementsCollection#shouldNot
-- EllementsCollection#findBy
-- EllementsCollection#filterBy
-- EllementsCollection#get
-- all main Conditions
-- all main CollectionConditions
-
-Though NSelene is not a "complete" port (no automatic screenshots, no automatic driver creation, etc.), even now It has some useful additions to the basic "selenide set" of features. The following a some features that are still absent in Selenide:
 
 NSelene has a flexible way to locate elements by breakig long especially xpath selectors to smaller parts, like in:
 
