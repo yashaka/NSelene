@@ -5,11 +5,11 @@
 - do we need SeleneDriver anymore? (if we go the direction of SeleneBrowser)
 
 
-## 1.0.0-alpha05 (to be released on 2021.05.??)
+## 1.0.0-alpha06 (to be released on 2021.05.??)
 - deprecate the majority of Selene.* (except S, SS) when providing alternative API via Browser.*
 
 
-## 1.0.0-alpha04 (to be released on 2021.04.28)
+## 1.0.0-alpha05 (to be released on 2021.04.28)
 - added `Be.Not.*` and `Have.No.*` as entry points to "negated conditions"
 - `.ShouldNot` is obsolete now, use `.Should(Be.Not.*)` or `.Should(Have.No.*)` instead
 - added `Condition#Not` property, `Condition#Or(condition)`, `Condition#And(condition)`

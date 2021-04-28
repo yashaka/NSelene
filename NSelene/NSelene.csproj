@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>NSelene</PackageId>
-    <Version>1.0.0-alpha04</Version>
+    <Version>1.0.0-alpha05</Version>
     <Authors>yashaka</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Copyright (c) 2015-2021 Iakiv Kramarenko</Copyright>
@@ -11,26 +11,90 @@
     <Title>NSelene - User-oriented Web UI browser tests in .NET (Selenide port from Java)</Title>
     <PackageTags>selenium;webdriver;wrapper;web;browser;test;automation;autotest;selenide;selene</PackageTags>
     <PackageDescription>
-    NSelene is a wrapper over Selenium Webdriver, built to provide user-oriented API for Web UI tests in Browser. It's inspired by Selenide from Java, SelenideJs from JavaScript and Selene from Python.
+    NSelene is a wrapper over Selenium Webdriver, built to provide user-oriented API for Web UI tests in Browser and improve tests stability by implementing smart implicit waiting for commands and assertions. It's inspired by Selenide from Java, SelenideJs from JavaScript and Selene from Python.
 
     Main features:
 
     - User-oriented API for Selenium Webdriver (code like speak common English)
-    - Ajax support (Smart implicit waiting and retry mechanism)
+    - Dynamic/Ajax UI support (Smart implicit waiting and retry mechanism for commands and assertions)
     - PageObjects support (all elements are lazy-evaluated objects)
-    - Automatic driver management (no need to install and setup driver for quick local execution)
 
-    Tests with Selene can be built either in a simple straightforward "selenide' style or with PageObjects composed from Widgets i.e. reusable element components.
+    Tests with NSelene can be built either in a simple straightforward "selenide' style or with PageObjects composed from Widgets i.e. reusable element components.
     </PackageDescription>
     
     <PackageReleaseNotes>
-    - added `SeleneElement#Type(string keys)`, i.e. `S(selector).Type(text)`
-      - with wait for visibility built in
-    - changed in `SeleneElement#SendKeys(string keys)`, i.e. `S(selector).SendKeys(keys)`
-      - the wait from Be.Visible to Be.InDom 
-      - to enable its usage for file upload
-      - but can break some tests, where the "wait for visibility" is needed in context of "typing text"
-        - this should be fixed in further versions
+- added `Be.Not.*` and `Have.No.*` as entry points to "negated conditions"
+- `.ShouldNot` is obsolete now, use `.Should(Be.Not.*)` or `.Should(Have.No.*)` instead
+- added `Condition#Not` property, `Condition#Or(condition)`, `Condition#And(condition)`
+- added SeleneElement extensions
+  - `.JsScrollIntoView()`
+  - `.JsClick(centerXOffset=0, centerYOffset=0)`
+    - proper tests coverage is yet needed
+    - the same can be achieved through (can be handy when storing element in var)
+      `element.With(clickByJs: true).Click()`
+  - `.JsSetValue(value)`
+    - the same can be achieved through 
+      `element.With(setValueByJs: true).SetValue(value)`
+  - `.JsType(value)`
+    - the same can be achieved through 
+      `element.With(typeByJs: true).Type(value)`
+- made Configuration.* ThreadLocal
+- added SeleneElement methods:
+  - `WaitUntil(Condition)` – like Should, but returns false on failure
+  - `Matching(Condition)` - the predicate, like WaitUntil but without waiting
+  - `With([driver], [timeout], [pollDuringWaits], [setValueByJs], [typeByJs], [clickByJs])` - to override corresponding selene setting from Configuration
+    - usage: `element.With(timeout: 2.0)`
+  - `_With_(_SeleneSettings_)` option to fully disconnect element config from shared Configuration
+    - underscores mean that method signature might change...
+    - usage: `element._With_(Configuration.New(timeout: 2.0))`
+- added SeleneCollection methods:
+  - `WaitUntil(Condition)` – like Should, but returns false on failure
+  - `Matching(Condition)` - the predicate, like WaitUntil but without waiting
+  - `With([driver], [timeout], [pollDuringWaits], [setValueByJs], [typeByJs], [clickByJs])` - to override corresponding selene setting from Configuration
+  - `_With_(_SeleneSettings_)` option to fully disconnect element config from shared Configuration
+    - underscores mean that method signature might change...
+    - usage: `elements._With_(Configuration.New(timeout: 2.0))`
+- added SeleneDriver methods:
+  - `WaitUntil(Condition)` – like Should, but returns false on failure
+  - `Matching(Condition)` - the predicate, like WaitUntil but without waiting
+  - `With([driver], [timeout], [pollDuringWaits], [setValueByJs], [typeByJs], [clickByJs])` - to override corresponding selene setting from Configuration
+  - `_With_(_SeleneSettings_)` option to fully disconnect element config from shared Configuration
+    - underscores mean that method signature might change...
+    - usage: `elements._With_(Configuration.New(timeout: 2.0))`
+- tuned selene elements representation in error messages
+  - now code like `SS(".parent").FilterBy(Be.Visible)[0].SS(".child").FindBy(Have.CssClass("special")).S("./following-sibling::*")`
+  - renders to: `Browser.All(.parent).By(Visible)[0].All(.child).FirstBy(has CSS class 'special').Element(./following-sibling::*)`
+- improved waiting (waits not just for visibility but till "being passed") at SeleneElement's:
+  - (... wait till visible and not overlapped)
+    - Click()
+    - Hover()
+    - DoubleClick()
+    - Submit()
+    - Clear()
+    - SetValue(keys)
+    - Type(keys)
+    - PressEnter()
+    - PressEscape()
+    - PressTab()
+  - (... wait till visible for all but `input[type=file]`)
+    - SendKeys(keys)
+- upgraded waiting to new engine in asserts (.Should(condition)) of
+  - SeleneElement
+  - SeleneCollection
+- *Deprecated (Marked as Obsolete)*
+  - `Configuration.WebDriver` (use `Configuration.Driver` instead)
+    - it also becomes a recommended wa
+      - to set driver: `Configuration.Driver = myDriverInstance`
+        - over `Selene.SetWebDriver(myDriverInstance)`
+          - that might be deprecated in future
+      - also take into account that in frameworks like NUnit3, 
+        when you tear down driver in OneTimeTearDown (that will be executed after all test methods)
+        ensure you do this by calling `Quit` on your own instance like `myDriverInstance.Quit()`
+        DON'T do it like `Configuration.Driver.Quit()` or `Selene.GetWebDriver().Quit()`
+        cause this will lead in memory leaked driver, this is NUnit thing, not NSelene:)
+        (you still can do the latter in TearDown method that will be executed after each test method)
+- **potential breaking changes**:
+  - Switched to System.TimeoutException in some waits (instead of WebDriverTimeoutException)
     </PackageReleaseNotes>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

@@ -34,7 +34,7 @@ For docs see tests in the [NSeleneTests](https://github.com/yashaka/NSelene/blob
 
 ## Versions
   
-* Upcomig version to use is just released [1.0.0-alpha04](https://www.nuget.org/packages/NSelene/1.0.0-alpha04)
+* Upcomig version to use is just released [1.0.0-alpha05](https://www.nuget.org/packages/NSelene/1.0.0-alpha05)
   * targets netstandard2.0
     * net45 support may be added later
   * it differs from [0.0.0.7](https://www.nuget.org/packages/NSelene/0.0.0.7) in the following:
