@@ -2,20 +2,20 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 77,
-    "uniques": 38
+    "count": 65,
+    "uniques": 35
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene",
     "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
-    "count": 16,
-    "uniques": 6
+    "count": 15,
+    "uniques": 5
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests",
     "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
-    "count": 13,
-    "uniques": 9
+    "count": 9,
+    "uniques": 7
   },
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
@@ -24,28 +24,16 @@
     "uniques": 6
   },
   {
-    "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
-    "title": "NSelene/NSelene/Conditions at master · yashaka/NSelene · GitHub",
-    "count": 7,
-    "uniques": 3
-  },
-  {
     "path": "/yashaka/NSelene/blob/c3cc896b5af73353398f53c5749c6c1fc45c3df5/NSeleneTests/Integration/SharedDriver/SeleneElement_Type_Specs.cs",
     "title": "NSelene/SeleneElement_Type_Specs.cs at c3cc896b5af73353398f53c5749c6c1fc45c3d...",
     "count": 6,
     "uniques": 1
   },
   {
-    "path": "/yashaka/NSelene/tree/master/NSeleneTests/Unit",
-    "title": "NSelene/NSeleneTests/Unit at master · yashaka/NSelene · GitHub",
+    "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
+    "title": "NSelene/NSelene/Conditions at master · yashaka/NSelene",
     "count": 5,
-    "uniques": 3
-  },
-  {
-    "path": "/yashaka/NSelene/issues",
-    "title": "Issues · yashaka/NSelene · GitHub",
-    "count": 4,
-    "uniques": 3
+    "uniques": 2
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests/Resources",
@@ -54,9 +42,21 @@
     "uniques": 3
   },
   {
-    "path": "/yashaka/NSelene/blob/master/NSeleneTests/Unit/ConditionSpecs.cs",
-    "title": "NSelene/ConditionSpecs.cs at master · yashaka/NSelene · GitHub",
+    "path": "/yashaka/NSelene/blob/master/NSelene/Wait.cs",
+    "title": "NSelene/Wait.cs at master · yashaka/NSelene · GitHub",
     "count": 4,
+    "uniques": 2
+  },
+  {
+    "path": "/yashaka/NSelene/issues",
+    "title": "Issues · yashaka/NSelene · GitHub",
+    "count": 3,
+    "uniques": 2
+  },
+  {
+    "path": "/yashaka/NSelene/issues/57",
+    "title": "add shadow dom support · Issue #57 · yashaka/NSelene · GitHub",
+    "count": 3,
     "uniques": 2
   }
 ]
