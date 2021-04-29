@@ -2,14 +2,20 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 65,
-    "uniques": 35
+    "count": 78,
+    "uniques": 38
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene",
     "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
-    "count": 15,
+    "count": 18,
     "uniques": 5
+  },
+  {
+    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
+    "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene · GitHub",
+    "count": 12,
+    "uniques": 6
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests",
@@ -18,16 +24,22 @@
     "uniques": 7
   },
   {
-    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
-    "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene · GitHub",
-    "count": 9,
-    "uniques": 6
+    "path": "/yashaka/NSelene/actions",
+    "title": "Actions · yashaka/NSelene",
+    "count": 6,
+    "uniques": 1
   },
   {
     "path": "/yashaka/NSelene/blob/c3cc896b5af73353398f53c5749c6c1fc45c3df5/NSeleneTests/Integration/SharedDriver/SeleneElement_Type_Specs.cs",
     "title": "NSelene/SeleneElement_Type_Specs.cs at c3cc896b5af73353398f53c5749c6c1fc45c3d...",
     "count": 6,
     "uniques": 1
+  },
+  {
+    "path": "/yashaka/NSelene/releases",
+    "title": "Releases · yashaka/NSelene",
+    "count": 5,
+    "uniques": 2
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
@@ -45,18 +57,6 @@
     "path": "/yashaka/NSelene/blob/master/NSelene/Wait.cs",
     "title": "NSelene/Wait.cs at master · yashaka/NSelene · GitHub",
     "count": 4,
-    "uniques": 2
-  },
-  {
-    "path": "/yashaka/NSelene/issues",
-    "title": "Issues · yashaka/NSelene · GitHub",
-    "count": 3,
-    "uniques": 2
-  },
-  {
-    "path": "/yashaka/NSelene/issues/57",
-    "title": "add shadow dom support · Issue #57 · yashaka/NSelene · GitHub",
-    "count": 3,
     "uniques": 2
   }
 ]
