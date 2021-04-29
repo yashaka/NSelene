@@ -10,6 +10,42 @@
 
 
 ## 1.0.0-alpha05 (to be released on 2021.04.28)
+
+### SUMMARY:
+  * upgraded waiting of commands, error messages, thread local configuration, etc. (see CHANGELOG for more details)
+    * it should be 
+      * faster, 
+      * more stable/less-flaky (with implicit waiting till no overlay-style pre-loaders)
+      * more friendly to parallelisation in context of configuration, 
+      * more customizable on elements level (not just global)
+
+### Migrating from 1.0.0-alpha03 guide
+* upgrade and check your build
+  * refactor your custom conditions:
+    * if you have implemented your own custom conditions by extending e.g. `Condition<SeleneElement>`
+      * you will get a compilation error – to fix it:
+        * change base class from `Condition<SeleneElement>` to `DescribedCondition<SeleneElement>`
+        * remove `public override string Explain()` and leave `public override string ToString()` instead
+        * if you use anywehere in your code an `Apply` method on condition of type `Condition<TEntity>`
+          * you will get an obsolete warning
+            * refactor your code to use `Invoke` method, taking into account that
+              * anytime Apply throws exception - Invoke also throws exception
+              * anytime Apply returns false - Invoke throws exception
+              * anytime Apply returns true - Invoke just passes (it's of void type)
+  * refactor obsolete things, like:
+    * `Configuration.WebDriver` => `Configuration.Driver`
+    * `S("#element").ShouldNot(Be.*)` to `S("#element").Should(Be.Not.*)`
+    * `S("#element").ShouldNot(yourCustomCondition)` to `S("#element").Should(yourCustomCondition.Not)`
+    * etc
+* take into account, that some "internal" methods of 1.0.0-alpha05 were made public for easiser experimental testing in prod:), 
+  but still considered as internal, that might change in future
+  such methods are named with `_` prefix, 
+  following kind of Python lang style of "still publically accessible private" methods:)
+  use such methods on your own risk, take into account that they might be marked as obsolete in future
+  yet, they will be eather renamed or made completely internal till stable 1.0 release;)
+  read CHANGELOG for more details.
+
+### Details
 - added `Be.Not.*` and `Have.No.*` as entry points to "negated conditions"
 - `.ShouldNot` is obsolete now, use `.Should(Be.Not.*)` or `.Should(Have.No.*)` instead
 - added `Condition#Not` property, `Condition#Or(condition)`, `Condition#And(condition)`
