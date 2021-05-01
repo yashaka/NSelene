@@ -1,28 +1,23 @@
 [
   {
     "referrer": "Google",
-    "count": 28,
+    "count": 25,
     "uniques": 16
   },
   {
+    "referrer": "ecosia.org",
+    "count": 10,
+    "uniques": 2
+  },
+  {
     "referrer": "github.com",
-    "count": 8,
-    "uniques": 7
+    "count": 7,
+    "uniques": 6
   },
   {
     "referrer": "DuckDuckGo",
     "count": 5,
     "uniques": 2
-  },
-  {
-    "referrer": "automated-testing.info",
-    "count": 2,
-    "uniques": 2
-  },
-  {
-    "referrer": "ecosia.org",
-    "count": 1,
-    "uniques": 1
   },
   {
     "referrer": "software-testing.ru",
@@ -31,6 +26,16 @@
   },
   {
     "referrer": "autotest.how",
+    "count": 1,
+    "uniques": 1
+  },
+  {
+    "referrer": "nuget.org",
+    "count": 1,
+    "uniques": 1
+  },
+  {
+    "referrer": "automated-testing.info",
     "count": 1,
     "uniques": 1
   }
