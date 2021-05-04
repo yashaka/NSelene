@@ -2,8 +2,8 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 96,
-    "uniques": 37
+    "count": 89,
+    "uniques": 34
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene",
@@ -20,20 +20,20 @@
   {
     "path": "/yashaka/NSelene/releases/tag/v1.0.0-alpha05",
     "title": "Release Faster, full unti-flakyness, parallelisation-friendly, customizable p...",
-    "count": 13,
-    "uniques": 11
+    "count": 14,
+    "uniques": 12
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
+    "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
+    "count": 8,
+    "uniques": 8
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
     "title": "NSelene/NSelene/Conditions at master · yashaka/NSelene · GitHub",
     "count": 8,
     "uniques": 4
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
-    "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
-    "count": 7,
-    "uniques": 7
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests/Integration/SharedDriver",
