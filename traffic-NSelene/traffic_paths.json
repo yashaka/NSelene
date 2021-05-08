@@ -2,32 +2,32 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 104,
-    "uniques": 36
+    "count": 115,
+    "uniques": 39
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene",
     "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
-    "count": 28,
-    "uniques": 8
+    "count": 31,
+    "uniques": 10
   },
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
     "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene · GitHub",
-    "count": 21,
-    "uniques": 6
+    "count": 26,
+    "uniques": 9
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests",
     "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
-    "count": 19,
+    "count": 21,
     "uniques": 11
   },
   {
     "path": "/yashaka/NSelene/releases/tag/v1.0.0-alpha05",
     "title": "Release Faster, full unti-flakyness, parallelisation-friendly, customizable p...",
-    "count": 15,
-    "uniques": 13
+    "count": 17,
+    "uniques": 14
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests/Integration/SharedDriver",
@@ -38,25 +38,25 @@
   {
     "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
     "title": "NSelene/NSelene/Conditions at master · yashaka/NSelene · GitHub",
-    "count": 10,
-    "uniques": 6
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSelene/Helpers",
-    "title": "NSelene/NSelene/Helpers at master · yashaka/NSelene · GitHub",
-    "count": 6,
-    "uniques": 4
+    "count": 11,
+    "uniques": 7
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests/Examples/SharedDriver",
     "title": "NSelene/NSeleneTests/Examples/SharedDriver at master · yashaka/NSelene · GitHub",
-    "count": 6,
+    "count": 8,
     "uniques": 4
   },
   {
-    "path": "/yashaka/NSelene/issues",
-    "title": "Issues · yashaka/NSelene",
+    "path": "/yashaka/NSelene/tree/master/NSelene/Helpers",
+    "title": "NSelene/NSelene/Helpers at master · yashaka/NSelene · GitHub",
+    "count": 7,
+    "uniques": 5
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSelene/Support",
+    "title": "NSelene/NSelene/Support at master · yashaka/NSelene · GitHub",
     "count": 6,
-    "uniques": 3
+    "uniques": 6
   }
 ]
