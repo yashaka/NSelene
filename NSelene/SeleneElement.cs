@@ -55,7 +55,7 @@ namespace NSelene
             bool? setValueByJs = null,
             bool? typeByJs = null,
             bool? clickByJs = null,
-            bool? waitForNoOverlayByJs = null
+            bool? waitByJsForNotOverlapped = null
         )
         {
             _SeleneSettings_ customized = new Configuration();
@@ -66,7 +66,7 @@ namespace NSelene
             customized.SetValueByJs = setValueByJs;
             customized.TypeByJs = typeByJs;
             customized.ClickByJs = clickByJs;
-            customized.WaitForNoOverlayByJs = waitForNoOverlayByJs;
+            customized.WaitByJsForNotOverlapped = waitByJsForNotOverlapped;
 
             return new SeleneElement(
                 this.locator, 
@@ -305,7 +305,7 @@ namespace NSelene
             //       like Operation? DescribedComputation? NamedComputation? NamedLambda?
             //       actually maybe lambda already pretty common for everybody term...
             //       but should we add Named prefix to it?
-            if (this.config.WaitForNoOverlayByJs ?? false)
+            if (this.config.WaitByJsForNotOverlapped ?? false)
             {
                 this.Wait.For(new _Lambda<SeleneElement, object>(
                     $"ActualNotOverlappedWebElement.SendKeys(Enter)", // TODO: should we render it as PressEnter()?
@@ -324,7 +324,7 @@ namespace NSelene
 
         public SeleneElement PressTab()
         {
-            if (this.config.WaitForNoOverlayByJs ?? false)
+            if (this.config.WaitByJsForNotOverlapped ?? false)
             {
                 this.Wait.For(new _Lambda<SeleneElement, object>(
                     $"ActualNotOverlappedWebElement.SendKeys(Tab)", // TODO: should we render it as PressEnter()?
@@ -355,7 +355,7 @@ namespace NSelene
             //                 i.e. we should simulate the real behaviour in context of waiting, but do the action via js...
             //                 no?
             //                 is it too much? :D
-            if (this.config.WaitForNoOverlayByJs ?? false)
+            if (this.config.WaitByJsForNotOverlapped ?? false)
             {
                 this.Wait.For(new _Lambda<SeleneElement, object>(
                     $"ActualNotOverlappedWebElement.SendKeys(Escape)", // TODO: should we render it as PressEnter()?
@@ -391,7 +391,7 @@ namespace NSelene
             }
             else
             {
-                if (this.config.WaitForNoOverlayByJs ?? false)
+                if (this.config.WaitByJsForNotOverlapped ?? false)
                 {
                     this.Wait.For(new _Lambda<SeleneElement, object>(
                         $"ActualNotOverlappedWebElement.Clear().SendKeys({keys})", // TODO: should we render it as SetValue({keys})?
@@ -427,7 +427,7 @@ namespace NSelene
 
         public SeleneElement Hover()
         {
-            if (this.config.WaitForNoOverlayByJs ?? false)
+            if (this.config.WaitByJsForNotOverlapped ?? false)
             {
                 this.Wait.For(
                     self
@@ -448,7 +448,7 @@ namespace NSelene
 
         public SeleneElement DoubleClick()
         {
-            if (this.config.WaitForNoOverlayByJs ?? false)
+            if (this.config.WaitByJsForNotOverlapped ?? false)
             {
                 this.Wait.For(
                     self
@@ -494,7 +494,7 @@ namespace NSelene
             }
              */
 
-            if (this.config.WaitForNoOverlayByJs ?? false)
+            if (this.config.WaitByJsForNotOverlapped ?? false)
             {
                 this.Wait.For(self => self.ActualNotOverlappedWebElement.Clear());
             }
@@ -515,7 +515,7 @@ namespace NSelene
                 ));
             } else
             {
-                if (this.config.WaitForNoOverlayByJs ?? false)
+                if (this.config.WaitByJsForNotOverlapped ?? false)
                 {
                     this.Wait.For(new _Lambda<SeleneElement, object>(
                         $"ActualNotOverlappedWebElement.SendKeys({keys})", // TODO: should we render it as Type({keys})?
@@ -561,7 +561,7 @@ namespace NSelene
 
         public SeleneElement Submit()
         {
-            if (this.config.WaitForNoOverlayByJs ?? false)
+            if (this.config.WaitByJsForNotOverlapped ?? false)
             {
                 this.Wait.For(self => self.ActualNotOverlappedWebElement.Submit());
             }

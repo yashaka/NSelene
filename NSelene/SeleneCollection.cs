@@ -72,7 +72,7 @@ namespace NSelene
             bool? setValueByJs = null,
             bool? typeByJs = null,
             bool? clickByJs = null,
-            bool? waitForNoOverlayByJs = null
+            bool? waitByJsForNotOverlapped = null
         )
         {
             _SeleneSettings_ customized = new Configuration();
@@ -83,7 +83,7 @@ namespace NSelene
             customized.SetValueByJs = setValueByJs;
             customized.TypeByJs = typeByJs;
             customized.ClickByJs = clickByJs;
-            customized.WaitForNoOverlayByJs = waitForNoOverlayByJs;
+            customized.WaitByJsForNotOverlapped = waitByJsForNotOverlapped;
 
             /* same but another style and not so obvious with harder override logic: 
             // mentioned here just for an example, to think about later on API improvements

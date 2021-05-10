@@ -38,7 +38,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         [Test]
         public void Click_WaitsForVisibility_OfInitiialyHidden()
         {
-            Configuration.Timeout = 0.6;
+            Configuration.Timeout = 1.0;
             Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
@@ -58,7 +58,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             var afterCall = DateTime.Now;
             Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
+            Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
             Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
         }
 

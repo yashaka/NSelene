@@ -33,7 +33,7 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
             Configuration.SetValueByJs = false;
             Configuration.TypeByJs = false;
             Configuration.ClickByJs = false;
-            Configuration.WaitForNoOverlayByJs = false;
+            Configuration.WaitByJsForNotOverlapped = false;
         }
 
         [OneTimeTearDown]

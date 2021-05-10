@@ -33,7 +33,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             var afterCall = DateTime.Now;
 
             Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
+            Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
         }
 
         [Test]

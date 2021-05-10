@@ -74,7 +74,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         }
         
         [Test]
-        public void Clear_IsRenderedInError_OnAbsentElementFailure_WhenCustomizedToWaitForNoOverlayByJs()
+        public void Clear_IsRenderedInError_OnAbsentElementFailure_WhenCustomizedToWaitByJsForNotOverlapped()
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
@@ -82,7 +82,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             try 
             {
-                S("input").With(waitForNoOverlayByJs: true).Clear();
+                S("input").With(waitByJsForNotOverlapped: true).Clear();
             }
 
             catch (TimeoutException error)
@@ -205,7 +205,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         }
 
         [Test]
-        public void Clear_IsRenderedInError_OnHiddenElementFailure_WhenCustomizedToWaitForNoOverlayByJs()
+        public void Clear_IsRenderedInError_OnHiddenElementFailure_WhenCustomizedToWaitByJsForNotOverlapped()
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
@@ -217,7 +217,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             try 
             {
-                S("input").With(waitForNoOverlayByJs: true).Clear();
+                S("input").With(waitByJsForNotOverlapped: true).Clear();
             }
 
             catch (TimeoutException error)
@@ -328,7 +328,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 300
             );
 
-            S("input").With(waitForNoOverlayByJs: true).Clear(); // TODO: this overlay works only for "overlayying at center of element", handle the "partial overlay" cases too!
+            S("input").With(waitByJsForNotOverlapped: true).Clear(); // TODO: this overlay works only for "overlayying at center of element", handle the "partial overlay" cases too!
             
             var afterCall = DateTime.Now;
             Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
@@ -346,7 +346,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         }
 
         [Test]
-        public void Clear_IsRenderedInError_OnOverlappedWithOverlayFailure_WhenCustomizedToWaitForNoOverlayByJs()
+        public void Clear_IsRenderedInError_OnOverlappedWithOverlayFailure_WhenCustomizedToWaitByJsForNotOverlapped()
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
@@ -378,7 +378,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             try 
             {
-                S("input").With(waitForNoOverlayByJs: true).Clear();
+                S("input").With(waitByJsForNotOverlapped: true).Clear();
             }
 
             catch (TimeoutException error)

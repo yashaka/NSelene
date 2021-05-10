@@ -77,7 +77,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         }
 
         [Test]
-        public void SetValue_IsRenderedInError_OnAbsentElementFailure_WhenCustomizedToWaitForNoOverlayByJs()
+        public void SetValue_IsRenderedInError_OnAbsentElementFailure_WhenCustomizedToWaitByJsForNotOverlapped()
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
@@ -85,7 +85,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             try 
             {
-                S("input").With(waitForNoOverlayByJs: true).SetValue("overwritten");
+                S("input").With(waitByJsForNotOverlapped: true).SetValue("overwritten");
             }
 
             catch (TimeoutException error)
@@ -153,7 +153,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         }
         
         [Test]
-        public void SetValue_FailsOnHiddenInputOfTypeFile_WhenCustomizedToWaitForNoOverlayByJs() // TODO: should we allow it here like in send keys? kind of sounds natural... but can we do that without drawing performance?
+        public void SetValue_FailsOnHiddenInputOfTypeFile_WhenCustomizedToWaitByJsForNotOverlapped() // TODO: should we allow it here like in send keys? kind of sounds natural... but can we do that without drawing performance?
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
@@ -170,7 +170,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             
             try 
             {
-                S("[type=file]").With(waitForNoOverlayByJs: true).SetValue(path);
+                S("[type=file]").With(waitByJsForNotOverlapped: true).SetValue(path);
             }
 
             catch (TimeoutException error)
@@ -273,7 +273,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         }
 
         [Test]
-        public void SetValue_IsRenderedInError_OnHiddenElementFailure_WhenCustomizedToWaitForNoOverlayByJs()
+        public void SetValue_IsRenderedInError_OnHiddenElementFailure_WhenCustomizedToWaitByJsForNotOverlapped()
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
@@ -285,7 +285,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             try 
             {
-                S("input").With(waitForNoOverlayByJs: true).SetValue("overwritten");
+                S("input").With(waitByJsForNotOverlapped: true).SetValue("overwritten");
             }
 
             catch (TimeoutException error)
@@ -396,7 +396,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 300
             );
 
-            S("input").With(waitForNoOverlayByJs: true).SetValue("overwritten");
+            S("input").With(waitByJsForNotOverlapped: true).SetValue("overwritten");
 
             var afterCall = DateTime.Now;
             Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
@@ -414,7 +414,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         }
 
         [Test]
-        public void SetValue_IsRenderedInError_OnOverlappedWithOverlayFailure_WhenCustomizedToWaitForNoOverlayByJs()
+        public void SetValue_IsRenderedInError_OnOverlappedWithOverlayFailure_WhenCustomizedToWaitByJsForNotOverlapped()
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
@@ -446,7 +446,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             try 
             {
-                S("input").With(waitForNoOverlayByJs: true).SetValue("overwritten");
+                S("input").With(waitByJsForNotOverlapped: true).SetValue("overwritten");
             }
 
             catch (TimeoutException error)

@@ -120,7 +120,7 @@ namespace NSelene
             bool? setValueByJs = null,
             bool? typeByJs = null,
             bool? clickByJs = null,
-            bool? waitForNoOverlayByJs = null
+            bool? waitByJsForNotOverlapped = null
         )
         {
             _SeleneSettings_ customized = new Configuration();
@@ -131,7 +131,7 @@ namespace NSelene
             customized.SetValueByJs = setValueByJs;
             customized.TypeByJs = typeByJs;
             customized.ClickByJs = clickByJs;
-            customized.WaitForNoOverlayByJs = waitForNoOverlayByJs;
+            customized.WaitByJsForNotOverlapped = waitByJsForNotOverlapped;
 
             return new SeleneDriver(
                 this.config.With(customized)
