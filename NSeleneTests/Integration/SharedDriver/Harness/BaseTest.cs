@@ -26,12 +26,14 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
             options.AddArguments("headless");
             this._driver = new ChromeDriver(options);
 
+            // explicit resetting defaults
             Configuration.Driver = this._driver;
             Configuration.Timeout = 4.0;
             Configuration.PollDuringWaits = 0.1;
             Configuration.SetValueByJs = false;
             Configuration.TypeByJs = false;
             Configuration.ClickByJs = false;
+            Configuration.WaitForNoOverlayByJs = false;
         }
 
         [OneTimeTearDown]

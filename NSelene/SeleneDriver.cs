@@ -117,7 +117,10 @@ namespace NSelene
             IWebDriver driver = null,
             double? timeout = null,
             double? pollDuringWaits = null,
-            bool? setValueByJs = null
+            bool? setValueByJs = null,
+            bool? typeByJs = null,
+            bool? clickByJs = null,
+            bool? waitForNoOverlayByJs = null
         )
         {
             _SeleneSettings_ customized = new Configuration();
@@ -126,6 +129,9 @@ namespace NSelene
             customized.Timeout = timeout;
             customized.PollDuringWaits = pollDuringWaits;
             customized.SetValueByJs = setValueByJs;
+            customized.TypeByJs = typeByJs;
+            customized.ClickByJs = clickByJs;
+            customized.WaitForNoOverlayByJs = waitForNoOverlayByJs;
 
             return new SeleneDriver(
                 this.config.With(customized)

@@ -54,7 +54,8 @@ namespace NSelene
             double? pollDuringWaits = null,
             bool? setValueByJs = null,
             bool? typeByJs = null,
-            bool? clickByJs = null
+            bool? clickByJs = null,
+            bool? waitForNoOverlayByJs = null
         )
         {
             _SeleneSettings_ customized = new Configuration();
@@ -65,6 +66,7 @@ namespace NSelene
             customized.SetValueByJs = setValueByJs;
             customized.TypeByJs = typeByJs;
             customized.ClickByJs = clickByJs;
+            customized.WaitForNoOverlayByJs = waitForNoOverlayByJs;
 
             return new SeleneElement(
                 this.locator, 
@@ -82,7 +84,7 @@ namespace NSelene
 
         // TODO: consider making it Obsolete, actions is an object with broader context than Element
         Actions Actions => new Actions(this.config.Driver);
-        Wait<SeleneElement> Wait
+        Wait<SeleneElement> Wait // TODO: Consider making it public
         {
             get
             {
@@ -263,99 +265,9 @@ namespace NSelene
             return true;
         }
 
-        public SeleneElement PressEnter()
-        {
-            // TODO: can find better synonym instead of Lambda to make it more obvious and self-explanatory when reading?
-            //       like Operation? DescribedComputation? NamedComputation? NamedLambda?
-            //       actually maybe lambda already pretty common for everybody term...
-            //       but should we add Named prefix to it?
-            this.Wait.For(new _Lambda<SeleneElement, object>( 
-                $"ActualNotOverlappedWebElement.SendKeys(Enter)", // TODO: should we render it as PressEnter()?
-                self => self.ActualNotOverlappedWebElement.SendKeys(Keys.Enter)
-            ));
-            return this;
-        }
-
-        public SeleneElement PressTab()
-        {
-            this.Wait.For(new _Lambda<SeleneElement, object>(
-                $"ActualNotOverlappedWebElement.SendKeys(Tab)", // TODO: should we render it as PressTab()?
-                self => self.ActualNotOverlappedWebElement.SendKeys(Keys.Tab)
-            ));
-            return this;
-        }
-
-        public SeleneElement PressEscape()
-        {
-            // TODO: do we need PressEscapeByJs ? o_O do we need so much of this ByJs?
-            //       do we need something more general like ActByJs?
-            //       yeah, almost useless when set globally on Configuration.ActByJs
-            //       but pretty usefull when called like element.With(actByJs: true) ! 
-            //       can this be implemented easy without interfering with all other like TypeByJs? o_O
-            //       but should they be different in context of waiting?
-            //       i mean... TypeByJs - should mean that we want to type with hack...
-            //                 i.e. allowing everything that js allow... so sometimes for overlapped elements too
-            //                 ActByJs - and this is something like... act ~ simulate by js... 
-            //                 i.e. we should simulate the real behaviour in context of waiting, but do the action via js...
-            //                 no?
-            //                 is it too much? :D
-            this.Wait.For(new _Lambda<SeleneElement, object>(
-                $"ActualNotOverlappedWebElement.SendKeys(Escape)", // TODO: should we render it as PressEscape()?
-                self => self.ActualNotOverlappedWebElement.SendKeys(Keys.Escape)
-            ));
-            return this;
-        }
-
-        // TODO: Do we need an alias to Type(keys) – Press(keys) ?
-        //       kind of for better logging in report (when we have full support for that)
-
-        public SeleneElement SetValue(string keys) // TODO: why the param is named keys o_O :) Do we have time to rename it? )
-        {
-            if (this.config.SetValueByJs ?? Configuration.SetValueByJs) 
-            {
-                this.Wait.For(new _Lambda<SeleneElement, object>(
-                    $"JsSetValue({keys})",
-                    self => self.JsSetValue(keys)
-                ));
-            } else
-            {
-                this.Wait.For(new _Lambda<SeleneElement, object>(
-                    $"ActualNotOverlappedWebElement.Clear().SendKeys({keys})", // TODO: should we render it as SetValue({keys})?
-                    self => {
-                        var webelement = self.ActualNotOverlappedWebElement;
-                        webelement.Clear();
-                        webelement.SendKeys(keys);
-                    }
-                ));
-            }
-            return this;
-        }
-
-        // TODO: consider moving to Extensions or even deprecate
-        public SeleneElement Set(string value)
-        {
-            return SetValue(value);
-        }
-
-        public SeleneElement Hover()
-        {
-            this.Wait.For(
-                self 
-                => 
-                self.Actions.MoveToElement(self.ActualNotOverlappedWebElement).Perform()
-            );
-            return this;
-        }
-
-        public SeleneElement DoubleClick()
-        {
-            this.Wait.For(
-                self 
-                => 
-                self.Actions.DoubleClick(self.ActualNotOverlappedWebElement).Perform()
-            );
-            return this;
-        }
+        //
+        // SeleneElement element builders
+        // 
 
         public SeleneElement Find(By locator)
         {
@@ -381,6 +293,178 @@ namespace NSelene
         public SeleneCollection FindAll(string cssOrXPathSelector)
         {
             return this.FindAll(Utils.ToBy(cssOrXPathSelector));
+        }
+
+        //
+        // SeleneElement element commands
+        // 
+
+        public SeleneElement PressEnter()
+        {
+            // TODO: can find better synonym instead of Lambda to make it more obvious and self-explanatory when reading?
+            //       like Operation? DescribedComputation? NamedComputation? NamedLambda?
+            //       actually maybe lambda already pretty common for everybody term...
+            //       but should we add Named prefix to it?
+            if (this.config.WaitForNoOverlayByJs ?? false)
+            {
+                this.Wait.For(new _Lambda<SeleneElement, object>(
+                    $"ActualNotOverlappedWebElement.SendKeys(Enter)", // TODO: should we render it as PressEnter()?
+                    self => self.ActualNotOverlappedWebElement.SendKeys(Keys.Enter)
+                ));
+            }
+            else
+            {
+                this.Wait.For(new _Lambda<SeleneElement, object>(
+                    $"ActualWebElement.SendKeys(Enter)", // TODO: should we render it as PressEnter()?
+                    self => self.ActualWebElement.SendKeys(Keys.Enter)
+                ));
+            }
+            return this;
+        }
+
+        public SeleneElement PressTab()
+        {
+            if (this.config.WaitForNoOverlayByJs ?? false)
+            {
+                this.Wait.For(new _Lambda<SeleneElement, object>(
+                    $"ActualNotOverlappedWebElement.SendKeys(Tab)", // TODO: should we render it as PressEnter()?
+                    self => self.ActualNotOverlappedWebElement.SendKeys(Keys.Tab)
+                ));
+            }
+            else
+            {
+                this.Wait.For(new _Lambda<SeleneElement, object>(
+                    $"ActualWebElement.SendKeys(Tab)", // TODO: should we render it as PressEnter()?
+                    self => self.ActualWebElement.SendKeys(Keys.Tab)
+                ));
+            }
+            return this;
+        }
+
+        public SeleneElement PressEscape()
+        {
+            // TODO: do we need PressEscapeByJs ? o_O do we need so much of this ByJs?
+            //       do we need something more general like ActByJs?
+            //       yeah, almost useless when set globally on Configuration.ActByJs
+            //       but pretty usefull when called like element.With(actByJs: true) ! 
+            //       can this be implemented easy without interfering with all other like TypeByJs? o_O
+            //       but should they be different in context of waiting?
+            //       i mean... TypeByJs - should mean that we want to type with hack...
+            //                 i.e. allowing everything that js allow... so sometimes for overlapped elements too
+            //                 ActByJs - and this is something like... act ~ simulate by js... 
+            //                 i.e. we should simulate the real behaviour in context of waiting, but do the action via js...
+            //                 no?
+            //                 is it too much? :D
+            if (this.config.WaitForNoOverlayByJs ?? false)
+            {
+                this.Wait.For(new _Lambda<SeleneElement, object>(
+                    $"ActualNotOverlappedWebElement.SendKeys(Escape)", // TODO: should we render it as PressEnter()?
+                    self => self.ActualNotOverlappedWebElement.SendKeys(Keys.Escape)
+                ));
+            }
+            else
+            {
+                this.Wait.For(new _Lambda<SeleneElement, object>(
+                    $"ActualWebElement.SendKeys(Escape)", // TODO: should we render it as PressEnter()?
+                    self => self.ActualWebElement.SendKeys(Keys.Escape)
+                ));
+            }
+            return this;
+        }
+
+        // TODO: Do we need an alias to Type(keys) – Press(keys) ?
+        //       kind of for better logging in report (when we have full support for that)
+
+        public SeleneElement SetValue(string keys) // TODO: why the param is named keys o_O :) Do we have time to rename it? )
+        {
+            if (this.config.SetValueByJs ?? Configuration.SetValueByJs) 
+            {
+                // TODO: should we check here for NotOverlappedWebElement too?
+                //       i.e. should we consider a setValueByJs 
+                //       just as a faster clear + set alternative to SendKeys
+                //       or additional a kind of hacky workaround to set value ...       
+                //       probably just a first...
+                this.Wait.For(new _Lambda<SeleneElement, object>(
+                    $"JsSetValue({keys})",
+                    self => self.JsSetValue(keys)
+                ));
+            }
+            else
+            {
+                if (this.config.WaitForNoOverlayByJs ?? false)
+                {
+                    this.Wait.For(new _Lambda<SeleneElement, object>(
+                        $"ActualNotOverlappedWebElement.Clear().SendKeys({keys})", // TODO: should we render it as SetValue({keys})?
+                        self =>
+                        {
+                            var webelement = self.ActualNotOverlappedWebElement;
+                            webelement.Clear();
+                            webelement.SendKeys(keys);
+                        }
+                    ));
+                }
+                else
+                {
+                    this.Wait.For(new _Lambda<SeleneElement, object>(
+                        $"ActualWebElement.Clear().SendKeys({keys})", // TODO: should we render it as SetValue({keys})?
+                        self =>
+                        {
+                            var webelement = self.ActualWebElement;
+                            webelement.Clear();
+                            webelement.SendKeys(keys);
+                        }
+                    ));
+                }
+            }
+            return this;
+        }
+
+        // TODO: consider moving to Extensions or even deprecate
+        public SeleneElement Set(string value)
+        {
+            return SetValue(value);
+        }
+
+        public SeleneElement Hover()
+        {
+            if (this.config.WaitForNoOverlayByJs ?? false)
+            {
+                this.Wait.For(
+                    self
+                    =>
+                    self.Actions.MoveToElement(self.ActualNotOverlappedWebElement).Perform()
+                );
+            }
+            else
+            {
+                this.Wait.For(
+                    self
+                    =>
+                    self.Actions.MoveToElement(self.ActualWebElement).Perform()
+                );
+            }
+            return this;
+        }
+
+        public SeleneElement DoubleClick()
+        {
+            if (this.config.WaitForNoOverlayByJs ?? false)
+            {
+                this.Wait.For(
+                    self
+                    =>
+                    self.Actions.DoubleClick(self.ActualNotOverlappedWebElement).Perform()
+                );
+            }
+            else
+            {
+                this.Wait.For(
+                    self
+                    =>
+                    self.Actions.DoubleClick(self.ActualWebElement).Perform()
+                );
+            }
+            return this;
         }
 
         //
@@ -410,7 +494,14 @@ namespace NSelene
             }
              */
 
-            this.Wait.For(self => self.ActualNotOverlappedWebElement.Clear());
+            if (this.config.WaitForNoOverlayByJs ?? false)
+            {
+                this.Wait.For(self => self.ActualNotOverlappedWebElement.Clear());
+            }
+            else
+            {
+                this.Wait.For(self => self.ActualWebElement.Clear());
+            }
             return this;
         }
 
@@ -424,10 +515,20 @@ namespace NSelene
                 ));
             } else
             {
-                this.Wait.For(new _Lambda<SeleneElement, object>(
-                    $"ActualNotOverlappedWebElement.SendKeys({keys})", // TODO: should we render it as Type({keys})?
-                    self => self.ActualNotOverlappedWebElement.SendKeys(keys)
-                ));
+                if (this.config.WaitForNoOverlayByJs ?? false)
+                {
+                    this.Wait.For(new _Lambda<SeleneElement, object>(
+                        $"ActualNotOverlappedWebElement.SendKeys({keys})", // TODO: should we render it as Type({keys})?
+                        self => self.ActualNotOverlappedWebElement.SendKeys(keys)
+                    ));
+                }
+                else
+                {
+                    this.Wait.For(new _Lambda<SeleneElement, object>(
+                        $"ActualNotOverlappedWebElement.SendKeys({keys})", // TODO: should we render it as Type({keys})?
+                        self => self.ActualWebElement.SendKeys(keys)
+                    ));
+                }
             }
             return this;
         }
@@ -436,8 +537,8 @@ namespace NSelene
         /// Summary:
         ///     A low level method similar to raw selenium webdriver one, 
         ///     with similar behaviour in context of "hidden" elements.
-        ///     Waits only till "Be.InDom".
-        ///     Useful to send keys to hidden elements, like "upload file input"
+        ///     Waits till "Be.InDom" for input fields with type="file".
+        ///     Hence is useful to send keys to hidden elements, like "upload file input"
         ///     Also it is chainable, like other SeleneElement's methods.
         ///
         public SeleneElement SendKeys(string keys)
@@ -460,8 +561,17 @@ namespace NSelene
 
         public SeleneElement Submit()
         {
-            // TODO: consider making ActualNotOverlappedWebElement configurable, cause somebody may not want extra js checks....
-            this.Wait.For(self => self.ActualNotOverlappedWebElement.Submit());
+            if (this.config.WaitForNoOverlayByJs ?? false)
+            {
+                this.Wait.For(self => self.ActualNotOverlappedWebElement.Submit());
+            }
+            else
+            {
+                // this will make to pass submit on hidden element
+                // TODO: maybe this is ok, because Submit is kind of low level method...
+                //       but should it then be a part of high level SeleneElement API?
+                this.Wait.For(self => self.ActualWebElement.Submit());
+            }
             return this;
         }
 
@@ -638,10 +748,14 @@ namespace NSelene
             // TODO: this method fails if this.ActualWebElement failed – this is pretty not in NSelene style!
             //       probably we have to  wrap it inside wait!
             IJavaScriptExecutor js = (IJavaScriptExecutor)this.config.Driver;
-            return js.ExecuteScript($@"
+            return js.ExecuteScript(
+                $@"
                 return (function(element, args) {{
                     {scriptOnElementAndArgs}
-                }})(arguments[0], arguments[1])", new object[] { this.ActualWebElement, args });
+                }})(arguments[0], arguments[1])
+                ", 
+                new object[] { this.ActualWebElement, args }
+            );
         }
     }
 }

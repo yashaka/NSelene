@@ -65,6 +65,37 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 ).ToList();
 
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
+                Assert.Contains("Browser.Element(input).ActualWebElement.Clear().SendKeys(overwritten)", lines);
+                Assert.Contains("Reason:", lines);
+                Assert.Contains(
+                    "no such element: Unable to locate element: "
+                    + "{\"method\":\"css selector\",\"selector\":\"input\"}"
+                    , 
+                    lines
+                );
+            }
+        }
+
+        [Test]
+        public void SetValue_IsRenderedInError_OnAbsentElementFailure_WhenCustomizedToWaitForNoOverlayByJs()
+        {
+            Configuration.Timeout = 0.25;
+            Configuration.PollDuringWaits = 0.1;
+            Given.OpenedEmptyPage();
+
+            try 
+            {
+                S("input").With(waitForNoOverlayByJs: true).SetValue("overwritten");
+            }
+
+            catch (TimeoutException error)
+            {
+                // TODO: shoud we check timing here too?
+                var lines = error.Message.Split("\n").Select(
+                    item => item.Trim()
+                ).ToList();
+
+                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
                 Assert.Contains("Browser.Element(input).ActualNotOverlappedWebElement.Clear().SendKeys(overwritten)", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.Contains(
@@ -95,6 +126,51 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             try 
             {
                 S("[type=file]").SetValue(path);
+            }
+
+            catch (TimeoutException error)
+            {
+                var lines = error.Message.Split("\n").Select(
+                    item => item.Trim()
+                ).ToList();
+
+                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
+                Assert.Contains($"Browser.Element([type=file]).ActualWebElement.Clear().SendKeys({path})", lines);
+                Assert.Contains("Reason:", lines);
+                Assert.Contains("element not interactable", lines);
+
+                Assert.AreEqual(
+                    "", 
+                    Configuration.Driver
+                    .FindElement(By.TagName("input")).GetAttribute("value")
+                );
+                Assert.AreEqual(
+                    "", 
+                    Configuration.Driver
+                    .FindElement(By.TagName("input")).GetProperty("value")
+                );
+            }
+        }
+        
+        [Test]
+        public void SetValue_FailsOnHiddenInputOfTypeFile_WhenCustomizedToWaitForNoOverlayByJs() // TODO: should we allow it here like in send keys? kind of sounds natural... but can we do that without drawing performance?
+        {
+            Configuration.Timeout = 0.25;
+            Configuration.PollDuringWaits = 0.1;
+            Given.OpenedPageWithBody(
+                @"
+                <input type='file' style='display:none'></input>
+                "
+            );
+
+            var path = new Uri(
+                new Uri(Assembly.GetExecutingAssembly().Location), 
+                "../../../Resources/empty.html" // TODO: use ./empty.html (tune csproj correspondingly)
+            ).AbsolutePath;
+            
+            try 
+            {
+                S("[type=file]").With(waitForNoOverlayByJs: true).SetValue(path);
             }
 
             catch (TimeoutException error)
@@ -179,6 +255,46 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 ).ToList();
 
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
+                Assert.Contains("Browser.Element(input).ActualWebElement.Clear().SendKeys(overwritten)", lines);
+                Assert.Contains("Reason:", lines);
+                Assert.Contains("element not interactable", lines);
+
+                Assert.AreEqual(
+                    "initial", 
+                    Configuration.Driver
+                    .FindElement(By.TagName("input")).GetAttribute("value")
+                );
+                Assert.AreEqual(
+                    "initial", 
+                    Configuration.Driver
+                    .FindElement(By.TagName("input")).GetProperty("value")
+                );
+            }
+        }
+
+        [Test]
+        public void SetValue_IsRenderedInError_OnHiddenElementFailure_WhenCustomizedToWaitForNoOverlayByJs()
+        {
+            Configuration.Timeout = 0.25;
+            Configuration.PollDuringWaits = 0.1;
+            Given.OpenedPageWithBody(
+                @"
+                <input value='initial' style='display:none'></input>
+                "
+            );
+
+            try 
+            {
+                S("input").With(waitForNoOverlayByJs: true).SetValue("overwritten");
+            }
+
+            catch (TimeoutException error)
+            {
+                var lines = error.Message.Split("\n").Select(
+                    item => item.Trim()
+                ).ToList();
+
+                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
                 Assert.Contains("Browser.Element(input).ActualNotOverlappedWebElement.Clear().SendKeys(overwritten)", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.Contains("javascript error: element is not visible", lines);
@@ -197,7 +313,54 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         }
 
         [Test]
-        public void SetValue_WaitsForNoOverlay()
+        public void SetValue_WorksUnderOverlay_ByDefault()
+        {
+            Configuration.Timeout = 1.0;
+            Configuration.PollDuringWaits = 0.1;
+            Given.OpenedPageWithBody(
+                @"
+                <div 
+                    id='overlay' 
+                    style='
+                        display:block;
+                        position: fixed;
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background-color: rgba(0,0,0,0.1);
+                        z-index: 2;
+                        cursor: pointer;
+                    '
+                >
+                </div>
+
+                <input value='initial'></input>
+                "
+            );
+            var beforeCall = DateTime.Now;
+
+            S("input").SetValue("overwritten");
+
+            var afterCall = DateTime.Now;
+            Assert.Less(afterCall, beforeCall.AddSeconds(0.5));
+            Assert.AreEqual(
+                "overwritten", 
+                Configuration.Driver
+                .FindElement(By.TagName("input")).GetAttribute("value")
+            );
+            Assert.AreEqual(
+                "overwritten", 
+                Configuration.Driver
+                .FindElement(By.TagName("input")).GetProperty("value")
+            );
+        }
+
+        [Test]
+        public void SetValue_WaitsForNoOverlay_WhenCustomized()
         {
             Configuration.Timeout = 1.0;
             Configuration.PollDuringWaits = 0.1;
@@ -233,9 +396,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 300
             );
 
-            S("input").SetValue("overwritten");
-            var afterCall = DateTime.Now;
+            S("input").With(waitForNoOverlayByJs: true).SetValue("overwritten");
 
+            var afterCall = DateTime.Now;
+            Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
+            Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
             Assert.AreEqual(
                 "overwritten", 
                 Configuration.Driver
@@ -246,12 +411,10 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Configuration.Driver
                 .FindElement(By.TagName("input")).GetProperty("value")
             );
-            Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
         }
 
         [Test]
-        public void SetValue_IsRenderedInError_OnOverlappedWithOverlayFailure()
+        public void SetValue_IsRenderedInError_OnOverlappedWithOverlayFailure_WhenCustomizedToWaitForNoOverlayByJs()
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
@@ -283,7 +446,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             try 
             {
-                S("input").SetValue("overwritten");
+                S("input").With(waitForNoOverlayByJs: true).SetValue("overwritten");
             }
 
             catch (TimeoutException error)

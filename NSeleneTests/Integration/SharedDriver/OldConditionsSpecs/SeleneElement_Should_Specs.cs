@@ -88,7 +88,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
             {
                 var afterCall = DateTime.Now;
                 Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
-                var accuracyDelta = 0.1;
+                var accuracyDelta = 0.2;
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 // TODO: shoud we check timing here too?
@@ -129,7 +129,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
             {
                 var afterCall = DateTime.Now;
                 Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
-                var accuracyDelta = 0.1;
+                var accuracyDelta = 0.2;
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 // TODO: shoud we check timing here too?
@@ -365,7 +365,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
             {
                 var afterCall = DateTime.Now;
                 Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
-                var accuracyDelta = 0.1;
+                var accuracyDelta = 0.2;
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 var lines = error.Message.Split("\n").Select(
@@ -433,7 +433,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
             {
                 var afterCall = DateTime.Now;
                 Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
-                var accuracyDelta = 0.1;
+                var accuracyDelta = 0.2;
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 var lines = error.Message.Split("\n").Select(

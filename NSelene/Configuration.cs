@@ -28,6 +28,7 @@ namespace NSelene
         bool? SetValueByJs { get; set; }
         bool? TypeByJs { get; set; }
         bool? ClickByJs { get; set; }
+        bool? WaitForNoOverlayByJs { get; set; }
     }
 
     /// Configuration is considered as a defined group of all settings
@@ -71,6 +72,7 @@ namespace NSelene
                 this._refDriver.Value = value;
             }
         }
+
         private Ref<double?> _refTimeout = new Ref<double?>();
         double? _SeleneSettings_.Timeout
         {
@@ -83,6 +85,7 @@ namespace NSelene
                 this._refTimeout.Value = value;
             }
         }
+
         private Ref<double?> _refPollDuringWaits = new Ref<double?>();
         double? _SeleneSettings_.PollDuringWaits
         {
@@ -95,6 +98,7 @@ namespace NSelene
                 this._refPollDuringWaits.Value = value;
             }
         }
+
         private Ref<bool?> _refSetValueByJs = new Ref<bool?>();
         bool? _SeleneSettings_.SetValueByJs
         {
@@ -107,6 +111,7 @@ namespace NSelene
                 this._refSetValueByJs.Value = value;
             }
         }
+
         private Ref<bool?> _refTypeByJs = new Ref<bool?>();
         bool? _SeleneSettings_.TypeByJs
         {
@@ -119,6 +124,7 @@ namespace NSelene
                 this._refTypeByJs.Value = value;
             }
         }
+
         private Ref<bool?> _refClickByJs = new Ref<bool?>();
         bool? _SeleneSettings_.ClickByJs
         {
@@ -132,13 +138,27 @@ namespace NSelene
             }
         }
 
+        private Ref<bool?> _refWaitForNoOverlayByJs = new Ref<bool?>();
+        bool? _SeleneSettings_.WaitForNoOverlayByJs
+        {
+            get
+            {
+                return this._refWaitForNoOverlayByJs.Value;
+            }
+            set
+            {
+                this._refWaitForNoOverlayByJs.Value = value;
+            }
+        }
+
         private Configuration(
             Ref<IWebDriver> refDriver,
             Ref<double?> refTimeout,
             Ref<double?> refPollDuringWaits,
             Ref<bool?> refSetValueByJs,
             Ref<bool?> refTypeByJs,
-            Ref<bool?> refClickByJs
+            Ref<bool?> refClickByJs,
+            Ref<bool?> refWaitForNoOverlayByJs
         )
         {
             _refDriver = refDriver ?? new Ref<IWebDriver>();
@@ -147,6 +167,7 @@ namespace NSelene
             _refSetValueByJs = refSetValueByJs ?? new Ref<bool?>();
             _refTypeByJs = refTypeByJs ?? new Ref<bool?>();
             _refClickByJs = refClickByJs ?? new Ref<bool?>();
+            _refWaitForNoOverlayByJs = refWaitForNoOverlayByJs ?? new Ref<bool?>();
         }
 
         // TODO: consider making public
@@ -159,7 +180,8 @@ namespace NSelene
             refPollDuringWaits: null,
             refSetValueByJs: null,
             refTypeByJs: null,
-            refClickByJs: null
+            refClickByJs: null,
+            refWaitForNoOverlayByJs: null
         ) {}
 
         public static _SeleneSettings_ _New_(
@@ -168,7 +190,8 @@ namespace NSelene
             double pollDuringWaits = 0.1,
             bool setValueByJs = false,
             bool typeByJs = false,
-            bool clickByJs = false
+            bool clickByJs = false,
+            bool waitForNoOverlayByJs = false
         )
         {
             _SeleneSettings_ next = new Configuration();
@@ -179,6 +202,7 @@ namespace NSelene
             next.SetValueByJs = setValueByJs;
             next.TypeByJs = typeByJs;
             next.ClickByJs = clickByJs;
+            next.WaitForNoOverlayByJs = waitForNoOverlayByJs;
 
             return next;
         }
@@ -209,6 +233,10 @@ namespace NSelene
             refClickByJs: new Ref<bool?>(
                 getter: () => Configuration.ClickByJs,
                 setter: value => Configuration.ClickByJs = value ?? false
+            ),
+            refWaitForNoOverlayByJs: new Ref<bool?>(
+                getter: () => Configuration.WaitForNoOverlayByJs,
+                setter: value => Configuration.WaitForNoOverlayByJs = value ?? false
             )
         );
 
@@ -221,7 +249,8 @@ namespace NSelene
             double? pollDuringWaits = null,
             bool? setValueByJs = null,
             bool? typeByJs = null,
-            bool? clickByJs = null
+            bool? clickByJs = null,
+            bool? waitForNoOverlayByJs = null
         )
         {
             _SeleneSettings_ next = new Configuration();
@@ -232,6 +261,7 @@ namespace NSelene
             next.SetValueByJs = setValueByJs;
             next.TypeByJs = typeByJs;
             next.ClickByJs = clickByJs;
+            next.WaitForNoOverlayByJs = waitForNoOverlayByJs;
 
             return Configuration.Shared.With(next);
         }
@@ -258,7 +288,10 @@ namespace NSelene
                 : new Ref<bool?>(overrides.TypeByJs),
                 refClickByJs: overrides.ClickByJs == null
                 ? this._refClickByJs
-                : new Ref<bool?>(overrides.ClickByJs)
+                : new Ref<bool?>(overrides.ClickByJs),
+                refWaitForNoOverlayByJs: overrides.WaitForNoOverlayByJs == null
+                ? this._refWaitForNoOverlayByJs
+                : new Ref<bool?>(overrides.WaitForNoOverlayByJs)
             );
         }
 
@@ -350,6 +383,19 @@ namespace NSelene
             set
             {
                 Configuration._ClickByJs.Value = value;
+            }
+        }
+
+        private static ThreadLocal<bool?> _WaitForNoOverlayByJs = new ThreadLocal<bool?>();
+        public static bool WaitForNoOverlayByJs
+        {
+            get
+            {
+                return Configuration._WaitForNoOverlayByJs.Value ?? false;
+            }
+            set
+            {
+                Configuration._WaitForNoOverlayByJs.Value = value;
             }
         }
 

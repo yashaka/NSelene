@@ -21,9 +21,15 @@ namespace NSelene
             return Configuration.Driver;
         }
         
+        /// Summary:
+        ///   Might return null if not casted to IJavaScriptExecutor, 
+        ///   e.g. for some Appium Driver instance
+        ///   TODO: should we return null here or something else? 
+        ///         (ExecuteScript can return null on its own... 
+        ///         do we need to distinguish such cases?)
         public static object ExecuteScript(string script)
         {
-            return (GetWebDriver() as IJavaScriptExecutor).ExecuteScript(script);
+            return (GetWebDriver() as IJavaScriptExecutor)?.ExecuteScript(script);
         }
 
         public static SeleneElement S(By locator)
