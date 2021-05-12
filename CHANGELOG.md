@@ -5,11 +5,21 @@
 - do we need SeleneDriver anymore? (if we go the direction of SeleneBrowser)
 
 
-## 1.0.0-alpha06 (to be released on 2021.05.??)
+## 1.0.0-alpha07 (to be released on 2021.05.??)
 - deprecate the majority of Selene.* (except S, SS) when providing alternative API via Browser.*
 
+## 1.0.0-alpha06 (to be released on 2021.05.12)
+- turned off "waiting for no overlay" that was built-in in alpha05 in all actions. ([#85](https://github.com/yashaka/NSelene/issues/85))
+  - cause it could break some NSelene + Appium mobile tests that can't use JS, while this waiting was built on top of JS so it's relevant only for web... 
+  - yet the Configuration.WaitForNoOverlapFoundByJs was added (false by default)
+    - so you can turn it on globally by Configuration.WaitForNoOverlapFoundByJs = true
+    - or per element by element.With(waitForNoOverlapFoundByJs: true)
+  - in future we might made this waiting enabled by default, when we provide better docs and plugins to work with Appium
+- added rendering of elements under overlay into errors ([#84](https://github.com/yashaka/NSelene/issues/84))
+  - made rendering elements HTML – lazy (when waiting for no overlap)
+    - should improve performance in context of polling during waiting
 
-## 1.0.0-alpha05 (to be released on 2021.04.28)
+## 1.0.0-alpha05 (released on 2021.04.28)
 
 ### SUMMARY:
   * upgraded waiting of commands, error messages, thread local configuration, etc. (see CHANGELOG for more details)

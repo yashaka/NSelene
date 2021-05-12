@@ -34,7 +34,7 @@ For docs see tests in the [NSeleneTests](https://github.com/yashaka/NSelene/blob
 
 ## Versions
   
-* Upcomig version to use is just released [1.0.0-alpha05](https://www.nuget.org/packages/NSelene/1.0.0-alpha05)
+* Upcomig version to use is just released [1.0.0-alpha06](https://www.nuget.org/packages/NSelene/1.0.0-alpha06)
   * targets netstandard2.0
     * net45 support may be added later
   * it differs from [0.0.0.7](https://www.nuget.org/packages/NSelene/0.0.0.7) in the following:
@@ -101,6 +101,9 @@ NSelene has no fully automatic driver management. Given the [WebDriverManager] i
             string chromeVersion = "Latest"; // e.g. "83.0.4103.39" or "Latest", see https://chromedriver.chromium.org/downloads
             new DriverManager().SetUpDriver(new ChromeConfig(), version: chromeVersion)
             Configuration.Driver = new ChromeDriver();
+
+            // a handy option to enable automatic waiting for no overlay in web tests
+            Configuration.WaitForNoOverlapFoundByJs = true; 
         }
 
         [TearDown]
