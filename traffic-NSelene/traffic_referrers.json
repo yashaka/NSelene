@@ -11,7 +11,7 @@
   },
   {
     "referrer": "github.com",
-    "count": 26,
+    "count": 28,
     "uniques": 10
   },
   {
@@ -20,12 +20,22 @@
     "uniques": 1
   },
   {
-    "referrer": "nuget.org",
+    "referrer": "automated-testing.info",
     "count": 1,
     "uniques": 1
   },
   {
-    "referrer": "automated-testing.info",
+    "referrer": "mail.google.com",
+    "count": 1,
+    "uniques": 1
+  },
+  {
+    "referrer": "Bing",
+    "count": 1,
+    "uniques": 1
+  },
+  {
+    "referrer": "nuget.org",
     "count": 1,
     "uniques": 1
   }
