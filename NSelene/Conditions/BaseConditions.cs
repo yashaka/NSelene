@@ -6,41 +6,29 @@ namespace NSelene
 {
     namespace Conditions
     {
-        public class ConditionNotMatchedException : Exception
+        public class ConditionNotMatchedException : SeleneException
         {
-            public ConditionNotMatchedException() : this("condition not matched")
-            {
-            }
+            public ConditionNotMatchedException() : base("condition not matched") {}
 
-            public ConditionNotMatchedException(string message) : this(() => message)
-            {
-            }
+            public ConditionNotMatchedException(string message) : base(() => message) {}
 
-            public ConditionNotMatchedException(Func<string> renderMessage) : base("")
-            {
-                this.RenderMessage = renderMessage;
-            }
+            public ConditionNotMatchedException(Func<string> renderMessage) 
+            : base(renderMessage)
+            {}
 
             public ConditionNotMatchedException(
                 string message,
                 Exception innerException
             )
-            : this(() => message, innerException)
-            {
-            }
+            : base(message, innerException)
+            {}
 
             public ConditionNotMatchedException(
                 Func<string> renderMessage,
                 Exception innerException
             )
-            : base("", innerException)
-            {
-                this.RenderMessage = renderMessage;
-            }
-
-            public Func<string> RenderMessage { get; }
-
-            public override string Message => this.RenderMessage();
+            : base(renderMessage, innerException)
+            {}
         }
 
         // todo: consider renaming to NotCondition

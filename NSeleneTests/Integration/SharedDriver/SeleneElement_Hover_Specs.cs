@@ -310,8 +310,16 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                     lines
                 );
                 Assert.Contains("Reason:", lines);
+                Assert.Contains(
+                    "Element: <span "
+                    + "id=\"link\" "
+                    + "onmouseover=\"window.location=this.href + &quot;#second&quot;\""
+                    + ">to h2</span>"
+                    , 
+                    lines
+                );
                 Assert.NotNull(lines.Find(item => item.Contains(
-                    "Element is overlapped by: <div id=\"overlay\" "
+                    "is overlapped by: <div id=\"overlay\" "
                 )));
             }
         }

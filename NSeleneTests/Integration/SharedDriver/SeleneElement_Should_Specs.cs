@@ -169,7 +169,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             {
                 var afterCall = DateTime.Now;
                 Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
-                var accuracyDelta = 0.2;
+                var accuracyDelta = 0.25;
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 // TODO: shoud we check timing here too?

@@ -136,7 +136,12 @@ namespace NSelene
                 var webElement = locator.Find();
                 if (! webElement.Displayed)
                 {
-                    throw new WebDriverException("Element not visible");
+                    throw new SeleneException(
+                        () 
+                        => 
+                        "Element not visible:\n"
+                        + webElement.GetAttribute("outerHTML")
+                    );
                 }
                 return webElement;
             }
@@ -156,7 +161,12 @@ namespace NSelene
                 var (webElement, cover) = this.ActualVisibleWebElementAndMaybeItsCover();
                 if (cover != null)
                 {
-                    throw new WebDriverException($"Element is overlapped by: {cover.GetAttribute("outerHTML")}");
+                    throw new SeleneException(
+                        ()
+                        =>
+                        $"Element: {webElement.GetAttribute("outerHTML")}\n" 
+                        + $"\tis overlapped by: {cover.GetAttribute("outerHTML")}"
+                    );
                 }
                 return webElement;
             }

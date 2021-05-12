@@ -205,7 +205,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         public void DoubleClick_Waits_For_NoOverlay_IfCustomized()
         {
             Configuration.Timeout = 1.0;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.PollDuringWaits = 0.05;
             Given.OpenedPageWithBody(
                 @"
                 <div 
@@ -310,8 +310,16 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                     lines
                 );
                 Assert.Contains("Reason:", lines);
+                Assert.Contains(
+                    "Element: <span "
+                    + "id=\"link\" "
+                    + "ondblclick=\"window.location=this.href + &quot;#second&quot;\""
+                    + ">to h2</span>"
+                    , 
+                    lines
+                );
                 Assert.NotNull(lines.Find(item => item.Contains(
-                    "Element is overlapped by: <div id=\"overlay\" "
+                    "is overlapped by: <div id=\"overlay\" "
                 )));
             }
         }

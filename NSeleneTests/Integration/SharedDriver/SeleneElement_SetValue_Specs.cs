@@ -458,8 +458,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
                 Assert.Contains("Browser.Element(input).ActualNotOverlappedWebElement.Clear().SendKeys(overwritten)", lines);
                 Assert.Contains("Reason:", lines);
+                Assert.Contains("Element: <input value=\"initial\">", lines);
                 Assert.NotNull(lines.Find(item => item.Contains(
-                    "Element is overlapped by: <div id=\"overlay\" "
+                    "is overlapped by: <div id=\"overlay\" "
                 )));
             }
         }

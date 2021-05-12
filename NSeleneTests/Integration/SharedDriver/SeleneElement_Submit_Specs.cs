@@ -291,7 +291,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 >
                 </div>
 
-                <form action='#second'>go to Heading 2</form>
+                <form action='#second'>go to H2</form>
                 <h2 id='second'>Heading 2</h2>
                 "
             );
@@ -310,8 +310,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
                 Assert.Contains("Browser.Element(form).ActualNotOverlappedWebElement.Submit()", lines);
                 Assert.Contains("Reason:", lines);
+                Assert.Contains("Element: <form action=\"#second\">go to H2</form>", lines);
                 Assert.NotNull(lines.Find(item => item.Contains(
-                    "Element is overlapped by: <div id=\"overlay\" "
+                    "is overlapped by: <div id=\"overlay\" "
                 )));
             }
         }

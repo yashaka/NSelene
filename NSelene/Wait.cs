@@ -183,10 +183,10 @@ namespace NSelene
                         var describedLambda = this.describeLambdaName(computation.ToString());
                         var failure = new TimeoutException(
                             "\n"
-                            + $"\tTimed out after {this.timeout}s, while waiting for:\n"
+                            + $"Timed out after {this.timeout}s, while waiting for:\n"
                             + $"\t{this.entity}.{describedLambda}\n" // TODO: handle trailing spaces
                             + "Reason:\n"
-                            + $"\t{error.Message}"
+                            + $"\t{error.Message}" // TODO: error.Message or error?
                             ,
                             error
                         );
