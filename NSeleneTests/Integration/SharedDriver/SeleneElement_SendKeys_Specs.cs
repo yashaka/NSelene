@@ -219,8 +219,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             );
 
             S("input").SendKeys("and after");
-            var afterCall = DateTime.Now;
 
+            var afterCall = DateTime.Now;
+            Assert.Less(afterCall, beforeCall.AddSeconds(0.5));
             Assert.AreEqual(
                 "before and after", 
                 Configuration.Driver
@@ -231,7 +232,6 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Configuration.Driver
                 .FindElement(By.TagName("input")).GetProperty("value")
             );
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.3));
         }
 
         // [Test] // TODO: SEEMS LIKE THIS TEST PASSES!!! WHY? investigate and fix it!

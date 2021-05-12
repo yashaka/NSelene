@@ -61,6 +61,41 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
             Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
         }
+        [Test]
+        public void Click_IsRenderedInError_OnHiddenFailure()
+        {
+            Configuration.Timeout = 0.25;
+            Configuration.PollDuringWaits = 0.1;
+            Given.OpenedPageWithBody(
+                @"
+                <a id='link' href='#second' style='display:none'>go to Heading 2</a>
+                <h2 id='second'>Heading 2</h2>
+                "
+            );
+            var beforeCall = DateTime.Now;
+
+            try 
+            {
+                S("a").Click();
+                Assert.Fail("should fail with exception");
+            }
+
+            catch (TimeoutException error)
+            {
+                var afterCall = DateTime.Now;
+                Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
+                Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
+
+                var lines = error.Message.Split("\n").Select(
+                    item => item.Trim()
+                ).ToList();
+
+                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
+                Assert.Contains("Browser.Element(a).ActualWebElement.Click()", lines);
+                Assert.Contains("Reason:", lines);
+                Assert.Contains("element not interactable", lines);
+            }
+        }
 
         [Test]
         public void Click_Waits_For_NoOverlay()
@@ -143,6 +178,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             try 
             {
                 S("a").Click();
+                Assert.Fail("should fail with exception");
             }
 
             catch (TimeoutException error)

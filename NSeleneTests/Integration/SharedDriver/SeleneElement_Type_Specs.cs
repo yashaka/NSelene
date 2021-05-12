@@ -198,7 +198,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             }
         }
         [Test]
-        public void Type_IsRenderedInError_OnHiddenElementFailure_WhenCustomizedToWaitByJsForNotOverlapped()
+        public void Type_IsRenderedInError_OnHiddenElementFailure_WhenCustomizedToWaitForNoOverlapFoundByJs()
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
@@ -210,7 +210,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             try 
             {
-                S("input").With(waitByJsForNotOverlapped: true).Type("and after");
+                S("input").With(waitForNoOverlapFoundByJs: true).Type("and after");
             }
 
             catch (TimeoutException error)
@@ -321,7 +321,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 300
             );
 
-            S("input").With(waitByJsForNotOverlapped: true).Type("and after");
+            S("input").With(waitForNoOverlapFoundByJs: true).Type("and after");
 
             var afterCall = DateTime.Now;
             Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
@@ -370,7 +370,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             try 
             {
-                S("input").With(waitByJsForNotOverlapped: true).Type("and after");
+                S("input").With(waitForNoOverlapFoundByJs: true).Type("and after");
             }
 
             catch (TimeoutException error)

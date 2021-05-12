@@ -64,7 +64,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         }
         
         [Test]
-        public void Submit_IsRenderedInError_OnAbsentElementFailure_WhenCustomizedToWaitByJsForNotOverlapped()
+        public void Submit_IsRenderedInError_OnAbsentElementFailure_WhenCustomizedToWaitForNoOverlapFoundByJs()
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
@@ -72,7 +72,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             try 
             {
-                S("form").With(waitByJsForNotOverlapped: true).Submit();
+                S("form").With(waitForNoOverlapFoundByJs: true).Submit();
             }
 
             catch (TimeoutException error)
@@ -123,7 +123,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         }
 
         [Test]
-        public void Submit_WaitsForVisibility_OfInitialyHidden_WhenCustomizedToWaitByJsForNotOverlapped()
+        public void Submit_WaitsForVisibility_OfInitialyHidden_WhenCustomizedToWaitForNoOverlapFoundByJs()
         {
             Configuration.Timeout = 0.6;
             Configuration.PollDuringWaits = 0.1;
@@ -141,7 +141,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 300
             );
 
-            S("form").With(waitByJsForNotOverlapped: true).Submit();
+            S("form").With(waitForNoOverlapFoundByJs: true).Submit();
 
             var afterCall = DateTime.Now;
             Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
@@ -151,7 +151,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         }
         
         [Test]
-        public void Submit_IsRenderedInError_OnHiddenElementFailure_WhenCustomizedToWaitByJsForNotOverlapped()
+        public void Submit_IsRenderedInError_OnHiddenElementFailure_WhenCustomizedToWaitForNoOverlapFoundByJs()
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
@@ -164,7 +164,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             try 
             {
-                S("form").With(waitByJsForNotOverlapped: true).Submit();
+                S("form").With(waitForNoOverlapFoundByJs: true).Submit();
             }
 
             catch (TimeoutException error)
@@ -257,7 +257,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 300
             );
 
-            S("form").With(waitByJsForNotOverlapped: true).Submit(); // TODO: this overlay works only for "overlayying at center of element", handle the "partial overlay" cases too!
+            S("form").With(waitForNoOverlapFoundByJs: true).Submit(); // TODO: this overlay works only for "overlayying at center of element", handle the "partial overlay" cases too!
             
             var afterCall = DateTime.Now;
             Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
@@ -266,7 +266,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         }
 
         [Test]
-        public void Submit_IsRenderedInError_OnOverlappedWithOverlayFailure_WhenCustomizedToWaitByJsForNotOverlapped()
+        public void Submit_IsRenderedInError_OnOverlappedWithOverlayFailure_WhenCustomizedToWaitForNoOverlapFoundByJs()
         {
             Configuration.Timeout = 0.25;
             Configuration.PollDuringWaits = 0.1;
@@ -298,7 +298,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             try 
             {
-                S("form").With(waitByJsForNotOverlapped: true).Submit();
+                S("form").With(waitForNoOverlapFoundByJs: true).Submit();
             }
 
             catch (TimeoutException error)
