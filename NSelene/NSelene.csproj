@@ -33,16 +33,16 @@
   - by default equals to null, making internally call waiting algorithm for actions as it is, without additional customization
   - specified to something like:
     ```
-    Configuration._HookWaitAction = (entity_object, describe_computation, wait) => {
-        Console.WriteLine($"STARTED WAITING FOR: {entity_object}.{describe_computation()}");
+    Configuration._HookWaitAction = (entityObject, describeComputation, wait) => {
+        Console.WriteLine($"STARTED WAITING FOR: {entityObject}.{describeComputation()}");
         try
         {
             wait();
-            Console.WriteLine($"FINISHED WAITING FOR: {entity_object}.{describe_computation()}");
+            Console.WriteLine($"FINISHED WAITING FOR: {entityObject}.{describeComputation()}");
         }
         catch (Exception error)
         {
-            Console.WriteLine($"FAILED WAITING FOR: {entity_object}.{describe_computation()}");
+            Console.WriteLine($"FAILED WAITING FOR: {entityObject}.{describeComputation()}");
             throw error;
         }
     };

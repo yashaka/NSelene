@@ -36,17 +36,17 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
             Configuration.ClickByJs = false;
             Configuration.WaitForNoOverlapFoundByJs = false;
 
-            // Configuration._HookWaitAction = (entity_object, describe_computation, wait) =>
+            // Configuration._HookWaitAction = (entityObject, describeComputation, wait) =>
             // {
-            //     TestContext.Progress.WriteLine($"STARTED WAITING FOR: {entity_object}.{describe_computation()}");
+            //     TestContext.Progress.WriteLine($"STARTED WAITING FOR: {entityObject}.{describeComputation()}");
             //     try
             //     {
             //         wait();
-            //         TestContext.Progress.WriteLine($"FINISHED WAITING FOR: {entity_object}.{describe_computation()}");
+            //         TestContext.Progress.WriteLine($"FINISHED WAITING FOR: {entityObject}.{describeComputation()}");
             //     }
             //     catch (Exception error)
             //     {
-            //         TestContext.Progress.WriteLine($"FAILED WAITING FOR: {entity_object}.{describe_computation()}");
+            //         TestContext.Progress.WriteLine($"FAILED WAITING FOR: {entityObject}.{describeComputation()}");
             //         throw error;
             //     }
             // };

@@ -133,7 +133,7 @@ namespace NSelene
             this.timeout = timeout;
             this.polling = polling;
             this.describeComputation = _describeComputation ?? (name => name);
-            this._HookAction = _hookAction ?? ((entity_object, describeComputation, wait) => wait());
+            this._HookAction = _hookAction ?? ((entityObject, describeComputation, wait) => wait());
         }
 
         public Wait<T> With(
