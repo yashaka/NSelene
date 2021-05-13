@@ -23,7 +23,7 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
             );
 
             var options = new ChromeOptions();
-            // options.AddArguments("headless");
+            options.AddArguments("headless");
             this._driver = new ChromeDriver(options);
 
             // explicit resetting defaults
