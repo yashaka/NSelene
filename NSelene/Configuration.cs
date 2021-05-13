@@ -152,7 +152,7 @@ namespace NSelene
             }
         }
  
-        private Ref<Action<object, Func<string>, Action>> _ref_HookWaitAction = new Ref<Action<object, Func<string>, Action>>();
+        private Ref<Action<object, Func<string>, Action>> _ref_HookWaitAction;// = new Ref<Action<object, Func<string>, Action>>();
         Action<object, Func<string>, Action> _SeleneSettings_._HookWaitAction
         {
             get
@@ -183,7 +183,7 @@ namespace NSelene
             _refTypeByJs = refTypeByJs ?? new Ref<bool?>();
             _refClickByJs = refClickByJs ?? new Ref<bool?>();
             _refWaitForNoOverlapFoundByJs = refWaitForNoOverlapFoundByJs ?? new Ref<bool?>();
-            _ref_HookWaitAction = _ref_HookWaitAction ?? new Ref<Action<object, Func<string>, Action>>();
+            this._ref_HookWaitAction = _ref_HookWaitAction ?? new Ref<Action<object, Func<string>, Action>>();
         }
 
         // TODO: consider making public
@@ -259,7 +259,7 @@ namespace NSelene
             ),
             _ref_HookWaitAction: new Ref<Action<object, Func<string>, Action>>(
                 getter: () => Configuration._HookWaitAction,
-                setter: value => Configuration._HookWaitAction = value ?? null
+                setter: value => Configuration._HookWaitAction = value
             )
         );
 
@@ -432,7 +432,7 @@ namespace NSelene
         {
             get
             {
-                return Configuration.__HookWaitAction.Value ?? null;
+                return Configuration.__HookWaitAction.Value;
             }
             set
             {
