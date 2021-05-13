@@ -18,7 +18,7 @@ namespace NSelene
         string ToString();
     }
 
-    public struct _Optionally<T>
+    public struct _Result<T>
     {
         private readonly T[] _value;
 
@@ -36,20 +36,20 @@ namespace NSelene
 
         public bool HasNothing => !HasSomething;
 
-        private _Optionally(T[] value)
+        private _Result(T[] value)
         {
             _value = value;
         }
 
-        public static _Optionally<T> Defined(T obj) => new _Optionally<T>(new T[] { obj });
+        public static _Result<T> Defined(T obj) => new _Result<T>(new T[] { obj });
 
-        public static _Optionally<T> Undefined => new _Optionally<T>(new T[] { });
+        public static _Result<T> Undefined => new _Result<T>(new T[] { });
     }
 
     // TODO: SO... Computation vs Operation? - which is better? as a name... 
     public interface _Computation<TEntity, TResult> // TODO: TResult might be missed/undefined... how to reflect it?
     {
-        _Optionally<TResult> _Invoke(TEntity entity); // TODO: should we name it as Perform?
+        _Result<TResult> _Invoke(TEntity entity); // TODO: should we name it as Perform?
         // string ToString(); // TODO: do we need to make this definition explicit?
     }
 
@@ -101,14 +101,14 @@ namespace NSelene
         }
 
         // TODO: move from TResult to Maybe<TResult>
-        public _Optionally<TResult> _Invoke(TEntity entity)  // TODO: should we name it Call like in selenidejs?
+        public _Result<TResult> _Invoke(TEntity entity)  // TODO: should we name it Call like in selenidejs?
         {
             if (this.MaybeFunc != null)
             {
-                return _Optionally<TResult>.Defined(this.MaybeFunc(entity));
+                return _Result<TResult>.Defined(this.MaybeFunc(entity));
             }
             this.MaybeAction(entity);
-            return _Optionally<TResult>.Undefined;
+            return _Result<TResult>.Undefined;
         }
     }
 
@@ -118,19 +118,19 @@ namespace NSelene
         private readonly T entity;
         private readonly double timeout;
         private readonly double polling;
-        private readonly Func<string, string> describeLambdaName;
+        private readonly Func<string, string> describeComputation;
 
         public Wait(
             T entity,
             double timeout,
             double polling,
-            Func<string, string> _describeLambdaName = null
+            Func<string, string> _describeComputation = null
         )
         {
             this.entity = entity;
             this.timeout = timeout;
             this.polling = polling;
-            this.describeLambdaName = _describeLambdaName ?? (name => name);
+            this.describeComputation = _describeComputation ?? (name => name);
         }
 
         public bool Until(Expression<Action<T>> action) => Until(new _Lambda<T, object>(action));
@@ -158,7 +158,7 @@ namespace NSelene
             return optional.Value;
         }
 
-        internal _Optionally<R> For<R>(_Computation<T, R> computation) // TODO: should we accept an interface here? make Lambda an interface? or add Operation interface?
+        internal _Result<R> For<R>(_Computation<T, R> computation) // TODO: should we accept an interface here? make Lambda an interface? or add Operation interface?
         {
             var timeoutSpan = TimeSpan.FromSeconds(this.timeout);
             var finishTime = DateTime.Now.Add(timeoutSpan);
@@ -180,7 +180,7 @@ namespace NSelene
                     if (DateTime.Now > finishTime)
                     {
                         // TODO: should we move this error formatting to the Error class definition?
-                        var describedLambda = this.describeLambdaName(computation.ToString());
+                        var describedLambda = this.describeComputation(computation.ToString());
                         var failure = new TimeoutException(
                             "\n"
                             + $"Timed out after {this.timeout}s, while waiting for:\n"

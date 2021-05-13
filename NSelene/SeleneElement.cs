@@ -93,7 +93,7 @@ namespace NSelene
                     entity: this,
                     timeout: this.config.Timeout ?? Configuration.Timeout,
                     polling: this.config.PollDuringWaits ?? Configuration.PollDuringWaits,
-                    _describeLambdaName: it => paramsAndTheirUsagePattern.Replace(
+                    _describeComputation: it => paramsAndTheirUsagePattern.Replace(
                         it, 
                         ""
                     )

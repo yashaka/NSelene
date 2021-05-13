@@ -133,10 +133,10 @@ namespace NSelene
             ///     the ConditionNotMatchedException is recommended to use;)
             public abstract void Invoke(TEntity entity);
 
-            _Optionally<object> _Computation<TEntity, object>._Invoke(TEntity entity)
+            _Result<object> _Computation<TEntity, object>._Invoke(TEntity entity)
             {
                 ((Condition<TEntity>)this).Invoke(entity);
-                return _Optionally<object>.Undefined;
+                return _Result<object>.Undefined;
             }
 
             public Condition<TEntity> Not
