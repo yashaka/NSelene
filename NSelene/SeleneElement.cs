@@ -254,7 +254,10 @@ namespace NSelene
 
         public SeleneElement Should(Condition<SeleneElement> condition)
         {
-            this.Wait.For(condition);
+            var wait = this.Wait.With(
+                _describeComputation: (name => $"Should({name})")
+            );
+            wait.For(condition);
             return this;
         }
 

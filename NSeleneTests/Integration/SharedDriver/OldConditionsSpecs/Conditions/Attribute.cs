@@ -32,7 +32,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 
             public override string DescribeExpected()
             {
-                return this.name + "='" + this.expectedValue + "'";
+                return "Have.Attribute(" + this.name + "='" + this.expectedValue + "')";
             }
         }
 

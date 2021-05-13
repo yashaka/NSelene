@@ -5,10 +5,38 @@
 - do we need SeleneDriver anymore? (if we go the direction of SeleneBrowser)
 
 
-## 1.0.0-alpha07 (to be released on 2021.05.??)
+## 1.0.0-alpha08 (to be released on 2021.05.??)
 - deprecate the majority of Selene.* (except S, SS) when providing alternative API via Browser.*
 
-## 1.0.0-alpha06 (to be released on 2021.05.12)
+## 1.0.0-alpha07 (to be released on 2021.05.13)
+- improved error messsages 
+  - now condition in Should method will be rendered like: 
+    `... .Should(Be.Visible)` over just `... .Visible`
+- added experimental feature: Configuration._HookWaitAction
+  - prefixed with underscore implies that this feature is kind of "publically available private property that might be changed/renamed/removed/etc in future;)", so use it on your own risk!!!
+  - by default equals to null, making internally call waiting algorithm for actions as it is, without additional customization
+  - specified to something like:
+    ```
+    Configuration._HookWaitAction = (entity_object, describe_computation, wait) => {
+        Console.WriteLine($"STARTED WAITING FOR: {entity_object}.{describe_computation()}");
+        try
+        {
+            wait();
+            Console.WriteLine($"FINISHED WAITING FOR: {entity_object}.{describe_computation()}");
+        }
+        catch (Exception error)
+        {
+            Console.WriteLine($"FAILED WAITING FOR: {entity_object}.{describe_computation()}");
+            throw error;
+        }
+    };
+    ```
+    - should provide some additinal logging for all Selene actions, called on entities (like SeleneElement, SeleneCollection)
+    - under actions we mean "void commands" not "queries returning result". 
+      - void command like element.Should(condition) will return the element itself instead of void ;)
+
+
+## 1.0.0-alpha06 (released on 2021.05.12)
 - turned off "waiting for no overlay" that was built-in in alpha05 in all actions. ([#85](https://github.com/yashaka/NSelene/issues/85))
   - cause it could break some NSelene + Appium mobile tests that can't use JS, while this waiting was built on top of JS so it's relevant only for web... 
   - yet the Configuration.WaitForNoOverlapFoundByJs was added (false by default)

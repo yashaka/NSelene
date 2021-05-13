@@ -17,7 +17,7 @@ namespace NSelene
 
             public override string ToString()
             {
-                return $"Attribute({this.name} = «{this.expectedValue}»)";
+                return $"Have.Attribute({this.name} = «{this.expectedValue}»)";
             }
 
             public override void Invoke(SeleneElement entity)

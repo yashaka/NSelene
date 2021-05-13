@@ -2,13 +2,21 @@ namespace NSelene
 {
     namespace Conditions
     {
-        public class Enabled : DescribedCondition<SeleneElement>
+        public class Enabled : Condition<SeleneElement>
         {
-
-            public override bool Apply(SeleneElement entity)
+            public override void Invoke(SeleneElement entity)
             {
-                return entity.ActualWebElement.Enabled;
+                var webelement = entity.ActualWebElement;
+                if (!webelement.Enabled) 
+                {
+                    throw new ConditionNotMatchedException(() => 
+                        "Found element is not enabled: "
+                        + webelement.GetAttribute("outerHTML")
+                    );
+                }
             }
+
+            public override string ToString() => "Be.Enabled";
         }
 
     }

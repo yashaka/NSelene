@@ -2,13 +2,21 @@ namespace NSelene
 {
     namespace Conditions
     {
-        public class Selected : DescribedCondition<SeleneElement>
+        public class Selected : Condition<SeleneElement>
         {
-
-            public override bool Apply(SeleneElement entity)
+            public override void Invoke(SeleneElement entity)
             {
-                return entity.ActualWebElement.Selected;
+                var webelement = entity.ActualWebElement;
+                if (!webelement.Selected) 
+                {
+                    throw new ConditionNotMatchedException(() => 
+                        "Found element is not selected: "
+                        + webelement.GetAttribute("outerHTML")
+                    );
+                }
             }
+
+            public override string ToString() => "Be.Selected";
         }
 
     }

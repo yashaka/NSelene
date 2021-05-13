@@ -15,7 +15,7 @@ namespace NSelene
 
             public override string ToString()
             {
-                return $"TextContaining(«{this.expected}»)";
+                return $"Have.TextContaining(«{this.expected}»)";
             }
 
             public override void Invoke(SeleneElement entity)
@@ -43,7 +43,7 @@ namespace NSelene
 
             public override string ToString()
             {
-                return $"ExactText(«{this.expected}»)";
+                return $"Have.ExactText(«{this.expected}»)";
             }
 
             public override void Invoke(SeleneElement entity)

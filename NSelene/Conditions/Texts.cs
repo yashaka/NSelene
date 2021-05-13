@@ -43,7 +43,7 @@ namespace NSelene
 
             public override string DescribeExpected()
             {
-                return "[" + string.Join(",", this.expected) + "]";
+                return "Have.Texts [" + string.Join(",", this.expected) + "]";
             }
         }
 
@@ -55,6 +55,11 @@ namespace NSelene
             {
                 this.actual = entity.ActualWebElements.Select(element => element.Text).ToArray();
                 return this.actual.SequenceEqual(this.expected);
+            }
+
+            public override string DescribeExpected()
+            {
+                return "Have.ExactTexts [" + string.Join(",", this.expected) + "]";
             }
         }
 

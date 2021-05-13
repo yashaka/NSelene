@@ -56,7 +56,7 @@ namespace NSelene
 
             public override string ToString()
             {
-                return $"not {this.condition}";
+                return $"Not.{this.condition}";
             }
         }
 

@@ -151,7 +151,10 @@ namespace NSelene
 
         public SeleneCollection Should(Condition<SeleneCollection> condition)
         {
-            this.Wait.For(condition);
+            var wait = this.Wait.With(
+                _describeComputation: (name => $"Should({name})")
+            );
+            wait.For(condition);
             return this;
         }
 

@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -34,6 +35,21 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
             Configuration.TypeByJs = false;
             Configuration.ClickByJs = false;
             Configuration.WaitForNoOverlapFoundByJs = false;
+
+            // Configuration._HookWaitAction = (entity_object, describe_computation, wait) =>
+            // {
+            //     TestContext.Progress.WriteLine($"STARTED WAITING FOR: {entity_object}.{describe_computation()}");
+            //     try
+            //     {
+            //         wait();
+            //         TestContext.Progress.WriteLine($"FINISHED WAITING FOR: {entity_object}.{describe_computation()}");
+            //     }
+            //     catch (Exception error)
+            //     {
+            //         TestContext.Progress.WriteLine($"FAILED WAITING FOR: {entity_object}.{describe_computation()}");
+            //         throw error;
+            //     }
+            // };
         }
 
         [OneTimeTearDown]

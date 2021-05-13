@@ -136,6 +136,22 @@ namespace NSelene
             this._HookAction = _hookAction ?? ((entity_object, describeComputation, wait) => wait());
         }
 
+        public Wait<T> With(
+            // TODO: should allow to pass entity here too?
+            double? timeout = null,
+            double? polling = null,
+            Func<string, string> _describeComputation = null,
+            Action<object, Func<string>, Action> _hookAction = null
+        ) 
+        {
+            return new Wait<T>(
+                this.entity, 
+                timeout ?? this.timeout, 
+                polling ?? this.polling, 
+                _describeComputation ?? this.describeComputation
+            );
+        }
+
         public bool Until(Expression<Action<T>> action) => Until(new _Lambda<T, object>(action));
         public bool Until<R>(Expression<Func<T, R>> func) => Until(new _Lambda<T, R>(func));
 

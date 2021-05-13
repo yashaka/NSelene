@@ -4,24 +4,14 @@ namespace NSelene
 {
     namespace Conditions
     {
-        public class InDom : DescribedCondition<SeleneElement>
+        public class InDom : Condition<SeleneElement>
         {
-
-            public override bool Apply(SeleneElement entity)
+            public override void Invoke(SeleneElement entity)
             {
-                var webelement = entity.ActualWebElement;
-                return true;
+                var found = entity.ActualWebElement;
             }
 
-            public override string DescribeActual()
-            {
-                return false.ToString();
-            }
-
-            public override string DescribeExpected()
-            {
-                return true.ToString();
-            }
+            public override string ToString() => "Be.InDom";
         }
 
     }

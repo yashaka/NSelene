@@ -30,7 +30,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             var representation = element.ToString();
 
             Assert.AreEqual(
-                "Browser.All(.parent).By(Visible)[0].All(.child).FirstBy(has CSS class 'special').Element(./following-sibling::*)",
+                "Browser.All(.parent).By(Be.Visible)[0].All(.child).FirstBy(Have.CssClass(special)).Element(./following-sibling::*)",
                 representation
             );
        }

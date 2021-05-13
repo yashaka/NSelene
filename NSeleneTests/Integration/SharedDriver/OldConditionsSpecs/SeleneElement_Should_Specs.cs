@@ -97,7 +97,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 ).ToList();
 
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(input).value='initial'", lines);
+                Assert.Contains("Browser.Element(input).Should(Have.Attribute(value='initial'))", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.Contains(
                     "no such element: Unable to locate element: "
@@ -138,7 +138,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 ).ToList();
 
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(input).not value='initial'", lines);
+                Assert.Contains("Browser.Element(input).Should(Not.Have.Attribute(value='initial'))", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.Contains("condition not matched", lines);
             }
@@ -233,7 +233,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 ).ToList();
 
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(label).TextContaining(«initial»)", lines);
+                Assert.Contains("Browser.Element(label).Should(Have.TextContaining(«initial»))", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.Contains("Actual text: «»", lines);
                 Assert.Contains(
@@ -373,7 +373,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 ).ToList();
 
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(label).Visible", lines);
+                Assert.Contains("Browser.Element(label).Should(Visible)", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.Contains("actual: False", lines);
 
@@ -406,7 +406,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 ).ToList();
 
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(label).not Visible", lines);
+                Assert.Contains("Browser.Element(label).Should(Not.Visible)", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.Contains("condition not matched", lines);
 
@@ -441,7 +441,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 ).ToList();
 
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(label).Visible", lines);
+                Assert.Contains("Browser.Element(label).Should(Visible)", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.Contains(
                     "no such element: Unable to locate element: "
@@ -475,7 +475,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 ).ToList();
 
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(label).TextContaining(«new»)", lines);
+                Assert.Contains("Browser.Element(label).Should(Have.TextContaining(«new»))", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.Contains("Actual text: «initial»", lines);
                 Assert.Contains("Actual webelement: <label>initial</label>", lines);

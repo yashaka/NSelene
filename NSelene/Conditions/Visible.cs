@@ -15,6 +15,10 @@ namespace NSelene
                     );
                 }
             }
+
+            // TODO: consider rendeing this Should part in some other place...
+            // TODO: consider renaming class to BeVisible ;)
+            public override string ToString() => "Be.Visible";
         }
 
     }

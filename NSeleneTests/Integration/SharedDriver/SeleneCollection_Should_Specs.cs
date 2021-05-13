@@ -92,9 +92,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 ).ToList();
 
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.All(p).count = 2", lines);
+                Assert.Contains("Browser.All(p).Should(Have.Count = 2)", lines);
                 Assert.Contains("Reason:", lines);
-                Assert.Contains("actual: count = 0", lines);
+                Assert.Contains("actual: Have.Count = 0", lines);
             }
         }
         
@@ -129,7 +129,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 ).ToList();
 
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.All(p).not count = 2", lines);
+                Assert.Contains("Browser.All(p).Should(Not.Have.Count = 2)", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.Contains("condition not matched", lines);
             }

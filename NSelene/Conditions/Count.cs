@@ -23,12 +23,12 @@ namespace NSelene
 
             public override string DescribeActual()
             {
-                return "count = " + this.actualCount;
+                return "Have.Count = " + this.actualCount;
             }
 
             public override string DescribeExpected()
             {
-                return "count = " + this.expectedCount;
+                return "Have.Count = " + this.expectedCount;
             }
         }
 

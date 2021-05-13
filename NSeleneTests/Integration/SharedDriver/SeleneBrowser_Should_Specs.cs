@@ -176,7 +176,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
                 Assert.Contains("Timed out after 0.25 seconds", lines);
                 Assert.Contains("while waiting entity with locator: OpenQA.Selenium.Chrome.ChromeDriver", lines);
-                Assert.Contains("for condition: not JSReturnedTrue", lines);
+                Assert.Contains("for condition: Not.JSReturnedTrue", lines);
             }
 
             // catch (TimeoutException error)
