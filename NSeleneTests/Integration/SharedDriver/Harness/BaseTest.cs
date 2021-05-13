@@ -18,12 +18,12 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
         public void initDriver()
         {
             new DriverManager().SetUpDriver(
-                // new ChromeConfig(), version: "Latest"
-                new ChromeConfig(), version: "89.0.4389.23"
+                new ChromeConfig(), version: "Latest"
+                // new ChromeConfig(), version: "89.0.4389.23"
             );
 
             var options = new ChromeOptions();
-            options.AddArguments("headless");
+            // options.AddArguments("headless");
             this._driver = new ChromeDriver(options);
 
             // explicit resetting defaults
