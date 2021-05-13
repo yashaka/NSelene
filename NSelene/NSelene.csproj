@@ -26,6 +26,8 @@
 - improved error messsages 
   - now condition in Should method will be rendered like: 
     `... .Should(Be.Visible)` over just `... .Visible`
+- deprecated SeleneElement#config, use SeleneElement#Config instead
+  - yet be attentive... the fate of keeping SeleneElement#Config as public is also vague...
 - added experimental feature: Configuration._HookWaitAction
   - prefixed with underscore implies that this feature is kind of "publically available private property that might be changed/renamed/removed/etc in future;)", so use it on your own risk!!!
   - by default equals to null, making internally call waiting algorithm for actions as it is, without additional customization

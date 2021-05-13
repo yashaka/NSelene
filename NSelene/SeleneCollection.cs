@@ -26,8 +26,16 @@ namespace NSelene
     {
         readonly SeleneLocator<ReadOnlyCollection<IWebElement>> locator;
 
-        public readonly _SeleneSettings_ config; // TODO: remove
-        // private readonly _SeleneSettings_ config;
+        public readonly _SeleneSettings_ Config; // TODO: remove
+        
+        [Obsolete("SeleneCollection#config is obsolete, use SeleneCollection.Config instead")]
+        public _SeleneSettings_ config
+        {
+            get
+            {
+                return this.Config;
+            }
+        }
         
         internal SeleneCollection(
             SeleneLocator<ReadOnlyCollection<IWebElement>> locator, 
@@ -35,7 +43,7 @@ namespace NSelene
         ) 
         {
             this.locator = locator;
-            this.config = config;
+            this.Config = config;
         }
 
         internal SeleneCollection(
@@ -100,7 +108,7 @@ namespace NSelene
 
             return new SeleneCollection(
                 this.locator, 
-                this.config.With(customized)
+                this.Config.With(customized)
             );
         }
 
@@ -125,13 +133,13 @@ namespace NSelene
                 var paramsAndTheirUsagePattern = new Regex(@"\(?(\w+)\)?\s*=>\s*?\1\.");
                 return new Wait<SeleneCollection>(
                     entity: this,
-                    timeout: this.config.Timeout ?? Configuration.Timeout,
-                    polling: this.config.PollDuringWaits ?? Configuration.PollDuringWaits,
+                    timeout: this.Config.Timeout ?? Configuration.Timeout,
+                    polling: this.Config.PollDuringWaits ?? Configuration.PollDuringWaits,
                     _describeComputation: it => paramsAndTheirUsagePattern.Replace(
                         it, 
                         ""
                     ),
-                    _hookAction: this.config._HookWaitAction
+                    _hookAction: this.Config._HookWaitAction
                 );
             }
         }
@@ -183,8 +191,8 @@ namespace NSelene
         public SeleneElement FindBy(Condition<SeleneElement> condition)
         {
             return new SeleneElement(
-                new SCollectionWebElementByConditionSLocator(condition, this, this.config), 
-                this.config
+                new SCollectionWebElementByConditionSLocator(condition, this, this.Config), 
+                this.Config
             );
         }
 
@@ -192,9 +200,9 @@ namespace NSelene
         {
             return new SeleneCollection(
                 new SCollectionFilteredWebElementsCollectionSLocator(
-                    condition, this, this.config
+                    condition, this, this.Config
                 ), 
-                this.config
+                this.Config
             );
         }
 
@@ -211,7 +219,7 @@ namespace NSelene
             get {
                 return new SeleneElement(
                     new SCollectionWebElementByIndexSLocator(index, this), 
-                    this.config
+                    this.Config
                 );
             }
         }
@@ -239,7 +247,7 @@ namespace NSelene
                 this.ActualWebElements.Select(
                     webelement 
                     => 
-                    new SeleneElement(webelement, this.config)).ToList()
+                    new SeleneElement(webelement, this.Config)).ToList()
                 ).GetEnumerator();
         }
 

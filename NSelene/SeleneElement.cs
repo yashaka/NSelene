@@ -21,8 +21,17 @@ namespace NSelene
     {
         readonly SeleneLocator<IWebElement> locator;
 
-        public readonly _SeleneSettings_ config; // TODO: remove this
+        public readonly _SeleneSettings_ Config; // TODO: remove this
         // private readonly _SeleneSettings_ config;
+
+        [Obsolete("SeleneElement#config is obsolete, use SeleneElement.Config instead")]
+        public _SeleneSettings_ config
+        {
+            get
+            {
+                return this.Config;
+            }
+        }
         
         internal SeleneElement(
             SeleneLocator<IWebElement> locator, 
@@ -30,7 +39,7 @@ namespace NSelene
         ) 
         {
             this.locator = locator;
-            this.config = config;
+            this.Config = config;
         }        
         
         internal SeleneElement(
@@ -72,7 +81,7 @@ namespace NSelene
 
             return new SeleneElement(
                 this.locator, 
-                this.config.With(customized)
+                this.Config.With(customized)
             );
         }
 
@@ -85,7 +94,7 @@ namespace NSelene
         }
 
         // TODO: consider making it Obsolete, actions is an object with broader context than Element
-        Actions Actions => new Actions(this.config.Driver);
+        Actions Actions => new Actions(this.Config.Driver);
         Wait<SeleneElement> Wait // TODO: Consider making it public
         {
             get
@@ -93,13 +102,13 @@ namespace NSelene
                 var paramsAndTheirUsagePattern = new Regex(@"\(?(\w+)\)?\s*=>\s*?\1\.");
                 return new Wait<SeleneElement>(
                     entity: this,
-                    timeout: this.config.Timeout ?? Configuration.Timeout,
-                    polling: this.config.PollDuringWaits ?? Configuration.PollDuringWaits,
+                    timeout: this.Config.Timeout ?? Configuration.Timeout,
+                    polling: this.Config.PollDuringWaits ?? Configuration.PollDuringWaits,
                     _describeComputation: it => paramsAndTheirUsagePattern.Replace(
                         it, 
                         ""
                     ),
-                    _hookAction: this.config._HookWaitAction
+                    _hookAction: this.Config._HookWaitAction
                 );
             }
         }
@@ -289,7 +298,7 @@ namespace NSelene
         {
             return new SeleneElement(
                 new SearchContextWebElementSLocator(locator, this), 
-                this.config
+                this.Config
             );
         }
 
@@ -302,7 +311,7 @@ namespace NSelene
         {
             return new SeleneCollection(
                 new SearchContextWebElementsCollectionSLocator(locator, this), 
-                this.config
+                this.Config
             );
         }
 
@@ -321,7 +330,7 @@ namespace NSelene
             //       like Operation? DescribedComputation? NamedComputation? NamedLambda?
             //       actually maybe lambda already pretty common for everybody term...
             //       but should we add Named prefix to it?
-            if (this.config.WaitForNoOverlapFoundByJs ?? false)
+            if (this.Config.WaitForNoOverlapFoundByJs ?? false)
             {
                 this.Wait.For(new _Lambda<SeleneElement, object>(
                     $"ActualNotOverlappedWebElement.SendKeys(Enter)", // TODO: should we render it as PressEnter()?
@@ -340,7 +349,7 @@ namespace NSelene
 
         public SeleneElement PressTab()
         {
-            if (this.config.WaitForNoOverlapFoundByJs ?? false)
+            if (this.Config.WaitForNoOverlapFoundByJs ?? false)
             {
                 this.Wait.For(new _Lambda<SeleneElement, object>(
                     $"ActualNotOverlappedWebElement.SendKeys(Tab)", // TODO: should we render it as PressEnter()?
@@ -371,7 +380,7 @@ namespace NSelene
             //                 i.e. we should simulate the real behaviour in context of waiting, but do the action via js...
             //                 no?
             //                 is it too much? :D
-            if (this.config.WaitForNoOverlapFoundByJs ?? false)
+            if (this.Config.WaitForNoOverlapFoundByJs ?? false)
             {
                 this.Wait.For(new _Lambda<SeleneElement, object>(
                     $"ActualNotOverlappedWebElement.SendKeys(Escape)", // TODO: should we render it as PressEnter()?
@@ -393,7 +402,7 @@ namespace NSelene
 
         public SeleneElement SetValue(string keys) // TODO: why the param is named keys o_O :) Do we have time to rename it? )
         {
-            if (this.config.SetValueByJs ?? Configuration.SetValueByJs) 
+            if (this.Config.SetValueByJs ?? Configuration.SetValueByJs) 
             {
                 // TODO: should we check here for NotOverlappedWebElement too?
                 //       i.e. should we consider a setValueByJs 
@@ -407,7 +416,7 @@ namespace NSelene
             }
             else
             {
-                if (this.config.WaitForNoOverlapFoundByJs ?? false)
+                if (this.Config.WaitForNoOverlapFoundByJs ?? false)
                 {
                     this.Wait.For(new _Lambda<SeleneElement, object>(
                         $"ActualNotOverlappedWebElement.Clear().SendKeys({keys})", // TODO: should we render it as SetValue({keys})?
@@ -443,7 +452,7 @@ namespace NSelene
 
         public SeleneElement Hover()
         {
-            if (this.config.WaitForNoOverlapFoundByJs ?? false)
+            if (this.Config.WaitForNoOverlapFoundByJs ?? false)
             {
                 this.Wait.For(
                     self
@@ -464,7 +473,7 @@ namespace NSelene
 
         public SeleneElement DoubleClick()
         {
-            if (this.config.WaitForNoOverlapFoundByJs ?? false)
+            if (this.Config.WaitForNoOverlapFoundByJs ?? false)
             {
                 this.Wait.For(
                     self
@@ -510,7 +519,7 @@ namespace NSelene
             }
              */
 
-            if (this.config.WaitForNoOverlapFoundByJs ?? false)
+            if (this.Config.WaitForNoOverlapFoundByJs ?? false)
             {
                 this.Wait.For(self => self.ActualNotOverlappedWebElement.Clear());
             }
@@ -523,7 +532,7 @@ namespace NSelene
 
         public SeleneElement Type(string keys)
         {
-            if (this.config.TypeByJs ?? Configuration.TypeByJs) 
+            if (this.Config.TypeByJs ?? Configuration.TypeByJs) 
             {
                 this.Wait.For(new _Lambda<SeleneElement, object>(
                     $"JsType({keys})",
@@ -531,7 +540,7 @@ namespace NSelene
                 ));
             } else
             {
-                if (this.config.WaitForNoOverlapFoundByJs ?? false)
+                if (this.Config.WaitForNoOverlapFoundByJs ?? false)
                 {
                     this.Wait.For(new _Lambda<SeleneElement, object>(
                         $"ActualNotOverlappedWebElement.SendKeys({keys})", // TODO: should we render it as Type({keys})?
@@ -577,7 +586,7 @@ namespace NSelene
 
         public SeleneElement Submit()
         {
-            if (this.config.WaitForNoOverlapFoundByJs ?? false)
+            if (this.Config.WaitForNoOverlapFoundByJs ?? false)
             {
                 this.Wait.For(self => self.ActualNotOverlappedWebElement.Submit());
             }
@@ -593,7 +602,7 @@ namespace NSelene
 
         public SeleneElement Click()
         {
-            if (this.config.ClickByJs ?? Configuration.ClickByJs)
+            if (this.Config.ClickByJs ?? Configuration.ClickByJs)
             {
                 // TODO: should we incorporate wait into this.ExecuteScript ? maybe make it configurable (Configuration.WaitForExecuteScript, false by default)?
                 // TODO: to keep here just this.JsClick(); ?
@@ -727,7 +736,7 @@ namespace NSelene
         {
             return new SeleneElement(
                 new SearchContextWebElementSLocator(by, this),
-                this.config
+                this.Config
             );
         }
 
@@ -735,7 +744,7 @@ namespace NSelene
         {
             return new SeleneCollection(
                 new SearchContextWebElementsCollectionSLocator(by, this), 
-                this.config
+                this.Config
             ).ToReadOnlyWebElementsCollection();
         }
 
@@ -763,7 +772,7 @@ namespace NSelene
         {
             // TODO: this method fails if this.ActualWebElement failed – this is pretty not in NSelene style!
             //       probably we have to  wrap it inside wait!
-            IJavaScriptExecutor js = (IJavaScriptExecutor)this.config.Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)this.Config.Driver;
             return js.ExecuteScript(
                 $@"
                 return (function(element, args) {{

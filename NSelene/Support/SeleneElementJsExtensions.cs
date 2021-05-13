@@ -39,7 +39,7 @@ namespace NSelene.Support.SeleneElementJsExtensions
         {
             // TODO: should we call here and above the Should(Be.Visible) ?
             // element.Should(Be.Visible);
-            if (element.config.WaitForNoOverlapFoundByJs ?? false)
+            if (element.Config.WaitForNoOverlapFoundByJs ?? false)
             {
                 element.ExecuteScript(@"
 
@@ -120,7 +120,7 @@ namespace NSelene.Support.SeleneElementJsExtensions
             // TODO: should we call here and above the Should(Be.Visible) ?
             // element.Should(Be.Visible);
 
-            if (element.config.WaitForNoOverlapFoundByJs ?? false)
+            if (element.Config.WaitForNoOverlapFoundByJs ?? false)
             {
                 element.ExecuteScript(@"
 
