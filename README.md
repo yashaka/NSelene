@@ -34,7 +34,7 @@ For docs see tests in the [NSeleneTests](https://github.com/yashaka/NSelene/blob
 
 ## Versions
   
-* Upcomig version to use is just released [1.0.0-alpha06](https://www.nuget.org/packages/NSelene/1.0.0-alpha06)
+* Upcomig version to use is just released [1.0.0-alpha07](https://www.nuget.org/packages/NSelene/1.0.0-alpha07)
   * targets netstandard2.0
     * net45 support may be added later
   * it differs from [0.0.0.7](https://www.nuget.org/packages/NSelene/0.0.0.7) in the following:
@@ -47,7 +47,7 @@ For docs see tests in the [NSeleneTests](https://github.com/yashaka/NSelene/blob
         * more friendly to parallelisation in context of configuration, 
         * more customizable on elements level (not just global)
   * can be installed by:
-    `dotnet add package NSelene --version 1.0.0-alpha04`
+    `dotnet add package NSelene --version 1.0.0-alpha07`
   * **migration guide from 1.0.0-alpha03 to 1.0.0-alpha05**
     * upgrade and check your build
       * refactor your custom conditions:
