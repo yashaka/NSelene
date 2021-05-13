@@ -55,7 +55,8 @@ namespace NSelene
             bool? setValueByJs = null,
             bool? typeByJs = null,
             bool? clickByJs = null,
-            bool? waitForNoOverlapFoundByJs = null
+            bool? waitForNoOverlapFoundByJs = null,
+            Action<object, Func<string>, Action> _hookWaitAction = null
         )
         {
             _SeleneSettings_ customized = new Configuration();
@@ -67,6 +68,7 @@ namespace NSelene
             customized.TypeByJs = typeByJs;
             customized.ClickByJs = clickByJs;
             customized.WaitForNoOverlapFoundByJs = waitForNoOverlapFoundByJs;
+            customized._HookWaitAction = _hookWaitAction;
 
             return new SeleneElement(
                 this.locator, 
@@ -96,7 +98,8 @@ namespace NSelene
                     _describeComputation: it => paramsAndTheirUsagePattern.Replace(
                         it, 
                         ""
-                    )
+                    ),
+                    _hookAction: this.config._HookWaitAction
                 );
             }
         }

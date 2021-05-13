@@ -119,18 +119,21 @@ namespace NSelene
         private readonly double timeout;
         private readonly double polling;
         private readonly Func<string, string> describeComputation;
+        private readonly Action<object, Func<string>, Action> _HookAction;
 
         public Wait(
             T entity,
             double timeout,
             double polling,
-            Func<string, string> _describeComputation = null
+            Func<string, string> _describeComputation = null,
+            Action<object, Func<string>, Action> _hookAction = null // TODO: _hookCommand?
         )
         {
             this.entity = entity;
             this.timeout = timeout;
             this.polling = polling;
             this.describeComputation = _describeComputation ?? (name => name);
+            this._HookAction = _hookAction ?? ((entity_object, describeComputation, wait) => wait());
         }
 
         public bool Until(Expression<Action<T>> action) => Until(new _Lambda<T, object>(action));
@@ -140,7 +143,7 @@ namespace NSelene
         {
             try
             {
-                this.For(lambda);
+                this._For(lambda);
                 return true;
             }
             catch (System.Exception)
@@ -148,17 +151,33 @@ namespace NSelene
                 return false;
             }
         }
+
         internal void For(Expression<Action<T>> action)
         {
-            this.For(new _Lambda<T, object>(action));
+            var computation = new _Lambda<T, object>(action);
+            this._HookAction(
+                this.entity,
+                () => this.describeComputation(computation.ToString()), 
+                () => this._For(computation)
+            );
         }
+
+        internal void For(_Computation<T, object> computation)
+        {
+            this._HookAction(
+                this.entity,
+                () => this.describeComputation(computation.ToString()), 
+                () => this._For(computation)
+            );
+        }
+
         internal R For<R>(Expression<Func<T, R>> func)
         {
-            var optional = this.For(new _Lambda<T, R>(func));
+            var optional = this._For(new _Lambda<T, R>(func));
             return optional.Value;
         }
 
-        internal _Result<R> For<R>(_Computation<T, R> computation) // TODO: should we accept an interface here? make Lambda an interface? or add Operation interface?
+        private _Result<R> _For<R>(_Computation<T, R> computation) // TODO: should we accept an interface here? make Lambda an interface? or add Operation interface?
         {
             var timeoutSpan = TimeSpan.FromSeconds(this.timeout);
             var finishTime = DateTime.Now.Add(timeoutSpan);

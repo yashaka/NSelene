@@ -29,6 +29,7 @@ namespace NSelene
         bool? TypeByJs { get; set; }
         bool? ClickByJs { get; set; }
         bool? WaitForNoOverlapFoundByJs { get; set; }
+        Action<object, Func<string>, Action> _HookWaitAction { get; set; }
     }
 
     /// Configuration is considered as a defined group of all settings
@@ -150,6 +151,19 @@ namespace NSelene
                 this._refWaitForNoOverlapFoundByJs.Value = value;
             }
         }
+ 
+        private Ref<Action<object, Func<string>, Action>> _ref_HookWaitAction = new Ref<Action<object, Func<string>, Action>>();
+        Action<object, Func<string>, Action> _SeleneSettings_._HookWaitAction
+        {
+            get
+            {
+                return this._ref_HookWaitAction.Value;
+            }
+            set
+            {
+                this._ref_HookWaitAction.Value = value;
+            }
+        }
 
         private Configuration(
             Ref<IWebDriver> refDriver,
@@ -158,7 +172,8 @@ namespace NSelene
             Ref<bool?> refSetValueByJs,
             Ref<bool?> refTypeByJs,
             Ref<bool?> refClickByJs,
-            Ref<bool?> refWaitForNoOverlapFoundByJs
+            Ref<bool?> refWaitForNoOverlapFoundByJs,
+            Ref<Action<object, Func<string>, Action>> _ref_HookWaitAction
         )
         {
             _refDriver = refDriver ?? new Ref<IWebDriver>();
@@ -168,6 +183,7 @@ namespace NSelene
             _refTypeByJs = refTypeByJs ?? new Ref<bool?>();
             _refClickByJs = refClickByJs ?? new Ref<bool?>();
             _refWaitForNoOverlapFoundByJs = refWaitForNoOverlapFoundByJs ?? new Ref<bool?>();
+            _ref_HookWaitAction = _ref_HookWaitAction ?? new Ref<Action<object, Func<string>, Action>>();
         }
 
         // TODO: consider making public
@@ -181,7 +197,8 @@ namespace NSelene
             refSetValueByJs: null,
             refTypeByJs: null,
             refClickByJs: null,
-            refWaitForNoOverlapFoundByJs: null
+            refWaitForNoOverlapFoundByJs: null,
+            _ref_HookWaitAction: null
         ) {}
 
         public static _SeleneSettings_ _New_(
@@ -191,7 +208,8 @@ namespace NSelene
             bool setValueByJs = false,
             bool typeByJs = false,
             bool clickByJs = false,
-            bool waitForNoOverlapFoundByJs = false
+            bool waitForNoOverlapFoundByJs = false,
+            Action<object, Func<string>, Action> _hookWaitAction = null
         )
         {
             _SeleneSettings_ next = new Configuration();
@@ -203,6 +221,7 @@ namespace NSelene
             next.TypeByJs = typeByJs;
             next.ClickByJs = clickByJs;
             next.WaitForNoOverlapFoundByJs = waitForNoOverlapFoundByJs;
+            next._HookWaitAction = _hookWaitAction;
 
             return next;
         }
@@ -237,6 +256,10 @@ namespace NSelene
             refWaitForNoOverlapFoundByJs: new Ref<bool?>(
                 getter: () => Configuration.WaitForNoOverlapFoundByJs,
                 setter: value => Configuration.WaitForNoOverlapFoundByJs = value ?? false
+            ),
+            _ref_HookWaitAction: new Ref<Action<object, Func<string>, Action>>(
+                getter: () => Configuration._HookWaitAction,
+                setter: value => Configuration._HookWaitAction = value ?? null
             )
         );
 
@@ -250,7 +273,8 @@ namespace NSelene
             bool? setValueByJs = null,
             bool? typeByJs = null,
             bool? clickByJs = null,
-            bool? waitForNoOverlapFoundByJs = null
+            bool? waitForNoOverlapFoundByJs = null,
+            Action<object, Func<string>, Action> _hookWaitAction = null
         )
         {
             _SeleneSettings_ next = new Configuration();
@@ -262,6 +286,7 @@ namespace NSelene
             next.TypeByJs = typeByJs;
             next.ClickByJs = clickByJs;
             next.WaitForNoOverlapFoundByJs = waitForNoOverlapFoundByJs;
+            next._HookWaitAction = _hookWaitAction;
 
             return Configuration.Shared.With(next);
         }
@@ -291,7 +316,10 @@ namespace NSelene
                 : new Ref<bool?>(overrides.ClickByJs),
                 refWaitForNoOverlapFoundByJs: overrides.WaitForNoOverlapFoundByJs == null
                 ? this._refWaitForNoOverlapFoundByJs
-                : new Ref<bool?>(overrides.WaitForNoOverlapFoundByJs)
+                : new Ref<bool?>(overrides.WaitForNoOverlapFoundByJs),
+                _ref_HookWaitAction: overrides._HookWaitAction == null
+                ? this._ref_HookWaitAction
+                : new Ref<Action<object, Func<string>, Action>>(overrides._HookWaitAction)
             );
         }
 
@@ -396,6 +424,19 @@ namespace NSelene
             set
             {
                 Configuration._WaitForNoOverlapFoundByJs.Value = value;
+            }
+        }
+
+        private static ThreadLocal<Action<object, Func<string>, Action>> __HookWaitAction = new ThreadLocal<Action<object, Func<string>, Action>>();
+        public static Action<object, Func<string>, Action> _HookWaitAction
+        {
+            get
+            {
+                return Configuration.__HookWaitAction.Value ?? null;
+            }
+            set
+            {
+                Configuration.__HookWaitAction.Value = value;
             }
         }
 
