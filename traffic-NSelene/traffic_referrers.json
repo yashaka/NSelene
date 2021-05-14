@@ -1,23 +1,18 @@
 [
   {
     "referrer": "Google",
-    "count": 39,
-    "uniques": 20
+    "count": 35,
+    "uniques": 16
   },
   {
     "referrer": "github.com",
-    "count": 29,
+    "count": 27,
     "uniques": 10
   },
   {
     "referrer": "ecosia.org",
-    "count": 24,
-    "uniques": 3
-  },
-  {
-    "referrer": "DuckDuckGo",
-    "count": 2,
-    "uniques": 1
+    "count": 6,
+    "uniques": 2
   },
   {
     "referrer": "mail.google.com",

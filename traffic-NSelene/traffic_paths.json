@@ -2,26 +2,14 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 99,
-    "uniques": 37
+    "count": 72,
+    "uniques": 31
   },
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
     "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene · GitHub",
-    "count": 26,
-    "uniques": 11
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSelene",
-    "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
-    "count": 21,
-    "uniques": 13
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
-    "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
-    "count": 21,
-    "uniques": 8
+    "count": 24,
+    "uniques": 10
   },
   {
     "path": "/yashaka/NSelene/issues/85",
@@ -30,33 +18,45 @@
     "uniques": 5
   },
   {
-    "path": "/yashaka/NSelene/issues",
-    "title": "Issues · yashaka/NSelene · GitHub",
-    "count": 17,
-    "uniques": 5
+    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
+    "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
+    "count": 20,
+    "uniques": 7
   },
   {
-    "path": "/yashaka/NSelene/releases/tag/v1.0.0-alpha05",
-    "title": "Release Faster, full unti-flakyness, parallelisation-friendly, customizable p...",
+    "path": "/yashaka/NSelene/tree/master/NSelene",
+    "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
     "count": 16,
-    "uniques": 13
+    "uniques": 10
+  },
+  {
+    "path": "/yashaka/NSelene/issues",
+    "title": "Issues · yashaka/NSelene · GitHub",
+    "count": 15,
+    "uniques": 5
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests/Examples/SharedDriver",
     "title": "NSelene/NSeleneTests/Examples/SharedDriver at master · yashaka/NSelene · GitHub",
-    "count": 10,
-    "uniques": 3
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSeleneTests/Integration/SharedDriver",
-    "title": "NSelene/NSeleneTests/Integration/SharedDriver at master · yashaka/NSelene · G...",
     "count": 9,
-    "uniques": 4
+    "uniques": 2
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests/Examples/SharedDriver/Straightforward",
     "title": "NSelene/NSeleneTests/Examples/SharedDriver/Straightforward at master · yashak...",
     "count": 9,
     "uniques": 2
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSeleneTests/Integration/SharedDriver",
+    "title": "NSelene/NSeleneTests/Integration/SharedDriver at master · yashaka/NSelene · G...",
+    "count": 8,
+    "uniques": 3
+  },
+  {
+    "path": "/yashaka/NSelene/blob/master/README.md",
+    "title": "NSelene/README.md at master · yashaka/NSelene · GitHub",
+    "count": 7,
+    "uniques": 4
   }
 ]
