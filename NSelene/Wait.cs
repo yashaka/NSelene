@@ -148,7 +148,8 @@ namespace NSelene
                 this.entity, 
                 timeout ?? this.timeout, 
                 polling ?? this.polling, 
-                _describeComputation ?? this.describeComputation
+                _describeComputation ?? this.describeComputation,
+                _hookAction ?? this._HookAction
             );
         }
 
