@@ -5,10 +5,16 @@
 - do we need SeleneDriver anymore? (if we go the direction of SeleneBrowser)
 
 
-## 1.0.0-alpha09 (to be released on 2021.05.??)
+## 1.0.0-alpha1x (to be released on 2021.05.??)
 - deprecate the majority of Selene.* (except S, SS) when providing alternative API via Browser.*
 
-## 1.0.0-alpha08 (to be released on 2021.05.18)
+## 1.0.0-alpha09 (to be released on 2021.05.19)
+- improved error messages for cases of inner element search
+  - like error on S(".parent").Find(".child").Click() when .parent is absent or not visible
+- FIXED experimental Configuration._HookWaitAction application to Should methods on SeleneElement and SeleneCollection
+  (was not working, just being skipped)
+
+## 1.0.0-alpha08 (released on 2021.05.18)
 - added waiting to SeleneElementJsExtensions:
   - JsClick
   - JsType
