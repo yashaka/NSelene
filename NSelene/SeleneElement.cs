@@ -147,12 +147,12 @@ namespace NSelene
         private IWebElement ActualVisibleWebElement {
             get {
                 var webElement = locator.Find();
-                if (! webElement.Displayed)
+                if (!webElement.Displayed)
                 {
                     throw new SeleneException(
                         () 
                         => 
-                        "Element not visible:\n"
+                        "Element not visible:\n" // TODO: should we render here also the current element locator? (will be redundant for S but might help in S.S, SS.S.S)
                         + webElement.GetAttribute("outerHTML")
                     );
                 }
@@ -749,13 +749,13 @@ namespace NSelene
 
         IWebElement SeleneContext.FindElement (By by)
         {
-            Should(Be.Visible); // TODO: do we need it here?
-            return this.ActualWebElement.FindElement(by);
+            // TODO: calling here ActualVisibleWebElement will result in extra action, how can we improve performance here?
+            return this.ActualVisibleWebElement.FindElement(by);
         }
 
         ReadOnlyCollection<IWebElement> SeleneContext.FindElements (By by)
         {
-            Should(Be.Visible);
+            // Should(Be.Visible); // not needed here cause we can find inside not visible elements... but TODO: will everytying be ok with rendering in error?
             return this.ActualWebElement.FindElements(by);
         }
 
