@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>NSelene</PackageId>
-    <Version>1.0.0-alpha07</Version>
+    <Version>1.0.0-alpha08</Version>
     <Authors>yashaka</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Copyright (c) 2015-2021 Iakiv Kramarenko</Copyright>
@@ -23,33 +23,10 @@
     </PackageDescription>
     
     <PackageReleaseNotes>
-- improved error messsages 
-  - now condition in Should method will be rendered like: 
-    `... .Should(Be.Visible)` over just `... .Visible`
-- deprecated SeleneElement#config, use SeleneElement#Config instead
-  - yet be attentive... the fate of keeping SeleneElement#Config as public is also vague...
-- added experimental feature: Configuration._HookWaitAction
-  - prefixed with underscore implies that this feature is kind of "publically available private property that might be changed/renamed/removed/etc in future;)", so use it on your own risk!!!
-  - by default equals to null, making internally call waiting algorithm for actions as it is, without additional customization
-  - specified to something like:
-    ```
-    Configuration._HookWaitAction = (entityObject, describeComputation, wait) => {
-        Console.WriteLine($"STARTED WAITING FOR: {entityObject}.{describeComputation()}");
-        try
-        {
-            wait();
-            Console.WriteLine($"FINISHED WAITING FOR: {entityObject}.{describeComputation()}");
-        }
-        catch (Exception error)
-        {
-            Console.WriteLine($"FAILED WAITING FOR: {entityObject}.{describeComputation()}");
-            throw error;
-        }
-    };
-    ```
-    - should provide some additinal logging for all Selene actions, called on entities (like SeleneElement, SeleneCollection)
-    - under actions we mean "void commands" not "queries returning result". 
-      - void command like element.Should(condition) will return the element itself instead of void ;)
+- added waiting to SeleneElementJsExtensions:
+  - JsClick
+  - JsType
+  - JsSetValue 
     </PackageReleaseNotes>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

@@ -5,10 +5,16 @@
 - do we need SeleneDriver anymore? (if we go the direction of SeleneBrowser)
 
 
-## 1.0.0-alpha08 (to be released on 2021.05.??)
+## 1.0.0-alpha09 (to be released on 2021.05.??)
 - deprecate the majority of Selene.* (except S, SS) when providing alternative API via Browser.*
 
-## 1.0.0-alpha07 (to be released on 2021.05.13)
+## 1.0.0-alpha08 (to be released on 2021.05.18)
+- added waiting to SeleneElementJsExtensions:
+  - JsClick
+  - JsType
+  - JsSetValue 
+
+## 1.0.0-alpha07 (released on 2021.05.13)
 - improved error messsages 
   - now condition in Should method will be rendered like: 
     `... .Should(Be.Visible)` over just `... .Visible`
