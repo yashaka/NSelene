@@ -67,7 +67,7 @@ namespace NSelene.Tests.Integration.SharedDriver
                     item => item.Trim()
                 ).ToList();
                 Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(a).JsClick(0, 0)", lines);
+                Assert.Contains("Browser.Element(a).JsClick(centerXOffset: 0, centerYOffset: 0)", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.Contains(
                     "no such element: Unable to locate element: "
@@ -94,13 +94,13 @@ namespace NSelene.Tests.Integration.SharedDriver
             try {
                 S("a").JsClick();
                 Assert.Fail("should fail before can be js-clicked");
-            } catch (NoSuchElementException error) {
+            } catch (TimeoutException error) {
                 var lines = error.Message.Split("\n").Select(
                     item => item.Trim()
                 ).ToList();
-                // Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                // Assert.Contains("Browser.Element(a).JsClick(0, 0)", lines);
-                // Assert.Contains("Reason:", lines);
+                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
+                Assert.Contains("Browser.Element(a).JsClick(centerXOffset: 0, centerYOffset: 0)", lines);
+                Assert.Contains("Reason:", lines);
                 Assert.Contains(
                     "no such element: Unable to locate element: "
                     + "{\"method\":\"css selector\",\"selector\":\"a\"}", lines);

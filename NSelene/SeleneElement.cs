@@ -95,7 +95,8 @@ namespace NSelene
 
         // TODO: consider making it Obsolete, actions is an object with broader context than Element
         Actions Actions => new Actions(this.Config.Driver);
-        Wait<SeleneElement> Wait // TODO: Consider making it public
+
+        internal Wait<SeleneElement> Wait // TODO: Consider making it public
         {
             get
             {
@@ -409,10 +410,7 @@ namespace NSelene
                 //       just as a faster clear + set alternative to SendKeys
                 //       or additional a kind of hacky workaround to set value ...       
                 //       probably just a first...
-                this.Wait.For(new _Lambda<SeleneElement, object>(
-                    $"JsSetValue({keys})",
-                    self => self.JsSetValue(keys)
-                ));
+                this.JsSetValue(keys);
             }
             else
             {
@@ -534,10 +532,7 @@ namespace NSelene
         {
             if (this.Config.TypeByJs ?? Configuration.TypeByJs) 
             {
-                this.Wait.For(new _Lambda<SeleneElement, object>(
-                    $"JsType({keys})",
-                    self => self.JsType(keys)
-                ));
+                this.JsType(keys);
             } else
             {
                 if (this.Config.WaitForNoOverlapFoundByJs ?? false)
@@ -606,8 +601,8 @@ namespace NSelene
             {
                 // TODO: should we incorporate wait into this.ExecuteScript ? maybe make it configurable (Configuration.WaitForExecuteScript, false by default)?
                 // TODO: to keep here just this.JsClick(); ?
-                this.Wait.For(self => self.JsClick(0, 0));
-            } 
+                this.JsClick(0, 0);
+            }
             else 
             {
                 this.Wait.For(self => self.ActualWebElement.Click());
