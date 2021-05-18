@@ -6,26 +6,26 @@
   },
   {
     "referrer": "Google",
-    "count": 21,
-    "uniques": 13
+    "count": 22,
+    "uniques": 14
   },
   {
     "referrer": "ecosia.org",
-    "count": 6,
+    "count": 11,
     "uniques": 2
   },
   {
     "referrer": "automated-testing.info",
-    "count": 2,
+    "count": 3,
     "uniques": 2
   },
   {
-    "referrer": "Bing",
+    "referrer": "mail.google.com",
     "count": 1,
     "uniques": 1
   },
   {
-    "referrer": "mail.google.com",
+    "referrer": "Bing",
     "count": 1,
     "uniques": 1
   }
