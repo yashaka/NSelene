@@ -2,7 +2,7 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 65,
+    "count": 60,
     "uniques": 24
   },
   {
@@ -12,50 +12,50 @@
     "uniques": 5
   },
   {
-    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
-    "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene",
-    "count": 18,
-    "uniques": 8
-  },
-  {
     "path": "/yashaka/NSelene/issues/83",
     "title": "extend Have.Attribute(name, value) to more cases · Issue #83 · yashaka/NSelene",
-    "count": 15,
+    "count": 17,
     "uniques": 1
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
-    "title": "NSelene/NSeleneTests at master · yashaka/NSelene",
-    "count": 14,
-    "uniques": 6
   },
   {
     "path": "/yashaka/NSelene/issues",
     "title": "Issues · yashaka/NSelene · GitHub",
-    "count": 13,
-    "uniques": 3
+    "count": 14,
+    "uniques": 4
   },
   {
-    "path": "/yashaka/NSelene/tree/master/NSelene",
-    "title": "NSelene/NSelene at master · yashaka/NSelene",
+    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
+    "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene",
+    "count": 13,
+    "uniques": 6
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
+    "title": "NSelene/NSeleneTests at master · yashaka/NSelene",
     "count": 12,
-    "uniques": 9
+    "uniques": 6
   },
   {
     "path": "/yashaka/NSelene/actions",
     "title": "Actions · yashaka/NSelene",
-    "count": 10,
+    "count": 12,
     "uniques": 1
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSelene",
+    "title": "NSelene/NSelene at master · yashaka/NSelene",
+    "count": 11,
+    "uniques": 9
+  },
+  {
+    "path": "/yashaka/NSelene/releases",
+    "title": "Releases · yashaka/NSelene",
+    "count": 9,
+    "uniques": 3
   },
   {
     "path": "/yashaka/NSelene/issues/new",
     "title": "New Issue · yashaka/NSelene",
-    "count": 6,
-    "uniques": 1
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSeleneTests/Examples/SharedDriver/Straightforward",
-    "title": "NSelene/NSeleneTests/Examples/SharedDriver/Straightforward at master · yashak...",
     "count": 6,
     "uniques": 1
   }
