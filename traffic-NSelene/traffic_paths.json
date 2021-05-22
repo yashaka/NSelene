@@ -2,8 +2,8 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 55,
-    "uniques": 23
+    "count": 56,
+    "uniques": 24
   },
   {
     "path": "/yashaka/NSelene/issues/85",
@@ -20,7 +20,7 @@
   {
     "path": "/yashaka/NSelene/issues",
     "title": "Issues · yashaka/NSelene · GitHub",
-    "count": 13,
+    "count": 14,
     "uniques": 4
   },
   {
@@ -30,16 +30,16 @@
     "uniques": 1
   },
   {
-    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
-    "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene",
-    "count": 11,
-    "uniques": 5
+    "path": "/yashaka/NSelene/tree/master/NSelene",
+    "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
+    "count": 9,
+    "uniques": 8
   },
   {
-    "path": "/yashaka/NSelene/tree/master/NSelene",
-    "title": "NSelene/NSelene at master · yashaka/NSelene",
-    "count": 10,
-    "uniques": 8
+    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
+    "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene · GitHub",
+    "count": 9,
+    "uniques": 6
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests",
@@ -56,7 +56,7 @@
   {
     "path": "/yashaka/NSelene/issues/new",
     "title": "New Issue · yashaka/NSelene",
-    "count": 5,
+    "count": 7,
     "uniques": 1
   }
 ]
