@@ -3,7 +3,7 @@
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
     "count": 52,
-    "uniques": 22
+    "uniques": 21
   },
   {
     "path": "/yashaka/NSelene/issues/83",
@@ -12,34 +12,28 @@
     "uniques": 1
   },
   {
-    "path": "/yashaka/NSelene/issues/85",
-    "title": "Configuration.waitForNoOverlayByJs vs waitByJsForNotOverlapped vs waitForNotO...",
-    "count": 14,
-    "uniques": 4
-  },
-  {
-    "path": "/yashaka/NSelene/issues",
-    "title": "Issues · yashaka/NSelene · GitHub",
-    "count": 12,
-    "uniques": 4
-  },
-  {
     "path": "/yashaka/NSelene/actions",
     "title": "Actions · yashaka/NSelene",
     "count": 12,
     "uniques": 1
   },
   {
-    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
-    "title": "NSelene/NSeleneTests at master · yashaka/NSelene",
-    "count": 9,
-    "uniques": 5
+    "path": "/yashaka/NSelene/issues",
+    "title": "Issues · yashaka/NSelene",
+    "count": 11,
+    "uniques": 3
   },
   {
     "path": "/yashaka/NSelene/releases",
     "title": "Releases · yashaka/NSelene",
     "count": 9,
     "uniques": 3
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
+    "title": "NSelene/NSeleneTests at master · yashaka/NSelene",
+    "count": 8,
+    "uniques": 4
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene",
@@ -50,13 +44,19 @@
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
     "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene · GitHub",
-    "count": 6,
-    "uniques": 5
+    "count": 5,
+    "uniques": 4
+  },
+  {
+    "path": "/yashaka/NSelene/issues/85",
+    "title": "Configuration.waitForNoOverlayByJs vs waitByJsForNotOverlapped vs waitForNotO...",
+    "count": 5,
+    "uniques": 1
   },
   {
     "path": "/yashaka/NSelene/issues/new",
     "title": "New Issue · yashaka/NSelene",
-    "count": 6,
+    "count": 5,
     "uniques": 1
   }
 ]
