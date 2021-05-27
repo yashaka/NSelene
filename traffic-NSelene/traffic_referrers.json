@@ -1,13 +1,13 @@
 [
   {
     "referrer": "github.com",
-    "count": 15,
-    "uniques": 8
+    "count": 14,
+    "uniques": 7
   },
   {
     "referrer": "Google",
-    "count": 9,
-    "uniques": 9
+    "count": 12,
+    "uniques": 11
   },
   {
     "referrer": "ecosia.org",
@@ -15,13 +15,13 @@
     "uniques": 1
   },
   {
-    "referrer": "automated-testing.info",
-    "count": 3,
-    "uniques": 3
-  },
-  {
     "referrer": "DuckDuckGo",
     "count": 3,
+    "uniques": 2
+  },
+  {
+    "referrer": "automated-testing.info",
+    "count": 2,
     "uniques": 2
   },
   {
