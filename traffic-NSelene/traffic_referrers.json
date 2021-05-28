@@ -1,13 +1,13 @@
 [
   {
-    "referrer": "github.com",
+    "referrer": "Google",
     "count": 14,
-    "uniques": 7
+    "uniques": 11
   },
   {
-    "referrer": "Google",
-    "count": 12,
-    "uniques": 11
+    "referrer": "github.com",
+    "count": 11,
+    "uniques": 6
   },
   {
     "referrer": "ecosia.org",
