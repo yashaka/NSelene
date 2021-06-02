@@ -1,12 +1,12 @@
 [
   {
     "referrer": "Google",
-    "count": 15,
-    "uniques": 12
+    "count": 17,
+    "uniques": 13
   },
   {
     "referrer": "github.com",
-    "count": 9,
+    "count": 10,
     "uniques": 3
   },
   {
@@ -15,14 +15,14 @@
     "uniques": 2
   },
   {
-    "referrer": "DuckDuckGo",
-    "count": 3,
-    "uniques": 2
-  },
-  {
     "referrer": "automated-testing.info",
     "count": 2,
     "uniques": 2
+  },
+  {
+    "referrer": "DuckDuckGo",
+    "count": 2,
+    "uniques": 1
   },
   {
     "referrer": "autotest.how",
