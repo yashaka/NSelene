@@ -2,17 +2,17 @@
   {
     "referrer": "Google",
     "count": 14,
-    "uniques": 10
-  },
-  {
-    "referrer": "github.com",
-    "count": 9,
-    "uniques": 2
+    "uniques": 9
   },
   {
     "referrer": "ecosia.org",
+    "count": 10,
+    "uniques": 3
+  },
+  {
+    "referrer": "github.com",
     "count": 8,
-    "uniques": 2
+    "uniques": 3
   },
   {
     "referrer": "DuckDuckGo",
