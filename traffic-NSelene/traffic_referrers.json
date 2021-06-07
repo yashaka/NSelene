@@ -6,13 +6,18 @@
   },
   {
     "referrer": "Google",
-    "count": 14,
-    "uniques": 9
+    "count": 13,
+    "uniques": 8
   },
   {
     "referrer": "github.com",
-    "count": 8,
-    "uniques": 3
+    "count": 7,
+    "uniques": 4
+  },
+  {
+    "referrer": "software-testing.ru",
+    "count": 1,
+    "uniques": 1
   },
   {
     "referrer": "autotest.how",
