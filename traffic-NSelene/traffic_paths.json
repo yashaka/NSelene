@@ -2,44 +2,26 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 36,
-    "uniques": 18
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSelene",
-    "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
-    "count": 11,
-    "uniques": 6
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
-    "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
-    "count": 9,
-    "uniques": 3
+    "count": 29,
+    "uniques": 16
   },
   {
     "path": "/yashaka/NSelene/blob/6bf4c338484e428754ea34a4bfad31e6247b652d/NSelene/SeleneElement.cs",
     "title": "NSelene/SeleneElement.cs at 6bf4c338484e428754ea34a4bfad31e6247b652d · yashak...",
-    "count": 7,
+    "count": 9,
     "uniques": 2
   },
   {
-    "path": "/yashaka/NSelene/tree/master/NSeleneTests/Integration/SharedDriver",
-    "title": "NSelene/NSeleneTests/Integration/SharedDriver at master · yashaka/NSelene",
+    "path": "/yashaka/NSelene/tree/master/NSelene",
+    "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
+    "count": 8,
+    "uniques": 5
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
+    "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
     "count": 7,
     "uniques": 2
-  },
-  {
-    "path": "/yashaka/NSelene/tree/0.x/NSelene",
-    "title": "NSelene/NSelene at 0.x · yashaka/NSelene",
-    "count": 7,
-    "uniques": 1
-  },
-  {
-    "path": "/yashaka/NSelene/tree/0.x",
-    "title": "yashaka/NSelene at 0.x",
-    "count": 6,
-    "uniques": 1
   },
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
@@ -48,15 +30,33 @@
     "uniques": 3
   },
   {
-    "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
-    "title": "NSelene/NSelene/Conditions at master · yashaka/NSelene",
-    "count": 5,
-    "uniques": 3
-  },
-  {
     "path": "/yashaka/NSelene/blob/master/NSelene/Selectors.cs",
     "title": "NSelene/Selectors.cs at master · yashaka/NSelene · GitHub",
     "count": 5,
+    "uniques": 1
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
+    "title": "NSelene/NSelene/Conditions at master · yashaka/NSelene",
+    "count": 4,
+    "uniques": 2
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSeleneTests/Integration/SharedDriver",
+    "title": "NSelene/NSeleneTests/Integration/SharedDriver at master · yashaka/NSelene",
+    "count": 4,
+    "uniques": 1
+  },
+  {
+    "path": "/yashaka/NSelene/commits/master",
+    "title": "Commits · yashaka/NSelene",
+    "count": 3,
+    "uniques": 1
+  },
+  {
+    "path": "/yashaka/NSelene/blob/master/NSelene/Conditions/Attribute.cs",
+    "title": "NSelene/Attribute.cs at master · yashaka/NSelene",
+    "count": 2,
     "uniques": 1
   }
 ]
