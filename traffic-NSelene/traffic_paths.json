@@ -2,14 +2,14 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 33,
-    "uniques": 22
+    "count": 32,
+    "uniques": 21
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene",
     "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
-    "count": 11,
-    "uniques": 8
+    "count": 10,
+    "uniques": 7
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
@@ -36,12 +36,6 @@
     "uniques": 3
   },
   {
-    "path": "/yashaka/NSelene/blob/master/NSelene/Wait.cs",
-    "title": "NSelene/Wait.cs at master · yashaka/NSelene",
-    "count": 3,
-    "uniques": 3
-  },
-  {
     "path": "/yashaka/NSelene/tree/master/NSelene/Helpers",
     "title": "NSelene/NSelene/Helpers at master · yashaka/NSelene",
     "count": 3,
@@ -58,5 +52,11 @@
     "title": "NSelene/NSeleneTests/Unit at master · yashaka/NSelene · GitHub",
     "count": 3,
     "uniques": 3
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSeleneTests/Integration/SharedDriver",
+    "title": "NSelene/NSeleneTests/Integration/SharedDriver at master · yashaka/NSelene",
+    "count": 3,
+    "uniques": 2
   }
 ]
