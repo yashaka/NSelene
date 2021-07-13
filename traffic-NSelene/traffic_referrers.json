@@ -5,14 +5,14 @@
     "uniques": 10
   },
   {
-    "referrer": "automated-testing.info",
+    "referrer": "github.com",
     "count": 3,
     "uniques": 3
   },
   {
-    "referrer": "github.com",
-    "count": 2,
-    "uniques": 2
+    "referrer": "automated-testing.info",
+    "count": 3,
+    "uniques": 3
   },
   {
     "referrer": "nuget.org",
