@@ -15,22 +15,22 @@
     "uniques": 2
   },
   {
-    "referrer": "automated-testing.info",
-    "count": 2,
-    "uniques": 2
-  },
-  {
     "referrer": "nuget.org",
     "count": 2,
     "uniques": 1
   },
   {
-    "referrer": "com.google.android.gm",
+    "referrer": "DuckDuckGo",
     "count": 1,
     "uniques": 1
   },
   {
-    "referrer": "DuckDuckGo",
+    "referrer": "automated-testing.info",
+    "count": 1,
+    "uniques": 1
+  },
+  {
+    "referrer": "codarium.com.ua",
     "count": 1,
     "uniques": 1
   },
@@ -40,7 +40,7 @@
     "uniques": 1
   },
   {
-    "referrer": "codarium.com.ua",
+    "referrer": "com.google.android.gm",
     "count": 1,
     "uniques": 1
   }
