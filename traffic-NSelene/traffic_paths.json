@@ -2,8 +2,20 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 159,
-    "uniques": 30
+    "count": 221,
+    "uniques": 33
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSelene",
+    "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
+    "count": 17,
+    "uniques": 8
+  },
+  {
+    "path": "/yashaka/NSelene/issues",
+    "title": "Issues · yashaka/NSelene · GitHub",
+    "count": 17,
+    "uniques": 7
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests",
@@ -12,22 +24,10 @@
     "uniques": 4
   },
   {
-    "path": "/yashaka/NSelene/tree/master/NSelene",
-    "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
-    "count": 16,
-    "uniques": 7
-  },
-  {
-    "path": "/yashaka/NSelene/issues",
-    "title": "Issues · yashaka/NSelene · GitHub",
-    "count": 11,
-    "uniques": 6
-  },
-  {
     "path": "/yashaka/NSelene/issues/91",
     "title": "ShouldNot does take <timeout> seconds when executed on an element which paren...",
-    "count": 8,
-    "uniques": 5
+    "count": 10,
+    "uniques": 6
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests/Integration/SharedDriver",
@@ -36,14 +36,14 @@
     "uniques": 1
   },
   {
-    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneDriver.cs",
-    "title": "NSelene/SeleneDriver.cs at master · yashaka/NSelene · GitHub",
-    "count": 6,
-    "uniques": 4
-  },
-  {
     "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
     "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene · GitHub",
+    "count": 7,
+    "uniques": 5
+  },
+  {
+    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneDriver.cs",
+    "title": "NSelene/SeleneDriver.cs at master · yashaka/NSelene · GitHub",
     "count": 6,
     "uniques": 4
   },
