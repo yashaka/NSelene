@@ -1,18 +1,23 @@
 [
   {
     "referrer": "ecosia.org",
-    "count": 145,
+    "count": 128,
     "uniques": 2
   },
   {
     "referrer": "Google",
-    "count": 19,
-    "uniques": 12
+    "count": 17,
+    "uniques": 11
   },
   {
     "referrer": "github.com",
     "count": 5,
     "uniques": 5
+  },
+  {
+    "referrer": "DuckDuckGo",
+    "count": 4,
+    "uniques": 2
   },
   {
     "referrer": "automated-testing.info",
@@ -25,7 +30,7 @@
     "uniques": 1
   },
   {
-    "referrer": "DuckDuckGo",
+    "referrer": "nuget.org",
     "count": 1,
     "uniques": 1
   }
