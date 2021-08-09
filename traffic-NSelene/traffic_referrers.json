@@ -1,7 +1,7 @@
 [
   {
     "referrer": "ecosia.org",
-    "count": 140,
+    "count": 97,
     "uniques": 2
   },
   {
@@ -20,12 +20,12 @@
     "uniques": 2
   },
   {
-    "referrer": "automated-testing.info",
-    "count": 2,
+    "referrer": "nuget.org",
+    "count": 1,
     "uniques": 1
   },
   {
-    "referrer": "nuget.org",
+    "referrer": "automated-testing.info",
     "count": 1,
     "uniques": 1
   }
