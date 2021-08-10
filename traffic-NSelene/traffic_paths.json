@@ -2,13 +2,13 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 137,
-    "uniques": 22
+    "count": 131,
+    "uniques": 23
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene",
     "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
-    "count": 11,
+    "count": 13,
     "uniques": 3
   },
   {
@@ -20,7 +20,7 @@
   {
     "path": "/yashaka/NSelene/tree/master/NSelene/Helpers",
     "title": "NSelene/NSelene/Helpers at master · yashaka/NSelene · GitHub",
-    "count": 4,
+    "count": 5,
     "uniques": 2
   },
   {
@@ -28,6 +28,12 @@
     "title": "Issues · yashaka/NSelene · GitHub",
     "count": 3,
     "uniques": 3
+  },
+  {
+    "path": "/yashaka/NSelene/blob/master/NSelene/Helpers/Ref.cs",
+    "title": "NSelene/Ref.cs at master · yashaka/NSelene · GitHub",
+    "count": 3,
+    "uniques": 2
   },
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/Conditions/Text.cs",
@@ -40,12 +46,6 @@
     "title": "NSelene/NSelene.sln at master · yashaka/NSelene · GitHub",
     "count": 3,
     "uniques": 1
-  },
-  {
-    "path": "/yashaka/NSelene/blob/master/NSelene/Helpers/Ref.cs",
-    "title": "NSelene/Ref.cs at master · yashaka/NSelene · GitHub",
-    "count": 2,
-    "uniques": 2
   },
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/Wait.cs",
