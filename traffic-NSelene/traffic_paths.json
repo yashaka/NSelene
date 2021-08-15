@@ -2,24 +2,24 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 110,
-    "uniques": 19
+    "count": 98,
+    "uniques": 22
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene",
     "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
-    "count": 20,
-    "uniques": 2
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
-    "title": "NSelene/NSelene/Conditions at master · yashaka/NSelene · GitHub",
-    "count": 7,
-    "uniques": 2
+    "count": 22,
+    "uniques": 3
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene/Helpers",
     "title": "NSelene/NSelene/Helpers at master · yashaka/NSelene · GitHub",
+    "count": 8,
+    "uniques": 3
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
+    "title": "NSelene/NSelene/Conditions at master · yashaka/NSelene · GitHub",
     "count": 7,
     "uniques": 2
   },
