@@ -1,7 +1,7 @@
 [
   {
     "referrer": "ecosia.org",
-    "count": 60,
+    "count": 18,
     "uniques": 3
   },
   {
@@ -16,12 +16,7 @@
   },
   {
     "referrer": "DuckDuckGo",
-    "count": 6,
-    "uniques": 3
-  },
-  {
-    "referrer": "nuget.org",
-    "count": 1,
+    "count": 2,
     "uniques": 1
   },
   {
