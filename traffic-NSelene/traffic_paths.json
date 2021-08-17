@@ -2,26 +2,20 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 52,
-    "uniques": 21
+    "count": 31,
+    "uniques": 19
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene",
     "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
-    "count": 22,
+    "count": 16,
     "uniques": 3
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene/Helpers",
     "title": "NSelene/NSelene/Helpers at master · yashaka/NSelene · GitHub",
-    "count": 8,
+    "count": 5,
     "uniques": 3
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
-    "title": "NSelene/NSelene/Conditions at master · yashaka/NSelene · GitHub",
-    "count": 7,
-    "uniques": 2
   },
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/Utils.cs",
@@ -38,25 +32,31 @@
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/Selene.cs",
     "title": "NSelene/Selene.cs at master · yashaka/NSelene · GitHub",
-    "count": 3,
+    "count": 2,
+    "uniques": 2
+  },
+  {
+    "path": "/yashaka/NSelene/releases/tag/v1.0.0-alpha05",
+    "title": "Release Faster, full unti-flakyness, parallelisation-friendly, customizable p...",
+    "count": 2,
     "uniques": 2
   },
   {
     "path": "/yashaka/NSelene/tree/master/run",
     "title": "NSelene/run at master · yashaka/NSelene · GitHub",
-    "count": 3,
+    "count": 2,
     "uniques": 2
-  },
-  {
-    "path": "/yashaka/NSelene/blob/master/NSelene/Conditions/Text.cs",
-    "title": "NSelene/Text.cs at master · yashaka/NSelene · GitHub",
-    "count": 3,
-    "uniques": 1
   },
   {
     "path": "/yashaka/NSelene/blob/master/NSelene.sln",
     "title": "NSelene/NSelene.sln at master · yashaka/NSelene · GitHub",
-    "count": 3,
+    "count": 2,
+    "uniques": 1
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
+    "title": "NSelene/NSelene/Conditions at master · yashaka/NSelene · GitHub",
+    "count": 2,
     "uniques": 1
   }
 ]
