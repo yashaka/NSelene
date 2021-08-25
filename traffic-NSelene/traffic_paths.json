@@ -2,26 +2,20 @@
   {
     "path": "/yashaka/NSelene",
     "title": "GitHub - yashaka/NSelene: Consise API to Selenium for .Net (the port of Selen...",
-    "count": 61,
-    "uniques": 21
+    "count": 59,
+    "uniques": 24
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene",
     "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
-    "count": 11,
-    "uniques": 5
+    "count": 4,
+    "uniques": 3
   },
   {
-    "path": "/yashaka/NSelene/blob/master/NSelene/Utils.cs",
-    "title": "NSelene/Utils.cs at master · yashaka/NSelene · GitHub",
-    "count": 3,
-    "uniques": 2
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSelene/Helpers",
-    "title": "NSelene/NSelene/Helpers at master · yashaka/NSelene · GitHub",
-    "count": 3,
-    "uniques": 2
+    "path": "/yashaka/NSelene/search",
+    "title": "Search · bumbelbe",
+    "count": 4,
+    "uniques": 1
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests",
@@ -54,9 +48,15 @@
     "uniques": 2
   },
   {
-    "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
-    "title": "NSelene/NSelene/Conditions at master · yashaka/NSelene · GitHub",
-    "count": 2,
+    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneDriver.cs",
+    "title": "NSelene/SeleneDriver.cs at master · yashaka/NSelene · GitHub",
+    "count": 1,
+    "uniques": 1
+  },
+  {
+    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
+    "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene · GitHub",
+    "count": 1,
     "uniques": 1
   }
 ]
