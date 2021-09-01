@@ -2,8 +2,8 @@
   {
     "path": "/yashaka/NSelene",
     "title": "GitHub - yashaka/NSelene: Consise API to Selenium for .Net (the port of Selen...",
-    "count": 63,
-    "uniques": 25
+    "count": 44,
+    "uniques": 24
   },
   {
     "path": "/yashaka/NSelene/network/dependencies",
@@ -12,22 +12,10 @@
     "uniques": 1
   },
   {
-    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
-    "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
-    "count": 4,
-    "uniques": 3
-  },
-  {
     "path": "/yashaka/NSelene/search",
-    "title": "Search · bumbelbe",
-    "count": 4,
-    "uniques": 1
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSelene",
-    "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
-    "count": 3,
-    "uniques": 3
+    "title": "Search · Exception · GitHub",
+    "count": 16,
+    "uniques": 2
   },
   {
     "path": "/yashaka/NSelene/issues/85",
@@ -54,8 +42,20 @@
     "uniques": 2
   },
   {
-    "path": "/yashaka/NSelene/blob/master/NSeleneTests/Unit/ConditionSpecs.cs",
-    "title": "NSelene/ConditionSpecs.cs at master · yashaka/NSelene · GitHub",
+    "path": "/yashaka/NSelene/blob/master/README.md",
+    "title": "NSelene/README.md at master · yashaka/NSelene · GitHub",
+    "count": 2,
+    "uniques": 2
+  },
+  {
+    "path": "/yashaka/NSelene/issues",
+    "title": "Issues · yashaka/NSelene · GitHub",
+    "count": 2,
+    "uniques": 2
+  },
+  {
+    "path": "/yashaka/NSelene/pulls",
+    "title": "Pull requests · yashaka/NSelene · GitHub",
     "count": 2,
     "uniques": 2
   }
