@@ -18,6 +18,12 @@
     "uniques": 2
   },
   {
+    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
+    "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene · GitHub",
+    "count": 6,
+    "uniques": 4
+  },
+  {
     "path": "/yashaka/NSelene/issues",
     "title": "Issues · yashaka/NSelene · GitHub",
     "count": 3,
@@ -36,9 +42,9 @@
     "uniques": 2
   },
   {
-    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
-    "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene · GitHub",
-    "count": 2,
+    "path": "/yashaka/NSelene/tree/master/NSelene",
+    "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
+    "count": 3,
     "uniques": 2
   },
   {
@@ -50,12 +56,6 @@
   {
     "path": "/yashaka/NSelene/blob/master/NSeleneTests/Unit/ConditionSpecs.cs",
     "title": "NSelene/ConditionSpecs.cs at master · yashaka/NSelene · GitHub",
-    "count": 2,
-    "uniques": 2
-  },
-  {
-    "path": "/yashaka/NSelene/blob/master/README.md",
-    "title": "NSelene/README.md at master · yashaka/NSelene · GitHub",
     "count": 2,
     "uniques": 2
   }
