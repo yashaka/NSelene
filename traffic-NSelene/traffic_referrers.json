@@ -1,8 +1,8 @@
 [
   {
     "referrer": "Google",
-    "count": 12,
-    "uniques": 10
+    "count": 11,
+    "uniques": 9
   },
   {
     "referrer": "github.com",
@@ -11,8 +11,13 @@
   },
   {
     "referrer": "automated-testing.info",
-    "count": 4,
+    "count": 5,
     "uniques": 3
+  },
+  {
+    "referrer": "software-testing.ru",
+    "count": 1,
+    "uniques": 1
   },
   {
     "referrer": "npmjs.com",
@@ -20,7 +25,7 @@
     "uniques": 1
   },
   {
-    "referrer": "software-testing.ru",
+    "referrer": "Bing",
     "count": 1,
     "uniques": 1
   }
