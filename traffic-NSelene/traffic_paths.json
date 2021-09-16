@@ -2,7 +2,7 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 22,
+    "count": 23,
     "uniques": 18
   },
   {
@@ -10,6 +10,12 @@
     "title": "Search · filterby · GitHub",
     "count": 10,
     "uniques": 1
+  },
+  {
+    "path": "/yashaka/NSelene/issues",
+    "title": "Issues · yashaka/NSelene · GitHub",
+    "count": 7,
+    "uniques": 2
   },
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/SeleneDriver.cs",
@@ -21,41 +27,35 @@
     "path": "/yashaka/NSelene/tree/master/NSelene",
     "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
     "count": 4,
-    "uniques": 3
+    "uniques": 2
   },
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/Configuration.cs",
     "title": "NSelene/Configuration.cs at master · yashaka/NSelene · GitHub",
-    "count": 2,
-    "uniques": 2
-  },
-  {
-    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneLocator.cs",
-    "title": "NSelene/SeleneLocator.cs at master · yashaka/NSelene · GitHub",
-    "count": 2,
-    "uniques": 2
-  },
-  {
-    "path": "/yashaka/NSelene/blob/master/NSelene/Support/SeleneElementJsExtensions.cs",
-    "title": "NSelene/SeleneElementJsExtensions.cs at master · yashaka/NSelene · GitHub",
-    "count": 2,
-    "uniques": 2
-  },
-  {
-    "path": "/yashaka/NSelene/issues/91",
-    "title": "ShouldNot does take <timeout> seconds when executed on an element which paren...",
-    "count": 2,
+    "count": 3,
     "uniques": 2
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
     "title": "NSelene/NSelene/Conditions at master · yashaka/NSelene · GitHub",
-    "count": 2,
+    "count": 3,
     "uniques": 2
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene/Helpers",
     "title": "NSelene/NSelene/Helpers at master · yashaka/NSelene · GitHub",
+    "count": 3,
+    "uniques": 2
+  },
+  {
+    "path": "/yashaka/NSelene/pulls",
+    "title": "Pull requests · yashaka/NSelene · GitHub",
+    "count": 3,
+    "uniques": 1
+  },
+  {
+    "path": "/yashaka/nselene",
+    "title": "GitHub - yashaka/NSelene: Consise API to Selenium for .Net (the port of Selen...",
     "count": 2,
     "uniques": 2
   }
