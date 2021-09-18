@@ -1,8 +1,8 @@
 [
   {
     "referrer": "Google",
-    "count": 10,
-    "uniques": 10
+    "count": 9,
+    "uniques": 9
   },
   {
     "referrer": "github.com",
@@ -10,9 +10,14 @@
     "uniques": 3
   },
   {
+    "referrer": "software-testing.ru",
+    "count": 2,
+    "uniques": 2
+  },
+  {
     "referrer": "automated-testing.info",
     "count": 2,
-    "uniques": 1
+    "uniques": 2
   },
   {
     "referrer": "Bing",
@@ -20,7 +25,7 @@
     "uniques": 1
   },
   {
-    "referrer": "software-testing.ru",
+    "referrer": "wiki.cornerstoneondemand.com",
     "count": 1,
     "uniques": 1
   }
