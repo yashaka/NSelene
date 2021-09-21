@@ -2,8 +2,8 @@
   {
     "path": "/yashaka/NSelene",
     "title": "GitHub - yashaka/NSelene: Consise API to Selenium for .Net (the port of Selen...",
-    "count": 16,
-    "uniques": 11
+    "count": 23,
+    "uniques": 15
   },
   {
     "path": "/yashaka/NSelene/search",
@@ -20,12 +20,18 @@
   {
     "path": "/yashaka/NSelene/tree/master/NSelene",
     "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
-    "count": 4,
+    "count": 5,
     "uniques": 2
   },
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/Configuration.cs",
     "title": "NSelene/Configuration.cs at master · yashaka/NSelene · GitHub",
+    "count": 3,
+    "uniques": 2
+  },
+  {
+    "path": "/yashaka/NSelene/issues/57",
+    "title": "add shadow dom support · Issue #57 · yashaka/NSelene · GitHub",
     "count": 3,
     "uniques": 2
   },
@@ -42,21 +48,15 @@
     "uniques": 2
   },
   {
-    "path": "/yashaka/NSelene/pulls",
-    "title": "Pull requests · yashaka/NSelene · GitHub",
+    "path": "/yashaka/NSelene/blob/master/NSelene/Selene.cs",
+    "title": "NSelene/Selene.cs at master · yashaka/NSelene · GitHub",
     "count": 3,
     "uniques": 1
   },
   {
-    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneDriver.cs",
-    "title": "NSelene/SeleneDriver.cs at master · yashaka/NSelene · GitHub",
-    "count": 2,
-    "uniques": 2
-  },
-  {
-    "path": "/yashaka/NSelene/blob/master/NSelene/Support/SeleneElementJsExtensions.cs",
-    "title": "NSelene/SeleneElementJsExtensions.cs at master · yashaka/NSelene · GitHub",
-    "count": 2,
-    "uniques": 2
+    "path": "/yashaka/NSelene/pulls",
+    "title": "Pull requests · yashaka/NSelene · GitHub",
+    "count": 3,
+    "uniques": 1
   }
 ]
