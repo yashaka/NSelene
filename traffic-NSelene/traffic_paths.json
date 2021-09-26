@@ -2,19 +2,19 @@
   {
     "path": "/yashaka/NSelene",
     "title": "GitHub - yashaka/NSelene: Consise API to Selenium for .Net (the port of Selen...",
-    "count": 9,
-    "uniques": 7
-  },
-  {
-    "path": "/yashaka/NSelene/issues",
-    "title": "Issues · yashaka/NSelene · GitHub",
     "count": 7,
-    "uniques": 2
+    "uniques": 5
   },
   {
     "path": "/yashaka/NSelene/search",
     "title": "Search · conditions · GitHub",
     "count": 7,
+    "uniques": 1
+  },
+  {
+    "path": "/yashaka/NSelene/issues",
+    "title": "Issues · yashaka/NSelene · GitHub",
+    "count": 6,
     "uniques": 1
   },
   {
@@ -30,20 +30,8 @@
     "uniques": 1
   },
   {
-    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
-    "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
-    "count": 2,
-    "uniques": 2
-  },
-  {
     "path": "/yashaka/NSelene/blob/master/NSelene/Configuration.cs",
     "title": "NSelene/Configuration.cs at master · yashaka/NSelene · GitHub",
-    "count": 2,
-    "uniques": 1
-  },
-  {
-    "path": "/yashaka/NSelene/issues/57",
-    "title": "add shadow dom support · Issue #57 · yashaka/NSelene · GitHub",
     "count": 2,
     "uniques": 1
   },
@@ -57,6 +45,18 @@
     "path": "/yashaka/NSelene/tree/master/NSelene/Helpers",
     "title": "NSelene/NSelene/Helpers at master · yashaka/NSelene · GitHub",
     "count": 2,
+    "uniques": 1
+  },
+  {
+    "path": "/yashaka/nselene",
+    "title": "GitHub - yashaka/NSelene: Consise API to Selenium for .Net (the port of Selen...",
+    "count": 1,
+    "uniques": 1
+  },
+  {
+    "path": "/yashaka/NSelene/blob/16d61a5edbc92d576f43d6c0d77ba4fa3ade9d57/NSeleneTests/Integration/SharedDriver/SeleneElementJsExtensions_Specs.cs",
+    "title": "NSelene/SeleneElementJsExtensions_Specs.cs at 16d61a5edbc92d576f43d6c0d77ba4f...",
+    "count": 1,
     "uniques": 1
   }
 ]
