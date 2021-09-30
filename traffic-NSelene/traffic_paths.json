@@ -2,7 +2,7 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 15,
+    "count": 16,
     "uniques": 12
   },
   {
@@ -20,6 +20,18 @@
   {
     "path": "/yashaka/nselene",
     "title": "GitHub - yashaka/NSelene: Consise API to Selenium for .Net (the port of Selen...",
+    "count": 2,
+    "uniques": 2
+  },
+  {
+    "path": "/yashaka/NSelene/blob/master/NSelene/Selene.cs",
+    "title": "NSelene/Selene.cs at master · yashaka/NSelene · GitHub",
+    "count": 2,
+    "uniques": 2
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSelene",
+    "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
     "count": 2,
     "uniques": 2
   },
@@ -42,20 +54,8 @@
     "uniques": 1
   },
   {
-    "path": "/yashaka/NSelene/blob/master/NSelene/Selene.cs",
-    "title": "NSelene/Selene.cs at master · yashaka/NSelene · GitHub",
-    "count": 1,
-    "uniques": 1
-  },
-  {
     "path": "/yashaka/NSelene/blob/master/NSelene/SeleneDriver.cs",
     "title": "NSelene/SeleneDriver.cs at master · yashaka/NSelene · GitHub",
-    "count": 1,
-    "uniques": 1
-  },
-  {
-    "path": "/yashaka/NSelene/blob/master/NSeleneTests/Integration/SharedDriver/SeleneCollection_Matching_Specs.cs",
-    "title": "NSelene/SeleneCollection_Matching_Specs.cs at master · yashaka/NSelene",
     "count": 1,
     "uniques": 1
   }
