@@ -1,7 +1,7 @@
 [
   {
     "referrer": "Google",
-    "count": 25,
+    "count": 26,
     "uniques": 11
   },
   {
@@ -11,7 +11,7 @@
   },
   {
     "referrer": "automated-testing.info",
-    "count": 1,
-    "uniques": 1
+    "count": 2,
+    "uniques": 2
   }
 ]
