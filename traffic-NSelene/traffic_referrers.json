@@ -1,8 +1,13 @@
 [
   {
     "referrer": "Google",
-    "count": 18,
-    "uniques": 11
+    "count": 23,
+    "uniques": 12
+  },
+  {
+    "referrer": "github.com",
+    "count": 2,
+    "uniques": 2
   },
   {
     "referrer": "automated-testing.info",
@@ -15,7 +20,7 @@
     "uniques": 1
   },
   {
-    "referrer": "github.com",
+    "referrer": "nuget.org",
     "count": 1,
     "uniques": 1
   }
