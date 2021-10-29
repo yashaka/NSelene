@@ -2,32 +2,26 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 31,
-    "uniques": 15
+    "count": 41,
+    "uniques": 20
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene",
     "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
-    "count": 8,
+    "count": 7,
     "uniques": 4
   },
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
     "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene · GitHub",
-    "count": 7,
+    "count": 6,
     "uniques": 3
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests",
     "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
-    "count": 4,
-    "uniques": 2
-  },
-  {
-    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneDriver.cs",
-    "title": "NSelene/SeleneDriver.cs at master · yashaka/NSelene · GitHub",
-    "count": 4,
-    "uniques": 1
+    "count": 5,
+    "uniques": 3
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests/Integration/SharedDriver",
@@ -36,27 +30,33 @@
     "uniques": 2
   },
   {
-    "path": "/yashaka/NSelene/issues",
-    "title": "Issues · yashaka/NSelene · GitHub",
+    "path": "/yashaka/NSelene/blob/master/NSelene/SeleneDriver.cs",
+    "title": "NSelene/SeleneDriver.cs at master · yashaka/NSelene · GitHub",
+    "count": 3,
+    "uniques": 1
+  },
+  {
+    "path": "/yashaka/NSelene/commit/48ffee5b65440fb7b8d4351a2f64910089592ce8",
+    "title": "added witing to ElementJsExtensions · yashaka/NSelene@48ffee5 · GitHub",
     "count": 2,
     "uniques": 2
   },
   {
-    "path": "/yashaka/NSelene/blob/master/NSelene/NSelene.csproj",
-    "title": "NSelene/NSelene.csproj at master · yashaka/NSelene · GitHub",
+    "path": "/yashaka/NSelene/commit/6bf4c338484e428754ea34a4bfad31e6247b652d",
+    "title": "release: prepare 1.0.0-alpha09 · yashaka/NSelene@6bf4c33 · GitHub",
     "count": 2,
-    "uniques": 1
+    "uniques": 2
   },
   {
-    "path": "/yashaka/NSelene/blob/master/NSelene.sln",
-    "title": "NSelene/NSelene.sln at master · yashaka/NSelene · GitHub",
+    "path": "/yashaka/NSelene/commits/master",
+    "title": "Commits · yashaka/NSelene · GitHub",
     "count": 2,
-    "uniques": 1
+    "uniques": 2
   },
   {
-    "path": "/yashaka/NSelene/blob/master/NSeleneTests/Integration/SharedDriver/SeleneCollection_FilterBy_Specs.cs",
-    "title": "NSelene/SeleneCollection_FilterBy_Specs.cs at master · yashaka/NSelene · GitHub",
+    "path": "/yashaka/NSelene/issues",
+    "title": "Issues · yashaka/NSelene · GitHub",
     "count": 2,
-    "uniques": 1
+    "uniques": 2
   }
 ]
