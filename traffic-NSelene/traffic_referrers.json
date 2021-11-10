@@ -6,8 +6,8 @@
   },
   {
     "referrer": "Google",
-    "count": 33,
-    "uniques": 9
+    "count": 35,
+    "uniques": 10
   },
   {
     "referrer": "github.com",
@@ -18,5 +18,10 @@
     "referrer": "automated-testing.info",
     "count": 5,
     "uniques": 2
+  },
+  {
+    "referrer": "DuckDuckGo",
+    "count": 1,
+    "uniques": 1
   }
 ]
