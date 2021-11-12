@@ -42,6 +42,12 @@
     "uniques": 2
   },
   {
+    "path": "/yashaka/NSelene/blob/master/NSelene/Selectors.cs",
+    "title": "NSelene/Selectors.cs at master · yashaka/NSelene · GitHub",
+    "count": 2,
+    "uniques": 2
+  },
+  {
     "path": "/yashaka/NSelene/blob/master/NSelene/SeleneElement.cs",
     "title": "NSelene/SeleneElement.cs at master · yashaka/NSelene · GitHub",
     "count": 2,
@@ -50,12 +56,6 @@
   {
     "path": "/yashaka/NSelene/blob/master/NSelene/Support/SeleneElementJsExtensions.cs",
     "title": "NSelene/SeleneElementJsExtensions.cs at master · yashaka/NSelene",
-    "count": 2,
-    "uniques": 2
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
-    "title": "NSelene/NSeleneTests at master · yashaka/NSelene",
     "count": 2,
     "uniques": 2
   }
