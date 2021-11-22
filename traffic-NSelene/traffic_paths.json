@@ -2,8 +2,8 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 23,
-    "uniques": 18
+    "count": 19,
+    "uniques": 14
   },
   {
     "path": "/yashaka/NSelene/pulls",
@@ -54,8 +54,8 @@
     "uniques": 1
   },
   {
-    "path": "/yashaka/NSelene/commit/6bf4c338484e428754ea34a4bfad31e6247b652d",
-    "title": "release: prepare 1.0.0-alpha09 · yashaka/NSelene@6bf4c33 · GitHub",
+    "path": "/yashaka/NSelene/issues/57",
+    "title": "add shadow dom support · Issue #57 · yashaka/NSelene",
     "count": 1,
     "uniques": 1
   }
