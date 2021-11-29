@@ -1,13 +1,13 @@
 [
   {
     "referrer": "Google",
-    "count": 38,
-    "uniques": 10
+    "count": 31,
+    "uniques": 6
   },
   {
-    "referrer": "automated-testing.info",
+    "referrer": "github.com",
     "count": 2,
-    "uniques": 1
+    "uniques": 2
   },
   {
     "referrer": "radio-qa.com",
