@@ -2,44 +2,26 @@
   {
     "path": "/yashaka/NSelene",
     "title": "yashaka/NSelene: Consise API to Selenium for .Net (the port of Selene in pyth...",
-    "count": 33,
-    "uniques": 16
+    "count": 25,
+    "uniques": 17
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSelene",
     "title": "NSelene/NSelene at master · yashaka/NSelene · GitHub",
-    "count": 10,
-    "uniques": 5
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
-    "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
-    "count": 7,
-    "uniques": 5
+    "count": 6,
+    "uniques": 4
   },
   {
     "path": "/yashaka/NSelene/issues",
     "title": "Issues · yashaka/NSelene · GitHub",
-    "count": 7,
-    "uniques": 4
-  },
-  {
-    "path": "/yashaka/NSelene/pulls",
-    "title": "Pull requests · yashaka/NSelene · GitHub",
-    "count": 3,
+    "count": 5,
     "uniques": 3
   },
   {
-    "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
-    "title": "NSelene/NSelene/Conditions at master · yashaka/NSelene · GitHub",
-    "count": 3,
-    "uniques": 2
-  },
-  {
-    "path": "/yashaka/NSelene/tree/master/NSeleneTests/Examples/SharedDriver",
-    "title": "NSelene/NSeleneTests/Examples/SharedDriver at master · yashaka/NSelene · GitHub",
-    "count": 2,
-    "uniques": 2
+    "path": "/yashaka/NSelene/tree/master/NSeleneTests",
+    "title": "NSelene/NSeleneTests at master · yashaka/NSelene · GitHub",
+    "count": 4,
+    "uniques": 4
   },
   {
     "path": "/yashaka/NSelene/tree/master/NSeleneTests/Unit",
@@ -57,6 +39,24 @@
     "path": "/yashaka/NSelene/issues/57",
     "title": "add shadow dom support · Issue #57 · yashaka/NSelene · GitHub",
     "count": 2,
+    "uniques": 1
+  },
+  {
+    "path": "/yashaka/NSelene/tree/master/NSelene/Conditions",
+    "title": "NSelene/NSelene/Conditions at master · yashaka/NSelene · GitHub",
+    "count": 2,
+    "uniques": 1
+  },
+  {
+    "path": "/yashaka/NSelene/blob/master/NSelene/Configuration.cs",
+    "title": "NSelene/Configuration.cs at master · yashaka/NSelene · GitHub",
+    "count": 1,
+    "uniques": 1
+  },
+  {
+    "path": "/yashaka/NSelene/blob/master/NSelene/NSelene.csproj",
+    "title": "NSelene/NSelene.csproj at master · yashaka/NSelene",
+    "count": 1,
     "uniques": 1
   }
 ]
