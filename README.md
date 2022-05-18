@@ -123,6 +123,8 @@ Tests may look like this in a so-called "straightforward" style:
         [Test]
         public void CompleteTask()
         {
+            // ensure you added `using static NSelene.Selene;` in the beginning of a file ;)
+            
             Open("http://todomvc.com/examples/emberjs/");
             S("#new-todo").SetValue("a").PressEnter();
             S("#new-todo").SetValue("b").PressEnter();
