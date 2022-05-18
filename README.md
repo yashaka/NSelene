@@ -99,7 +99,7 @@ NSelene has no fully automatic driver management. Given the [WebDriverManager] i
         public void InitDriver()
         {
             string chromeVersion = "Latest"; // e.g. "83.0.4103.39" or "Latest", see https://chromedriver.chromium.org/downloads
-            new DriverManager().SetUpDriver(new ChromeConfig(), version: chromeVersion)
+            new DriverManager().SetUpDriver(new ChromeConfig(), version: chromeVersion);
             Configuration.Driver = new ChromeDriver();
 
             // a handy option to enable automatic waiting for no overlay in web tests
