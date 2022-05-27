@@ -8,6 +8,12 @@
 ## 1.0.0-alpha1x (to be released on 2021.05.??)
 - deprecate the majority of Selene.* (except S, SS) when providing alternative API via Browser.*
 
+## 1.0.0-alpha10 (to be released on 2022.05.27)
+- upgraded Selenium.WebDriver from 3.141.0 to 4.2.0
+  - kept old-fashioned names for SeleneElement.GetAttribute & .GetProperty
+    but now under the hood they use new GetDomAttribute & GetDomProperty correspondingly
+  - added SeleneElement.GetShadowRoot as wrapper over WebElement.GetShadowRoot
+
 ## 1.0.0-alpha09 (to be released on 2021.05.19)
 - improved error messages for cases of inner element search
   - like error on S(".parent").Find(".child").Click() when .parent is absent or not visible

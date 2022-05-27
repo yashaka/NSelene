@@ -344,9 +344,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
                 Assert.Contains("Reason:", lines);
                 Assert.Contains(
-                    "no such element: Unable to locate element: "
-                    + "{\"method\":\"xpath\",\"selector\":\"./ancestor-or-self::form\"}"
-                    , 
+                    "javascript error: Unable to find owning document", 
                     lines
                 );
 

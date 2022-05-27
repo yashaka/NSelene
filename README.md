@@ -34,9 +34,10 @@ For docs see tests in the [NSeleneTests](https://github.com/yashaka/NSelene/blob
 
 ## Versions
   
-* Upcomig version to use is just released [1.0.0-alpha09](https://www.nuget.org/packages/NSelene/1.0.0-alpha09)
+* Upcomig version to use is just released [1.0.0-alpha10](https://www.nuget.org/packages/NSelene/1.0.0-alpha10)
   * targets netstandard2.0
     * net45 support may be added later
+  * wraps Selenium 4.2.0
   * it differs from [0.0.0.7](https://www.nuget.org/packages/NSelene/0.0.0.7) in the following:
     * repacked in sdk-style format
     * removed things marked as obsolete til 0.0.0.7
@@ -302,9 +303,7 @@ Before doing anything it's good to just clone the project via `git clone https:/
 - the readme is updated if needed
 - tests pass
   ```
-  cd NSeleneTests
   dotnet test
-  cd ../NSelene
   ```
 - the corresponding git tag with current version number and description (should reflect the changelog) is added 
 

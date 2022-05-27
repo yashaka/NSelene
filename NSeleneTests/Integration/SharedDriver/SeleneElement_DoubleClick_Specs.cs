@@ -24,7 +24,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 <span ondblclick='window.location=this.href + ""#second""'>to h2</span>
                 <h2 id='second'>Heading 2</h2>
                 ",
-                300
+                250
             );
 
             S("span").DoubleClick();

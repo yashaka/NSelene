@@ -41,7 +41,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             Assert.AreEqual(
                 "before and after", 
                 Configuration.Driver
-                .FindElement(By.TagName("input")).GetProperty("value")
+                .FindElement(By.TagName("input")).GetDomProperty("value")
             );
             Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
             Assert.Less(afterCall, beforeCall.AddSeconds(0.7));
@@ -118,7 +118,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.AreEqual(
                     "", 
                     Configuration.Driver
-                    .FindElement(By.TagName("input")).GetProperty("value")
+                    .FindElement(By.TagName("input")).GetDomProperty("value")
                 );
             }
         }
@@ -152,7 +152,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             Assert.AreEqual(
                 "before and after", 
                 Configuration.Driver
-                .FindElement(By.TagName("input")).GetProperty("value")
+                .FindElement(By.TagName("input")).GetDomProperty("value")
             );
             Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
             Assert.Less(afterCall, beforeCall.AddSeconds(0.7));
@@ -193,7 +193,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.AreEqual(
                     "before ", 
                     Configuration.Driver
-                    .FindElement(By.TagName("input")).GetProperty("value")
+                    .FindElement(By.TagName("input")).GetDomProperty("value")
                 );
             }
         }
@@ -232,7 +232,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.AreEqual(
                     "before ", 
                     Configuration.Driver
-                    .FindElement(By.TagName("input")).GetProperty("value")
+                    .FindElement(By.TagName("input")).GetDomProperty("value")
                 );
             }
         }
@@ -280,7 +280,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             Assert.AreEqual(
                 "before and after", 
                 Configuration.Driver
-                .FindElement(By.TagName("input")).GetProperty("value")
+                .FindElement(By.TagName("input")).GetDomProperty("value")
             );
         }
 
@@ -334,7 +334,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             Assert.AreEqual(
                 "before and after", 
                 Configuration.Driver
-                .FindElement(By.TagName("input")).GetProperty("value")
+                .FindElement(By.TagName("input")).GetDomProperty("value")
             );
         }
 

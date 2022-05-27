@@ -683,6 +683,11 @@ namespace NSelene
 
         //
         // IWebElement Methods
+        // 
+        // TODO: do we really need these explicit interface implemantations? why?
+        //       we might need only GetDomAttribute and GetDomProperty
+        //       because we want to hide them from SeleneElement public API...
+        //       so more lacontic versions (GetAttribute, GetProperty) can be used
         //
 
         void IWebElement.Clear()
@@ -705,16 +710,32 @@ namespace NSelene
             Click();
         }
 
+        string IWebElement.GetDomAttribute(string attributeName)
+        {
+            return this.ActualWebElement.GetDomAttribute(attributeName);
+        }
+
+        string IWebElement.GetDomProperty(string propertyName)
+        {
+            return this.ActualWebElement.GetDomProperty(propertyName);
+        }
+
         public string GetAttribute(string name)
         {
             Should(Be.InDom);
-            return this.ActualWebElement.GetAttribute(name);
+            return this.ActualWebElement.GetDomAttribute(name);
         }
 
         public string GetProperty (string propertyName)
         {
             Should(Be.InDom);
-            return this.ActualWebElement.GetProperty(propertyName);
+            return this.ActualWebElement.GetDomProperty(propertyName);
+        }
+
+        public ISearchContext GetShadowRoot ()
+        {
+            Should(Be.InDom);
+            return this.ActualWebElement.GetShadowRoot();
         }
 
         public string GetCssValue(string property)
