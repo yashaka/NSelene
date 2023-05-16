@@ -28,7 +28,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
         public void NotStartSearch_EvenOnFollowingInnerSearch()
         {
             Given.OpenedPageWithBody("<p>have no any items</p>");
-            var nonExistentElement = SS(".not-existing")[10].Find("#not-existing-inner");
+            var nonExistentElement = SS(".not-existing")[10].Element("#not-existing-inner");
             Assert.IsNotEmpty(nonExistentElement.ToString()); 
         }
 
@@ -50,7 +50,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
         public void UpdateSearch_OnNextActualActionLikeQuestioiningValue()
         {
             Given.OpenedPageWithBody("<p id='existing'>Hello!</p>");
-            var element = S("#existing").Find("#will-exist");
+            var element = S("#existing").Element("#will-exist");
             When.WithBody(@"
                 <p id='existing'>Hello! 
                     <input id='will-exist' type='submit' value='How r u?'></input>

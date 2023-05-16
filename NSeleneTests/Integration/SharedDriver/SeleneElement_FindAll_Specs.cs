@@ -19,9 +19,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
         public void NotStartOnCreation()
         {
             Given.OpenedPageWithBody("<p id='#existing'>Hello!</p>");
-            var nonExistingCollection = S("#existing").FindAll(".also-not-existing");
+            var nonExistingCollection = S("#existing").All(".also-not-existing");
             Assert.IsNotEmpty(nonExistingCollection.ToString());  
-            var nonExistingCollection2 = S("#not-existing").FindAll(".also-not-existing"); 
+            var nonExistingCollection2 = S("#not-existing").All(".also-not-existing"); 
             Assert.IsNotEmpty(nonExistingCollection2.ToString()); 
         }
 
@@ -29,7 +29,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
         public void PostponeSearch_UntilActualActionLikeQuestioiningCount()
         {
             Given.OpenedEmptyPage();
-            var elements = S("div").FindAll("li");
+            var elements = S("div").All("li");
             When.WithBody(@"
                 <div>
                     <ul>Hello to:
@@ -45,7 +45,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
         public void UpdatedSearch_OnNextActualActionLikeQuestioiningCount()
         {
             Given.OpenedEmptyPage();
-            var elements = S("div").FindAll(".will-appear");
+            var elements = S("div").All(".will-appear");
             When.WithBody(@"
                 <div>
                     <ul>Hello to:
@@ -71,7 +71,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
         public void WaitNothing()
         {
             Given.OpenedEmptyPage();
-            var elements = S("div").FindAll(".will-appear");
+            var elements = S("div").All(".will-appear");
             When.WithBody(@"
                 <div>
                     <ul>Hello to:

@@ -133,8 +133,8 @@ Tests may look like this in a so-called "straightforward" style:
 
             SS("#todo-list>li").FindBy(Have.ExactText("b")).Find(".toggle").Click();
 
-            SS("#todo-list>li").FilterBy(Have.CssClass("completed")).Should(Have.ExactTexts("b"));
-            SS("#todo-list>li").FilterBy(Have.No.CssClass("completed")).Should(Have.ExactTexts("a", "c"));
+            SS("#todo-list>li").By(Have.CssClass("completed")).Should(Have.ExactTexts("b"));
+            SS("#todo-list>li").By(Have.No.CssClass("completed")).Should(Have.ExactTexts("a", "c"));
         }
     }
 ```

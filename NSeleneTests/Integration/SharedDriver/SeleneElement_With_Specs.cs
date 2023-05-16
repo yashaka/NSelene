@@ -120,7 +120,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             var customizedCollection 
             = SS(".absent").With(timeout: 0.2);
             var customized 
-            = customizedCollection.FindBy(Be.Visible).With(timeout: 0.5);
+            = customizedCollection.ElementBy(Be.Visible).With(timeout: 0.5);
 
             // WHEN shared setting updated one more time
             Configuration.PollDuringWaits = 0.3;
@@ -141,7 +141,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             var customizedCollection 
             = SS(".absent").With(timeout: 0.2, pollDuringWaits: 0.3);
             var customized 
-            = customizedCollection.FindBy(Be.Visible).With(timeout: 0.5);
+            = customizedCollection.ElementBy(Be.Visible).With(timeout: 0.5);
 
             // WHEN
             var beforeCall = DateTime.Now;

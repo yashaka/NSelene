@@ -295,7 +295,7 @@ namespace NSelene
         // SeleneElement element builders
         // 
 
-        public SeleneElement Find(By locator)
+        public SeleneElement Element(By locator)
         {
             return new SeleneElement(
                 new SearchContextWebElementSLocator(locator, this), 
@@ -303,12 +303,22 @@ namespace NSelene
             );
         }
 
-        public SeleneElement Find(string cssOrXPathSelector)
+        public SeleneElement Find(By locator)
         {
-            return this.Find(Utils.ToBy(cssOrXPathSelector));
+            return this.Element(locator);
         }
 
-        public SeleneCollection FindAll(By locator)
+        public SeleneElement Element(string cssOrXPathSelector)
+        {
+            return this.Element(Utils.ToBy(cssOrXPathSelector));
+        }
+
+        public SeleneElement Find(string cssOrXPathSelector)
+        {
+            return this.Element(cssOrXPathSelector);
+        }
+
+        public SeleneCollection All(By locator)
         {
             return new SeleneCollection(
                 new SearchContextWebElementsCollectionSLocator(locator, this), 
@@ -316,9 +326,19 @@ namespace NSelene
             );
         }
 
+        public SeleneCollection FindAll(By locator)
+        {
+            return this.All(locator);
+        }
+
+        public SeleneCollection All(string cssOrXPathSelector)
+        {
+            return this.All(Utils.ToBy(cssOrXPathSelector));
+        }
+
         public SeleneCollection FindAll(string cssOrXPathSelector)
         {
-            return this.FindAll(Utils.ToBy(cssOrXPathSelector));
+            return this.All(cssOrXPathSelector);
         }
 
         //

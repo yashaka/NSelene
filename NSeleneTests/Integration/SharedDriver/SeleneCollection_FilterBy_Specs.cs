@@ -19,7 +19,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
         [Test]
         public void NotStartSearch_OnCreation()
         {
-            var nonExistingCollection = SS(".will-exist").FilterBy(Be.Visible);
+            var nonExistingCollection = SS(".will-exist").By(Be.Visible);
             Assert.IsNotEmpty(nonExistingCollection.ToString()); 
         }
 
@@ -27,7 +27,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
         public void PostponeSearch_UntilActualActionLikeQuestioiningCount()
         {
             Given.OpenedEmptyPage();
-            var elements = SS("li").FilterBy(Be.Visible);
+            var elements = SS("li").By(Be.Visible);
             When.WithBody(@"
                 <ul>Hello to:
                     <li class='will-appear' style='display:none'>Bob</li>
@@ -41,7 +41,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
         public void UpdateSearch_OnNextActualActionLikeQuestioiningCount()
         {
             Given.OpenedEmptyPage();
-            var elements = SS("li").FilterBy(Be.Visible);
+            var elements = SS("li").By(Be.Visible);
             When.WithBody(@"
                 <ul>Hello to:
                     <li class='will-appear' style='display:none'>Miller</li>
@@ -59,7 +59,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
         public void WaitNothing()
         {
             Given.OpenedEmptyPage();
-            var elements = SS("li").FilterBy(Be.Visible);
+            var elements = SS("li").By(Be.Visible);
             When.WithBodyTimedOut(@"
                 <ul>Hello to:
                     <li class='will-appear' style='display:none'>Miller</li>

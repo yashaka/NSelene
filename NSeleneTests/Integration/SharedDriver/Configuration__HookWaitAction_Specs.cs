@@ -43,7 +43,7 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
             try { S(".absent").Click(); } catch {}
             try { S(".absent").Should(Have.Text("some")); } catch {}
             try { SS(".absent").Should(Have.Count(1)); } catch {}
-            try { S(".parent").FindAll(".child").Should(Have.Count(1)); } catch {}
+            try { S(".parent").All(".child").Should(Have.Count(1)); } catch {}
 
             Assert.AreEqual(log,
                 @"Browser.All(button).Should(Have.Count = 1): STARTED
@@ -101,7 +101,7 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
             try { absent.Click(); } catch {}
             try { absent.Should(Have.Text("some")); } catch {}
             try { allAbsent.Should(Have.Count(1)); } catch {}
-            try { absent.FindAll(".child").Should(Have.Count(1)); } catch {}
+            try { absent.All(".child").Should(Have.Count(1)); } catch {}
             
             Assert.AreEqual(log,
                 @"Browser.All(button).Should(Have.Count = 1): STARTED

@@ -22,7 +22,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
         public void NotStartSearch_OnCreation()
         {
             Given.OpenedPageWithBody("<p id='#existing'>Hello!</p>");
-            var nonExistentElement = S("#existing").Find("#not-existing-inner");
+            var nonExistentElement = S("#existing").Element("#not-existing-inner");
             Assert.IsNotEmpty(nonExistentElement.ToString());
         }
 
@@ -30,7 +30,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
         public void NotStartSearch_EvenOnFollowingInnerSearch()
         {
             Given.OpenedEmptyPage();
-            var nonExistentElement = S("#not-existing").Find("#not-existing-inner");
+            var nonExistentElement = S("#not-existing").Element("#not-existing-inner");
             Assert.IsNotEmpty(nonExistentElement.ToString());
         }
 
@@ -38,7 +38,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
         public void PostponeSearch_UntilActualActionLikeQuestioiningValue()
         {
             Given.OpenedPageWithBody("<p id='existing'>Hello!</p>");
-            var element = S("#existing").Find("#will-exist");
+            var element = S("#existing").Element("#will-exist");
             When.WithBody(@"
                 <p id='existing'>Hello! 
                     <input id='will-exist' type='submit' value='How r u?'></input>
@@ -51,7 +51,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
         public void UpdateTheSearch_OnNextActualActionLikeQuestioiningValue()
         {
             Given.OpenedPageWithBody("<p id='existing'>Hello!</p>");
-            var element = S("#existing").Find("#will-exist");
+            var element = S("#existing").Element("#will-exist");
             When.WithBody(@"
                 <p id='existing'>Hello! 
                     <input id='will-exist' type='submit' value='How r u?'></input>
@@ -77,7 +77,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                     <h2 id='second'>Heading 2</h2>
                 </p>"
             );
-            S("p").Find("a").Click();
+            S("p").Element("a").Click();
             Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
         }
 
@@ -97,7 +97,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                     }, 
                     1000);"
             );
-            S("p").Find("a").Click();
+            S("p").Element("a").Click();
             Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
         }
 
@@ -127,7 +127,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 "
             );
 
-            S("#parent").Find("a").Click();
+            S("#parent").Element("a").Click();
 
             var afterCall = DateTime.Now;
             Assert.Greater(afterCall, beforeCall.AddSeconds(0.7));
@@ -161,7 +161,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 "
             );
 
-            S("p").Find("a").Click();
+            S("p").Element("a").Click();
 
             var afterCall = DateTime.Now;
             Assert.Greater(afterCall, beforeCall.AddSeconds(0.7));
@@ -183,7 +183,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
 
             try 
             {
-                S("#parent").Find("a").Click();
+                S("#parent").Element("a").Click();
                 Assert.Fail("should fail on timeout before can be clicked");
             }
 
@@ -222,7 +222,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
 
             try 
             {
-                S("p").Find("a").Click();
+                S("p").Element("a").Click();
                 Assert.Fail("should fail on timeout before can be clicked");
             }
 
@@ -262,7 +262,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
 
             try 
             {
-                S("p").Find("a").Click();
+                S("p").Element("a").Click();
                 Assert.Fail("should fail on timeout before can be clicked");
             }
 

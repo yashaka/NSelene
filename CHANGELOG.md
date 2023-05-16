@@ -4,14 +4,24 @@
 - should we unmark ShouldNot as deprecated?
 - do we need SeleneDriver anymore? (if we go the direction of SeleneBrowser)
 
-
 ## 1.0.0-alpha1x (to be released on 2021.05.??)
-- deprecate the majority of Selene.* (except S, SS) when providing alternative API via Browser.*
+
+- deprecate the majority of `Selene.*` (except S, SS) when providing alternative API via `Browser.*`
 
 ## 1.0.0-alpha11 (to be released on 2023.05.16)
-- upgraded Selenium.WebDriver from from 4.2.0 to 4.5.0
 
-## 1.0.0-alpha10 (to be released on 2022.05.27)
+- upgraded Selenium.WebDriver from from 4.2.0 to 4.5.0
+- `collection.ElementBy(condition)` alias to `collection.FindBy(condition)`
+  - `FindBy` will be probably deprecated in future
+- `collection.By(condition)` alias to `collection.FilterBy(condition)`
+  - `FilterBy` will be probably deprecated in future
+- `element.Element(locator | selector)` alias to `element.Find(locator | selector)`
+  - `Find` will be probably deprecated in future
+- `element.All(locator | selector)` alias to `element.FindAll(locator | selector)`
+  - `FindAll` will be probably deprecated in future
+
+## 1.0.0-alpha10 (released on 2022.05.27)
+
 - upgraded Selenium.WebDriver from 3.141.0 to 4.2.0
   - kept old-fashioned names for SeleneElement.GetAttribute & .GetProperty
     but now under the hood they use new GetDomAttribute & GetDomProperty correspondingly

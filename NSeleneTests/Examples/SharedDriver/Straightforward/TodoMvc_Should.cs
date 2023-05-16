@@ -38,10 +38,10 @@ namespace NSelene.Tests.Examples.SharedDriver.StraightForward
             S("#new-todo").SetValue("b").PressEnter();
             S("#new-todo").SetValue("c").PressEnter();
 
-            SS("#todo-list>li").FindBy(Have.ExactText("b")).Find(".toggle").Click();
+            SS("#todo-list>li").ElementBy(Have.ExactText("b")).Element(".toggle").Click();
 
-            SS("#todo-list>li").FilterBy(Have.CssClass("completed")).Should(Have.ExactTexts("b"));
-            SS("#todo-list>li").FilterBy(Have.No.CssClass("completed")).Should(Have.ExactTexts("a", "c"));
+            SS("#todo-list>li").By(Have.CssClass("completed")).Should(Have.ExactTexts("b"));
+            SS("#todo-list>li").By(Have.No.CssClass("completed")).Should(Have.ExactTexts("a", "c"));
         }
     }
 }

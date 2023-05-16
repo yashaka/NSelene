@@ -21,7 +21,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
         public void NotStartSearch_OnCreation()
         {
             Given.OpenedPageWithBody("<p>have no any items nor visible nor hidden</p>");
-            var nonExistentElement = SS(".not-existing").FindBy(Be.Visible);
+            var nonExistentElement = SS(".not-existing").ElementBy(Be.Visible);
             Assert.IsNotEmpty(nonExistentElement.ToString()); 
         }
 
@@ -29,7 +29,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
         public void NotStartSearch_EvenOnFollowingInnerSearch()
         {//TODO: consider testing using FindBy(Have.CssClass("..."))
             Given.OpenedPageWithBody("<p>have no any items nor visible nor hidden</p>");
-            var nonExistentElement = SS(".not-existing").FindBy(Be.Visible).Find("#not-existing-inner");
+            var nonExistentElement = SS(".not-existing").ElementBy(Be.Visible).Element("#not-existing-inner");
             Assert.IsNotEmpty(nonExistentElement.ToString()); 
         }
 
@@ -37,7 +37,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
         public void PostponeSearch_UntilActualActionLikeQuestioiningValue()
         {
             Given.OpenedEmptyPage();
-            var element = SS("#will-exist>input").FindBy(Be.Visible);
+            var element = SS("#will-exist>input").ElementBy(Be.Visible);
             When.WithBody(@"
                 <p id='will-exist'>
                     <input id='ask' type='submit' value='How r u?' style='display:none'></input>
@@ -52,7 +52,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
         public void UpdateSearch_OnNextActualActionLikeQuestioiningValue()
         {
             Given.OpenedEmptyPage();
-            var element = SS("#will-exist>input").FindBy(Be.Visible);
+            var element = SS("#will-exist>input").ElementBy(Be.Visible);
             When.WithBody(@"
                 <p id='will-exist'>
                     <input id='ask' type='submit' value='How r u?' style='display:none'></input>
@@ -82,7 +82,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
                     }, 
                     250);"
             );
-            SS("a").FindBy(Be.Visible).Click();
+            SS("a").ElementBy(Be.Visible).Click();
             Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
         }
 
@@ -105,7 +105,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
                     }, 
                     500);"
             );
-            SS("a").FindBy(Be.Visible).Click();
+            SS("a").ElementBy(Be.Visible).Click();
             Assert.IsTrue(Selene.Url().Contains("second"));
         }
 
@@ -127,7 +127,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
                     500);"
             );
             try {
-                SS("a").FindBy(Be.Visible).Click();
+                SS("a").ElementBy(Be.Visible).Click();
                 Assert.Fail("should fail on timeout before can be clicked");
             } catch (TimeoutException) {
                 Assert.IsFalse(Configuration.Driver.Url.Contains("second"));

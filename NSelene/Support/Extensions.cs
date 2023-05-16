@@ -25,22 +25,22 @@ namespace NSelene.Support.Extensions
 
         public static SeleneElement S(this SeleneElement element, By locator)
         {
-            return element.Find(locator);
+            return element.Element(locator);
         }
 
         public static SeleneElement S(this SeleneElement element, string cssSelector)
         {
-            return element.Find(cssSelector);
+            return element.Element(cssSelector);
         }
 
         public static SeleneCollection SS(this SeleneElement element, By locator)
         {
-            return element.FindAll(locator);
+            return element.All(locator);
         }
 
         public static SeleneCollection SS(this SeleneElement element, string cssSelector)
         {
-            return element.FindAll(cssSelector);
+            return element.All(cssSelector);
         }
 
         public static SeleneElement JsClick(this SeleneElement element, int centerXOffset = 0, int centerYOffset = 0)

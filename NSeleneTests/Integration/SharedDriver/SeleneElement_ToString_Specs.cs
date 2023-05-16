@@ -22,8 +22,8 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
         public void ShouldReflectTheFullLocatorForComposedElement()
         {
             var element = (
-                SS(".parent").FilterBy(Be.Visible)[0]
-                .SS(".child").FindBy(Have.CssClass("special")) // TODO: Have.CssClass("...").And(Have.Text("...").Not)
+                SS(".parent").By(Be.Visible)[0]
+                .SS(".child").ElementBy(Have.CssClass("special")) // TODO: Have.CssClass("...").And(Have.Text("...").Not)
                 .S("./following-sibling::*")
             );
 

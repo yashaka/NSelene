@@ -188,7 +188,7 @@ namespace NSelene
             return true;
         }
 
-        public SeleneElement FindBy(Condition<SeleneElement> condition)
+        public SeleneElement ElementBy(Condition<SeleneElement> condition)
         {
             return new SeleneElement(
                 new SCollectionWebElementByConditionSLocator(condition, this, this.Config), 
@@ -196,7 +196,12 @@ namespace NSelene
             );
         }
 
-        public SeleneCollection FilterBy(Condition<SeleneElement> condition)
+        public SeleneElement FindBy(Condition<SeleneElement> condition)
+        {
+            return this.ElementBy(condition);
+        }
+
+        public SeleneCollection By(Condition<SeleneElement> condition)
         {
             return new SeleneCollection(
                 new SCollectionFilteredWebElementsCollectionSLocator(
@@ -204,6 +209,11 @@ namespace NSelene
                 ), 
                 this.Config
             );
+        }
+
+        public SeleneCollection FilterBy(Condition<SeleneElement> condition)
+        {
+            return this.By(condition);
         }
 
         public ReadOnlyCollection<IWebElement> ToReadOnlyWebElementsCollection()
