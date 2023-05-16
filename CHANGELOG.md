@@ -19,6 +19,13 @@
   - `Find` will be probably deprecated in future
 - `element.All(locator | selector)` alias to `element.FindAll(locator | selector)`
   - `FindAll` will be probably deprecated in future
+- `Should(driverCondition)` alias to `WaitTo(driverCondition)`
+- conditions: Have.Url, .UrlContaining, Title, TitleContaining
+- collection.ElementByIts(locator | selector, condition)
+  - so you can implement something like this:
+    ```csharp
+    SS(".table-row").ElementByIts(".table-cell[role=name]", Have.Text("John")).Element("[role=remove-user]").Click()
+    ```
 
 ## 1.0.0-alpha10 (released on 2022.05.27)
 

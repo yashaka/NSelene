@@ -216,6 +216,24 @@ namespace NSelene
             return this.By(condition);
         }
 
+        public SeleneElement ElementByIts(By locator, Condition<SeleneElement> condition)
+        {
+            return new SeleneElement(
+                new SCollectionWebElementByItsInnerMatchingConditionSLocator(
+                    locator, 
+                    condition, 
+                    this, 
+                    this.Config
+                ), 
+                this.Config
+            );
+        }
+
+        public SeleneElement ElementByIts(String selector, Condition<SeleneElement> condition)
+        {
+            return this.ElementByIts(Utils.ToBy(selector), condition);
+        }
+
         public ReadOnlyCollection<IWebElement> ToReadOnlyWebElementsCollection()
         {
             return new ReadOnlyCollection<IWebElement>(this);

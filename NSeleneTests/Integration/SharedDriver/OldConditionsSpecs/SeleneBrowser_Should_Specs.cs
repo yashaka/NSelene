@@ -101,7 +101,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 ));
             }
 
-            catch (WebDriverTimeoutException error)
+            catch (TimeoutException error)
             {
                 var afterCall = DateTime.Now;
                 Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
@@ -112,10 +112,9 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 var lines = error.Message.Split("\n").Select(
                     item => item.Trim()
                 ).ToList();
-
-                Assert.Contains("Timed out after 0.25 seconds", lines);
-                Assert.Contains("while waiting entity with locator: OpenQA.Selenium.Chrome.ChromeDriver", lines);
-                Assert.Contains("for condition: JSReturnedTrue", lines);
+                
+                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
+                Assert.Contains("OpenQA.Selenium.Chrome.ChromeDriver.Should(JSReturnedTrue)", lines);
             }
 
             // catch (TimeoutException error)
@@ -162,7 +161,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 ));
             }
 
-            catch (WebDriverTimeoutException error)
+            catch (TimeoutException error)
             {
                 var afterCall = DateTime.Now;
                 Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
@@ -174,9 +173,8 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                     item => item.Trim()
                 ).ToList();
 
-                Assert.Contains("Timed out after 0.25 seconds", lines);
-                Assert.Contains("while waiting entity with locator: OpenQA.Selenium.Chrome.ChromeDriver", lines);
-                Assert.Contains("for condition: Not.JSReturnedTrue", lines);
+                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
+                Assert.Contains("OpenQA.Selenium.Chrome.ChromeDriver.Should(Not.JSReturnedTrue)", lines);
             }
 
             // catch (TimeoutException error)

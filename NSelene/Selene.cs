@@ -5,6 +5,7 @@ using System.Threading;
 using NSelene.Conditions;
 using OpenQA.Selenium.Interactions;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace NSelene
 {
@@ -64,6 +65,17 @@ namespace NSelene
             return new SeleneCollection(locator, Configuration.Shared);
         }
 
+        // TODO: consider:
+        // public static SeleneCollection All(By locator)
+        // {
+        //     return SS(locator);
+        // }
+        // AND:
+        // public static SeleneCollection All(string cssOrXPathSelector)
+        // {
+        //     return SS(Utils.ToBy(cssOrXPathSelector));
+        // }
+
         public static SeleneCollection SS(string cssOrXPathSelector)
         {
             return SS(Utils.ToBy(cssOrXPathSelector));
@@ -108,8 +120,36 @@ namespace NSelene
             }
         }
 
+
+        internal static Wait<IWebDriver> Wait // TODO: Consider making it public
+        {
+            get
+            {
+                var paramsAndTheirUsagePattern = new Regex(@"\(?(\w+)\)?\s*=>\s*?\1\.");
+                return new Wait<IWebDriver>(
+                    entity: GetWebDriver(),
+                    timeout: Configuration.Timeout,
+                    polling: Configuration.PollDuringWaits,
+                    _describeComputation: it => paramsAndTheirUsagePattern.Replace(
+                        it, 
+                        ""
+                    ),
+                    _hookAction: Configuration._HookWaitAction
+                );
+            }
+        }
+
+        public static void Should(Condition<IWebDriver> condition)
+        {
+            var wait = Wait.With(
+                _describeComputation: (name => $"Should({name})")
+            );
+            wait.For(condition);
+        }
+
         public static IWebDriver WaitTo(Condition<IWebDriver> condition) {
-            return WaitFor(GetWebDriver(), condition);
+            Should(condition);
+            return GetWebDriver();
         }
 
         public static TResult WaitFor<TResult>(
