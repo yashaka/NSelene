@@ -291,7 +291,7 @@ Before doing anything it's good to just clone the project via `git clone https:/
 6. If you forget to add something important, add it and include into the same commit by using `git add . && git commit --amend -m "#<ISSUE-NUMBER>: <UPDATED OLD MESSAGE TEXT THAT YOU CAN GET FROM HISTORY>"
 7. Push to the branch (`git push origin my-new-feature`)
 8. Create a new Pull Request`
-9. Wait for PR Riview and pass it if requested. 
+9. Wait for PR Riview and pass it if requested.
 
 ## Release process
 
