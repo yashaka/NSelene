@@ -8,7 +8,7 @@
 
 - deprecate the majority of `Selene.*` (except S, SS) when providing alternative API via `Browser.*`
 
-## 1.0.0-alpha11 (to be released on 2023.05.16)
+## 1.0.0-alpha11 (released on 2023.05.16)
 
 - upgraded Selenium.WebDriver from from 4.2.0 to 4.5.1
 - `collection.ElementBy(condition)` alias to `collection.FindBy(condition)`
