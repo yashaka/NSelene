@@ -6,8 +6,9 @@ using OpenQA.Selenium;
 
 namespace NSelene
 {
+
     public interface _SupportsCopyWithOverride_<T>
-        where T : _SupportsCopyWithOverride_<T>
+    where T : _SupportsCopyWithOverride_<T>
     {
         T With(T overrides);
     }
@@ -15,11 +16,11 @@ namespace NSelene
     /// SeleneSettings interface defines a Set of valid settins
     /// Corresponding settings fields are nullable reflecting the fact
     /// that not all settings can be defined for specific context
-    public interface _SeleneSettings_
-        : _SupportsCopyWithOverride_<_SeleneSettings_>
-            , SeleneContext // TODO: it's a temporal solution, 
-        // will be removed after Should(Be.Visible) is removed 
-        // from (SeleneElement as SeleneContext).FindElement
+    public interface _SeleneSettings_ 
+    : _SupportsCopyWithOverride_<_SeleneSettings_>
+    , SeleneContext // TODO: it's a temporal solution, 
+                    // will be removed after Should(Be.Visible) is removed 
+                    // from (SeleneElement as SeleneContext).FindElement
     {
         IWebDriver Driver { get; set; }
         double? Timeout { get; set; }
@@ -62,68 +63,107 @@ namespace NSelene
     public class Configuration : _SeleneSettings_
     {
         private Ref<IWebDriver> _refDriver;
-
         IWebDriver _SeleneSettings_.Driver
         {
-            get { return this._refDriver.Value; }
-            set { this._refDriver.Value = value; }
+            get
+            {
+                return this._refDriver.Value;
+            }
+            set
+            {
+                this._refDriver.Value = value;
+            }
         }
 
         private Ref<double?> _refTimeout = new Ref<double?>();
-
         double? _SeleneSettings_.Timeout
         {
-            get { return this._refTimeout.Value; }
-            set { this._refTimeout.Value = value; }
+            get
+            {
+                return this._refTimeout.Value;
+            }
+            set
+            {
+                this._refTimeout.Value = value;
+            }
         }
 
         private Ref<double?> _refPollDuringWaits = new Ref<double?>();
-
         double? _SeleneSettings_.PollDuringWaits
         {
-            get { return this._refPollDuringWaits.Value; }
-            set { this._refPollDuringWaits.Value = value; }
+            get
+            {
+                return this._refPollDuringWaits.Value;
+            }
+            set
+            {
+                this._refPollDuringWaits.Value = value;
+            }
         }
 
         private Ref<bool?> _refSetValueByJs = new Ref<bool?>();
-
         bool? _SeleneSettings_.SetValueByJs
         {
-            get { return this._refSetValueByJs.Value; }
-            set { this._refSetValueByJs.Value = value; }
+            get
+            {
+                return this._refSetValueByJs.Value;
+            }
+            set
+            {
+                this._refSetValueByJs.Value = value;
+            }
         }
 
         private Ref<bool?> _refTypeByJs = new Ref<bool?>();
-
         bool? _SeleneSettings_.TypeByJs
         {
-            get { return this._refTypeByJs.Value; }
-            set { this._refTypeByJs.Value = value; }
+            get
+            {
+                return this._refTypeByJs.Value;
+            }
+            set
+            {
+                this._refTypeByJs.Value = value;
+            }
         }
 
         private Ref<bool?> _refClickByJs = new Ref<bool?>();
-
         bool? _SeleneSettings_.ClickByJs
         {
-            get { return this._refClickByJs.Value; }
-            set { this._refClickByJs.Value = value; }
+            get
+            {
+                return this._refClickByJs.Value;
+            }
+            set
+            {
+                this._refClickByJs.Value = value;
+            }
         }
 
         private Ref<bool?> _refWaitForNoOverlapFoundByJs = new Ref<bool?>();
-
         bool? _SeleneSettings_.WaitForNoOverlapFoundByJs
         {
-            get { return this._refWaitForNoOverlapFoundByJs.Value; }
-            set { this._refWaitForNoOverlapFoundByJs.Value = value; }
+            get
+            {
+                return this._refWaitForNoOverlapFoundByJs.Value;
+            }
+            set
+            {
+                this._refWaitForNoOverlapFoundByJs.Value = value;
+            }
         }
-
-        private Ref<Action<object, Func<string>, Action>>
-            _ref_HookWaitAction; // = new Ref<Action<object, Func<string>, Action>>();
-
+ 
+        private Ref<Action<object, Func<string>, Action>> _ref_HookWaitAction;// = new Ref<Action<object, Func<string>, Action>>();
         Action<object, Func<string>, Action> _SeleneSettings_._HookWaitAction
         {
-            get { return this._ref_HookWaitAction.Value; }
-            set { this._ref_HookWaitAction.Value = value; }
+            get
+            {
+                return this._ref_HookWaitAction.Value;
+            }
+            set
+            {
+                this._ref_HookWaitAction.Value = value;
+            }
         }
 
         private Ref<string> _refBaseUrl = new Ref<string>();
@@ -159,20 +199,18 @@ namespace NSelene
         // TODO: consider making public
         //       here we can choose between making it public of finally 
         //       making a public class from "hidden" interface _SeleneSettings_
-        internal Configuration()
-            : this(
-                refDriver: null,
-                refTimeout: null,
-                refPollDuringWaits: null,
-                refSetValueByJs: null,
-                refTypeByJs: null,
-                refClickByJs: null,
-                refWaitForNoOverlapFoundByJs: null,
-                _ref_HookWaitAction: null,
-                refBaseUrl: null
-            )
-        {
-        }
+        internal Configuration() 
+        : this(
+            refDriver: null,
+            refTimeout: null,
+            refPollDuringWaits: null,
+            refSetValueByJs: null,
+            refTypeByJs: null,
+            refClickByJs: null,
+            refWaitForNoOverlapFoundByJs: null,
+            _ref_HookWaitAction: null,
+            refBaseUrl: null
+        ) {}
 
         public static _SeleneSettings_ _New_(
             IWebDriver driver = null,
@@ -202,44 +240,45 @@ namespace NSelene
         }
 
         internal static _SeleneSettings_ Shared
-            = new Configuration(
-                refDriver: new Ref<IWebDriver>(
-                    getter: () => Configuration.Driver,
-                    setter: value => Configuration.Driver = value
-                ),
-                refTimeout: new Ref<double?>(
-                    getter: () => Configuration.Timeout,
-                    setter: value => Configuration.Timeout = value ?? 4.0
-                    // TODO: consider moving all these defaults to Configuration.Defaults.*
-                ),
-                refPollDuringWaits: new Ref<double?>(
-                    getter: () => Configuration.PollDuringWaits,
-                    setter: value => Configuration.PollDuringWaits = value ?? 0.1
-                ),
-                refSetValueByJs: new Ref<bool?>(
-                    getter: () => Configuration.SetValueByJs,
-                    setter: value => Configuration.SetValueByJs = value ?? false
-                ),
-                refTypeByJs: new Ref<bool?>(
-                    getter: () => Configuration.TypeByJs,
-                    setter: value => Configuration.TypeByJs = value ?? false
-                ),
-                refClickByJs: new Ref<bool?>(
-                    getter: () => Configuration.ClickByJs,
-                    setter: value => Configuration.ClickByJs = value ?? false
-                ),
-                refWaitForNoOverlapFoundByJs: new Ref<bool?>(
-                    getter: () => Configuration.WaitForNoOverlapFoundByJs,
-                    setter: value => Configuration.WaitForNoOverlapFoundByJs = value ?? false
-                ),
-                _ref_HookWaitAction: new Ref<Action<object, Func<string>, Action>>(
-                    getter: () => Configuration._HookWaitAction,
-                    setter: value => Configuration._HookWaitAction = value
-                ),
-                refBaseUrl: new Ref<string>(
-                    getter: () => Configuration.BaseUrl,
-                    setter: value => Configuration.BaseUrl = value ?? "")
-            );
+        = new Configuration(
+            refDriver: new Ref<IWebDriver>(
+                getter: () => Configuration.Driver,
+                setter: value => Configuration.Driver = value
+            ),
+            refTimeout: new Ref<double?>(
+                getter: () => Configuration.Timeout,
+                setter: value => Configuration.Timeout = value ?? 4.0
+                // TODO: consider moving all these defaults to Configuration.Defaults.*
+            ),
+            refPollDuringWaits: new Ref<double?>(
+                getter: () => Configuration.PollDuringWaits,
+                setter: value => Configuration.PollDuringWaits = value ?? 0.1
+            ),
+            refSetValueByJs: new Ref<bool?>(
+                getter: () => Configuration.SetValueByJs,
+                setter: value => Configuration.SetValueByJs = value ?? false
+            ),
+            refTypeByJs: new Ref<bool?>(
+                getter: () => Configuration.TypeByJs,
+                setter: value => Configuration.TypeByJs = value ?? false
+            ),
+            refClickByJs: new Ref<bool?>(
+                getter: () => Configuration.ClickByJs,
+                setter: value => Configuration.ClickByJs = value ?? false
+            ),
+            refWaitForNoOverlapFoundByJs: new Ref<bool?>(
+                getter: () => Configuration.WaitForNoOverlapFoundByJs,
+                setter: value => Configuration.WaitForNoOverlapFoundByJs = value ?? false
+            ),
+            _ref_HookWaitAction: new Ref<Action<object, Func<string>, Action>>(
+                getter: () => Configuration._HookWaitAction,
+                setter: value => Configuration._HookWaitAction = value
+            ),
+            refBaseUrl: new Ref<string>(
+                getter: () => Configuration.BaseUrl,
+                setter: value => Configuration.BaseUrl = value ?? ""
+            )
+        );
 
         // TODO: how to differentiate between _With_(driver: null) and _With_() ?
         //       e.g. what if user want to override with null? i.e. reset? how to do this now?
@@ -277,29 +316,29 @@ namespace NSelene
         {
             return new Configuration(
                 refDriver: overrides.Driver == null
-                    ? this._refDriver
-                    : new Ref<IWebDriver>(overrides.Driver),
+                ? this._refDriver
+                : new Ref<IWebDriver>(overrides.Driver),
                 refTimeout: overrides.Timeout == null
-                    ? this._refTimeout
-                    : new Ref<double?>(overrides.Timeout),
+                ? this._refTimeout
+                : new Ref<double?>(overrides.Timeout),
                 refPollDuringWaits: overrides.PollDuringWaits == null
-                    ? this._refPollDuringWaits
-                    : new Ref<double?>(overrides.PollDuringWaits),
+                ? this._refPollDuringWaits
+                : new Ref<double?>(overrides.PollDuringWaits),
                 refSetValueByJs: overrides.SetValueByJs == null
-                    ? this._refSetValueByJs
-                    : new Ref<bool?>(overrides.SetValueByJs),
+                ? this._refSetValueByJs
+                : new Ref<bool?>(overrides.SetValueByJs),
                 refTypeByJs: overrides.TypeByJs == null
-                    ? this._refTypeByJs
-                    : new Ref<bool?>(overrides.TypeByJs),
+                ? this._refTypeByJs
+                : new Ref<bool?>(overrides.TypeByJs),
                 refClickByJs: overrides.ClickByJs == null
-                    ? this._refClickByJs
-                    : new Ref<bool?>(overrides.ClickByJs),
+                ? this._refClickByJs
+                : new Ref<bool?>(overrides.ClickByJs),
                 refWaitForNoOverlapFoundByJs: overrides.WaitForNoOverlapFoundByJs == null
-                    ? this._refWaitForNoOverlapFoundByJs
-                    : new Ref<bool?>(overrides.WaitForNoOverlapFoundByJs),
+                ? this._refWaitForNoOverlapFoundByJs
+                : new Ref<bool?>(overrides.WaitForNoOverlapFoundByJs),
                 _ref_HookWaitAction: overrides._HookWaitAction == null
-                    ? this._ref_HookWaitAction
-                    : new Ref<Action<object, Func<string>, Action>>(overrides._HookWaitAction),
+                ? this._ref_HookWaitAction
+                : new Ref<Action<object, Func<string>, Action>>(overrides._HookWaitAction),
                 refBaseUrl: overrides.BaseUrl == null
                 ? this._refBaseUrl
                 : new Ref<string>(overrides.BaseUrl)
@@ -322,80 +361,131 @@ namespace NSelene
 
         public static IWebDriver Driver
         {
-            get { return Configuration._Driver.Value; }
-            set { Configuration._Driver.Value = value; }
+            get
+            {
+                return Configuration._Driver.Value;
+            }
+            set
+            {
+                Configuration._Driver.Value = value;
+            }
         }
 
         private static ThreadLocal<double?> _Timeout = new ThreadLocal<double?>();
-
         public static double Timeout
         {
-            get { return Configuration._Timeout.Value ?? 4.0; }
-            set { Configuration._Timeout.Value = value; }
+            get
+            {
+                return Configuration._Timeout.Value ?? 4.0;
+            }
+            set
+            {
+                Configuration._Timeout.Value = value;
+            }
         }
 
         private static ThreadLocal<double?> _PollDuringWaits = new ThreadLocal<double?>();
-
         public static double PollDuringWaits
         {
-            get { return Configuration._PollDuringWaits.Value ?? 0.1; }
-            set { Configuration._PollDuringWaits.Value = value; }
+            get
+            {
+                return Configuration._PollDuringWaits.Value ?? 0.1;
+            }
+            set
+            {
+                Configuration._PollDuringWaits.Value = value;
+            }
         }
 
         private static ThreadLocal<bool?> _SetValueByJs = new ThreadLocal<bool?>();
-
         public static bool SetValueByJs
         {
-            get { return Configuration._SetValueByJs.Value ?? false; }
-            set { Configuration._SetValueByJs.Value = value; }
+            get
+            {
+                return Configuration._SetValueByJs.Value ?? false;
+            }
+            set
+            {
+                Configuration._SetValueByJs.Value = value;
+            }
         }
 
         private static ThreadLocal<bool?> _TypeByJs = new ThreadLocal<bool?>();
-
         public static bool TypeByJs
         {
-            get { return Configuration._TypeByJs.Value ?? false; }
-            set { Configuration._TypeByJs.Value = value; }
+            get
+            {
+                return Configuration._TypeByJs.Value ?? false;
+            }
+            set
+            {
+                Configuration._TypeByJs.Value = value;
+            }
         }
 
         private static ThreadLocal<bool?> _ClickByJs = new ThreadLocal<bool?>();
-
         public static bool ClickByJs
         {
-            get { return Configuration._ClickByJs.Value ?? false; }
-            set { Configuration._ClickByJs.Value = value; }
+            get
+            {
+                return Configuration._ClickByJs.Value ?? false;
+            }
+            set
+            {
+                Configuration._ClickByJs.Value = value;
+            }
         }
 
         private static ThreadLocal<bool?> _WaitForNoOverlapFoundByJs = new ThreadLocal<bool?>();
-
         public static bool WaitForNoOverlapFoundByJs
         {
-            get { return Configuration._WaitForNoOverlapFoundByJs.Value ?? false; }
-            set { Configuration._WaitForNoOverlapFoundByJs.Value = value; }
+            get
+            {
+                return Configuration._WaitForNoOverlapFoundByJs.Value ?? false;
+            }
+            set
+            {
+                Configuration._WaitForNoOverlapFoundByJs.Value = value;
+            }
         }
 
-        private static ThreadLocal<Action<object, Func<string>, Action>> __HookWaitAction =
-            new ThreadLocal<Action<object, Func<string>, Action>>();
-
+        private static ThreadLocal<Action<object, Func<string>, Action>> __HookWaitAction = new ThreadLocal<Action<object, Func<string>, Action>>();
         public static Action<object, Func<string>, Action> _HookWaitAction
         {
-            get { return Configuration.__HookWaitAction.Value; }
-            set { Configuration.__HookWaitAction.Value = value; }
+            get
+            {
+                return Configuration.__HookWaitAction.Value;
+            }
+            set
+            {
+                Configuration.__HookWaitAction.Value = value;
+            }
         }
         
         private static ThreadLocal<string> _BaseUrl = new ThreadLocal<string>();
-
         public static string BaseUrl
         {
-            get { return Configuration._BaseUrl.Value ?? ""; }
-            set { Configuration._BaseUrl.Value = value; }
+            get
+            {
+                return Configuration._BaseUrl.Value ?? "";
+            }
+            set
+            {
+                Configuration._BaseUrl.Value = value;
+            }
         }
 
         [Obsolete("Use Configuration.Driver over deprecated Configuration.WebDriver")]
         public static IWebDriver WebDriver
         {
-            get { return Configuration.Driver; }
-            set { Configuration.Driver = value; }
+            get
+            {
+                return Configuration.Driver;
+            }
+            set
+            {
+                Configuration.Driver = value;
+            }
         }
     }
 }
