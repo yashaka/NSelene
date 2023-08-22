@@ -6,15 +6,16 @@ using WebDriverManager.DriverConfigs.Impl;
 
 namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
 {
+
     [TestFixture]
     public class Configuration_Specs
     {
-        IWebDriver _driver1 { get; set; }
-        IWebDriver _driver2 { get; set; }
+        IWebDriver _driver1 { get; set;}
+        IWebDriver _driver2 { get; set;}
 
         [OneTimeSetUp]
         public void InitConfiguration()
-        {
+        {            
             new DriverManager().SetUpDriver(
                 new ChromeConfig(), version: "Latest"
                 // new ChromeConfig(), version: "89.0.4389.23"
@@ -44,14 +45,14 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Configuration.SetValueByJs = false;
             Configuration.BaseUrl = "";
         }
-
+        
         [Test]
         public void ConfigurationAlreadyHasDefaults()
         {
             // TODO: check Configuration defaults somehow... maybe in a new thread/sub-process?
             // is it's even possible?:) 
         }
-
+        
         [Test]
         public void New_CreatesNewConfigWithAllSettingsDefaults()
         {
@@ -72,7 +73,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Assert.AreEqual(false, fresh.SetValueByJs);
             Assert.AreEqual("", fresh.BaseUrl);
         }
-
+        
         [Test]
         public void New_DoesNotTouchExistingSharedStaticConfiguration()
         {
@@ -93,7 +94,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Assert.AreEqual(true, Configuration.SetValueByJs);
             Assert.AreEqual("test url", Configuration.BaseUrl);
         }
-
+        
         [Test]
         public void New_CanCustomizeManySettings()
         {
@@ -104,7 +105,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 setValueByJs: true,
                 baseUrl: "test url"
             );
-
+            
             Assert.AreEqual(this._driver1, custom.Driver);
             Assert.AreEqual(2.0, custom.Timeout);
             Assert.AreEqual(0.2, custom.PollDuringWaits);
@@ -135,7 +136,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Assert.AreEqual(2.0, custom.Timeout);
             Assert.AreEqual("test2 url", custom.BaseUrl);
         }
-
+        
         [Test]
         public void With_ReusesLatestSharedSettingsNotExplicitelyOverriden()
         {
@@ -147,7 +148,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Assert.AreEqual(1.0, custom.Timeout);
             Assert.AreEqual(0.2, custom.PollDuringWaits);
         }
-
+        
         [Test]
         public void WithConfig_TracksChangesOnlyInReusedSharedConfigSettings()
         {
@@ -164,7 +165,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Assert.AreSame(this._driver2, custom.Driver);
             Assert.AreEqual(0.25, custom.PollDuringWaits);
         }
-
+        
         [Test]
         public void NewConfig_StaysUnchangedOnFurtherSharedConfigUpdates()
         {
@@ -178,11 +179,10 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Assert.AreEqual(0.1, custom.PollDuringWaits);
             Assert.AreEqual("test url", custom.BaseUrl);
         }
-
+        
         [Test]
         public void Several_NewConfigs_Are_Different()
-        {
-            // TODO: consider broadening coverage
+        { // TODO: consider broadening coverage
             Configuration.Timeout = 0.5;
             var first = Configuration._New_(timeout: 1.0, baseUrl: "test url");
 
