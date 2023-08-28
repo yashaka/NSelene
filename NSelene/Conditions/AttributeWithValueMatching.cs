@@ -52,11 +52,37 @@ namespace NSelene
             var pattern = $"{Regex.Escape(value)}$";
             return new Conditions.AttributeWithValueMatching(attributeName, pattern);
         }
-        
-        public static Conditions.Condition<SeleneElement> AttributeWithValueContaining(string attributeName, string value)
+
+        public static Conditions.Condition<SeleneElement> AttributeWithValueContaining(string attributeName,
+            string value)
         {
             var pattern = $".*{Regex.Escape(value)}.*";
             return new Conditions.AttributeWithValueMatching(attributeName, pattern);
+        }
+
+
+        public static partial class No
+        {
+            public static Conditions.Condition<SeleneElement> AttributeWithValueStarting(string attributeName,
+                string value)
+            {
+                var pattern = $"^{Regex.Escape(value)}";
+                return new Conditions.AttributeWithValueMatching(attributeName, pattern).Not;
+            }
+
+            public static Conditions.Condition<SeleneElement> AttributeWithValueEnding(string attributeName,
+                string value)
+            {
+                var pattern = $"{Regex.Escape(value)}$";
+                return new Conditions.AttributeWithValueMatching(attributeName, pattern).Not;
+            }
+
+            public static Conditions.Condition<SeleneElement> AttributeWithValueContaining(string attributeName,
+                string value)
+            {
+                var pattern = $".*{Regex.Escape(value)}.*";
+                return new Conditions.AttributeWithValueMatching(attributeName, pattern).Not;
+            }
         }
     }
 }

@@ -64,6 +64,20 @@ namespace NSelene.Tests.Integration.SharedDriver.WorkflowSpecs
         }
 
         [Test]
+        public void HaveAttributeWithValueMatching()
+        {
+            Given.OpenedPageWithBody("<h1 class='big-title'>Hello Babe!</h1>");
+
+            var testElement = S("h1");
+            testElement.Should(Have.AttributeWithValueStarting("class", "big"));
+            testElement.Should(Have.No.AttributeWithValueStarting("class", "gib"));
+            testElement.Should(Have.AttributeWithValueEnding("class", "itle"));
+            testElement.Should(Have.No.AttributeWithValueEnding("class", "elti"));
+            testElement.Should(Have.AttributeWithValueContaining("class", "g-t"));
+            testElement.Should(Have.No.AttributeWithValueContaining("class", "t-g"));
+        }
+
+        [Test]
         public void HaveValue()
         {
             Given.OpenedEmptyPage();
