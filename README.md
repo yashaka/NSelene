@@ -17,7 +17,6 @@ Main features:
 - **User-oriented API for Selenium Webdriver** (code like speak common English)
 - **Ajax support** (Smart implicit waiting and retry mechanism)
 - **PageObjects support** (all elements are lazy-evaluated objects)
-- **Automatic driver management** (no need to install and setup driver for quick local execution)
 
 [Available at Nuget](www.nuget.org/packages/NSelene)
 
@@ -89,8 +88,6 @@ Find an example of NSelene usage in [this template project](https://github.com/y
 
 Below you can find a short overview:
 
-NSelene has no fully automatic driver management. Given the [WebDriverManager] is installed, then you can set your driver up manually, e.g. like here:
-
 ```csharp
     [TestFixture]
     public class BrowserTest
@@ -98,8 +95,6 @@ NSelene has no fully automatic driver management. Given the [WebDriverManager] i
         [SetUp]
         public void InitDriver()
         {
-            string chromeVersion = "Latest"; // e.g. "83.0.4103.39" or "Latest", see https://chromedriver.chromium.org/downloads
-            new DriverManager().SetUpDriver(new ChromeConfig(), version: chromeVersion);
             Configuration.Driver = new ChromeDriver();
 
             // a handy option to enable automatic waiting for no overlay in web tests
