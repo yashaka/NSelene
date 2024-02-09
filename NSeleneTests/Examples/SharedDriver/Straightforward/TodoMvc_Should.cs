@@ -19,12 +19,14 @@ namespace NSelene.Tests.Examples.SharedDriver.StraightForward
             var options = new ChromeOptions();
             options.AddArguments("headless");
             Configuration.Driver = new ChromeDriver(options);
+            Configuration.BaseUrl = "http://todomvc.com/examples/emberjs";
         }
 
         [OneTimeTearDown]
         public void disposeDriver()
         {
             Configuration.Driver.Quit();
+            Configuration.BaseUrl = "";
         }
     }
 
@@ -33,7 +35,7 @@ namespace NSelene.Tests.Examples.SharedDriver.StraightForward
         [Test]
         public void Complete_Todo()
         {
-            Open("http://todomvc.com/examples/emberjs/");
+            Open("/");
             S("#new-todo").SetValue("a").PressEnter();
             S("#new-todo").SetValue("b").PressEnter();
             S("#new-todo").SetValue("c").PressEnter();

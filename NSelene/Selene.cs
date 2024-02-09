@@ -105,7 +105,10 @@ namespace NSelene
 
         public static void GoToUrl(string url)
         {
-            GetWebDriver().Navigate().GoToUrl(url);
+            var absoluteUrl = Uri.IsWellFormedUriString(url, UriKind.Absolute) 
+                ? url 
+                : Configuration.BaseUrl + url;
+            GetWebDriver().Navigate().GoToUrl(absoluteUrl);
         }
 
         // TODO: consider changing to static property
