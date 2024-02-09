@@ -12,7 +12,6 @@
 [![Join telegram chat https://t.me/nselene](https://img.shields.io/badge/chat-telegram-blue)](https://t.me/nselene)
 [![Присоединяйся к чату https://t.me/nselene_ru](https://img.shields.io/badge/%D1%87%D0%B0%D1%82-telegram-red)](https://t.me/nselene_ru)
 
-
 Main features:
 
 - **User-oriented API for Selenium Webdriver** (code like speak common English)
@@ -27,59 +26,60 @@ Tests with Selene can be built either in a simple straightforward "selenide' sty
 For docs see tests in the [NSeleneTests](https://github.com/yashaka/NSelene/blob/master/NSeleneTests) project for now;)
 
 ## Table of Content
-* [Versions](#versions)
-* [Overview](#overview)
-* [Contributing](#contributing)
-* [Release Process](#release-process)
+
+- [Versions](#versions)
+- [Overview](#overview)
+- [Contributing](#contributing)
+- [Release Process](#release-process)
 
 ## Versions
   
-* Upcomig version to use is just released [1.0.0-alpha11](https://www.nuget.org/packages/NSelene/1.0.0-alpha11)
-  * targets netstandard2.0
-  * wraps Selenium 4.9.1
-  * it differs from [0.0.0.7](https://www.nuget.org/packages/NSelene/0.0.0.7) in the following:
-    * repacked in sdk-style format
-    * removed things marked as obsolete til 0.0.0.7
-    * upgraded waiting of commands, error messages, thread local configuration, etc. (see CHANGELOG for more details)
-      * it should be 
-        * faster, 
-        * more stable/less-flaky (with implicit waiting till no overlay-style pre-loaders)
-        * more friendly to parallelisation in context of configuration, 
-        * more customizable on elements level (not just global)
-  * can be installed by:
+- Upcomig version to use is just released [1.0.0-alpha11](https://www.nuget.org/packages/NSelene/1.0.0-alpha11)
+  - targets netstandard2.0
+  - wraps Selenium 4.9.1
+  - it differs from [0.0.0.7](https://www.nuget.org/packages/NSelene/0.0.0.7) in the following:
+    - repacked in sdk-style format
+    - removed things marked as obsolete til 0.0.0.7
+    - upgraded waiting of commands, error messages, thread local configuration, etc. (see CHANGELOG for more details)
+      - it should be
+        - faster,
+        - more stable/less-flaky (with implicit waiting till no overlay-style pre-loaders)
+        - more friendly to parallelisation in context of configuration,
+        - more customizable on elements level (not just global)
+  - can be installed by:
     `dotnet add package NSelene --version 1.0.0-alpha07`
-  * **migration guide from 1.0.0-alpha03 to 1.0.0-alpha05**
-    * upgrade and check your build
-      * refactor your custom conditions:
-        * if you have implemented your own custom conditions by extending e.g. `Condition<SeleneElement>`
-          * you will get a compilation error – to fix it:
-            * change base class from `Condition<SeleneElement>` to `DescribedCondition<SeleneElement>`
-            * remove `public override string Explain()` and leave `public override string ToString()` instead
-            * if you use anywehere in your code an `Apply` method on condition of type `Condition<TEntity>`
-              * you will get an obsolete warning
-                * refactor your code to use `Invoke` method, taking into account that
-                  * anytime Apply throws exception - Invoke also throws exception
-                  * anytime Apply returns false - Invoke throws exception
-                  * anytime Apply returns true - Invoke just passes (it's of void type)
-      * refactor obsolete things, like:
-        * `Configuration.WebDriver` => `Configuration.Driver`
-        * `S("#element").ShouldNot(Be.*)` to `S("#element").Should(Be.Not.*)`
-        * `S("#element").ShouldNot(yourCustomCondition)` to `S("#element").Should(yourCustomCondition.Not)`
-        * etc
-    * take into account, that some "internal" methods of 1.0.0-alpha05 were made public for easiser experimental testing in prod:), 
+  - **migration guide from 1.0.0-alpha03 to 1.0.0-alpha05**
+    - upgrade and check your build
+      - refactor your custom conditions:
+        - if you have implemented your own custom conditions by extending e.g. `Condition<SeleneElement>`
+          - you will get a compilation error – to fix it:
+            - change base class from `Condition<SeleneElement>` to `DescribedCondition<SeleneElement>`
+            - remove `public override string Explain()` and leave `public override string ToString()` instead
+            - if you use anywehere in your code an `Apply` method on condition of type `Condition<TEntity>`
+              - you will get an obsolete warning
+                - refactor your code to use `Invoke` method, taking into account that
+                  - anytime Apply throws exception - Invoke also throws exception
+                  - anytime Apply returns false - Invoke throws exception
+                  - anytime Apply returns true - Invoke just passes (it's of void type)
+      - refactor obsolete things, like:
+        - `Configuration.WebDriver` => `Configuration.Driver`
+        - `S("#element").ShouldNot(Be.*)` to `S("#element").Should(Be.Not.*)`
+        - `S("#element").ShouldNot(yourCustomCondition)` to `S("#element").Should(yourCustomCondition.Not)`
+        - etc
+    - take into account, that some "internal" methods of 1.0.0-alpha05 were made public for easiser experimental testing in prod:),
       but still considered as internal, that might change in future
-      such methods are named with `_` prefix, 
+      such methods are named with `_` prefix,
       following kind of Python lang style of "still publically accessible private" methods:)
       use such methods on your own risk, take into account that they might be marked as obsolete in future
       yet, they will be eather renamed or made completely internal till stable 1.0 release;)
       read CHANGELOG for more details.
 
-* Latest stable version: [0.0.0.7](https://www.nuget.org/packages/NSelene/0.0.0.7)
-  * targets net45
-  * it is main version used by most nselene users during during last 4 years
-  * there were not so much users, but even some small companies use it for their projects
-  * so it was proven to be stable for production use
-  * its sources can be found at [0.x](https://github.com/yashaka/nselene/tree/0.x) branch
+- Latest stable version: [0.0.0.7](https://www.nuget.org/packages/NSelene/0.0.0.7)
+  - targets net45
+  - it is main version used by most nselene users during during last 4 years
+  - there were not so much users, but even some small companies use it for their projects
+  - so it was proven to be stable for production use
+  - its sources can be found at [0.x](https://github.com/yashaka/nselene/tree/0.x) branch
 
 See [changelog](https://github.com/yashaka/NSelene/blob/master/CHANGELOG.md) for more details.
 
@@ -89,7 +89,7 @@ Find an example of NSelene usage in [this template project](https://github.com/y
 
 Below you can find a short overview:
 
-NSelene has no fully automatic driver management. Given the [WebDriverManager] is installed, then you can set your driver up manually, e.g. like here: 
+NSelene has no fully automatic driver management. Given the [WebDriverManager] is installed, then you can set your driver up manually, e.g. like here:
 
 ```csharp
     [TestFixture]
@@ -240,14 +240,15 @@ namespace Web.Tests.Model
 
 NSelene has a flexible way to locate elements by breakig long especially xpath selectors to smaller parts, like in:
 
-```
+```cs
 SS("#list-item").FindBy(Have.CssClass("specific")).Find(".inner-element").click()
 ```
 
 This allows to idetify more precisely which part was broken on failure.
 
 `S`, `SS` also supports xpath selectors:
-```
+
+```cs
 SS("(//h1|//h2)[contains(text(), 'foo')]").Should(Have.Count(10));
 ```
 
@@ -272,11 +273,11 @@ Probably you will need your favourite code editor. Find some examples below:
 
 #### Windows
 
-* Visual Studio 2017+, VS Code or JetBrains Rider
+- Visual Studio 2017+, VS Code or JetBrains Rider
 
 #### MacOS or Linux
 
-* Visual Studio for Mac, VS Code or JetBrains Rider
+- Visual Studio for Mac, VS Code or JetBrains Rider
 
 ### Workflow
 
@@ -284,7 +285,7 @@ Before doing anything it's good to just clone the project via `git clone https:/
 
 1. If yet it does not exist, add a "feature request" Issue to this project. (assume it's number is `<ISSUE-NUMBER>`)
 2. Discuss its need and possible implementation. And once approved...
-3. Fork the project ( https://github.com/[my-github-username]/NSelene/fork )
+3. Fork the project (https://github.com/[my-github-username]/NSelene/fork )
 4. Create your feature branch (`git checkout -b my-new-feature`)
 5. Commit your changes (`git commit -am '#<ISSUE-NUMBER>: message described in short what was done'`)
 6. If you forget to add something important, add it and include into the same commit by using `git add . && git commit --amend -m "#<ISSUE-NUMBER>: <UPDATED OLD MESSAGE TEXT THAT YOU CAN GET FROM HISTORY>"
@@ -301,14 +302,14 @@ Before doing anything it's good to just clone the project via `git clone https:/
   - you can check the commits history and closed issues since previous release
 - the readme is updated if needed
 - tests pass
-  ```
+  ```commandline
   dotnet test
   ```
 - the corresponding git tag with current version number and description (should reflect the changelog) is added 
 
 ### Then
 
-```
+```commandline
 dotnet build -c Release
 dotnet nuget push bin/Release/NSelene<VERSION>.nupkg -k <KEY> -s https://api.nuget.org/v3/index.json
 ```
