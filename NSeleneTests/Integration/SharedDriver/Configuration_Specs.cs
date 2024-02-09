@@ -30,6 +30,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Configuration.Timeout = 4;
             Configuration.PollDuringWaits = 0.1;
             Configuration.SetValueByJs = false;
+            Configuration.BaseUrl = "";
         }
 
         [OneTimeTearDown]
@@ -42,6 +43,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Configuration.Timeout = 4;
             Configuration.PollDuringWaits = 0.1;
             Configuration.SetValueByJs = false;
+            Configuration.BaseUrl = "";
         }
         
         [Test]
@@ -59,6 +61,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Configuration.Timeout = 9.9;
             Configuration.PollDuringWaits = 0.9;
             Configuration.SetValueByJs = true;
+            Configuration.BaseUrl = "test url";
 
             // WHEN
             var fresh = Configuration._New_();
@@ -68,6 +71,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Assert.AreEqual(4.0, fresh.Timeout);
             Assert.AreEqual(0.1, fresh.PollDuringWaits);
             Assert.AreEqual(false, fresh.SetValueByJs);
+            Assert.AreEqual("", fresh.BaseUrl);
         }
         
         [Test]
@@ -78,6 +82,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Configuration.Timeout = 9.9;
             Configuration.PollDuringWaits = 0.9;
             Configuration.SetValueByJs = true;
+            Configuration.BaseUrl = "test url";
 
             // WHEN
             var fresh = Configuration._New_();
@@ -87,6 +92,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Assert.AreEqual(9.9, Configuration.Timeout);
             Assert.AreEqual(0.9, Configuration.PollDuringWaits);
             Assert.AreEqual(true, Configuration.SetValueByJs);
+            Assert.AreEqual("test url", Configuration.BaseUrl);
         }
         
         [Test]
@@ -96,33 +102,39 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 driver: this._driver1,
                 timeout: 2.0,
                 pollDuringWaits: 0.2,
-                setValueByJs: true
+                setValueByJs: true,
+                baseUrl: "test url"
             );
             
             Assert.AreEqual(this._driver1, custom.Driver);
             Assert.AreEqual(2.0, custom.Timeout);
             Assert.AreEqual(0.2, custom.PollDuringWaits);
             Assert.AreEqual(true, custom.SetValueByJs);
+            Assert.AreEqual("test url", custom.BaseUrl);
         }
-        
+
         [Test]
         public void New_CanCustomizeSetting()
         {
-            Configuration.Timeout= 1.0;
+            Configuration.Timeout = 1.0;
+            Configuration.BaseUrl = "test url";
 
-            var custom = Configuration._New_(timeout: 2.0);
+            var custom = Configuration._New_(timeout: 2.0, baseUrl: "test2 url");
 
             Assert.AreEqual(2.0, custom.Timeout);
+            Assert.AreEqual("test2 url", custom.BaseUrl);
         }
-        
+
         [Test]
         public void With_CustomizesSetting()
         {
-            Configuration.Timeout= 1.0;
+            Configuration.Timeout = 1.0;
+            Configuration.BaseUrl = "test url";
 
-            var custom = Configuration._With_(timeout: 2.0);
+            var custom = Configuration._With_(timeout: 2.0, baseUrl: "test2 url");
 
             Assert.AreEqual(2.0, custom.Timeout);
+            Assert.AreEqual("test2 url", custom.BaseUrl);
         }
         
         [Test]
@@ -157,28 +169,32 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
         [Test]
         public void NewConfig_StaysUnchangedOnFurtherSharedConfigUpdates()
         {
-            var custom = Configuration._New_(timeout: 1.0);
+            var custom = Configuration._New_(timeout: 1.0, baseUrl: "test url");
 
             Configuration.Timeout = 2.0;
             Configuration.PollDuringWaits = 0.2;
+            Configuration.BaseUrl = "test2 url";
 
             Assert.AreEqual(1.0, custom.Timeout);
             Assert.AreEqual(0.1, custom.PollDuringWaits);
+            Assert.AreEqual("test url", custom.BaseUrl);
         }
         
         [Test]
         public void Several_NewConfigs_Are_Different()
         { // TODO: consider broadening coverage
             Configuration.Timeout = 0.5;
-            var first = Configuration._New_(timeout: 1.0);
+            var first = Configuration._New_(timeout: 1.0, baseUrl: "test url");
 
-            var second = Configuration._New_(timeout: 2.0);
+            var second = Configuration._New_(timeout: 2.0, baseUrl: "test2 url");
 
             Assert.AreEqual(1.0, first.Timeout);
             Assert.AreEqual(2.0, second.Timeout);
+            
+            Assert.AreEqual("test url", first.BaseUrl);
+            Assert.AreEqual("test2 url", second.BaseUrl);
         }
 
         // TODO: ensure that switching Configuration.driver will work on S, etc.
     }
 }
-
