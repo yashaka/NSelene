@@ -1,12 +1,21 @@
 # Changelog
 
 ## NEXT
+
 - should we unmark ShouldNot as deprecated?
 - do we need SeleneDriver anymore? (if we go the direction of SeleneBrowser)
 
 ## 1.0.0-alpha1x (to be released on 2021.05.??)
 
 - deprecate the majority of `Selene.*` (except S, SS) when providing alternative API via `Browser.*`
+
+## 1.0.0-alpha12 (released on 2024.02.09)
+
+- upgraded Selenium.WebDriver to 4.* (i.e. to 4.17.0 as of 2024.02.09)
+  - WDM is not used anymore in NSelene examples and removed from README
+    since Selenium Manager is in charge of managing drivers now
+- added Configuration.BaseUrl, thanks to [@davespoon](https://github.com/davespoon)
+- added Have.AttributeWithValue* conditions, thanks to [@davespoon](https://github.com/davespoon)
 
 ## 1.0.0-alpha11 (released on 2023.05.16)
 

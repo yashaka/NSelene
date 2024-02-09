@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>NSelene</PackageId>
-    <Version>1.0.0-alpha11</Version>
+    <Version>1.0.0-alpha12</Version>
     <Authors>yashaka</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Copyright (c) 2015-2021 Iakiv Kramarenko</Copyright>
@@ -23,10 +23,11 @@
     </PackageDescription>
     
     <PackageReleaseNotes>
-- improved error messages for cases of inner element search
-  - like error on S(".parent").Find(".child").Click() when .parent is absent or not visible
-- FIXED experimental Configuration._HookWaitAction application to Should methods on SeleneElement and SeleneCollection
-  (was not working, just being skipped)
+- upgraded Selenium.WebDriver to 4.* (i.e. to 4.17.0 as of 2024.02.09)
+  - WDM is not used anymore in NSelene examples and removed from README
+    since Selenium Manager is in charge of managing drivers now
+- added Configuration.BaseUrl, thanks to [@davespoon](https://github.com/davespoon)
+- added Have.AttributeWithValue* conditions, thanks to [@davespoon](https://github.com/davespoon)
     </PackageReleaseNotes>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
