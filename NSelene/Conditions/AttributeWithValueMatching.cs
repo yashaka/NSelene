@@ -6,31 +6,31 @@ namespace NSelene
     {
         public class AttributeWithValueMatching : Condition<SeleneElement>
         {
-            private string attributeName;
+            private string name;
             private string pattern;
 
-            public AttributeWithValueMatching(string attributeName, string pattern)
+            public AttributeWithValueMatching(string name, string pattern)
             {
-                this.attributeName = attributeName;
+                this.name = name;
                 this.pattern = pattern;
             }
 
             public override string ToString()
             {
-                return $"Have.Attribute({this.attributeName} matching regex pattern: «{this.pattern}»)";
+                return $"Have.Attribute({this.name} matching regex pattern: «{this.pattern}»)";
             }
 
             public override void Invoke(SeleneElement entity)
             {
                 var webelement = entity.ActualWebElement;
-                var maybeActual = webelement.GetAttribute(this.attributeName);
+                var maybeActual = webelement.GetAttribute(this.name);
 
                 if (maybeActual == null || !Regex.IsMatch(maybeActual, pattern))
                 {
                     throw new ConditionNotMatchedException(() =>
                         (maybeActual == null
-                            ? $"Actual {this.attributeName}: Null (attribute is absent)\n"
-                            : $"Actual {this.attributeName}: «{maybeActual}»\n"
+                            ? $"Actual {this.name}: Null (attribute is absent)\n"
+                            : $"Actual {this.name}: «{maybeActual}»\n"
                         )
                         + $"Actual webelement: {webelement.GetAttribute("outerHTML")}"
                     );
@@ -41,47 +41,47 @@ namespace NSelene
 
     public static partial class Have
     {
-        public static Conditions.Condition<SeleneElement> AttributeWithValueStarting(string attributeName, string value)
+        public static Conditions.Condition<SeleneElement> AttributeWithValueStarting(string name, string value)
         {
             var pattern = $"^{Regex.Escape(value)}";
-            return new Conditions.AttributeWithValueMatching(attributeName, pattern);
+            return new Conditions.AttributeWithValueMatching(name, pattern);
         }
 
-        public static Conditions.Condition<SeleneElement> AttributeWithValueEnding(string attributeName, string value)
+        public static Conditions.Condition<SeleneElement> AttributeWithValueEnding(string name, string value)
         {
             var pattern = $"{Regex.Escape(value)}$";
-            return new Conditions.AttributeWithValueMatching(attributeName, pattern);
+            return new Conditions.AttributeWithValueMatching(name, pattern);
         }
 
-        public static Conditions.Condition<SeleneElement> AttributeWithValueContaining(string attributeName,
+        public static Conditions.Condition<SeleneElement> AttributeWithValueContaining(string name,
             string value)
         {
             var pattern = $".*{Regex.Escape(value)}.*";
-            return new Conditions.AttributeWithValueMatching(attributeName, pattern);
+            return new Conditions.AttributeWithValueMatching(name, pattern);
         }
 
 
         public static partial class No
         {
-            public static Conditions.Condition<SeleneElement> AttributeWithValueStarting(string attributeName,
+            public static Conditions.Condition<SeleneElement> AttributeWithValueStarting(string name,
                 string value)
             {
                 var pattern = $"^{Regex.Escape(value)}";
-                return new Conditions.AttributeWithValueMatching(attributeName, pattern).Not;
+                return new Conditions.AttributeWithValueMatching(name, pattern).Not;
             }
 
-            public static Conditions.Condition<SeleneElement> AttributeWithValueEnding(string attributeName,
+            public static Conditions.Condition<SeleneElement> AttributeWithValueEnding(string name,
                 string value)
             {
                 var pattern = $"{Regex.Escape(value)}$";
-                return new Conditions.AttributeWithValueMatching(attributeName, pattern).Not;
+                return new Conditions.AttributeWithValueMatching(name, pattern).Not;
             }
 
-            public static Conditions.Condition<SeleneElement> AttributeWithValueContaining(string attributeName,
+            public static Conditions.Condition<SeleneElement> AttributeWithValueContaining(string name,
                 string value)
             {
                 var pattern = $".*{Regex.Escape(value)}.*";
-                return new Conditions.AttributeWithValueMatching(attributeName, pattern).Not;
+                return new Conditions.AttributeWithValueMatching(name, pattern).Not;
             }
         }
     }
