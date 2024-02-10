@@ -31,6 +31,8 @@ namespace NSelene
         bool? WaitForNoOverlapFoundByJs { get; set; }
         Action<object, Func<string>, Action> _HookWaitAction { get; set; }
         string BaseUrl { get; set; }
+        int? WindowWidth { get; set; }
+        int? WindowHeight { get; set; }
     }
 
     /// Configuration is considered as a defined group of all settings
@@ -174,6 +176,33 @@ namespace NSelene
             set { this._refBaseUrl.Value = value; }
         }
 
+        private Ref<int?> _refWindowWidth = new Ref<int?>();
+        int? _SeleneSettings_.WindowWidth
+        {
+            get
+            {
+                return this._refWindowWidth.Value;
+            }
+            set
+            {
+                this._refWindowWidth.Value = value;
+            }
+        }
+
+        private Ref<int?> _refWindowHeight = new Ref<int?>();
+        int? _SeleneSettings_.WindowHeight
+        {
+            get
+            {
+                return this._refWindowHeight.Value;
+            }
+            set
+            {
+                this._refWindowHeight.Value = value;
+            }
+        }
+
+
         private Configuration(
             Ref<IWebDriver> refDriver,
             Ref<double?> refTimeout,
@@ -183,7 +212,9 @@ namespace NSelene
             Ref<bool?> refClickByJs,
             Ref<bool?> refWaitForNoOverlapFoundByJs,
             Ref<Action<object, Func<string>, Action>> _ref_HookWaitAction,
-            Ref<string> refBaseUrl)
+            Ref<string> refBaseUrl,
+            Ref<int?> refWindowWidth,
+            Ref<int?> refWindowHeight)
         {
             _refDriver = refDriver ?? new Ref<IWebDriver>();
             _refTimeout = refTimeout ?? new Ref<double?>();
@@ -194,6 +225,8 @@ namespace NSelene
             _refWaitForNoOverlapFoundByJs = refWaitForNoOverlapFoundByJs ?? new Ref<bool?>();
             this._ref_HookWaitAction = _ref_HookWaitAction ?? new Ref<Action<object, Func<string>, Action>>();
             _refBaseUrl = refBaseUrl ?? new Ref<string>();
+            _refWindowWidth = refWindowWidth ?? new Ref<int?>();
+            _refWindowHeight = refWindowHeight ?? new Ref<int?>();
         }
 
         // TODO: consider making public
@@ -209,7 +242,9 @@ namespace NSelene
             refClickByJs: null,
             refWaitForNoOverlapFoundByJs: null,
             _ref_HookWaitAction: null,
-            refBaseUrl: null
+            refBaseUrl: null,
+            refWindowWidth: null,
+            refWindowHeight: null
         ) {}
 
         public static _SeleneSettings_ _New_(
@@ -221,7 +256,9 @@ namespace NSelene
             bool clickByJs = false,
             bool waitForNoOverlapFoundByJs = false,
             Action<object, Func<string>, Action> _hookWaitAction = null,
-            string baseUrl = ""
+            string baseUrl = "",
+            int? windowWidth = null,
+            int? windowHeight = null
         )
         {
             _SeleneSettings_ next = new Configuration();
@@ -235,6 +272,8 @@ namespace NSelene
             next.WaitForNoOverlapFoundByJs = waitForNoOverlapFoundByJs;
             next._HookWaitAction = _hookWaitAction;
             next.BaseUrl = baseUrl;
+            next.WindowWidth = windowWidth;
+            next.WindowHeight = windowHeight;
 
             return next;
         }
@@ -277,6 +316,14 @@ namespace NSelene
             refBaseUrl: new Ref<string>(
                 getter: () => Configuration.BaseUrl,
                 setter: value => Configuration.BaseUrl = value ?? ""
+            ),
+            refWindowWidth: new Ref<int?>(
+                getter: () => Configuration.WindowWidth,
+                setter: value => Configuration.WindowWidth = value
+            ),
+            refWindowHeight: new Ref<int?>(
+                getter: () => Configuration.WindowHeight,
+                setter: value => Configuration.WindowHeight = value
             )
         );
 
@@ -292,7 +339,9 @@ namespace NSelene
             bool? clickByJs = null,
             bool? waitForNoOverlapFoundByJs = null,
             Action<object, Func<string>, Action> _hookWaitAction = null,
-            string baseUrl = null
+            string baseUrl = null,
+            int? windowWidth = null,
+            int? windowHeight = null
         )
         {
             _SeleneSettings_ next = new Configuration();
@@ -306,6 +355,8 @@ namespace NSelene
             next.WaitForNoOverlapFoundByJs = waitForNoOverlapFoundByJs;
             next._HookWaitAction = _hookWaitAction;
             next.BaseUrl = baseUrl;
+            next.WindowWidth = windowWidth;
+            next.WindowHeight = windowHeight;
 
             return Configuration.Shared.With(next);
         }
@@ -341,7 +392,13 @@ namespace NSelene
                 : new Ref<Action<object, Func<string>, Action>>(overrides._HookWaitAction),
                 refBaseUrl: overrides.BaseUrl == null
                 ? this._refBaseUrl
-                : new Ref<string>(overrides.BaseUrl)
+                : new Ref<string>(overrides.BaseUrl),
+                refWindowWidth: overrides.WindowWidth == null
+                ? this._refWindowWidth
+                : new Ref<int?>(overrides.WindowWidth),
+                refWindowHeight: overrides.WindowHeight == null 
+                ? this._refWindowWidth 
+                : new Ref<int?>(overrides.WindowHeight)
             );
         }
 
@@ -472,6 +529,32 @@ namespace NSelene
             set
             {
                 Configuration._BaseUrl.Value = value;
+            }
+        }
+
+        public static ThreadLocal<int?> _WindowWidth = new ThreadLocal<int?>();
+        public static int? WindowWidth
+        {
+            get
+            {
+                return Configuration._WindowWidth.Value;
+            }
+            set
+            {
+                Configuration._WindowWidth.Value = value;
+            }
+        }
+
+        public static ThreadLocal<int?> _WindowHeight = new ThreadLocal<int?>();
+        public static int? WindowHeight
+        {
+            get
+            {
+                return Configuration._WindowHeight.Value;
+            }
+            set
+            {
+                Configuration._WindowHeight.Value = value;
             }
         }
 
