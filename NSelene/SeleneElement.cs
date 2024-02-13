@@ -634,12 +634,7 @@ namespace NSelene
         // Queries
         //
 
-        public string Value
-        {
-            get {
-                return GetAttribute("value");
-            }
-        }
+        public string Value => GetAttribute("value");
 
         //
         // IWebElement Properties
@@ -743,7 +738,7 @@ namespace NSelene
         public string GetAttribute(string name)
         {
             Should(Be.InDom);
-            return this.ActualWebElement.GetDomAttribute(name);
+            return this.ActualWebElement.GetAttribute(name);
         }
 
         public string GetProperty (string propertyName)

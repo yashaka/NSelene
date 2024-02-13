@@ -9,6 +9,11 @@
 
 - deprecate the majority of `Selene.*` (except S, SS) when providing alternative API via `Browser.*`
 
+## 1.0.0-alpha13 (released on 2024.02.13)
+
+- fix element.GetAttribute to call webelement.GetAttribute instead of webelement.GetDomAttribute
+  - correspondingly the behavior of element.Value is also fixed, becaused is based on element.GetAttribute
+
 ## 1.0.0-alpha12 (released on 2024.02.09)
 
 - upgraded Selenium.WebDriver to 4.* (i.e. to 4.17.0 as of 2024.02.09)
