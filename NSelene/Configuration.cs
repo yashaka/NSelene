@@ -532,7 +532,7 @@ namespace NSelene
             }
         }
 
-        public static ThreadLocal<int?> _WindowWidth = new ThreadLocal<int?>();
+        private static ThreadLocal<int?> _WindowWidth = new ThreadLocal<int?>();
         public static int? WindowWidth
         {
             get
@@ -545,7 +545,7 @@ namespace NSelene
             }
         }
 
-        public static ThreadLocal<int?> _WindowHeight = new ThreadLocal<int?>();
+        private static ThreadLocal<int?> _WindowHeight = new ThreadLocal<int?>();
         public static int? WindowHeight
         {
             get
