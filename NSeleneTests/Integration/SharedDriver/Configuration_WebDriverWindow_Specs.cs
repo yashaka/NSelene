@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
+using System.Reflection;
 using NSelene;
-using NSelene.Tests.Integration.SharedDriver.Harness;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -13,18 +13,23 @@ namespace NSeleneTests.Integration.SharedDriver
     {
         private IWebDriver _driver { get; set; }
 
+        private readonly string _emptyPage = new Uri(new Uri(Assembly.GetExecutingAssembly().Location),
+            "../../../Resources/empty.html").AbsoluteUri;
+
+        private const int DefaultSeleniumWidth = 800;
+        private const int DefaultSeleniumHeight = 600;
+
         [SetUp]
-        public void InitConfiguration()
+        public void SetUp()
         {
             var options = new ChromeOptions();
             options.AddArguments("headless");
             _driver = new ChromeDriver(options);
-            Configuration.Driver = this._driver;
+            Configuration.Driver = _driver;
         }
 
-
         [TearDown]
-        public void ResetConfiguration()
+        public void TearDown()
         {
             _driver.Quit();
             Configuration.Driver = null;
@@ -34,82 +39,88 @@ namespace NSeleneTests.Integration.SharedDriver
         [Test]
         public void WindowShouldHaveConfiguredSize()
         {
-            //arrange
-            var expectedSize = new Size(888, 666);
+            ResetSeleneConfiguration();
+
             Configuration.WindowWidth = 888;
             Configuration.WindowHeight = 666;
+            Selene.Open(_emptyPage);
 
-            //act
-            Given.OpenedEmptyPage();
-
-            //assert
-            Assert.AreEqual(expectedSize, Configuration.Driver.Manage().Window.Size);
+            Assert.AreEqual(new Size(888, 666), Configuration.Driver.Manage().Window.Size);
         }
 
         [Test]
-        public void WindowShouldHaveDefaultSizeWhenNotConfigured()
+        public void WindowShouldHaveDefaultSizeIfNotConfigured()
         {
-            //arrange
-            var expectedSize = new Size(800, 600);
-            Configuration.WindowWidth = null;
-            Configuration.WindowHeight = null;
+            ResetSeleneConfiguration();
 
-            //act
-            Given.OpenedEmptyPage();
+            Selene.Open(_emptyPage);
 
-            //assert
-            Assert.AreEqual(expectedSize, Configuration.Driver.Manage().Window.Size);
+            Assert.AreEqual(new Size(DefaultSeleniumWidth, DefaultSeleniumHeight),
+                Configuration.Driver.Manage().Window.Size);
         }
 
 
         [Test]
-        public void WindowShouldHaveConfiguredHeightAndDefaultWidthWhenConfiguration_WidthIsNull()
+        public void WindowShouldHaveConfiguredHeightAndDefaultWidth_OnNullInConfigurationWidth()
         {
-            //arrange
-            var expectedSize = new Size(800, 666);
-            Configuration.WindowWidth = null;
+            ResetSeleneConfiguration();
+
             Configuration.WindowHeight = 666;
+            Selene.Open(_emptyPage);
 
-            //act
-            Given.OpenedEmptyPage();
-
-            //assert
-            Assert.AreEqual(expectedSize, Configuration.Driver.Manage().Window.Size);
+            Assert.AreEqual(new Size(DefaultSeleniumWidth, 666), Configuration.Driver.Manage().Window.Size);
         }
 
         [Test]
-        public void WindowShouldHaveConfiguredWidthAndDefaultHeightWhenConfiguration_HeightIsNull()
+        public void WindowShouldHaveConfiguredWidthAndDefaultHeight_OnNullInConfigurationHeight()
         {
-            //arrange
-            var expectedSize = new Size(888, 600);
+            ResetSeleneConfiguration();
+
             Configuration.WindowWidth = 888;
-            Configuration.WindowHeight = null;
+            Selene.Open(_emptyPage);
 
-            //act
-            Given.OpenedEmptyPage();
-
-            //assert
-            Assert.AreEqual(expectedSize, Configuration.Driver.Manage().Window.Size);
+            Assert.AreEqual(new Size(888, DefaultSeleniumHeight), Configuration.Driver.Manage().Window.Size);
         }
 
-        [TestCase(888, -666)]
         [TestCase(-888, 666)]
-        public void WebDriverArgumentExceptionShouldBeThrownWhenConfiguredWithNegatives(int width, int height)
+        [TestCase(888, -666)]
+        public void WebDriverArgumentExceptionShouldBeThrown_OnNegativeNumberInConfiguration(int width, int height)
         {
-            //arrange
+            ResetSeleneConfiguration();
             Configuration.WindowWidth = width;
             Configuration.WindowHeight = height;
 
             try
             {
-                //act
-                Given.OpenedEmptyPage();
+                Selene.Open(_emptyPage);
+                throw new Exception("Should fail when window size configs have negative values.");
             }
+
             catch (Exception e)
             {
-                //assert
                 Assert.IsInstanceOf<WebDriverArgumentException>(e);
             }
+        }
+
+        [Test]
+        public void WindowSizeShouldNotBeChangedUntilOpenNewUrl()
+        {
+            ResetSeleneConfiguration();
+            Configuration.WindowWidth = 888;
+            Configuration.WindowHeight = 666;
+            Selene.Open(_emptyPage);
+
+            Configuration.WindowWidth = DefaultSeleniumWidth;
+            Configuration.WindowHeight = DefaultSeleniumHeight;
+
+            Assert.AreEqual(new Size(888, 666), Configuration.Driver.Manage().Window.Size);
+        }
+
+
+        private static void ResetSeleneConfiguration()
+        {
+            Configuration.WindowWidth = null;
+            Configuration.WindowHeight = null;
         }
     }
 }
