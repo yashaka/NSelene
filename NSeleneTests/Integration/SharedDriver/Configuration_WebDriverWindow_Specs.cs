@@ -103,7 +103,7 @@ namespace NSeleneTests.Integration.SharedDriver
         }
 
         [Test]
-        public void WindowSizeShouldNotBeChangedUntilOpenNewUrl()
+        public void WindowSizeShouldRemainUnchangedOnUpdateConfig()
         {
             ResetSeleneConfiguration();
             Configuration.WindowWidth = 888;
