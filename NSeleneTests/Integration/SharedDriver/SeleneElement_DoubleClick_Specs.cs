@@ -95,20 +95,13 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
                 Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
 
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains(
-                    "Browser.Element(span).Actions.DoubleClick(self.ActualWebElement).Perform()", 
-                    lines
-                );
-                Assert.Contains("Reason:", lines);
-                Assert.Contains(
-                    "element not interactable: [object HTMLSpanElement] has no size and location", 
-                    lines
-                );
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(span).Actions.DoubleClick(self.ActualWebElement).Perform()
+                Reason:
+                	javascript error: {"status":60,"value":"[object HTMLSpanElement] has no size and location"}
+                """.Trim()
+                ));
 
                 StringAssert.DoesNotContain("second", Configuration.Driver.Url);
             }
@@ -143,17 +136,13 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
                 Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
 
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains(
-                    "Browser.Element(span).Actions.DoubleClick(self.ActualNotOverlappedWebElement).Perform()", 
-                    lines
-                );
-                Assert.Contains("Reason:", lines);
-                Assert.Contains("javascript error: element is not visible", lines);
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(span).Actions.DoubleClick(self.ActualNotOverlappedWebElement).Perform()
+                Reason:
+                	javascript error: element is not visible
+                """.Trim()
+                ));
 
                 StringAssert.DoesNotContain("second", Configuration.Driver.Url);
             }
@@ -300,27 +289,14 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 
                 StringAssert.DoesNotContain("second", Configuration.Driver.Url);
 
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains(
-                    "Browser.Element(span).Actions.DoubleClick(self.ActualNotOverlappedWebElement).Perform()", 
-                    lines
-                );
-                Assert.Contains("Reason:", lines);
-                Assert.Contains(
-                    "Element: <span "
-                    + "id=\"link\" "
-                    + "ondblclick=\"window.location=this.href + &quot;#second&quot;\""
-                    + ">to h2</span>"
-                    , 
-                    lines
-                );
-                Assert.NotNull(lines.Find(item => item.Contains(
-                    "is overlapped by: <div id=\"overlay\" "
-                )));
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(span).Actions.DoubleClick(self.ActualNotOverlappedWebElement).Perform()
+                Reason:
+                	Element: <span id="link" ondblclick="window.location=this.href + &quot;#second&quot;">to h2</span>
+                	is overlapped by: <div id="overlay" style=
+                """.Trim()
+                ));
             }
         }
     }

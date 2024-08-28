@@ -90,11 +90,13 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 var lines = error.Message.Split("\n").Select(
                     item => item.Trim()
                 ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.All(p).Should(count = 2)", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains("actual: count = 0", lines);
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.All(p).Should(count = 2)
+                Reason:
+                	actual: count = 0
+                """.Trim()
+                ));
             }
         }
         
@@ -123,15 +125,13 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 var accuracyDelta = 0.2;
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
-                // TODO: shoud we check timing here too?
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.All(p).Should(Not.count = 2)", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains("condition not matched", lines);
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.All(p).Should(Not.count = 2)
+                Reason:
+                	condition not matched
+                """.Trim()
+                ));
             }
         }
 

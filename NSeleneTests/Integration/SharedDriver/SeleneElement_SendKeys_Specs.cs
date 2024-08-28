@@ -59,20 +59,13 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             catch (TimeoutException error)
             {
-                // TODO: shoud we check timing here too?
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(input).ActualWebElement.SendKeys(and after)", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains(
-                    "no such element: Unable to locate element: "
-                    + "{\"method\":\"css selector\",\"selector\":\"input\"}"
-                    , 
-                    lines
-                );
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(input).ActualWebElement.SendKeys(and after)
+                Reason:
+                	no such element: Unable to locate element: {"method":"css selector","selector":"input"}
+                """.Trim()
+                ));
             }
         }
         
@@ -159,14 +152,13 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             catch (TimeoutException error)
             {
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(input).ActualWebElement.SendKeys(and after)", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains("element not interactable", lines);
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(input).ActualWebElement.SendKeys(and after)
+                Reason:
+                	element not interactable
+                """.Trim()
+                ));
 
                 Assert.AreEqual(
                     "before ", 

@@ -86,14 +86,13 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
                 Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
 
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(a).ActualWebElement.Click()", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains("element not interactable", lines);
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(a).ActualWebElement.Click()
+                Reason:
+                	element not interactable
+                """.Trim()
+                ));
             }
         }
 
@@ -187,16 +186,13 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
                 Assert.Less(afterCall, beforeCall.AddSeconds(1.25));
 
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(a).ActualWebElement.Click()", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.NotNull(lines.Find(item => item.Contains(
-                    "Other element would receive the click: <div id=\"overlay\" "
-                )));
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(a).ActualWebElement.Click()
+                Reason:
+                	element click intercepted: Element <a id="link" href="#second">...</a> is not clickable at point 
+                """.Trim()
+                ));
             }
         }
     }

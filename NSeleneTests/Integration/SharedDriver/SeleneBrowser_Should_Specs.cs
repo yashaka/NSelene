@@ -108,13 +108,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 var accuracyDelta = 0.2;
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
-                // TODO: shoud we check timing here too?
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("OpenQA.Selenium.Chrome.ChromeDriver.Should(JSReturnedTrue)", lines);
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	OpenQA.Selenium.Chrome.ChromeDriver.Should(JSReturnedTrue)
+                """.Trim()
+                ));
             }
 
             // catch (TimeoutException error)
@@ -168,13 +166,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 var accuracyDelta = 0.2;
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
-                // TODO: shoud we check timing here too?
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("OpenQA.Selenium.Chrome.ChromeDriver.Should(Not.JSReturnedTrue)", lines);
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	OpenQA.Selenium.Chrome.ChromeDriver.Should(Not.JSReturnedTrue)
+                """.Trim()
+                ));
             }
 
             // catch (TimeoutException error)

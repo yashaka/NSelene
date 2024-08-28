@@ -91,20 +91,13 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 var accuracyDelta = 0.2;
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
-                // TODO: shoud we check timing here too?
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(input).Should(Have.Attribute(value='initial'))", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains(
-                    "no such element: Unable to locate element: "
-                    + "{\"method\":\"css selector\",\"selector\":\"input\"}"
-                    , 
-                    lines
-                );
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(input).Should(Have.Attribute(value='initial'))
+                Reason:
+                	no such element: Unable to locate element: {"method":"css selector","selector":"input"}
+                """.Trim()
+                ));
             }
         }
         
@@ -132,15 +125,13 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 var accuracyDelta = 0.2;
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
-                // TODO: shoud we check timing here too?
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(input).Should(Not.Have.Attribute(value='initial'))", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains("condition not matched", lines);
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(input).Should(Not.Have.Attribute(value='initial'))
+                Reason:
+                	condition not matched
+                """.Trim()
+                ));
             }
         }
         
@@ -232,14 +223,14 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                     item => item.Trim()
                 ).ToList();
 
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(label).Should(Have.TextContaining(«initial»))", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains("Actual text: «»", lines);
-                Assert.Contains(
-                    "Actual webelement: <label style=\"display:none\">initial</label>", 
-                    lines
-                );
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(label).Should(Have.TextContaining(«initial»))
+                Reason:
+                	Actual text: «»
+                Actual webelement: <label style="display:none">initial</label>
+                """.Trim()
+                ));
 
                 Assert.AreEqual(
                     "",  Configuration.Driver.FindElement(By.TagName("label")).Text
@@ -368,14 +359,13 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 var accuracyDelta = 0.2;
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(label).Should(Visible)", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains("actual: False", lines);
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(label).Should(Visible)
+                Reason:
+                	actual: False
+                """.Trim()
+                ));
 
                 Assert.AreEqual(
                     false,  Configuration.Driver.FindElement(By.TagName("label")).Displayed
@@ -401,14 +391,13 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 
             catch (TimeoutException error)
             {
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(label).Should(Not.Visible)", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains("condition not matched", lines);
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(label).Should(Not.Visible)
+                Reason:
+                	condition not matched
+                """.Trim()
+                ));
 
                 Assert.AreEqual(
                     true,  Configuration.Driver.FindElement(By.TagName("label")).Displayed
@@ -436,19 +425,13 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 var accuracyDelta = 0.2;
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(label).Should(Visible)", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains(
-                    "no such element: Unable to locate element: "
-                    + "{\"method\":\"css selector\",\"selector\":\"label\"}"
-                    , 
-                    lines
-                );
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(label).Should(Visible)
+                Reason:
+                	no such element: Unable to locate element: {"method":"css selector","selector":"label"}
+                """.Trim()
+                ));
             }
         }
 
@@ -470,15 +453,14 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 
             catch (TimeoutException error)
             {
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(label).Should(Have.TextContaining(«new»))", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains("Actual text: «initial»", lines);
-                Assert.Contains("Actual webelement: <label>initial</label>", lines);
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(label).Should(Have.TextContaining(«new»))
+                Reason:
+                	Actual text: «initial»
+                Actual webelement: <label>initial</label>
+                """.Trim()
+                ));
 
                 Assert.AreEqual(
                     "initial",  Configuration.Driver.FindElement(By.TagName("label")).Text

@@ -195,16 +195,13 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 
                 Assert.IsFalse(Configuration.Driver.Url.Contains("second"));
 
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(#parent).Element(a).ActualWebElement.Click()", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains(
-                    "no such element: Unable to locate element: "
-                    + "{\"method\":\"css selector\",\"selector\":\"#parent\"}", lines);
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(#parent).Element(a).ActualWebElement.Click()
+                Reason:
+                	no such element: Unable to locate element: {"method":"css selector","selector":"#parent"}
+                """.Trim()
+                ));
             }
         }
 
@@ -234,17 +231,16 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 
                 Assert.IsFalse(Configuration.Driver.Url.Contains("second"));
 
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(p).Element(a).ActualWebElement.Click()", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains("Element not visible:", lines);
-                Assert.Contains("<p style=\"display:none\">", lines);
-                Assert.Contains("<a href=\"#second\">go to Heading 2</a>", lines);
-                Assert.Contains("</p>", lines);
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(p).Element(a).ActualWebElement.Click()
+                Reason:
+                	Element not visible:
+                <p style="display:none">
+                                    <a href="#second">go to Heading 2</a>
+                                    </p>
+                """.Trim()
+                ));
             }
         }
 
@@ -274,14 +270,13 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 
                 Assert.IsFalse(Configuration.Driver.Url.Contains("second"));
 
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(p).Element(a).ActualWebElement.Click()", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains("element not interactable", lines);
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(p).Element(a).ActualWebElement.Click()
+                Reason:
+                	element not interactable
+                """.Trim()
+                ));
             }
         }
     }

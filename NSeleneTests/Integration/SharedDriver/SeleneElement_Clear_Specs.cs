@@ -61,15 +61,13 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                     item => item.Trim()
                 ).ToList();
 
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(input).ActualWebElement.Clear()", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains(
-                    "no such element: Unable to locate element: "
-                    + "{\"method\":\"css selector\",\"selector\":\"input\"}"
-                    , 
-                    lines
-                );
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(input).ActualWebElement.Clear()
+                Reason:
+                	no such element: Unable to locate element: {"method":"css selector","selector":"input"}
+                """.Trim()
+                ));
             }
         }
         
@@ -87,20 +85,13 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             catch (TimeoutException error)
             {
-                // TODO: shoud we check timing here too?
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(input).ActualNotOverlappedWebElement.Clear()", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains(
-                    "no such element: Unable to locate element: "
-                    + "{\"method\":\"css selector\",\"selector\":\"input\"}"
-                    , 
-                    lines
-                );
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(input).ActualNotOverlappedWebElement.Clear()
+                Reason:
+                	no such element: Unable to locate element: {"method":"css selector","selector":"input"}
+                """.Trim()
+                ));
             }
         }
         
@@ -182,14 +173,13 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             catch (TimeoutException error)
             {
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(input).ActualWebElement.Clear()", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains("element not interactable", lines);
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(input).ActualWebElement.Clear()
+                Reason:
+                	element not interactable
+                """.Trim()
+                ));
 
                 Assert.AreEqual(
                     "abracadabra", 
@@ -222,14 +212,13 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             catch (TimeoutException error)
             {
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(input).ActualNotOverlappedWebElement.Clear()", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains("javascript error: element is not visible", lines);
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(input).ActualNotOverlappedWebElement.Clear()
+                Reason:
+                	javascript error: element is not visible
+                """.Trim()
+                ));
 
                 Assert.AreEqual(
                     "abracadabra", 
@@ -383,17 +372,28 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             catch (TimeoutException error)
             {
-                var lines = error.Message.Split("\n").Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-                Assert.Contains("Browser.Element(input).ActualNotOverlappedWebElement.Clear()", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains("Element: <input value=\"abracadabra\">", lines);
-                Assert.NotNull(lines.Find(item => item.Contains(
-                    "is overlapped by: <div id=\"overlay\" "
-                )));
+                Assert.That(error.Message.Trim(), Does.Contain("""
+                Timed out after 0,25s, while waiting for:
+                	Browser.Element(input).ActualNotOverlappedWebElement.Clear()
+                Reason:
+                	Element: <input value="abracadabra">
+                	is overlapped by: <div id="overlay" style="
+                                        display: block;
+                                        position: fixed;
+                                        display: block;
+                                        width: 100%;
+                                        height: 100%;
+                                        top: 0;
+                                        left: 0;
+                                        right: 0;
+                                        bottom: 0;
+                                        background-color: rgba(0,0,0,0.1);
+                                        z-index: 2;
+                                        cursor: pointer;
+                                    ">
+                                </div>
+                """.Trim()
+                ));
             }
         }
     }
