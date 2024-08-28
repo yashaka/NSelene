@@ -196,7 +196,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 Assert.IsFalse(Configuration.Driver.Url.Contains("second"));
 
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(#parent).Element(a).ActualWebElement.Click()
                 Reason:
                 	no such element: Unable to locate element: {"method":"css selector","selector":"#parent"}
@@ -232,7 +232,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 Assert.IsFalse(Configuration.Driver.Url.Contains("second"));
 
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(p).Element(a).ActualWebElement.Click()
                 Reason:
                 	Element not visible:
@@ -271,7 +271,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 Assert.IsFalse(Configuration.Driver.Url.Contains("second"));
 
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(p).Element(a).ActualWebElement.Click()
                 Reason:
                 	element not interactable

@@ -91,7 +91,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                     item => item.Trim()
                 ).ToList();
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.All(p).Should(count = 2)
                 Reason:
                 	actual: count = 0
@@ -126,7 +126,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.All(p).Should(Not.count = 2)
                 Reason:
                 	condition not matched

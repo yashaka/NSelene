@@ -108,7 +108,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 var accuracyDelta = 0.2;
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	OpenQA.Selenium.Chrome.ChromeDriver.Should(JSReturnedTrue)
                 """.Trim()
                 ));
@@ -166,7 +166,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	OpenQA.Selenium.Chrome.ChromeDriver.Should(Not.JSReturnedTrue)
                 """.Trim()
                 ));

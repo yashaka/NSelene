@@ -39,7 +39,7 @@ namespace NSelene.Tests.Integration.SharedDriver
             catch (TimeoutException error) 
             {
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(a).ActualWebElement.Click()
                 Reason:
                 	element not interactable
@@ -62,7 +62,7 @@ namespace NSelene.Tests.Integration.SharedDriver
                 Assert.Fail("should fail on timeout before can be clicked");
             } catch (TimeoutException error) {
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(a).JsClick(centerXOffset: 0, centerYOffset: 0)
                 Reason:
                 	no such element: Unable to locate element: {"method":"css selector","selector":"a"}
@@ -92,7 +92,7 @@ namespace NSelene.Tests.Integration.SharedDriver
                 Assert.Fail("should fail before can be js-clicked");
             } catch (TimeoutException error) {
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(a).JsClick(centerXOffset: 0, centerYOffset: 0)
                 Reason:
                 	no such element: Unable to locate element: {"method":"css selector","selector":"a"}

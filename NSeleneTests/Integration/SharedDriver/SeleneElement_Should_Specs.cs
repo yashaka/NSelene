@@ -92,7 +92,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(input).Should(Have.Attribute(value = «initial»))
                 Reason:
                 	no such element: Unable to locate element: {"method":"css selector","selector":"input"}
@@ -126,7 +126,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(label).Should(Have.Attribute(value = «initial»))
                 Reason:
                 	Actual value: Null (attribute is absent)
@@ -161,7 +161,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(input).Should(Have.Attribute(value = «some»))
                 Reason:
                 	Actual value: «»
@@ -196,7 +196,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(label).Should(Have.Attribute(value = «») OR Have.ExactText(«»))
                 Reason:
                 	Actual value: «some»
@@ -232,7 +232,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(label).Should(Have.Attribute(value = «some») AND Have.ExactText(«thing»))
                 Reason:
                 	Actual text: «»
@@ -267,7 +267,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(input).Should(Not.Have.Attribute(value = «initial»))
                 Reason:
                 	condition not matched
@@ -362,7 +362,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             catch (TimeoutException error)
             {
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(label).Should(Have.TextContaining(«initial»))
                 Reason:
                 	Actual text: «»
@@ -499,7 +499,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(label).Should(Be.Visible)
                 Reason:
                 	Found element is not visible: <label style="display:none">initial</label>
@@ -531,7 +531,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             catch (TimeoutException error)
             {
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(label).Should(Not.Be.Visible)
                 Reason:
                 	condition not matched
@@ -565,7 +565,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(label).Should(Be.Visible)
                 Reason:
                 	no such element: Unable to locate element: {"method":"css selector","selector":"label"}
@@ -593,7 +593,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             catch (TimeoutException error)
             {
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(label).Should(Have.TextContaining(«new»))
                 Reason:
                 	Actual text: «initial»

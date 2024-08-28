@@ -92,7 +92,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(input).Should(Have.Attribute(value='initial'))
                 Reason:
                 	no such element: Unable to locate element: {"method":"css selector","selector":"input"}
@@ -126,7 +126,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(input).Should(Not.Have.Attribute(value='initial'))
                 Reason:
                 	condition not matched
@@ -224,7 +224,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 ).ToList();
 
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(label).Should(Have.TextContaining(«initial»))
                 Reason:
                 	Actual text: «»
@@ -360,7 +360,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(label).Should(Visible)
                 Reason:
                 	actual: False
@@ -392,7 +392,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
             catch (TimeoutException error)
             {
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(label).Should(Not.Visible)
                 Reason:
                 	condition not matched
@@ -426,7 +426,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(label).Should(Visible)
                 Reason:
                 	no such element: Unable to locate element: {"method":"css selector","selector":"label"}
@@ -454,7 +454,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
             catch (TimeoutException error)
             {
                 Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0,25s, while waiting for:
+                Timed out after 0.25s, while waiting for:
                 	Browser.Element(label).Should(Have.TextContaining(«new»))
                 Reason:
                 	Actual text: «initial»
