@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
+using System.Threading.Tasks;
 using NSelene.Conditions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
@@ -121,6 +122,7 @@ namespace NSelene
             bool? typeByJs = null,
             bool? clickByJs = null,
             bool? waitForNoOverlapFoundByJs = null,
+            bool? logOuterHtmlOnFailure = null,
             Action<object, Func<string>, Action> _hookWaitAction = null
         )
         {
@@ -133,6 +135,7 @@ namespace NSelene
             customized.TypeByJs = typeByJs;
             customized.ClickByJs = clickByJs;
             customized.WaitForNoOverlapFoundByJs = waitForNoOverlapFoundByJs;
+            customized.LogOuterHtmlOnFailure = logOuterHtmlOnFailure;
             customized._HookWaitAction = _hookWaitAction;
 
             return new SeleneDriver(
@@ -252,6 +255,31 @@ namespace NSelene
         public void Refresh()
         {
             asWebDriver().Navigate().Refresh();
+        }
+
+        Task INavigation.BackAsync()
+        {
+            return Value.Navigate().BackAsync();
+        }
+
+        Task INavigation.ForwardAsync()
+        {
+            return Value.Navigate().ForwardAsync();
+        }
+
+        Task INavigation.GoToUrlAsync(string url)
+        {
+            return Value.Navigate().GoToUrlAsync(url);
+        }
+
+        Task INavigation.GoToUrlAsync(Uri url)
+        {
+            return Value.Navigate().GoToUrlAsync(url);
+        }
+
+        Task INavigation.RefreshAsync()
+        {
+            return Value.Navigate().RefreshAsync();
         }
 
         //

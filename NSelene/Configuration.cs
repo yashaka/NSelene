@@ -29,6 +29,7 @@ namespace NSelene
         bool? TypeByJs { get; set; }
         bool? ClickByJs { get; set; }
         bool? WaitForNoOverlapFoundByJs { get; set; }
+        bool? LogOuterHtmlOnFailure { get; set; }
         Action<object, Func<string>, Action> _HookWaitAction { get; set; }
         string BaseUrl { get; set; }
     }
@@ -153,6 +154,19 @@ namespace NSelene
             }
         }
  
+        private Ref<bool?> _refLogOuterHtmlOnFailure = new Ref<bool?>();
+        bool? _SeleneSettings_.LogOuterHtmlOnFailure
+        {
+            get
+            {
+                return this._refLogOuterHtmlOnFailure.Value;
+            }
+            set
+            {
+                this._refLogOuterHtmlOnFailure.Value = value;
+            }
+        }
+
         private Ref<Action<object, Func<string>, Action>> _ref_HookWaitAction;// = new Ref<Action<object, Func<string>, Action>>();
         Action<object, Func<string>, Action> _SeleneSettings_._HookWaitAction
         {
@@ -182,6 +196,7 @@ namespace NSelene
             Ref<bool?> refTypeByJs,
             Ref<bool?> refClickByJs,
             Ref<bool?> refWaitForNoOverlapFoundByJs,
+            Ref<bool?> refLogOuterHtmlOnFailure,
             Ref<Action<object, Func<string>, Action>> _ref_HookWaitAction,
             Ref<string> refBaseUrl)
         {
@@ -192,6 +207,7 @@ namespace NSelene
             _refTypeByJs = refTypeByJs ?? new Ref<bool?>();
             _refClickByJs = refClickByJs ?? new Ref<bool?>();
             _refWaitForNoOverlapFoundByJs = refWaitForNoOverlapFoundByJs ?? new Ref<bool?>();
+            _refLogOuterHtmlOnFailure = refLogOuterHtmlOnFailure ?? new Ref<bool?>();
             this._ref_HookWaitAction = _ref_HookWaitAction ?? new Ref<Action<object, Func<string>, Action>>();
             _refBaseUrl = refBaseUrl ?? new Ref<string>();
         }
@@ -208,6 +224,7 @@ namespace NSelene
             refTypeByJs: null,
             refClickByJs: null,
             refWaitForNoOverlapFoundByJs: null,
+            refLogOuterHtmlOnFailure: null,
             _ref_HookWaitAction: null,
             refBaseUrl: null
         ) {}
@@ -220,6 +237,7 @@ namespace NSelene
             bool typeByJs = false,
             bool clickByJs = false,
             bool waitForNoOverlapFoundByJs = false,
+            bool logOuterHtmlOnFailure = false,
             Action<object, Func<string>, Action> _hookWaitAction = null,
             string baseUrl = ""
         )
@@ -233,6 +251,7 @@ namespace NSelene
             next.TypeByJs = typeByJs;
             next.ClickByJs = clickByJs;
             next.WaitForNoOverlapFoundByJs = waitForNoOverlapFoundByJs;
+            next.LogOuterHtmlOnFailure = logOuterHtmlOnFailure;
             next._HookWaitAction = _hookWaitAction;
             next.BaseUrl = baseUrl;
 
@@ -270,6 +289,10 @@ namespace NSelene
                 getter: () => Configuration.WaitForNoOverlapFoundByJs,
                 setter: value => Configuration.WaitForNoOverlapFoundByJs = value ?? false
             ),
+            refLogOuterHtmlOnFailure: new Ref<bool?>(
+                getter: () => Configuration.LogOuterHtmlOnFailure,
+                setter: value => Configuration.LogOuterHtmlOnFailure = value ?? false
+            ),
             _ref_HookWaitAction: new Ref<Action<object, Func<string>, Action>>(
                 getter: () => Configuration._HookWaitAction,
                 setter: value => Configuration._HookWaitAction = value
@@ -291,6 +314,7 @@ namespace NSelene
             bool? typeByJs = null,
             bool? clickByJs = null,
             bool? waitForNoOverlapFoundByJs = null,
+            bool? logOuterHtmlOnFailure = null,
             Action<object, Func<string>, Action> _hookWaitAction = null,
             string baseUrl = null
         )
@@ -304,6 +328,7 @@ namespace NSelene
             next.TypeByJs = typeByJs;
             next.ClickByJs = clickByJs;
             next.WaitForNoOverlapFoundByJs = waitForNoOverlapFoundByJs;
+            next.LogOuterHtmlOnFailure = logOuterHtmlOnFailure;
             next._HookWaitAction = _hookWaitAction;
             next.BaseUrl = baseUrl;
 
@@ -336,6 +361,9 @@ namespace NSelene
                 refWaitForNoOverlapFoundByJs: overrides.WaitForNoOverlapFoundByJs == null
                 ? this._refWaitForNoOverlapFoundByJs
                 : new Ref<bool?>(overrides.WaitForNoOverlapFoundByJs),
+                refLogOuterHtmlOnFailure: overrides.LogOuterHtmlOnFailure == null
+                ? this._refLogOuterHtmlOnFailure
+                : new Ref<bool?>(overrides.LogOuterHtmlOnFailure),
                 _ref_HookWaitAction: overrides._HookWaitAction == null
                 ? this._ref_HookWaitAction
                 : new Ref<Action<object, Func<string>, Action>>(overrides._HookWaitAction),
@@ -446,6 +474,19 @@ namespace NSelene
             set
             {
                 Configuration._WaitForNoOverlapFoundByJs.Value = value;
+            }
+        }
+
+        private static ThreadLocal<bool?> _LogOuterHtmlOnFailure = new ThreadLocal<bool?>();
+        public static bool LogOuterHtmlOnFailure
+        {
+            get
+            {
+                return Configuration._LogOuterHtmlOnFailure.Value ?? false;
+            }
+            set
+            {
+                Configuration._LogOuterHtmlOnFailure.Value = value;
             }
         }
 

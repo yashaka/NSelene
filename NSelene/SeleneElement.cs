@@ -65,6 +65,7 @@ namespace NSelene
             bool? typeByJs = null,
             bool? clickByJs = null,
             bool? waitForNoOverlapFoundByJs = null,
+            bool? logOuterHtmlOnFailure = null,
             Action<object, Func<string>, Action> _hookWaitAction = null
         )
         {
@@ -77,6 +78,7 @@ namespace NSelene
             customized.TypeByJs = typeByJs;
             customized.ClickByJs = clickByJs;
             customized.WaitForNoOverlapFoundByJs = waitForNoOverlapFoundByJs;
+            customized.LogOuterHtmlOnFailure = logOuterHtmlOnFailure;
             customized._HookWaitAction = _hookWaitAction;
 
             return new SeleneElement(
@@ -152,8 +154,12 @@ namespace NSelene
                     throw new SeleneException(
                         () 
                         => 
-                        "Element not visible:\n" // TODO: should we render here also the current element locator? (will be redundant for S but might help in S.S, SS.S.S)
-                        + webElement.GetAttribute("outerHTML")
+                        "Element not visible" // TODO: should we render here also the current element locator? (will be redundant for S but might help in S.S, SS.S.S)
+                        + (
+                            (this.Config.LogOuterHtmlOnFailure ?? false)
+                            ? $":\n{webElement.GetAttribute("outerHTML")}"
+                            : ""
+                        )
                     );
                 }
                 return webElement;
@@ -177,8 +183,14 @@ namespace NSelene
                     throw new SeleneException(
                         ()
                         =>
-                        $"Element: {webElement.GetAttribute("outerHTML")}\n" 
-                        + $"\tis overlapped by: {cover.GetAttribute("outerHTML")}"
+                        $"Element" 
+                        + (
+                            // TODO: do we actually need to use it here? ...
+                            (this.Config.LogOuterHtmlOnFailure ?? false)
+                            ? $": {webElement.GetAttribute("outerHTML")}"
+                            : ""
+                        )   // TODO: ... while not applied here?
+                        + $"\n\tis overlapped by: {cover.GetAttribute("outerHTML")}"
                     );
                 }
                 return webElement;

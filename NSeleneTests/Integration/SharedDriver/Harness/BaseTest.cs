@@ -27,6 +27,8 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
             Configuration.TypeByJs = false;
             Configuration.ClickByJs = false;
             Configuration.WaitForNoOverlapFoundByJs = false;
+            // TODO: ensure we have tests where it is set to false
+            Configuration.LogOuterHtmlOnFailure = true;
             Configuration._HookWaitAction = null;
         }
 

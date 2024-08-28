@@ -7,11 +7,14 @@ namespace NSelene
             public override void Invoke(SeleneElement entity)
             {
                 var webelement = entity.ActualWebElement;
-                if (!webelement.Displayed) 
+                if (!webelement.Displayed)
                 {
-                    throw new ConditionNotMatchedException(() => 
-                        "Found element is not visible: "
-                        + webelement.GetAttribute("outerHTML")
+                    throw new ConditionNotMatchedException(() =>
+                        "Found element is not visible" + (
+                            (entity.Config.LogOuterHtmlOnFailure ?? false)
+                            ? $": {webelement.GetAttribute("outerHTML")}"
+                            : ""
+                        )
                     );
                 }
             }
@@ -25,12 +28,12 @@ namespace NSelene
 
     public static partial class Be
     {
-        public static Conditions.Condition<SeleneElement> Visible 
+        public static Conditions.Condition<SeleneElement> Visible
             => new Conditions.Visible();
 
         static partial class Not
         {
-            public static Conditions.Condition<SeleneElement> Visible 
+            public static Conditions.Condition<SeleneElement> Visible
                 => Be.Visible.Not;
         }
     }

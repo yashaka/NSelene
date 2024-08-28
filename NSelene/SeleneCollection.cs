@@ -81,6 +81,7 @@ namespace NSelene
             bool? typeByJs = null,
             bool? clickByJs = null,
             bool? waitForNoOverlapFoundByJs = null,
+            bool? logOuterHtmlOnFailure = null,
             Action<object, Func<string>, Action> _hookWaitAction = null
         )
         {
@@ -93,6 +94,7 @@ namespace NSelene
             customized.TypeByJs = typeByJs;
             customized.ClickByJs = clickByJs;
             customized.WaitForNoOverlapFoundByJs = waitForNoOverlapFoundByJs;
+            customized.LogOuterHtmlOnFailure = logOuterHtmlOnFailure;
             customized._HookWaitAction = _hookWaitAction;
 
             /* same but another style and not so obvious with harder override logic: 

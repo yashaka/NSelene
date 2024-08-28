@@ -9,7 +9,6 @@ namespace NSelene
         public class Url : Condition<IWebDriver>
         {
             private string expected;
-            private bool result;
 
             public Url (string expected)
             {
@@ -35,7 +34,6 @@ namespace NSelene
         public class UrlContaining : Condition<IWebDriver>
         {
             private string expected;
-            private bool result;
 
             public UrlContaining (string expected)
             {

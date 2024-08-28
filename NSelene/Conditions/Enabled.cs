@@ -10,8 +10,12 @@ namespace NSelene
                 if (!webelement.Enabled) 
                 {
                     throw new ConditionNotMatchedException(() => 
-                        "Found element is not enabled: "
-                        + webelement.GetAttribute("outerHTML")
+                        "Found element is not enabled"
+                        + (
+                            (entity.Config.LogOuterHtmlOnFailure ?? false)
+                            ? $": {webelement.GetAttribute("outerHTML")}"
+                            : ""
+                        )
                     );
                 }
             }

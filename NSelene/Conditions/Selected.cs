@@ -10,8 +10,12 @@ namespace NSelene
                 if (!webelement.Selected) 
                 {
                     throw new ConditionNotMatchedException(() => 
-                        "Found element is not selected: "
-                        + webelement.GetAttribute("outerHTML")
+                        "Found element is not selected"
+                        + (
+                            (entity.Config.LogOuterHtmlOnFailure ?? false)
+                            ? $": {webelement.GetAttribute("outerHTML")}"
+                            : ""
+                        )
                     );
                 }
             }

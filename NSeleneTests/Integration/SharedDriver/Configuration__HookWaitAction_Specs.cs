@@ -26,10 +26,10 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
                     wait();
                     log.Add($"{entityObject}.{describeComputation()}: PASSED");
                 }
-                catch (Exception error)
+                catch (Exception)
                 {
                     log.Add($"{entityObject}.{describeComputation()}: FAILED");
-                    throw error;
+                    throw;
                 }
             };
             Given.OpenedPageWithBody(@"
@@ -80,10 +80,10 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
                     wait();
                     log.Add($"{entityObject}.{describeComputation()}: PASSED");
                 }
-                catch (Exception error)
+                catch (Exception)
                 {
                     log.Add($"{entityObject}.{describeComputation()}: FAILED");
-                    throw error;
+                    throw;
                 }
             };
             Given.OpenedPageWithBody(@"

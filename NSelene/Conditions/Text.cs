@@ -26,7 +26,11 @@ namespace NSelene
                 {
                     throw new ConditionNotMatchedException(() => 
                         $"Actual text: «{actual}»\n"
-                        + $"Actual webelement: {webelement.GetAttribute("outerHTML")}"
+                        + (
+                            entity.Config.LogOuterHtmlOnFailure ?? false
+                                ? $"Actual webelement: {webelement.GetAttribute("outerHTML")}"
+                                : ""
+                        )
                     );
                 }
             }
@@ -54,7 +58,11 @@ namespace NSelene
                 {
                     throw new ConditionNotMatchedException(() => 
                         $"Actual text: «{actual}»\n"
-                        + $"Actual webelement: {webelement.GetAttribute("outerHTML")}"
+                        + (
+                            entity.Config.LogOuterHtmlOnFailure ?? false
+                                ? $"Actual webelement: {webelement.GetAttribute("outerHTML")}"
+                                : ""
+                        )
                     );
                 }
             }

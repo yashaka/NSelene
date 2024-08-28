@@ -9,6 +9,12 @@
 
 - deprecate the majority of `Selene.*` (except S, SS) when providing alternative API via `Browser.*`
 
+## 1.0.0-alpha14 (to be released on 2024.08.28)
+
+- add Configuration.LogOuterHtmlOnFailure (false by default)
+  - to disable previously mandatory logging of outer html of elements in error messages
+    that was the reason of failures when working with Appium
+
 ## 1.0.0-alpha13 (released on 2024.02.13)
 
 - fix element.GetAttribute to call webelement.GetAttribute instead of webelement.GetDomAttribute
@@ -49,20 +55,23 @@
   - added SeleneElement.GetShadowRoot as wrapper over WebElement.GetShadowRoot
 
 ## 1.0.0-alpha09 (to be released on 2021.05.19)
+
 - improved error messages for cases of inner element search
   - like error on S(".parent").Find(".child").Click() when .parent is absent or not visible
 - FIXED experimental Configuration._HookWaitAction application to Should methods on SeleneElement and SeleneCollection
   (was not working, just being skipped)
 
 ## 1.0.0-alpha08 (released on 2021.05.18)
+
 - added waiting to SeleneElementJsExtensions:
   - JsClick
   - JsType
-  - JsSetValue 
+  - JsSetValue
 
 ## 1.0.0-alpha07 (released on 2021.05.13)
-- improved error messsages 
-  - now condition in Should method will be rendered like: 
+
+- improved error messsages
+  - now condition in Should method will be rendered like:
     `... .Should(Be.Visible)` over just `... .Visible`
 - deprecated SeleneElement#config, use SeleneElement#Config instead (same for SeleneCollection)
   - yet be attentive... the fate of keeping SeleneElement#Config as public is also vague...
@@ -70,7 +79,7 @@
   - prefixed with underscore implies that this feature is kind of "publically available private property that might be changed/renamed/removed/etc in future;)", so use it on your own risk!!!
   - by default equals to null, making internally call waiting algorithm for actions as it is, without additional customization
   - specified to something like:
-    ```
+    ```cs
     Configuration._HookWaitAction = (entityObject, describeComputation, wait) => {
         Console.WriteLine($"STARTED WAITING FOR: {entityObject}.{describeComputation()}");
         try

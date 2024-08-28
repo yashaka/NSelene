@@ -31,7 +31,11 @@ namespace NSelene
                         ? $"Actual {this.name}: Null (attribute is absent)\n" 
                         : $"Actual {this.name}: «{maybeActual}»\n"
                         )
-                        + $"Actual webelement: {webelement.GetAttribute("outerHTML")}"
+                        + (
+                            entity.Config.LogOuterHtmlOnFailure ?? false
+                                ? $"Actual webelement: {webelement.GetAttribute("outerHTML")}"
+                                : ""
+                        )
                     );
                 }
             }
