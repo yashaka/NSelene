@@ -157,7 +157,7 @@ namespace NSelene
                         "Element not visible" // TODO: should we render here also the current element locator? (will be redundant for S but might help in S.S, SS.S.S)
                         + (
                             (this.Config.LogOuterHtmlOnFailure ?? false)
-                            ? $":\n{webElement.GetAttribute("outerHTML")}"
+                            ? $":{Environment.NewLine}{webElement.GetAttribute("outerHTML")}"
                             : ""
                         )
                     );
@@ -190,7 +190,7 @@ namespace NSelene
                             ? $": {webElement.GetAttribute("outerHTML")}"
                             : ""
                         )   // TODO: ... while not applied here?
-                        + $"\n    is overlapped by: {cover.GetAttribute("outerHTML")}"
+                        + $"{Environment.NewLine}    is overlapped by: {cover.GetAttribute("outerHTML")}"
                     );
                 }
                 return webElement;

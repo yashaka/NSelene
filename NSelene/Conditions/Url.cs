@@ -26,7 +26,7 @@ namespace NSelene
                 if (!actual.Equals(this.expected))
                 {
                     throw new ConditionNotMatchedException(() => 
-                        $"Actual url: «{actual}»\n"
+                        $"Actual url: «{actual}»{Environment.NewLine}"
                     );
                 }
             }
@@ -51,7 +51,7 @@ namespace NSelene
                 if (!actual.Contains(this.expected))
                 {
                     throw new ConditionNotMatchedException(() => 
-                        $"Actual url: «{actual}»\n"
+                        $"Actual url: «{actual}»{Environment.NewLine}"
                     );
                 }
             }

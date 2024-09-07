@@ -217,9 +217,13 @@ namespace NSelene
                 }
                 if (!(DateTime.Now < otherDateTime))
                 {
-                    string text = $"\nTimed out after {timeoutSpan.TotalSeconds} seconds " +
-                                  $"\nwhile waiting entity with locator: {entity} " +
-                                  $"\nfor condition: {condition}";
+                    string text = 
+                        $$"""
+
+                        Timed out after {{timeoutSpan.TotalSeconds}} seconds "
+                        while waiting entity with locator: {{entity}} "
+                        for condition: {{condition}}
+                        """;
                     throw new WebDriverTimeoutException(text, lastException);
                 }
                 Thread.Sleep(TimeSpan.FromSeconds(pollDuringWaits).Milliseconds);
@@ -260,9 +264,17 @@ namespace NSelene
                 }
                 if (!(DateTime.Now < otherDateTime))
                 {
-                    string text = string.Format( "\nTimed out after {0} seconds \nwhile waiting entity with locator: {1}\nfor condition: not "
-                                               , timeoutSpan.TotalSeconds, entity
-                                               );
+                    string text = string.Format(
+                        """
+                        
+                        Timed out after {0} seconds
+                        while waiting entity with locator: {1}
+                        for condition: not
+                        """
+                        ,
+                        timeoutSpan.TotalSeconds,
+                        entity
+                    );
                     text = text + condition;
                     throw new WebDriverTimeoutException(text, lastException);
                 }

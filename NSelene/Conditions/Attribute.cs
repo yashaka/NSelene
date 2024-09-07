@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 
 namespace NSelene
@@ -28,8 +29,8 @@ namespace NSelene
                 {
                     throw new ConditionNotMatchedException(() => 
                         (maybeActual == null 
-                        ? $"Actual {this.name}: Null (attribute is absent)\n" 
-                        : $"Actual {this.name}: «{maybeActual}»\n"
+                        ? $"Actual {this.name}: Null (attribute is absent){Environment.NewLine}" 
+                        : $"Actual {this.name}: «{maybeActual}»{Environment.NewLine}"
                         )
                         + (
                             entity.Config.LogOuterHtmlOnFailure ?? false

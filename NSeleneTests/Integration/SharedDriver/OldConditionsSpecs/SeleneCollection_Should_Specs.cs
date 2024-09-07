@@ -87,7 +87,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
 
                 // TODO: shoud we check timing here too?
-                var lines = error.Message.Split("\n").Select(
+                var lines = error.Message.Split(Environment.NewLine).Select(
                     item => item.Trim()
                 ).ToList();
                 Assert.That(error.Message.Trim(), Does.Contain($$"""

@@ -92,7 +92,7 @@ namespace NSelene
                 }
                 // TODO: try fixing that following code will call webelement outerhtml rendering a few times, and log it with duplication in error message
                 throw new ConditionNotMatchedException(
-                    () => string.Join("\n", errors.Select(its => its.Message))
+                    () => string.Join(Environment.NewLine, errors.Select(its => its.Message))
                 );
             }
         }

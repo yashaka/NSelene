@@ -113,24 +113,6 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 """.Trim()
                 ));
             }
-
-            // catch (TimeoutException error)
-            // {
-            //     var afterCall = DateTime.Now;
-            //     Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
-            //     var accuracyDelta = 0.2;
-            //     Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
-
-            //     // TODO: shoud we check timing here too?
-            //     var lines = error.Message.Split("\n").Select(
-            //         item => item.Trim()
-            //     ).ToList();
-
-            //     Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-            //     Assert.Contains("Browser.All(p).count = 2", lines);
-            //     Assert.Contains("Reason:", lines);
-            //     Assert.Contains("actual: count = 0", lines);
-            // }
         }
         
         [Test]
@@ -172,24 +154,6 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 ));
 
             }
-
-            // catch (TimeoutException error)
-            // {
-            //     var afterCall = DateTime.Now;
-            //     Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
-            //     var accuracyDelta = 0.2;
-            //     Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
-
-            //     // TODO: shoud we check timing here too?
-            //     var lines = error.Message.Split("\n").Select(
-            //         item => item.Trim()
-            //     ).ToList();
-
-            //     Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
-            //     Assert.Contains("Browser.All(p).not count = 2", lines);
-            //     Assert.Contains("Reason:", lines);
-            //     Assert.Contains("actual: count = 2", lines);
-            // }
         }
 
         // [Test]

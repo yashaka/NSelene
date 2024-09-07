@@ -62,7 +62,7 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
                 Browser.All(.absent).Should(Have.Count = 1): FAILED
                 Browser.Element(.parent).All(.child).Should(Have.Count = 1): STARTED
                 Browser.Element(.parent).All(.child).Should(Have.Count = 1): FAILED"
-                .Split("\n").Select(item => item.Trim()).ToList()
+                .Split(Environment.NewLine).Select(item => item.Trim()).ToList()
             );
         }
 
@@ -120,7 +120,7 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
                 Browser.All(.absent).Should(Have.Count = 1): FAILED
                 Browser.Element(.absent).All(.child).Should(Have.Count = 1): STARTED
                 Browser.Element(.absent).All(.child).Should(Have.Count = 1): FAILED"
-                .Split("\n").Select(item => item.Trim()).ToList()
+                .Split(Environment.NewLine).Select(item => item.Trim()).ToList()
             );
         }
     }

@@ -26,7 +26,10 @@ namespace NSelene
                 if (!actual.Equals(this.expected))
                 {
                     throw new ConditionNotMatchedException(() => 
-                        $"Actual title: «{actual}»\n"
+                        $$"""
+                        Actual title: «{actual}»
+                        
+                        """
                     );
                 }
             }
@@ -51,7 +54,7 @@ namespace NSelene
                 if (!actual.Contains(this.expected))
                 {
                     throw new ConditionNotMatchedException(() => 
-                        $"Actual title: «{actual}»\n"
+                        $"Actual title: «{actual}»{Environment.NewLine}"
                     );
                 }
             }

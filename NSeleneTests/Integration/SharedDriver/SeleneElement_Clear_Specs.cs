@@ -57,7 +57,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
             catch (TimeoutException error)
             {
                 // TODO: shoud we check timing here too?
-                var lines = error.Message.Split("\n").Select(
+                var lines = error.Message.Split(Environment.NewLine).Select(
                     item => item.Trim()
                 ).ToList();
 

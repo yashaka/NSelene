@@ -219,7 +219,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 
             catch (TimeoutException error)
             {
-                var lines = error.Message.Split("\n").Select(
+                var lines = error.Message.Split(Environment.NewLine).Select(
                     item => item.Trim()
                 ).ToList();
 
@@ -556,7 +556,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 
         //     catch (TimeoutException error)
         //     {
-        //         var lines = error.Message.Split("\n").Select(
+        //         var lines = error.Message.Split(Environment.NewLine).Select(
         //             item => item.Trim()
         //         ).ToList();
 

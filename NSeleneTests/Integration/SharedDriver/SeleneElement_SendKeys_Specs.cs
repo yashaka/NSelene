@@ -264,7 +264,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
         //     catch (TimeoutException error)
         //     {
-        //         var lines = error.Message.Split("\n").Select(
+        //         var lines = error.Message.Split(Environment.NewLine).Select(
         //             item => item.Trim()
         //         ).ToList();
 

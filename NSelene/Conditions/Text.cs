@@ -25,7 +25,10 @@ namespace NSelene
                 if (!actual.Contains(this.expected))
                 {
                     throw new ConditionNotMatchedException(() => 
-                        $"Actual text: «{actual}»\n"
+                        $$"""
+                        Actual text: «{{actual}}»
+
+                        """
                         + (
                             entity.Config.LogOuterHtmlOnFailure ?? false
                                 ? $"Actual webelement: {webelement.GetAttribute("outerHTML")}"
@@ -57,7 +60,10 @@ namespace NSelene
                 if (!actual.Equals(this.expected))
                 {
                     throw new ConditionNotMatchedException(() => 
-                        $"Actual text: «{actual}»\n"
+                        $$"""
+                        Actual text: «{{actual}}»
+                        
+                        """
                         + (
                             entity.Config.LogOuterHtmlOnFailure ?? false
                                 ? $"Actual webelement: {webelement.GetAttribute("outerHTML")}"
