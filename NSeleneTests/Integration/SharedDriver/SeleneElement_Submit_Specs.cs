@@ -322,15 +322,12 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             catch (TimeoutException error)
             {
-                var lines = error.Message.Split(Environment.NewLine).Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains("Reason:", lines);
-                Assert.Contains(
-                    "javascript error: Unable to find owning document", 
-                    lines
-                );
+                Assert.That(error.Message.Trim(), Does.Contain(
+                    $$"""
+                    Reason:
+                        javascript error: Unable to find owning document
+                    """
+                ));
 
                 Assert.IsFalse(Configuration.Driver.Url.Contains("second"));
             }
