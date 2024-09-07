@@ -61,11 +61,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             catch (TimeoutException error)
             {
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)
                 Reason:
-                	no such element: Unable to locate element: {"method":"css selector","selector":"input"}
+                    no such element: Unable to locate element: {"method":"css selector","selector":"input"}
                 """.Trim()
                 ));
             }
@@ -98,7 +98,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                     item => item.Trim()
                 ).ToList();
 
-                Assert.Contains("Timed out after 0.25s, while waiting for:", lines);
+                Assert.Contains($"Timed out after {0.25}s, while waiting for:", lines);
                 Assert.Contains($"Browser.Element([type=file]).ActualNotOverlappedWebElement.SendKeys({path})", lines);
                 Assert.Contains("Reason:", lines);
                 Assert.Contains("javascript error: element is not visible", lines);
@@ -169,11 +169,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             catch (TimeoutException error)
             {
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)
                 Reason:
-                	element not interactable
+                    element not interactable
                 """.Trim()
                 ));
 
@@ -207,11 +207,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             catch (TimeoutException error)
             {
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)
                 Reason:
-                	javascript error: element is not visible
+                    javascript error: element is not visible
                 """.Trim()
                 ));
 
@@ -366,12 +366,12 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             catch (TimeoutException error)
             {
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)
                 Reason:
-                	Element: <input value="before ">
-                	is overlapped by: <div id="overlay"
+                    Element: <input value="before ">
+                    is overlapped by: <div id="overlay"
                 """.Trim()
                 ));
             }

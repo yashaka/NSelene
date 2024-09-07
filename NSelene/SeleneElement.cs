@@ -190,7 +190,7 @@ namespace NSelene
                             ? $": {webElement.GetAttribute("outerHTML")}"
                             : ""
                         )   // TODO: ... while not applied here?
-                        + $"\n\tis overlapped by: {cover.GetAttribute("outerHTML")}"
+                        + $"\n    is overlapped by: {cover.GetAttribute("outerHTML")}"
                     );
                 }
                 return webElement;

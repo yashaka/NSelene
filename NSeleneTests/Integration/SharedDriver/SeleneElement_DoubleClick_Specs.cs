@@ -95,11 +95,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
                 Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
 
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(span).Actions.DoubleClick(self.ActualWebElement).Perform()
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(span).Actions.DoubleClick(self.ActualWebElement).Perform()
                 Reason:
-                	javascript error: {"status":60,"value":"[object HTMLSpanElement] has no size and location"}
+                    javascript error: {"status":60,"value":"[object HTMLSpanElement] has no size and location"}
                 """.Trim()
                 ));
 
@@ -136,11 +136,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
                 Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
 
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(span).Actions.DoubleClick(self.ActualNotOverlappedWebElement).Perform()
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(span).Actions.DoubleClick(self.ActualNotOverlappedWebElement).Perform()
                 Reason:
-                	javascript error: element is not visible
+                    javascript error: element is not visible
                 """.Trim()
                 ));
 
@@ -289,12 +289,12 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 
                 StringAssert.DoesNotContain("second", Configuration.Driver.Url);
 
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(span).Actions.DoubleClick(self.ActualNotOverlappedWebElement).Perform()
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(span).Actions.DoubleClick(self.ActualNotOverlappedWebElement).Perform()
                 Reason:
-                	Element: <span id="link" ondblclick="window.location=this.href + &quot;#second&quot;">to h2</span>
-                	is overlapped by: <div id="overlay" style=
+                    Element: <span id="link" ondblclick="window.location=this.href + &quot;#second&quot;">to h2</span>
+                    is overlapped by: <div id="overlay" style=
                 """.Trim()
                 ));
             }

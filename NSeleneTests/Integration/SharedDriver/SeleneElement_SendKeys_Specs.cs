@@ -59,11 +59,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             catch (TimeoutException error)
             {
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(input).ActualWebElement.SendKeys(and after)
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(input).ActualWebElement.SendKeys(and after)
                 Reason:
-                	no such element: Unable to locate element: {"method":"css selector","selector":"input"}
+                    no such element: Unable to locate element: {"method":"css selector","selector":"input"}
                 """.Trim()
                 ));
             }
@@ -152,11 +152,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             catch (TimeoutException error)
             {
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(input).ActualWebElement.SendKeys(and after)
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(input).ActualWebElement.SendKeys(and after)
                 Reason:
-                	element not interactable
+                    element not interactable
                 """.Trim()
                 ));
 

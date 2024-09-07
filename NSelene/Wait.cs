@@ -218,12 +218,12 @@ namespace NSelene
                         // TODO: should we move this error formatting to the Error class definition?
                         var describedLambda = this.describeComputation(computation.ToString());
                         var failure = new TimeoutException(
-                            "\n"
-                            + $"Timed out after {this.timeout}s, while waiting for:\n"
-                            + $"\t{this.entity}.{describedLambda}\n" // TODO: handle trailing spaces
-                            + "Reason:\n"
-                            + $"\t{error.Message}" // TODO: error.Message or error?
-                            ,
+                            $$"""
+                            Timed out after {{this.timeout}}s, while waiting for:
+                                {{this.entity}}.{{describedLambda}}
+                            Reason:
+                                {{error.Message}}
+                            """,
                             error
                         );
 

@@ -86,11 +86,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
                 Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
 
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(a).ActualWebElement.Click()
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(a).ActualWebElement.Click()
                 Reason:
-                	element not interactable
+                    element not interactable
                 """.Trim()
                 ));
             }
@@ -186,11 +186,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
                 Assert.Less(afterCall, beforeCall.AddSeconds(1.25));
 
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(a).ActualWebElement.Click()
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(a).ActualWebElement.Click()
                 Reason:
-                	element click intercepted: Element <a id="link" href="#second">...</a> is not clickable at point 
+                    element click intercepted: Element <a id="link" href="#second">...</a> is not clickable at point 
                 """.Trim()
                 ));
             }

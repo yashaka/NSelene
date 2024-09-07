@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>11.0</LangVersion>
     <PackageId>NSelene</PackageId>
     <Version>1.0.0-alpha14</Version>
     <Authors>yashaka</Authors>

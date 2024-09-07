@@ -61,11 +61,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                     item => item.Trim()
                 ).ToList();
 
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(input).ActualWebElement.Clear()
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(input).ActualWebElement.Clear()
                 Reason:
-                	no such element: Unable to locate element: {"method":"css selector","selector":"input"}
+                    no such element: Unable to locate element: {"method":"css selector","selector":"input"}
                 """.Trim()
                 ));
             }
@@ -85,11 +85,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             catch (TimeoutException error)
             {
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(input).ActualNotOverlappedWebElement.Clear()
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(input).ActualNotOverlappedWebElement.Clear()
                 Reason:
-                	no such element: Unable to locate element: {"method":"css selector","selector":"input"}
+                    no such element: Unable to locate element: {"method":"css selector","selector":"input"}
                 """.Trim()
                 ));
             }
@@ -173,11 +173,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             catch (TimeoutException error)
             {
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(input).ActualWebElement.Clear()
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(input).ActualWebElement.Clear()
                 Reason:
-                	element not interactable
+                    element not interactable
                 """.Trim()
                 ));
 
@@ -212,11 +212,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             catch (TimeoutException error)
             {
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(input).ActualNotOverlappedWebElement.Clear()
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(input).ActualNotOverlappedWebElement.Clear()
                 Reason:
-                	javascript error: element is not visible
+                    javascript error: element is not visible
                 """.Trim()
                 ));
 
@@ -372,12 +372,12 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 
             catch (TimeoutException error)
             {
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(input).ActualNotOverlappedWebElement.Clear()
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(input).ActualNotOverlappedWebElement.Clear()
                 Reason:
-                	Element: <input value="abracadabra">
-                	is overlapped by: <div id="overlay" style="
+                    Element: <input value="abracadabra">
+                    is overlapped by: <div id="overlay" style="
                                         display: block;
                                         position: fixed;
                                         display: block;

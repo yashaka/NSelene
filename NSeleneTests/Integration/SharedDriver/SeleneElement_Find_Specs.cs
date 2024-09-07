@@ -195,11 +195,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 
                 Assert.IsFalse(Configuration.Driver.Url.Contains("second"));
 
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(#parent).Element(a).ActualWebElement.Click()
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(#parent).Element(a).ActualWebElement.Click()
                 Reason:
-                	no such element: Unable to locate element: {"method":"css selector","selector":"#parent"}
+                    no such element: Unable to locate element: {"method":"css selector","selector":"#parent"}
                 """.Trim()
                 ));
             }
@@ -231,11 +231,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 
                 Assert.IsFalse(Configuration.Driver.Url.Contains("second"));
 
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(p).Element(a).ActualWebElement.Click()
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(p).Element(a).ActualWebElement.Click()
                 Reason:
-                	Element not visible:
+                    Element not visible:
                 <p style="display:none">
                                     <a href="#second">go to Heading 2</a>
                                     </p>
@@ -270,11 +270,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 
                 Assert.IsFalse(Configuration.Driver.Url.Contains("second"));
 
-                Assert.That(error.Message.Trim(), Does.Contain("""
-                Timed out after 0.25s, while waiting for:
-                	Browser.Element(p).Element(a).ActualWebElement.Click()
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.Element(p).Element(a).ActualWebElement.Click()
                 Reason:
-                	element not interactable
+                    element not interactable
                 """.Trim()
                 ));
             }
