@@ -105,10 +105,30 @@ namespace NSelene
 
         public static void GoToUrl(string url)
         {
+            ResizeWindow();
+            
             var absoluteUrl = Uri.IsWellFormedUriString(url, UriKind.Absolute) 
                 ? url 
                 : Configuration.BaseUrl + url;
             GetWebDriver().Navigate().GoToUrl(absoluteUrl);
+        }
+
+        private static void ResizeWindow()
+        {
+            var width = Configuration.WindowWidth;
+            var height = Configuration.WindowHeight;
+            var sizeBefore = GetWebDriver().Manage().Window.Size;
+
+            if (width.HasValue || height.HasValue)
+            {
+                if (!(width.HasValue && height.HasValue))
+                {
+                    width = width ?? sizeBefore.Width;
+                    height = height ?? sizeBefore.Height;
+                }
+                
+                GetWebDriver().Manage().Window.Size = new System.Drawing.Size(width.Value, height.Value);
+            }
         }
 
         // TODO: consider changing to static property
