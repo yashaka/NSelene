@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using static NSelene.Selene;
-using OpenQA.Selenium;
 
 namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
 {
@@ -156,6 +155,44 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
             } catch (TimeoutException) {
                 Assert.IsFalse(Configuration.Driver.Url.Contains("second"));
             }
+        }
+        [Test]
+        public void NoTimeout_OnMatchedCondition_OnUnmatchedCollectionElement()
+        {
+            Configuration.Timeout = 2.000;
+            Given.OpenedEmptyPage();
+            var validPositiveIndex = 100;
+
+            var beforeCall = DateTime.Now;
+            SS("#will-not-appear")[validPositiveIndex].Should(Be.Not.InDom);
+            var afterCall = DateTime.Now;
+
+            Assert.IsTrue(afterCall < beforeCall.AddSeconds(Configuration.Timeout));
+        }
+
+        [Test]
+        public void OnUnMatchedCondition_OnUnmatchedCollectionElement_ThrowExceptionWithMessage()
+        {
+            Configuration.Timeout = 0.25;
+            Given.OpenedEmptyPage();
+            var validPositiveIndex = 100;
+
+            try
+            {
+                SS("#will-not-appear")[validPositiveIndex].Should(Be.InDom);
+                Assert.Fail("should fail because the element should be absent");
+            }
+            catch (TimeoutException error)
+            {
+                Assert.That(error.Message.Trim(), Does.Contain($$"""
+                Timed out after {{0.25}}s, while waiting for:
+                    Browser.All(#will-not-appear)[100].Should(Be.InDom)
+                Reason:
+                    element was not found in collection by index 100 (actual collection size is 0)
+                """.Trim()
+                ));
+            }
+
         }
     }
 }
