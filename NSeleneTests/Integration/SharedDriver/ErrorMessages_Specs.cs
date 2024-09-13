@@ -1,15 +1,11 @@
-using NSelene;
 using static NSelene.Selene;
 using NUnit.Framework;
-using OpenQA.Selenium;
 using NSelene.Support.SeleneElementJsExtensions;
+using NSelene.Tests.Integration.SharedDriver.Harness;
+using System;
 
 namespace NSelene.Tests.Integration.SharedDriver
 {
-    using System;
-    using System.Linq;
-    using Harness;
-
     [TestFixture]
     public class ErrorMessages_Specs : BaseTest
     {

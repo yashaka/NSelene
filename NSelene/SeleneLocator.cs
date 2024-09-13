@@ -107,7 +107,16 @@ namespace NSelene
 
         public override IWebElement Find ()
         {
-            return this.context.Should(Have.CountAtLeast(this.index+1)).ActualWebElements[index];
+            var actualWebElements = this.context.ActualWebElements;
+            if (actualWebElements.Count <= this.index)
+            {
+                throw new NotFoundException(
+                    $"element was not found in collection by index {this.index} " +
+                    $"(actual collection size is {actualWebElements.Count})"
+                );
+            }
+
+            return actualWebElements[this.index];
         }
     }
 
