@@ -1,10 +1,6 @@
-using System;
-using NSelene.Conditions;
-using OpenQA.Selenium;
-
 namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 {
-    namespace Conditions 
+    namespace Conditions
     {
 
         public class JSReturnedTrue : DescribedCondition<IWebDriver>

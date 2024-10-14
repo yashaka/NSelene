@@ -1,8 +1,4 @@
-using System;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using static NSelene.Selene;
+using System.Reflection;
 
 namespace NSelene.Tests.Integration.SharedDriver.Harness
 {
@@ -10,19 +6,37 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
     [TestFixture]
     public class BaseTest
     {
-        IWebDriver _driver; 
+        public const double ShortTimeout = 0.25;
+        public const double MediumTimeout = 0.6;
+        public const double LongTimeout = 4.0;
+        public const double PollDuringWaits = 0.1;
+        public static readonly TimeSpan ShortTimeoutSpan = TimeSpan.FromSeconds(ShortTimeout);
+
+        internal static readonly string EmptyHtmlPath = new Uri(
+                    new Uri(Assembly.GetExecutingAssembly().Location),
+                    "../../../Resources/empty.html"
+                ).AbsolutePath;
+        internal static readonly string EmptyHtmlUri = new Uri(
+                    new Uri(Assembly.GetExecutingAssembly().Location),
+                    "../../../Resources/empty.html"
+                ).AbsoluteUri;
+
+        IWebDriver _driver;
 
         [OneTimeSetUp]
-        public void initDriver()
+        public void InitDriver()
         {
             var options = new ChromeOptions();
             options.AddArguments("headless");
             this._driver = new ChromeDriver(options);
-
+        }
+        [SetUp]
+        public void InitDefaults()
+        { 
             // explicit resetting defaults
             Configuration.Driver = this._driver;
-            Configuration.Timeout = 4.0;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = LongTimeout;
+            Configuration.PollDuringWaits = PollDuringWaits;
             Configuration.SetValueByJs = false;
             Configuration.TypeByJs = false;
             Configuration.ClickByJs = false;
@@ -33,7 +47,7 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
         }
 
         [OneTimeTearDown]
-        public void disposeDriver()
+        public void DisposeDriver()
         {
             this._driver?.Quit();
             this._driver?.Dispose();

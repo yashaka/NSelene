@@ -1,9 +1,5 @@
-
-using System;
-using NSelene.Conditions;
-using NUnit.Framework;
-
-namespace NSeleneTests.Unit {
+namespace NSeleneTests.Unit
+{
 
     [TestFixture]
     public class ConditionNotSpecs
@@ -31,19 +27,19 @@ namespace NSeleneTests.Unit {
         [Test]
         public void AnswersFalse_AppliedTo_Truthy()
         {
-            Assert.IsFalse(new HasTruthyElement(1).Not._Predicate(new [] {1, 2}));
+            Assert.That(new HasTruthyElement(1).Not._Predicate(new[] { 1, 2 }), Is.False);
         }
 
         [Test]
         public void AnswersTrue_AppliedTo_Falsy()
         {
-            Assert.IsTrue(new HasTruthyElement(1).Not._Predicate(new [] {0, 2}));
+            Assert.That(new HasTruthyElement(1).Not._Predicate(new[] { 0, 2 }), Is.True);
         }
 
         [Test]
         public void AnswersTrue_AppliedTo_FalsyExceptionLike()
         {
-            Assert.IsTrue(new HasTruthyElement(3).Not._Predicate(new [] {1, 2, /*no third*/}));
+            Assert.That(new HasTruthyElement(3).Not._Predicate(new[] { 1, 2, /*no third*/}), Is.True);
         }
     }
 }

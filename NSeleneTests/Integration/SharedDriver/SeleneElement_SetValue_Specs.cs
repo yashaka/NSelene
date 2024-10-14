@@ -1,304 +1,222 @@
-using NUnit.Framework;
-using static NSelene.Selene;
-
 namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 {
-    using System;
-    using System.Linq;
-    using System.Reflection;
-    using Harness;
-    using OpenQA.Selenium;
-
     [TestFixture]
     public class SeleneElement_SetValue_Specs : BaseTest
     {
         // TODO: move here some SetValueByJs tests
 
         [Test]
-        public void SetValue_WaitsForVisibility_OfInitiialyAbsent()
+        public void SetValue_WaitsForVisibility_OfInitialyAbsent()
         {
-            Configuration.Timeout = 0.6; 
-            Configuration.PollDuringWaits = 0.1;
             Given.OpenedEmptyPage();
-            var beforeCall = DateTime.Now;
             Given.OpenedPageWithBodyTimedOut(
                 @"
                 <input value='initial'></input>
                 ",
-                300
+                ShortTimeoutSpan
             );
 
-            S("input").SetValue("overwritten");
-            var afterCall = DateTime.Now;
-
-            Assert.AreEqual(
-                "overwritten", 
-                Configuration.Driver
-                .FindElement(By.TagName("input")).GetAttribute("value")
+            var act = () =>
+            {
+                S("input").SetValue("overwritten");
+            };
+            
+            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
+                Is.EqualTo("overwritten")
             );
-            Assert.AreEqual(
-                "overwritten", 
-                Configuration.Driver
-                .FindElement(By.TagName("input")).GetDomProperty("value")
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomProperty("value"),
+                Is.EqualTo("overwritten")
             );
-            Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
         }
         
         [Test]
         public void SetValue_IsRenderedInError_OnAbsentElementFailure()
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedEmptyPage();
 
-            try 
-            {
+            var act = () => {
                 S("input").SetValue("overwritten");
-            }
+            };
 
-            catch (TimeoutException error)
-            {
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    Browser.Element(input).ActualWebElement.Clear().SendKeys(overwritten)
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element(input).ActualWebElement.Clear().SendKeys(overwritten)
                 Reason:
                     no such element: Unable to locate element: {"method":"css selector","selector":"input"}
-                """.Trim()
-                ));
-            }
+                """));
         }
 
         [Test]
         public void SetValue_IsRenderedInError_OnAbsentElementFailure_WhenCustomizedToWaitForNoOverlapFoundByJs()
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedEmptyPage();
 
-            try 
-            {
+            var act = () => {
                 S("input").With(waitForNoOverlapFoundByJs: true).SetValue("overwritten");
-            }
+            };
 
-            catch (TimeoutException error)
-            {
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    Browser.Element(input).ActualNotOverlappedWebElement.Clear().SendKeys(overwritten)
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element(input).ActualNotOverlappedWebElement.Clear().SendKeys(overwritten)
                 Reason:
                     no such element: Unable to locate element: {"method":"css selector","selector":"input"}
-                """.Trim()
-                ));
-            }
+                """));
         }
         
         [Test]
         public void SetValue_FailsOnHiddenInputOfTypeFile() // TODO: should we allow it here like in send keys? kind of sounds natural... but can we do that without drawing performance?
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedPageWithBody(
                 @"
                 <input type='file' style='display:none'></input>
                 "
             );
 
-            var path = new Uri(
-                new Uri(Assembly.GetExecutingAssembly().Location), 
-                "../../../Resources/empty.html" // TODO: use ./empty.html (tune csproj correspondingly)
-            ).AbsolutePath;
-            
-            try 
-            {
-                S("[type=file]").SetValue(path);
-            }
+            var act = () => {
+                S("[type=file]").SetValue(EmptyHtmlPath);
+            };
 
-            catch (TimeoutException error)
-            {
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    Browser.Element([type=file]).ActualWebElement.Clear().SendKeys({{path}})
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element([type=file]).ActualWebElement.Clear().SendKeys({{EmptyHtmlPath}})
                 Reason:
                     element not interactable
-                """.Trim()
-                ));
-
-                Assert.AreEqual(
-                    "", 
-                    Configuration.Driver
-                    .FindElement(By.TagName("input")).GetAttribute("value")
-                );
-                Assert.AreEqual(
-                    "", 
-                    Configuration.Driver
-                    .FindElement(By.TagName("input")).GetDomProperty("value")
-                );
-            }
+                """));
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
+                Is.EqualTo("")
+            );
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomProperty("value"),
+                Is.EqualTo("")
+            );
         }
         
         [Test]
         public void SetValue_FailsOnHiddenInputOfTypeFile_WhenCustomizedToWaitForNoOverlapFoundByJs() // TODO: should we allow it here like in send keys? kind of sounds natural... but can we do that without drawing performance?
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedPageWithBody(
                 @"
                 <input type='file' style='display:none'></input>
                 "
             );
 
-            var path = new Uri(
-                new Uri(Assembly.GetExecutingAssembly().Location), 
-                "../../../Resources/empty.html" // TODO: use ./empty.html (tune csproj correspondingly)
-            ).AbsolutePath;
-            
-            try 
-            {
-                S("[type=file]").With(waitForNoOverlapFoundByJs: true).SetValue(path);
-            }
+            var act = () => {
+                S("[type=file]").With(waitForNoOverlapFoundByJs: true).SetValue(EmptyHtmlPath);
+            };
 
-            catch (TimeoutException error)
-            {
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    Browser.Element([type=file]).ActualNotOverlappedWebElement.Clear().SendKeys({{path}})
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element([type=file]).ActualNotOverlappedWebElement.Clear().SendKeys({{EmptyHtmlPath}})
                 Reason:
                     javascript error: element is not visible
-                """.Trim()
-                ));
+                """));
 
-                Assert.AreEqual(
-                    "", 
-                    Configuration.Driver
-                    .FindElement(By.TagName("input")).GetAttribute("value")
-                );
-                Assert.AreEqual(
-                    "", 
-                    Configuration.Driver
-                    .FindElement(By.TagName("input")).GetDomProperty("value")
-                );
-            }
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
+                Is.EqualTo("")
+            );
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomProperty("value"),
+                Is.EqualTo("")
+            );
         }
 
         [Test]
         public void SetValue_WaitsForVisibility_OfInitialyHidden()
         {
-            Configuration.Timeout = 0.6;
-            Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
                 <input value='initial' style='display:none'></input>
                 "
             );
-            var beforeCall = DateTime.Now;
             Given.ExecuteScriptWithTimeout(
                 @"
                 document.getElementsByTagName('input')[0].style.display = 'block';
                 ",
-                300
+                ShortTimeoutSpan
             );
 
-            S("input").SetValue("overwritten");
-            var afterCall = DateTime.Now;
+            var act = () =>
+            {
+                S("input").SetValue("overwritten");
+            };
 
-            Assert.AreEqual(
-                "overwritten", 
-                Configuration.Driver
-                .FindElement(By.TagName("input")).GetAttribute("value")
+            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
+                Is.EqualTo("overwritten")
             );
-            Assert.AreEqual(
-                "overwritten", 
-                Configuration.Driver
-                .FindElement(By.TagName("input")).GetDomProperty("value")
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomProperty("value"),
+                Is.EqualTo("overwritten")
             );
-            Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
         }
         
         [Test]
         public void SetValue_IsRenderedInError_OnHiddenElementFailure()
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedPageWithBody(
                 @"
                 <input value='initial' style='display:none'></input>
                 "
             );
 
-            try 
-            {
+            var act = () => {
                 S("input").SetValue("overwritten");
-            }
+            };
 
-            catch (TimeoutException error)
-            {
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    Browser.Element(input).ActualWebElement.Clear().SendKeys(overwritten)
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element(input).ActualWebElement.Clear().SendKeys(overwritten)
                 Reason:
                     element not interactable
-                """.Trim()
-                ));
-
-                Assert.AreEqual(
-                    "initial", 
-                    Configuration.Driver
-                    .FindElement(By.TagName("input")).GetAttribute("value")
-                );
-                Assert.AreEqual(
-                    "initial", 
-                    Configuration.Driver
-                    .FindElement(By.TagName("input")).GetDomProperty("value")
-                );
-            }
+                """));
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
+                Is.EqualTo("initial")
+            );
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomProperty("value"),
+                Is.EqualTo("initial")
+            );
         }
 
         [Test]
         public void SetValue_IsRenderedInError_OnHiddenElementFailure_WhenCustomizedToWaitForNoOverlapFoundByJs()
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedPageWithBody(
                 @"
                 <input value='initial' style='display:none'></input>
                 "
             );
 
-            try 
-            {
+            var act = () => {
                 S("input").With(waitForNoOverlapFoundByJs: true).SetValue("overwritten");
-            }
+            };
 
-            catch (TimeoutException error)
-            {
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    Browser.Element(input).ActualNotOverlappedWebElement.Clear().SendKeys(overwritten)
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element(input).ActualNotOverlappedWebElement.Clear().SendKeys(overwritten)
                 Reason:
                     javascript error: element is not visible
-                """.Trim()
-                ));
-
-                Assert.AreEqual(
-                    "initial", 
-                    Configuration.Driver
-                    .FindElement(By.TagName("input")).GetAttribute("value")
-                );
-                Assert.AreEqual(
-                    "initial", 
-                    Configuration.Driver
-                    .FindElement(By.TagName("input")).GetDomProperty("value")
-                );
-            }
+                """));
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
+                Is.EqualTo("initial")
+            );
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomProperty("value"),
+                Is.EqualTo("initial")
+            );
         }
 
         [Test]
         public void SetValue_WorksUnderOverlay_ByDefault()
         {
-            Configuration.Timeout = 1.0;
-            Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
                 <div 
@@ -323,29 +241,26 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 <input value='initial'></input>
                 "
             );
-            var beforeCall = DateTime.Now;
+            
+            var act = () =>
+            {
+                S("input").SetValue("overwritten");
+            };
 
-            S("input").SetValue("overwritten");
-
-            var afterCall = DateTime.Now;
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.5));
-            Assert.AreEqual(
-                "overwritten", 
-                Configuration.Driver
-                .FindElement(By.TagName("input")).GetAttribute("value")
+            Assert.That(act, Does.Pass());
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
+                Is.EqualTo("overwritten")
             );
-            Assert.AreEqual(
-                "overwritten", 
-                Configuration.Driver
-                .FindElement(By.TagName("input")).GetDomProperty("value")
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomProperty("value"),
+                Is.EqualTo("overwritten")
             );
         }
 
         [Test]
         public void SetValue_WaitsForNoOverlay_WhenCustomized()
         {
-            Configuration.Timeout = 1.0;
-            Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
                 <div 
@@ -370,36 +285,33 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 <input value='initial'></input>
                 "
             );
-            var beforeCall = DateTime.Now;
             Given.ExecuteScriptWithTimeout(
                 @"
                 document.getElementById('overlay').style.display = 'none';
                 ",
-                300
+                ShortTimeoutSpan
             );
 
-            S("input").With(waitForNoOverlapFoundByJs: true).SetValue("overwritten");
+            var act = () =>
+            {
+                S("input").With(waitForNoOverlapFoundByJs: true).SetValue("overwritten");
+            };
 
-            var afterCall = DateTime.Now;
-            Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
-            Assert.AreEqual(
-                "overwritten", 
-                Configuration.Driver
-                .FindElement(By.TagName("input")).GetAttribute("value")
+            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
+                Is.EqualTo("overwritten")
             );
-            Assert.AreEqual(
-                "overwritten", 
-                Configuration.Driver
-                .FindElement(By.TagName("input")).GetDomProperty("value")
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomProperty("value"),
+                Is.EqualTo("overwritten")
             );
         }
 
         [Test]
         public void SetValue_IsRenderedInError_OnOverlappedWithOverlayFailure_WhenCustomizedToWaitForNoOverlapFoundByJs()
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedPageWithBody(
                 @"
                 <div 
@@ -426,22 +338,17 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 "
             );
 
-            try 
-            {
+            var act = () => {
                 S("input").With(waitForNoOverlapFoundByJs: true).SetValue("overwritten");
-            }
+            };
 
-            catch (TimeoutException error)
-            {
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    Browser.Element(input).ActualNotOverlappedWebElement.Clear().SendKeys(overwritten)
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element(input).ActualNotOverlappedWebElement.Clear().SendKeys(overwritten)
                 Reason:
                     Element: <input value="initial">
                     is overlapped by: <div id="overlay"
-                """.Trim()
+                """
                 ));
-            }
         }
     }
 }

@@ -1,22 +1,8 @@
-using NUnit.Framework;
-using static NSelene.Selene;
-using OpenQA.Selenium;
-
 namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
 {
-    using System;
-    using Harness;
-
     [TestFixture]
     public class SeleneElement_Matching_Specs : BaseTest
     {
-
-        [TearDown]
-        public void TeardownTest()
-        {
-            Configuration.Timeout = 4;
-        }
-        
         [Test]
         public void AllwaysReturnsBoolWithoutWaiting()
         {
@@ -24,14 +10,14 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Given.OpenedPageWithBody("<p id='existing'>Hello!</p>");
 
             // EXPECT
-            Assert.IsFalse(S("#absent").Matching(Be.Visible));
-            Assert.IsTrue(S("#absent").Matching(Be.Not.Visible));
+            Assert.That(S("#absent").Matching(Be.Visible), Is.False);
+            Assert.That(S("#absent").Matching(Be.Not.Visible), Is.True);
 
-            Assert.IsTrue(S("#existing").Matching(Be.Visible));
-            Assert.IsFalse(S("#existing").Matching(Be.Not.Visible));
+            Assert.That(S("#existing").Matching(Be.Visible), Is.True);
+            Assert.That(S("#existing").Matching(Be.Not.Visible), Is.False);
 
-            var afterCall = DateTime.Now;
-            Assert.IsTrue(afterCall < beforeCall.AddSeconds(Configuration.Timeout / 2));
+            var elapsedTime = DateTime.Now-beforeCall;
+            Assert.That(elapsedTime, Is.LessThan(TimeSpan.FromSeconds(Configuration.Timeout / 2)));
         }
     }
 }

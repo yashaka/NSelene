@@ -1,14 +1,10 @@
-using NUnit.Framework;
-using OpenQA.Selenium.Chrome;
-using static NSelene.Selene;
-
 namespace NSelene.Tests.Examples.SharedDriver.WithPageObjects
 {
     [TestFixture]
     public class BrowserTest
     {
         [OneTimeSetUp]
-        public void initDriver()
+        public void InitDriver()
         {
             var options = new ChromeOptions();
             options.AddArguments("headless"); 
@@ -16,9 +12,10 @@ namespace NSelene.Tests.Examples.SharedDriver.WithPageObjects
         }
 
         [OneTimeTearDown]
-        public void disposeDriver()
+        public void DisposeDriver()
         {
             Configuration.Driver.Quit();
+            Configuration.Driver.Dispose();
         }
     }
 

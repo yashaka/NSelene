@@ -1,28 +1,14 @@
-using NUnit.Framework;
-using static NSelene.Selene;
-using OpenQA.Selenium;
-
 namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
 {
-    using System;
-    using Harness;
-
     [TestFixture]
     public class SeleneCollection_WaitUntil_Specs : BaseTest
     {
-
-        [TearDown]
-        public void TeardownTest()
-        {
-            Configuration.Timeout = 4;
-        }
-        
         [Test]
         public void ReturnsTrue_AfterWaiting_OnMatched_AfterDelayLessThanTimeout()
         {
             Configuration.Timeout = 2.000;
-            var hiddenDelay = 500;
-            var visibleDelay = hiddenDelay + 250;
+            var hiddenDelay = TimeSpan.FromMilliseconds(500);
+            var visibleDelay = hiddenDelay + TimeSpan.FromMilliseconds(250);
             Given.OpenedEmptyPage();
             var beforeCall = DateTime.Now;
             Given.WithBodyTimedOut(
@@ -37,9 +23,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             var result = SS("#will-appear").WaitUntil(Have.Texts("Hello!"));
             var afterCall = DateTime.Now;
 
-            Assert.IsTrue(result);
-            Assert.IsTrue(afterCall > beforeCall.AddMilliseconds(visibleDelay));
-            Assert.IsTrue(afterCall < beforeCall.AddSeconds(Configuration.Timeout));
+            Assert.That(result, Is.True);
+            Assert.That(afterCall, Is.GreaterThan(beforeCall.Add(visibleDelay)));
+            Assert.That(afterCall, Is.LessThan(beforeCall.AddSeconds(Configuration.Timeout)));
         }
         
         [Test]
@@ -51,8 +37,8 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             var result = SS("#absent").WaitUntil(Have.Count(2));
             var afterCall = DateTime.Now;
 
-            Assert.IsFalse(result);
-            Assert.IsTrue(afterCall >= beforeCall.AddSeconds(Configuration.Timeout));
+            Assert.That(result, Is.False);
+            Assert.That(afterCall, Is.GreaterThanOrEqualTo(beforeCall.AddSeconds(Configuration.Timeout)));
         }
         
         [Test]
@@ -67,8 +53,8 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             var result = SS("#hidden").WaitUntil(Have.Texts("Hello!"));
             var afterCall = DateTime.Now;
 
-            Assert.IsFalse(result);
-            Assert.IsTrue(afterCall >= beforeCall.AddSeconds(Configuration.Timeout));
+            Assert.That(result, Is.False);
+            Assert.That(afterCall, Is.GreaterThanOrEqualTo(beforeCall.AddSeconds(Configuration.Timeout)));
         }
     }
 }

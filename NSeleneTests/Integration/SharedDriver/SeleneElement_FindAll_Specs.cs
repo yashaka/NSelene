@@ -1,28 +1,16 @@
-using NUnit.Framework;
-using static NSelene.Selene;
-
 namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
 {
-    using Harness;
-
     [TestFixture]
     public class SeleneElement_FindAll_Specs : BaseTest
     {
-
-        [TearDown]
-        public void TeardownTest()
-        {
-            Configuration.Timeout = 4;
-        }
-        
         [Test]
         public void NotStartOnCreation()
         {
             Given.OpenedPageWithBody("<p id='#existing'>Hello!</p>");
             var nonExistingCollection = S("#existing").All(".also-not-existing");
-            Assert.IsNotEmpty(nonExistingCollection.ToString());  
-            var nonExistingCollection2 = S("#not-existing").All(".also-not-existing"); 
-            Assert.IsNotEmpty(nonExistingCollection2.ToString()); 
+            Assert.That(nonExistingCollection.ToString(), Is.Not.Empty);  
+            var nonExistingCollection2 = S("#not-existing").All(".also-not-existing");
+            Assert.That(nonExistingCollection2.ToString(), Is.Not.Empty); 
         }
 
         [Test]
@@ -38,7 +26,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                     </ul>
                 </div>"
             ); //TODO: consider simplifying example via removing div and using ul instead
-            Assert.AreEqual(2, elements.Count);
+            Assert.That(elements, Has.Count.EqualTo(2));
         }
 
         [Test]
@@ -54,7 +42,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                     </ul>
                 </div>"
             );
-            Assert.AreEqual(2, elements.Count);
+            Assert.That(elements, Has.Count.EqualTo(2));
             When.WithBody(@"
                 <div>
                     <ul>Hello to:
@@ -64,7 +52,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                     </ul>
                 </div>"
             );
-            Assert.AreEqual(3, elements.Count);
+            Assert.That(elements, Has.Count.EqualTo(3));
         }
 
         [Test]
@@ -88,9 +76,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                         <li class='will-appear'>Bobik</li>
                     </ul>
                 </div>",
-                500
+                TimeSpan.FromMilliseconds(500)
             );
-            Assert.AreEqual(2, elements.Count);
+            Assert.That(elements, Has.Count.EqualTo(2));
         }
     }
 }

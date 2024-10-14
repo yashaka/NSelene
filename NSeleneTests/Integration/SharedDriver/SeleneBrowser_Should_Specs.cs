@@ -1,165 +1,119 @@
-using NUnit.Framework;
-using static NSelene.Selene;
-
 namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 {
-    using System;
-    using System.Linq;
-    using System.Reflection;
-    using Harness;
-    using OpenQA.Selenium;
-
     [TestFixture]
     public class SeleneBrowser_Should_Specs : BaseTest
     {
-        // TODO: imrove coverage and consider breaking down into separate test classes
+        // TODO: improve coverage and consider breaking down into separate test classes
 
         [Test]
-        public void SeleneWaitTo_HaveJsReturned_WaitsForPresenceInDom_OfInitiialyAbsent()
+        public void SeleneWaitTo_HaveJsReturned_WaitsForPresenceInDom_OfInitialyAbsent()
         {
-            Configuration.Timeout = 0.6; 
-            Configuration.PollDuringWaits = 0.1;
             Given.OpenedEmptyPage();
-            var beforeCall = DateTime.Now;
             Given.OpenedPageWithBodyTimedOut(
                 @"
                 <p style='display:none'>a</p>
                 <p style='display:none'>b</p>
                 ",
-                300
+                ShortTimeoutSpan
             );
 
-            Selene.WaitTo(Have.JSReturnedTrue(
-                @"
-                var expectedCount = arguments[0]
-                return document.getElementsByTagName('p').length == expectedCount
-                "
-                ,
-                2
-            ));
-
-            var afterCall = DateTime.Now;
-            Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
-        }
-
-        [Test]
-        public void SeleneWaitTo_HaveNoJsReturned_WaitsForAbsenceInDom_OfInitiialyPresent()
-        {
-            Configuration.Timeout = 0.6; 
-            Configuration.PollDuringWaits = 0.1;
-            Given.OpenedPageWithBody(
-                @"
-                <p style='display:none'>a</p>
-                <p style='display:none'>b</p>
-                "
-            );
-            var beforeCall = DateTime.Now;
-            Given.WithBodyTimedOut(
-                @"
-                ",
-                300
-            );
-
-            SS("p").Should(Have.No.Count(2));
-            Selene.WaitTo(Have.No.JSReturnedTrue(
-                @"
-                var expectedCount = arguments[0]
-                return document.getElementsByTagName('p').length == expectedCount
-                "
-                ,
-                2
-            ));
-
-            var afterCall = DateTime.Now;
-            Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
-                Assert.AreEqual(
-                    0, 
-                    Configuration.Driver
-                    .FindElements(By.TagName("p")).Count
-                );
-        }
-        
-        [Test]
-        public void SeleneWaitTo_HaveJsReturned_IsRenderedInError_OnAbsentElementTimeoutFailure()
-        {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
-            Given.OpenedEmptyPage();
-            var beforeCall = DateTime.Now;
-
-            try
+            var act = () =>
             {
                 Selene.WaitTo(Have.JSReturnedTrue(
                     @"
                     var expectedCount = arguments[0]
                     return document.getElementsByTagName('p').length == expectedCount
-                    "
-                    ,
+                    ",
                     2
                 ));
-            }
-
-            catch (TimeoutException error)
-            {
-                var afterCall = DateTime.Now;
-                Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
-                var accuracyDelta = 0.2;
-                Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
-
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    OpenQA.Selenium.Chrome.ChromeDriver.Should(JSReturnedTrue)
-                """.Trim()
-                ));
-            }
+            };
+            
+            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
         }
-        
+
         [Test]
-        public void SeleneWaitTo_HaveNoJsReturned_IsRenderedInError_OnInDomElementsTimeoutFailure()
+        public void SeleneWaitTo_HaveNoJsReturned_WaitsForAbsenceInDom_OfInitialyPresent()
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
                 <p style='display:none'>a</p>
                 <p style='display:none'>b</p>
                 "
             );
-            var beforeCall = DateTime.Now;
+            Selene.SS("p").Should(Have.Count(2));
+            Given.WithBodyTimedOut(
+                @"
+                ",
+                ShortTimeoutSpan
+            );
 
-            try 
+            var act = () =>
             {
                 Selene.WaitTo(Have.No.JSReturnedTrue(
                     @"
                     var expectedCount = arguments[0]
                     return document.getElementsByTagName('p').length == expectedCount
-                    "
-                    ,
+                    ",
                     2
                 ));
-            }
+            };
 
-            catch (TimeoutException error)
-            {
-                var afterCall = DateTime.Now;
-                Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
-                var accuracyDelta = 0.2;
-                Assert.Less(afterCall, beforeCall.AddSeconds(0.25 + 0.1 + accuracyDelta));
-
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    OpenQA.Selenium.Chrome.ChromeDriver.Should(Not.JSReturnedTrue)
-                """.Trim()
-                ));
-            }
+            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(
+                Configuration.Driver.FindElements(By.TagName("p")),
+                Has.Count.EqualTo(0)
+            );
         }
 
-        // [Test]
-        // public void SeleneWaitTo_HaveNoJsReturned_WaitsForAsked_OfInitialyOtherResult() // NOT RELEVANT
-        // {
-        // }
+        [Test]
+        public void SeleneWaitTo_HaveJsReturned_IsRenderedInError_OnAbsentElementTimeoutFailure()
+        {
+            Configuration.Timeout = BaseTest.ShortTimeout;
+            Given.OpenedEmptyPage();
+
+            var act = () =>
+            {
+                Selene.WaitTo(Have.JSReturnedTrue(
+                    @"
+                    var expectedCount = arguments[0]
+                    return document.getElementsByTagName('p').length == expectedCount
+                    ",
+                    2
+                ));
+            };
+
+            Assert.That(act, Does.Timeout("OpenQA.Selenium.Chrome.ChromeDriver.Should(JSReturnedTrue)"));
+        }
+        
+        [Test]
+        public void SeleneWaitTo_HaveNoJsReturned_IsRenderedInError_OnInDomElementsTimeoutFailure()
+        {
+            Configuration.Timeout = BaseTest.ShortTimeout;
+            Given.OpenedPageWithBody(
+                @"
+                <p style='display:none'>a</p>
+                <p style='display:none'>b</p>
+                "
+            );
+
+            var act = () => {
+                Selene.WaitTo(Have.No.JSReturnedTrue(
+                    @"
+                    var expectedCount = arguments[0]
+                    return document.getElementsByTagName('p').length == expectedCount
+                    ",
+                    2
+                ));
+            };
+
+            Assert.That(act, Does.Timeout("OpenQA.Selenium.Chrome.ChromeDriver.Should(Not.JSReturnedTrue)"));
+        }
+
+        [Test]
+        [Ignore("NOT RELEVANT")]
+        public void SeleneWaitTo_HaveNoJsReturned_WaitsForAsked_OfInitialyOtherResult()
+        {
+        }
     }
 }
 

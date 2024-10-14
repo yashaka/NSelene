@@ -229,7 +229,7 @@ namespace NSelene
 
                         throw failure;
                     }
-                    Thread.Sleep(TimeSpan.FromSeconds(this.polling).Milliseconds);
+                    Thread.Sleep((int)TimeSpan.FromSeconds(this.polling).TotalMilliseconds);
                 }
             }
             // throw failFastError;
