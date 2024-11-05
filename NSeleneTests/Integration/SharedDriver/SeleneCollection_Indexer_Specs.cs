@@ -161,10 +161,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
         {
             Configuration.Timeout = 2.000;
             Given.OpenedEmptyPage();
-            var validPositiveIndex = 100;
 
             var beforeCall = DateTime.Now;
-            SS("#will-not-appear")[validPositiveIndex].Should(Be.Not.InDom);
+            SS("#will-not-appear")[100].Should(Be.Not.InDom);
             var afterCall = DateTime.Now;
 
             Assert.IsTrue(afterCall < beforeCall.AddSeconds(Configuration.Timeout));
@@ -175,11 +174,10 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
         {
             Configuration.Timeout = 0.25;
             Given.OpenedEmptyPage();
-            var validPositiveIndex = 100;
 
             try
             {
-                SS("#will-not-appear")[validPositiveIndex].Should(Be.InDom);
+                SS("#will-not-appear")[100].Should(Be.InDom);
                 Assert.Fail("should fail because the element should be absent");
             }
             catch (TimeoutException error)
