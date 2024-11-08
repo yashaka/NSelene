@@ -1,10 +1,4 @@
-using NUnit.Framework;
-using static NSelene.Selene;
-using NSelene.Tests.Integration.SharedDriver.Harness;
-using NSelene.Conditions;
-using OpenQA.Selenium;
 using NSelene.Support.SeleneElementJsExtensions;
-using System;
 
 namespace NSelene.Tests.Integration.SharedDriver
 {
@@ -43,7 +37,7 @@ namespace NSelene.Tests.Integration.SharedDriver
 
             S("a").JsClick();
             
-            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
+            Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 
         [Test]
@@ -57,7 +51,7 @@ namespace NSelene.Tests.Integration.SharedDriver
 
             S("a").With(clickByJs: true).Click();
             
-            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
+            Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 
         [Test]
@@ -72,7 +66,7 @@ namespace NSelene.Tests.Integration.SharedDriver
             Configuration.ClickByJs = true;
             S("a").Click();
             
-            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
+            Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 
         [Test]
@@ -94,27 +88,27 @@ namespace NSelene.Tests.Integration.SharedDriver
             
             S("#field1").Should(Have.Value(new string('*', 200)));
             S("#field2").Should(Have.Value(new string('*', 200)));
-            
-            Assert.Less(jsTime, typeTime / 2.0);
+
+            Assert.That(jsTime, Is.LessThan(typeTime / 2.0));
         }
 
-        // TODO: make it work and pass:)
-        // [Test]
-        // public void JsClick_ClicksWithOffsetFromCenter()
-        // {
-        //     Given.OpenedPageWithBody(@"
-        //         <a id='to-first' href='#first'>go to Heading 1</a>
-        //         </br>
-        //         <a id='to-second' href='#second'>go to Heading 2</a>
-        //         <h2 id='second'>Heading 1</h2>
-        //         <h2 id='second'>Heading 2</h2>"
-        //     );
+        [Test]
+        [Ignore("TODO: make it work and pass:)")]
+        public void JsClick_ClicksWithOffsetFromCenter()
+        {
+            Given.OpenedPageWithBody(@"
+                 <a id='to-first' href='#first'>go to Heading 1</a>
+                 </br>
+                 <a id='to-second' href='#second'>go to Heading 2</a>
+                 <h2 id='second'>Heading 1</h2>
+                 <h2 id='second'>Heading 2</h2>"
+            );
 
-        //     var toSecond = S("#to-second");
-            
-        //     toSecond.JsClick(0, -toSecond.Size.Height);
-            
-        //     Assert.IsTrue(Configuration.Driver.Url.Contains("first"));
-        // }
+            var toSecond = S("#to-second");
+
+            toSecond.JsClick(0, -toSecond.Size.Height);
+
+            Assert.That(Configuration.Driver.Url, Does.Contain("first"));
+        }
     }
 }

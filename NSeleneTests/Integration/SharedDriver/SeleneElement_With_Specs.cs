@@ -1,22 +1,8 @@
-using NUnit.Framework;
-using static NSelene.Selene;
-
 namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
 {
-    using System;
-    using Harness;
-
     [TestFixture]
     public class SeleneElement_With_Specs: BaseTest
     {
-
-        [SetUp]
-        public void ResetConfiguration()
-        {
-            Configuration.Timeout = 4;
-            Configuration.PollDuringWaits = 0.1;
-        }
-        
         [Test]
         public void CustomTimeoutIsApplied_When_WaitUntil()
         {
@@ -27,7 +13,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             S("#absent").With(timeout: custom).WaitUntil(Be.Visible);
             var afterCall = DateTime.Now;
 
-            Assert.IsTrue(afterCall >= beforeCall.AddSeconds(custom));
+            Assert.That(afterCall, Is.GreaterThanOrEqualTo(beforeCall.AddSeconds(custom)));
         }
         
         [Test]
@@ -38,14 +24,14 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             // WHEN
             S("#absent").With(timeout: 0.2);
 
-            Assert.AreEqual(0.8, Configuration.Timeout);
+            Assert.That(Configuration.Timeout, Is.EqualTo(0.8));
 
             // WHEN
             var beforeCall = DateTime.Now;
             S("#absent").WaitUntil(Be.Visible);
             var afterCall = DateTime.Now;
 
-            Assert.IsTrue(afterCall >= beforeCall.AddSeconds(0.8));
+            Assert.That(afterCall, Is.GreaterThanOrEqualTo(beforeCall.AddSeconds(0.8)));
         }
         
         [Test]
@@ -59,7 +45,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             another.WaitUntil(Be.Visible);
             var afterCall = DateTime.Now;
 
-            Assert.IsTrue(afterCall >= beforeCall.AddSeconds(0.8));
+            Assert.That(afterCall, Is.GreaterThanOrEqualTo(beforeCall.AddSeconds(0.8)));
         }
         
         [Test]
@@ -74,7 +60,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             S("#absent").With(timeout: 0.2).WaitUntil(Be.Visible);
             var afterCall = DateTime.Now;
 
-            Assert.IsTrue(afterCall >= beforeCall.AddSeconds(0.6));
+            Assert.That(afterCall, Is.GreaterThanOrEqualTo(beforeCall.AddSeconds(0.6)));
         }
         
         [Test]
@@ -88,10 +74,10 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Configuration.PollDuringWaits = 0.6;
             var beforeCall = DateTime.Now;
             customized.WaitUntil(Be.Visible);
-            var afterCall = DateTime.Now;
+            var elapsedTime = DateTime.Now-beforeCall;
 
             // THEN the updated value is used making waiting longer correspondingly 
-            Assert.GreaterOrEqual(afterCall, beforeCall.AddSeconds(0.6));
+            Assert.That(elapsedTime, Is.GreaterThanOrEqualTo(TimeSpan.FromSeconds(0.6)));
         }
         
         [Test]
@@ -108,8 +94,8 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             var afterCall = DateTime.Now;
 
             // THEN the default 0.1 polling value is used making waiting shorter correspondingly 
-            Assert.GreaterOrEqual(afterCall, beforeCall.AddSeconds(0.2));
-            Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
+            Assert.That(afterCall, Is.GreaterThanOrEqualTo(beforeCall.AddSeconds(0.2)));
+            Assert.That(afterCall, Is.LessThan(beforeCall.AddSeconds(1.0)));
         }
         
         [Test]
@@ -129,8 +115,8 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             var afterCall = DateTime.Now;
 
             // THEN 
-            Assert.GreaterOrEqual(afterCall, beforeCall.AddSeconds(0.6));
-            Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
+            Assert.That(afterCall, Is.GreaterThanOrEqualTo(beforeCall.AddSeconds(0.6)));
+            Assert.That(afterCall, Is.LessThan(beforeCall.AddSeconds(1.0)));
         }
         
         [Test]
@@ -149,8 +135,8 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             var afterCall = DateTime.Now;
 
             // THEN 
-            Assert.GreaterOrEqual(afterCall, beforeCall.AddSeconds(0.6));
-            Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
+            Assert.That(afterCall, Is.GreaterThanOrEqualTo(beforeCall.AddSeconds(0.6)));
+            Assert.That(afterCall, Is.LessThan(beforeCall.AddSeconds(1.0)));
         }
     }
 }

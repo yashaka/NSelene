@@ -1,6 +1,3 @@
-using NUnit.Framework;
-using NSelene;
-
 namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 {
     public class Selene_ExecuteScript_Specs

@@ -1,10 +1,5 @@
-using NUnit.Framework;
-using static NSelene.Selene;
-
 namespace NSelene.Tests.Integration.SharedDriver
 {
-    using Harness;
-
     [TestFixture]
     public class SeleneElementQueries_Specs : BaseTest
     {
@@ -13,35 +8,35 @@ namespace NSelene.Tests.Integration.SharedDriver
         public void GetAttribute()
         {
             Given.OpenedPageWithBody("<input type='text' value='ku ku'/>");
-            Assert.AreEqual("text", S("input").GetAttribute("type"));
+            Assert.That(S("input").GetAttribute("type"), Is.EqualTo("text"));
         }
 
         [Test]
         public void GetValue()
         {
             Given.OpenedPageWithBody("<input type='text' value='ku ku'/>");
-            Assert.AreEqual("ku ku", S("input").Value);
+            Assert.That(S("input").Value, Is.EqualTo("ku ku"));
         }
 
         [Test]
         public void GetCssValue()
         {
             Given.OpenedPageWithBody("<input type='text' value='ku ku' style='display:none'/>");
-            Assert.AreEqual("none", S("input").GetCssValue("display"));
+            Assert.That(S("input").GetCssValue("display"), Is.EqualTo("none"));
         }
 
         [Test]
         public void IsDisplayed()
         {
             Given.OpenedPageWithBody("<input type='text' value='ku ku' style='display:none'/>");
-            Assert.AreEqual(false, S("input").Displayed);
+            Assert.That(S("input").Displayed, Is.EqualTo(false));
         }
 
         [Test]
         public void IsEnabled()
         {
             Given.OpenedPageWithBody("<input type='text' value='ku ku'/>");
-            Assert.AreEqual(true, S("input").Enabled);
+            Assert.That(S("input").Enabled, Is.EqualTo(true));
         }
 
         // TODO: TBD

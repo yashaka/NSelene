@@ -1,106 +1,79 @@
-using NUnit.Framework;
-using static NSelene.Selene;
-
 namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 {
-    using System;
-    using System.Linq;
-    using Harness;
-
     [TestFixture]
     public class SeleneElement_Click_Specs : BaseTest
     {
         // TODO: move here error messages tests, and at least some ClickByJs tests...
         
         [Test]
-        public void Click_WaitsForVisibility_OfInitiialyAbsent()
+        public void Click_WaitsForVisibility_OfInitialyAbsent()
         {
-            Configuration.Timeout = 0.6;
-            Configuration.PollDuringWaits = 0.1;
             Given.OpenedEmptyPage();
-            var beforeCall = DateTime.Now;
             Given.OpenedPageWithBodyTimedOut(
                 @"
                 <a href='#second'>go to Heading 2</a>
                 <h2 id='second'>Heading 2</h2>
                 ",
-                300
-            );
+                ShortTimeoutSpan);
 
-            S("a").Click();
+            var act = () =>
+            {
+                S("a").Click();
+            };
 
-            var afterCall = DateTime.Now;
-            Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
-            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
+            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 
         [Test]
-        public void Click_WaitsForVisibility_OfInitiialyHidden()
+        public void Click_WaitsForVisibility_OfInitialyHidden()
         {
-            Configuration.Timeout = 1.0;
-            Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
                 <a id='link' href='#second' style='display:none'>go to Heading 2</a>
                 <h2 id='second'>Heading 2</h2>
                 "
             );
-            var beforeCall = DateTime.Now;
             Given.ExecuteScriptWithTimeout(
                 @"
                 document.getElementById('link').style.display = 'block';
                 ",
-                300
+                ShortTimeoutSpan
             );
 
-            S("a").Click();
+            var act = () =>
+            {
+                S("a").Click();
+            };
 
-            var afterCall = DateTime.Now;
-            Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
-            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
+            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
         [Test]
         public void Click_IsRenderedInError_OnHiddenFailure()
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedPageWithBody(
                 @"
                 <a id='link' href='#second' style='display:none'>go to Heading 2</a>
                 <h2 id='second'>Heading 2</h2>
                 "
             );
-            var beforeCall = DateTime.Now;
 
-            try 
-            {
+            var act = () => {
                 S("a").Click();
-                Assert.Fail("should fail with exception");
-            }
+            };
 
-            catch (TimeoutException error)
-            {
-                var afterCall = DateTime.Now;
-                Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
-                Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
-
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    Browser.Element(a).ActualWebElement.Click()
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element(a).ActualWebElement.Click()
                 Reason:
                     element not interactable
-                """.Trim()
-                ));
-            }
+                """));
         }
 
         [Test]
         public void Click_Waits_For_NoOverlay()
         {
-            Configuration.Timeout = 0.6;
-            Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
                 <div 
@@ -126,27 +99,25 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 <h2 id='second'>Heading 2</h2>
                 "
             );
-            var beforeCall = DateTime.Now;
             Given.ExecuteScriptWithTimeout(
                 @"
                 document.getElementById('overlay').style.display = 'none';
                 ",
-                300
-            );
+                ShortTimeoutSpan);
 
-            S("a").Click();
-
-            var afterCall = DateTime.Now;
-            Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
-            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
+            var act = () =>
+            {
+                S("a").Click();
+            };
+            
+            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 
         [Test]
         public void Click_IsRenderedInError_OnOverlappedWithOverlayFailure()
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedPageWithBody(
                 @"
                 <div 
@@ -172,28 +143,16 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 <h2 id='second'>Heading 2</h2>
                 "
             );
-            var beforeCall = DateTime.Now;
 
-            try 
-            {
+            var act = () => {
                 S("a").Click();
-                Assert.Fail("should fail with exception");
-            }
+            };
 
-            catch (TimeoutException error)
-            {
-                var afterCall = DateTime.Now;
-                Assert.Greater(afterCall, beforeCall.AddSeconds(0.25));
-                Assert.Less(afterCall, beforeCall.AddSeconds(1.25));
-
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    Browser.Element(a).ActualWebElement.Click()
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element(a).ActualWebElement.Click()
                 Reason:
                     element click intercepted: Element <a id="link" href="#second">...</a> is not clickable at point 
-                """.Trim()
-                ));
-            }
+                """));
         }
     }
 }

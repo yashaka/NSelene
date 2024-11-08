@@ -1,12 +1,5 @@
-using NUnit.Framework;
-using static NSelene.Selene;
-using OpenQA.Selenium;
-
 namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
 {
-    using System;
-    using Harness;
-
     [TestFixture]
     public class Configuration_TypeByJs_Specs : BaseTest
     {
@@ -33,7 +26,7 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
             S("#field2").Should(Have.Value("prefix to append to " + new string('*', 100)));
             
             var jsTime = afterJsSetValue - beforeJsSetValue;
-            Assert.Less(jsTime, setValueTime / 2.0);
+            Assert.That(jsTime, Is.LessThan(setValueTime / 2.0));
         }
 
         [Test]
@@ -59,7 +52,7 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
             S("#field2").Should(Have.Value("prefix to append to " + new string('*', 100)));
             
             var jsTime = afterJsSetValue - beforeJsSetValue;
-            Assert.Less(jsTime, setValueTime / 2.0);
+            Assert.That(jsTime, Is.LessThan(setValueTime / 2.0));
         }
     }
 }

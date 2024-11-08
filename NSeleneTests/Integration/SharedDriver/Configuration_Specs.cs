@@ -1,7 +1,3 @@
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-
 namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
 {
 
@@ -30,7 +26,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
         public void ResetConfiguration()
         {
             this._driver1.Quit();
+            this._driver1.Dispose();
             this._driver2.Quit();
+            this._driver2.Dispose();
 
             Configuration.Driver = null;
             Configuration.Timeout = 4;
@@ -60,11 +58,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             var fresh = Configuration._New_();
 
             // THEN
-            Assert.AreEqual(null, fresh.Driver);
-            Assert.AreEqual(4.0, fresh.Timeout);
-            Assert.AreEqual(0.1, fresh.PollDuringWaits);
-            Assert.AreEqual(false, fresh.SetValueByJs);
-            Assert.AreEqual("", fresh.BaseUrl);
+            Assert.That(fresh.Driver, Is.EqualTo(null));
+            Assert.That(fresh.Timeout, Is.EqualTo(4.0));
+            Assert.That(fresh.PollDuringWaits, Is.EqualTo(0.1));
+            Assert.That(fresh.SetValueByJs, Is.EqualTo(false));
+            Assert.That(fresh.BaseUrl, Is.EqualTo(""));
         }
         
         [Test]
@@ -81,11 +79,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             var fresh = Configuration._New_();
 
             // THEN
-            Assert.AreEqual(_driver1, Configuration.Driver);
-            Assert.AreEqual(9.9, Configuration.Timeout);
-            Assert.AreEqual(0.9, Configuration.PollDuringWaits);
-            Assert.AreEqual(true, Configuration.SetValueByJs);
-            Assert.AreEqual("test url", Configuration.BaseUrl);
+            Assert.That(Configuration.Driver, Is.EqualTo(_driver1));
+            Assert.That(Configuration.Timeout, Is.EqualTo(9.9));
+            Assert.That(Configuration.PollDuringWaits, Is.EqualTo(0.9));
+            Assert.That(Configuration.SetValueByJs, Is.EqualTo(true));
+            Assert.That(Configuration.BaseUrl, Is.EqualTo("test url"));
         }
         
         [Test]
@@ -98,12 +96,12 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 setValueByJs: true,
                 baseUrl: "test url"
             );
-            
-            Assert.AreEqual(this._driver1, custom.Driver);
-            Assert.AreEqual(2.0, custom.Timeout);
-            Assert.AreEqual(0.2, custom.PollDuringWaits);
-            Assert.AreEqual(true, custom.SetValueByJs);
-            Assert.AreEqual("test url", custom.BaseUrl);
+
+            Assert.That(custom.Driver, Is.EqualTo(this._driver1));
+            Assert.That(custom.Timeout, Is.EqualTo(2.0));
+            Assert.That(custom.PollDuringWaits, Is.EqualTo(0.2));
+            Assert.That(custom.SetValueByJs, Is.EqualTo(true));
+            Assert.That(custom.BaseUrl, Is.EqualTo("test url"));
         }
 
         [Test]
@@ -114,8 +112,8 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
 
             var custom = Configuration._New_(timeout: 2.0, baseUrl: "test2 url");
 
-            Assert.AreEqual(2.0, custom.Timeout);
-            Assert.AreEqual("test2 url", custom.BaseUrl);
+            Assert.That(custom.Timeout, Is.EqualTo(2.0));
+            Assert.That(custom.BaseUrl, Is.EqualTo("test2 url"));
         }
 
         [Test]
@@ -126,8 +124,8 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
 
             var custom = Configuration._With_(timeout: 2.0, baseUrl: "test2 url");
 
-            Assert.AreEqual(2.0, custom.Timeout);
-            Assert.AreEqual("test2 url", custom.BaseUrl);
+            Assert.That(custom.Timeout, Is.EqualTo(2.0));
+            Assert.That(custom.BaseUrl, Is.EqualTo("test2 url"));
         }
         
         [Test]
@@ -138,8 +136,8 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
 
             var custom = Configuration._With_(timeout: 1.0);
 
-            Assert.AreEqual(1.0, custom.Timeout);
-            Assert.AreEqual(0.2, custom.PollDuringWaits);
+            Assert.That(custom.Timeout, Is.EqualTo(1.0));
+            Assert.That(custom.PollDuringWaits, Is.EqualTo(0.2));
         }
         
         [Test]
@@ -154,9 +152,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Configuration.Timeout = 2.0;
             Configuration.PollDuringWaits = 0.25;
 
-            Assert.AreEqual(1.0, custom.Timeout);
-            Assert.AreSame(this._driver2, custom.Driver);
-            Assert.AreEqual(0.25, custom.PollDuringWaits);
+            Assert.That(custom.Timeout, Is.EqualTo(1.0));
+            Assert.That(custom.Driver, Is.SameAs(this._driver2));
+            Assert.That(custom.PollDuringWaits, Is.EqualTo(0.25));
         }
         
         [Test]
@@ -168,9 +166,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Configuration.PollDuringWaits = 0.2;
             Configuration.BaseUrl = "test2 url";
 
-            Assert.AreEqual(1.0, custom.Timeout);
-            Assert.AreEqual(0.1, custom.PollDuringWaits);
-            Assert.AreEqual("test url", custom.BaseUrl);
+            Assert.That(custom.Timeout, Is.EqualTo(1.0));
+            Assert.That(custom.PollDuringWaits, Is.EqualTo(0.1));
+            Assert.That(custom.BaseUrl, Is.EqualTo("test url"));
         }
         
         [Test]
@@ -181,11 +179,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
 
             var second = Configuration._New_(timeout: 2.0, baseUrl: "test2 url");
 
-            Assert.AreEqual(1.0, first.Timeout);
-            Assert.AreEqual(2.0, second.Timeout);
-            
-            Assert.AreEqual("test url", first.BaseUrl);
-            Assert.AreEqual("test2 url", second.BaseUrl);
+            Assert.That(first.Timeout, Is.EqualTo(1.0));
+            Assert.That(second.Timeout, Is.EqualTo(2.0));
+
+            Assert.That(first.BaseUrl, Is.EqualTo("test url"));
+            Assert.That(second.BaseUrl, Is.EqualTo("test2 url"));
         }
 
         // TODO: ensure that switching Configuration.driver will work on S, etc.

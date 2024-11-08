@@ -1,10 +1,5 @@
-using NUnit.Framework;
-using static NSelene.Selene;
-
 namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionQueriesSpecs
 {
-    using Harness;
-
     [TestFixture]
     public class SeleneCollection_Count_Specs : BaseTest
     {
@@ -21,7 +16,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionQueriesSpecs
                     </ul>
                 </p>"
             );
-            Assert.AreEqual(2, elements.Count);
+            Assert.That(elements, Has.Count.EqualTo(2));
         }
     }
 }

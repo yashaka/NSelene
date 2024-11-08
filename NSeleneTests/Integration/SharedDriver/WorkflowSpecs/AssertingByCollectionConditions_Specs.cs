@@ -1,9 +1,5 @@
 namespace NSelene.Tests.Integration.SharedDriver.WorkflowSpecs
 {
-    using Harness;
-    using NUnit.Framework;
-    using static NSelene.Selene;
-
     class AssertingByCollectionConditions_Specs : BaseTest
     {
         // todo: add more tests

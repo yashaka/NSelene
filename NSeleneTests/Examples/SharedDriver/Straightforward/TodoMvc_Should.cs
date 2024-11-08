@@ -1,8 +1,3 @@
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using static NSelene.Selene;
-
 namespace NSelene.Tests.Examples.SharedDriver.StraightForward
 {
     [TestFixture]
@@ -11,7 +6,7 @@ namespace NSelene.Tests.Examples.SharedDriver.StraightForward
         IWebDriver driver;
 
         [OneTimeSetUp]
-        public void initDriver()
+        public void InitDriver()
         {
             var options = new ChromeOptions();
             options.AddArguments("headless");
@@ -21,10 +16,11 @@ namespace NSelene.Tests.Examples.SharedDriver.StraightForward
         }
 
         [OneTimeTearDown]
-        public void disposeDriver()
+        public void DisposeDriver()
         {
             Configuration.BaseUrl = "";
             this.driver.Quit();
+            this.driver.Dispose();
         }
     }
 

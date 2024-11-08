@@ -1,9 +1,6 @@
 
-using System;
-using NSelene.Conditions;
-using NUnit.Framework;
-
-namespace NSeleneTests.Unit {
+namespace NSeleneTests.Unit
+{
 
     [TestFixture]
     public class ConditionSpecs
@@ -31,13 +28,13 @@ namespace NSeleneTests.Unit {
         [Test]
         public void AnswersTrue_AppliedTo_Truthy()
         {
-            Assert.IsTrue(new HasTruthyElement(1)._Predicate(new [] {1, 2}));
+            Assert.That(new HasTruthyElement(1)._Predicate(new[] { 1, 2 }), Is.True);
         }
 
         [Test]
         public void AnswersFalse_AppliedTo_Falsy()
         {
-            Assert.IsFalse(new HasTruthyElement(1)._Predicate(new [] {0, 2}));
+            Assert.That(new HasTruthyElement(1)._Predicate(new[] { 0, 2 }), Is.False);
         }
 
         [Test]
@@ -46,7 +43,7 @@ namespace NSeleneTests.Unit {
             Assert.Catch<IndexOutOfRangeException>(
                 () => new HasTruthyElement(3).Invoke(new [] {1, 2, /*no third*/})
             );
-            Assert.IsFalse(new HasTruthyElement(3)._Predicate(new [] {1, 2, /*no third*/}));
+            Assert.That(new HasTruthyElement(3)._Predicate(new[] { 1, 2, /*no third*/}), Is.False);
         }
     }
 }
