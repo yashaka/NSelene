@@ -20,7 +20,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 S("input").Should(Have.Value("initial"));
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
         }
 
         [Test]
@@ -42,7 +42,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 S("input").Should(Have.No.Value("initial"));
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
 
             try
             {
@@ -115,7 +115,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 S("label").Should(Have.Text("initial"));
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("label")).Text,
                 Is.EqualTo("initial")
@@ -143,7 +143,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 S("label").Should(Have.Text("new"));
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("label")).Text,
                 Is.EqualTo("new")
@@ -199,7 +199,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 S("label").Should(Be.Visible);
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
         }
 
         [Test]
@@ -221,7 +221,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 S("label").Should(Be.Not.Visible);
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
         }
         
         [Test]
@@ -239,7 +239,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 S("label").Should(Be.Visible);
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
         }
 
         [Test]
@@ -261,7 +261,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 S("label").Should(Be.Not.Visible);
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
         }
 
         [Test]
@@ -393,7 +393,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 S("label").Should(Have.Text("initial"));
             };
 
-            Assert.That(act, Does.Pass());
+            Assert.That(act, Does.PassBefore(DefaultTimeoutSpan));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("label")).Text,
                 Is.EqualTo("initial")

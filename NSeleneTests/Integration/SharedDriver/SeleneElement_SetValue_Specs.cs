@@ -21,7 +21,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("input").SetValue("overwritten");
             };
             
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
                 Is.EqualTo("overwritten")
@@ -145,7 +145,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("input").SetValue("overwritten");
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
                 Is.EqualTo("overwritten")
@@ -247,7 +247,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("input").SetValue("overwritten");
             };
 
-            Assert.That(act, Does.Pass());
+            Assert.That(act, Does.PassBefore(DefaultTimeoutSpan));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
                 Is.EqualTo("overwritten")
@@ -297,7 +297,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("input").With(waitForNoOverlapFoundByJs: true).SetValue("overwritten");
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
                 Is.EqualTo("overwritten")

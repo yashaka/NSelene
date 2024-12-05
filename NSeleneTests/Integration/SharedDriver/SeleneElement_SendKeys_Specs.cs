@@ -21,7 +21,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("input").SendKeys("and after");
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
                 Is.EqualTo("before and after")
@@ -91,7 +91,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("input").SendKeys("and after");
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
                 Is.EqualTo("before and after")
@@ -169,7 +169,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("input").SendKeys("and after");
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
                 Is.EqualTo("before and after")

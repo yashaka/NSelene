@@ -2,10 +2,8 @@
 
 namespace NSelene.Tests.Integration.SharedDriver.Harness.Constraints
 {
-    internal class PassAfterConstraint(TimeSpan? delayBeforePass) : Constraint
+    internal class PassWithinConstraint(TimeSpan? minimumDelay, TimeSpan maximumDelay) : Constraint
     {
-        private readonly TimeSpan _delayBeforePass = delayBeforePass ?? TimeSpan.Zero;
-
         public override ConstraintResult ApplyTo<TActual>(TActual actual)
         {
             var beforeCall = DateTime.Now;
@@ -24,12 +22,11 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness.Constraints
             {
                 return new ConstraintResult(this, ex.Message, ConstraintStatus.Failure);
             }
-            var elapsedTime = DateTime.Now.Subtract(beforeCall);
-            var elapsedTimeLimit = TimeSpan.FromSeconds(Configuration.Timeout);
 
-            return new ConstraintResult(this, elapsedTime, elapsedTime < elapsedTimeLimit && elapsedTime >= _delayBeforePass);
+            var elapsedTime = DateTime.Now.Subtract(beforeCall);
+            return new ConstraintResult(this, elapsedTime, elapsedTime < maximumDelay && elapsedTime >= (minimumDelay ?? TimeSpan.Zero));
         }
 
-        public override string Description => $"Should not timeout" + (_delayBeforePass == TimeSpan.Zero ? "" : $" or pass in less then {_delayBeforePass}");
+        public override string Description => $"Should not timeout" + (minimumDelay.HasValue ? $" or pass in less then {minimumDelay}" : "");
     }
 }

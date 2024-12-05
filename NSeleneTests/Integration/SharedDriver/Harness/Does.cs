@@ -4,13 +4,13 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
 {
     internal class Does : NUnit.Framework.Does
     {
-        internal static PassAfterConstraint Pass()
+        internal static PassWithinConstraint PassBefore(TimeSpan maximumDelay)
         {
-            return new PassAfterConstraint(null);
+            return new PassWithinConstraint(null, BaseTest.DefaultTimeoutSpan);
         }
-        internal static PassAfterConstraint PassAfter(TimeSpan delayBeforePass)
+        internal static PassWithinConstraint PassWithin(TimeSpan minimumDelay, TimeSpan maximumDelay)
         {
-            return new PassAfterConstraint(delayBeforePass);
+            return new PassWithinConstraint(minimumDelay, maximumDelay);
         }
 
         internal static TimeoutConstraint Timeout(string errorMessage)

@@ -22,7 +22,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("span").DoubleClick();
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 
@@ -50,7 +50,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("span").DoubleClick();
             };
            
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 
@@ -147,7 +147,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("span").DoubleClick();
             };
 
-            Assert.That(act, Does.Pass());
+            Assert.That(act, Does.PassBefore(DefaultTimeoutSpan));
             Assert.That(Configuration.Driver.Url, Does.Not.Contain("second"));
         }
 
@@ -194,7 +194,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("span").With(waitForNoOverlapFoundByJs: true).DoubleClick();
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 

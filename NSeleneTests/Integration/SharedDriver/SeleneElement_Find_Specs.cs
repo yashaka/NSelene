@@ -109,7 +109,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 S("#parent").Element("a").Click();
             };
 
-            Assert.That(act, Does.PassAfter(TimeSpan.FromMilliseconds(700)));
+            Assert.That(act, Does.PassWithin(TimeSpan.FromMilliseconds(700), DefaultTimeoutSpan));
             Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 
@@ -136,7 +136,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 S("p").Element("a").Click();
             };
             
-            Assert.That(act, Does.PassAfter(TimeSpan.FromMilliseconds(700)));
+            Assert.That(act, Does.PassWithin(TimeSpan.FromMilliseconds(700), DefaultTimeoutSpan));
             Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 

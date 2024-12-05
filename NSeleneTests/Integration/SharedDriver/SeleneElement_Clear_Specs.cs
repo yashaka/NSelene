@@ -19,7 +19,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("input").Clear();
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
                 Is.EqualTo("")
@@ -80,7 +80,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("input").Clear();
             };
 
-            Assert.That(act, Does.Pass());
+            Assert.That(act, Does.PassBefore(DefaultTimeoutSpan));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
                 Is.EqualTo("")
@@ -110,7 +110,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("input").Clear();
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
                 Is.EqualTo("")
@@ -211,7 +211,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("input").Clear();
             };
 
-            Assert.That(act, Does.Pass());
+            Assert.That(act, Does.PassBefore(DefaultTimeoutSpan));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
                 Is.EqualTo("")
@@ -260,7 +260,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("input").With(waitForNoOverlapFoundByJs: true).Clear(); // TODO: this overlay works only for "overlayying at center of element", handle the "partial overlay" cases too!
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
                 Is.EqualTo("")

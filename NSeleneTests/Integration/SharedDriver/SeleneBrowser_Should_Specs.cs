@@ -28,7 +28,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 ));
             };
             
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 ));
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(
                 Configuration.Driver.FindElements(By.TagName("p")),
                 Has.Count.EqualTo(0)

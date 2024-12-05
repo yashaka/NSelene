@@ -21,7 +21,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("a").Click();
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 
@@ -46,7 +46,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("a").Click();
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
         [Test]
@@ -110,7 +110,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("a").Click();
             };
             
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 

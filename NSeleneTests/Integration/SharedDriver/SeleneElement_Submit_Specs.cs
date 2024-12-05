@@ -20,7 +20,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("form").Submit();
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
         
@@ -80,7 +80,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("form").Submit();
             };
 
-            Assert.That(act, Does.Pass());
+            Assert.That(act, Does.PassBefore(DefaultTimeoutSpan));
             Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 
@@ -105,7 +105,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("form").With(waitForNoOverlapFoundByJs: true).Submit();
             };
 
-            Assert.That(act, Does.Pass());
+            Assert.That(act, Does.PassBefore(DefaultTimeoutSpan));
             Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
         
@@ -165,7 +165,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("form").Submit(); // TODO: this overlay works only for "overlayying at center of element", handle the "partial overlay" cases too!
             };
         
-            Assert.That(act, Does.Pass());
+            Assert.That(act, Does.PassBefore(DefaultTimeoutSpan));
             Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 
@@ -209,7 +209,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 S("form").With(waitForNoOverlapFoundByJs: true).Submit(); // TODO: this overlay works only for "overlayying at center of element", handle the "partial overlay" cases too!
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
             Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 

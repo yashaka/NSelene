@@ -22,7 +22,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 SS("p").Should(Have.Count(2));
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
         }
 
         [Test]
@@ -45,7 +45,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 SS("p").Should(Have.No.Count(2));
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
         }
         
         [Test]
@@ -108,7 +108,7 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 SS("p").Should(Have.Count(2));
             };
 
-            Assert.That(act, Does.PassAfter(ShortTimeoutSpan));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
         }
     }
 }

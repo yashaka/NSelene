@@ -11,6 +11,7 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
         public const double LongTimeout = 4.0;
         public const double PollDuringWaits = 0.1;
         public static readonly TimeSpan ShortTimeoutSpan = TimeSpan.FromSeconds(ShortTimeout);
+        public static readonly TimeSpan DefaultTimeoutSpan = TimeSpan.FromSeconds(LongTimeout);
 
         internal static readonly string EmptyHtmlPath = new Uri(
                     new Uri(Assembly.GetExecutingAssembly().Location),
@@ -35,7 +36,7 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
         { 
             // explicit resetting defaults
             Configuration.Driver = this._driver;
-            Configuration.Timeout = LongTimeout;
+            Configuration.Timeout = DefaultTimeoutSpan.TotalSeconds;
             Configuration.PollDuringWaits = PollDuringWaits;
             Configuration.SetValueByJs = false;
             Configuration.TypeByJs = false;
