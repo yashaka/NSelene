@@ -24,9 +24,19 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness.Constraints
             }
 
             var elapsedTime = DateTime.Now.Subtract(beforeCall);
-            return new ConstraintResult(this, elapsedTime, elapsedTime < maximumDelay && elapsedTime >= (minimumDelay ?? TimeSpan.Zero));
+            return new ConstraintResult(
+                this, 
+                elapsedTime, 
+                elapsedTime <= maximumDelay && elapsedTime >= (minimumDelay ?? TimeSpan.Zero)
+            );
         }
 
-        public override string Description => $"Should not timeout" + (minimumDelay.HasValue ? $" or pass in less then {minimumDelay}" : "");
+        public override string Description =>
+            $"Should not timeout"
+            + (
+                minimumDelay.HasValue
+                ? $" and pass within: {minimumDelay} <= delay <= {maximumDelay}"
+                : ""
+            );
     }
 }

@@ -62,7 +62,9 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 Browser.All(p).Should(count = 2)
                 Reason:
                     actual: count = 0
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
         
         [Test]
@@ -84,7 +86,9 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 Browser.All(p).Should(Not.count = 2)
                 Reason:
                     condition not matched
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
 
         [Test]

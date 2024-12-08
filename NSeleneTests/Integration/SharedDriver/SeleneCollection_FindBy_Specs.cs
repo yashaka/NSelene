@@ -116,7 +116,8 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
                     Reason:
                         
                       Actual html elements : [<a href="#first" style="display:none">go to Heading 1</a>,<a href="#second" style="display:none">go to Heading 2</a>]
-                    """));
+                    """, after: Configuration.Timeout
+            ));
             Assert.That(Configuration.Driver.Url, Does.Not.Contain("second"));
         }
     }

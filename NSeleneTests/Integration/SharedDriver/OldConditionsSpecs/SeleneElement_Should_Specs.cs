@@ -71,7 +71,9 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 Browser.Element(input).Should(Have.Attribute(value='initial'))
                 Reason:
                     no such element: Unable to locate element: {"method":"css selector","selector":"input"}
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
         
         [Test]
@@ -92,7 +94,9 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 Browser.Element(input).Should(Not.Have.Attribute(value='initial'))
                 Reason:
                     condition not matched
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
         
         [Test]
@@ -173,7 +177,9 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 Reason:
                     Actual text: «»
                 Actual webelement: <label style="display:none">initial</label>
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(
                     Configuration.Driver.FindElement(By.TagName("label")).Text, Is.EqualTo("")
                 );
@@ -282,7 +288,9 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 Browser.Element(label).Should(Visible)
                 Reason:
                     actual: False
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("label")).Displayed, Is.EqualTo(false)
             );
@@ -306,7 +314,9 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 Browser.Element(label).Should(Not.Visible)
                 Reason:
                     condition not matched
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("label")).Displayed, Is.EqualTo(true)
             );
@@ -326,7 +336,9 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 Browser.Element(label).Should(Visible)
                 Reason:
                     no such element: Unable to locate element: {"method":"css selector","selector":"label"}
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
 
         [Test]
@@ -348,7 +360,9 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 Reason:
                     Actual text: «initial»
                 Actual webelement: <label>initial</label>
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("label")).Text, Is.EqualTo("initial")
             );
@@ -440,7 +454,9 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 Browser.Element(label).contains initial
                 Reason:
                     Element is overlapped by: <div id=\"overlay\"
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
     }
 }

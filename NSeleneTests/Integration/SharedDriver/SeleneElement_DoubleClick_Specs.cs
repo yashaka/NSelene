@@ -77,8 +77,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(span).Actions.DoubleClick(self.ActualWebElement).Perform()
                 Reason:
                     javascript error: {"status":60,"value":"[object HTMLSpanElement] has no size and location"}
-                """
-                ));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(Configuration.Driver.Url, Does.Not.Contain("second"));
         }
 
@@ -106,7 +107,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(span).Actions.DoubleClick(self.ActualNotOverlappedWebElement).Perform()
                 Reason:
                     javascript error: element is not visible
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(Configuration.Driver.Url, Does.Not.Contain("second"));
         }
 
@@ -241,7 +244,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Reason:
                     Element: <span id="link" ondblclick="window.location=this.href + &quot;#second&quot;">to h2</span>
                     is overlapped by: <div id="overlay" style=
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(Configuration.Driver.Url, Does.Not.Contain("second"));
         }
     }

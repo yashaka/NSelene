@@ -13,9 +13,9 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness
             return new PassWithinConstraint(minimumDelay, maximumDelay);
         }
 
-        internal static TimeoutConstraint Timeout(string errorMessage)
+        internal static TimeoutConstraint Timeout(string errorMessage, double? after = null, double? before = null)
         {
-            return new TimeoutConstraint(errorMessage);
+            return new TimeoutConstraint(errorMessage, after, before);
         }
     }
 }

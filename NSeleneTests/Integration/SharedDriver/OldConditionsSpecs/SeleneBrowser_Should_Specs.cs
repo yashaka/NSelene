@@ -83,7 +83,9 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 OpenQA.Selenium.Chrome.ChromeDriver.Should(JSReturnedTrue)
                 Reason:
                     actual: False
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
 
         [Test]
@@ -112,7 +114,9 @@ namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
                 OpenQA.Selenium.Chrome.ChromeDriver.Should(Not.JSReturnedTrue)
                 Reason:
                     condition not matched
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
 
         [Test]

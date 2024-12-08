@@ -26,7 +26,7 @@ namespace NSelene.Tests.Integration.SharedDriver
                 Browser.Element(a).ActualWebElement.Click()
                 Reason:
                     element not interactable
-                """));
+                """, after: Configuration.Timeout));
         }
 
         [Test]
@@ -45,7 +45,7 @@ namespace NSelene.Tests.Integration.SharedDriver
                 Browser.Element(a).JsClick(centerXOffset: 0, centerYOffset: 0)
                 Reason:
                     no such element: Unable to locate element: {"method":"css selector","selector":"a"}
-                """));
+                """, after: Configuration.Timeout));
         }
 
         /// TODO: a raw JsClick test and see what will come... it will fail without waiting
@@ -72,7 +72,7 @@ namespace NSelene.Tests.Integration.SharedDriver
                 Browser.Element(a).JsClick(centerXOffset: 0, centerYOffset: 0)
                 Reason:
                     no such element: Unable to locate element: {"method":"css selector","selector":"a"}
-                """));  
+                """, after: Configuration.Timeout));
         }
     }
 }

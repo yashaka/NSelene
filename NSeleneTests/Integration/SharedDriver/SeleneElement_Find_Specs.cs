@@ -159,7 +159,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 Browser.Element(#parent).Element(a).ActualWebElement.Click()
                 Reason:
                     no such element: Unable to locate element: {"method":"css selector","selector":"#parent"}
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(Configuration.Driver.Url, Does.Not.Contain("second"));
         }
 
@@ -185,7 +187,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 <p style="display:none">
                                     <a href="#second">go to Heading 2</a>
                                     </p>
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(Configuration.Driver.Url, Does.Not.Contain("second"));
         }
 
@@ -208,7 +212,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 Browser.Element(p).Element(a).ActualWebElement.Click()
                 Reason:
                     element not interactable
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(Configuration.Driver.Url, Does.Not.Contain("second"));
         }
     }

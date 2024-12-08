@@ -68,7 +68,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(a).ActualWebElement.Click()
                 Reason:
                     element not interactable
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
 
         [Test]
@@ -152,7 +154,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(a).ActualWebElement.Click()
                 Reason:
                     element click intercepted: Element <a id="link" href="#second">...</a> is not clickable at point 
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
     }
 }

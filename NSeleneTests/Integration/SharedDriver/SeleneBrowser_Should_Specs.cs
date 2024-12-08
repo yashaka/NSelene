@@ -82,7 +82,10 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 ));
             };
 
-            Assert.That(act, Does.Timeout("OpenQA.Selenium.Chrome.ChromeDriver.Should(JSReturnedTrue)"));
+            Assert.That(act, Does.Timeout(
+                "OpenQA.Selenium.Chrome.ChromeDriver.Should(JSReturnedTrue)",
+                after: Configuration.Timeout
+            ));
         }
         
         [Test]
@@ -106,7 +109,10 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 ));
             };
 
-            Assert.That(act, Does.Timeout("OpenQA.Selenium.Chrome.ChromeDriver.Should(Not.JSReturnedTrue)"));
+            Assert.That(act, Does.Timeout(
+                "OpenQA.Selenium.Chrome.ChromeDriver.Should(Not.JSReturnedTrue)",
+                after: Configuration.Timeout
+            ));
         }
 
         [Test]

@@ -46,7 +46,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(input).ActualWebElement.SendKeys(and after)
                 Reason:
                     no such element: Unable to locate element: {"method":"css selector","selector":"input"}
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
         
         [Test]
@@ -120,9 +122,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(input).ActualWebElement.SendKeys(and after)
                 Reason:
                     element not interactable
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(
-                Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomAttribute("value"),
                 Is.EqualTo("before "));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("input")).GetDomProperty("value"),
@@ -219,7 +223,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)
                 Reason:
                     Element is overlapped by: <div id="overlay"
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
     }
 }

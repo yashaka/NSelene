@@ -62,7 +62,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.All(p).Should(Have.Count = 2)
                 Reason:
                     actual: Have.Count = 0
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
         
         [Test]
@@ -84,8 +86,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.All(p).Should(Not.Have.Count = 2)
                 Reason:
                     condition not matched
-                """
-                ));
+                """,
+                after: Configuration.Timeout
+            ));
         }
 
         [Test]

@@ -46,7 +46,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(input).ActualWebElement.Clear().SendKeys(overwritten)
                 Reason:
                     no such element: Unable to locate element: {"method":"css selector","selector":"input"}
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
 
         [Test]
@@ -63,7 +65,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(input).ActualNotOverlappedWebElement.Clear().SendKeys(overwritten)
                 Reason:
                     no such element: Unable to locate element: {"method":"css selector","selector":"input"}
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
         
         [Test]
@@ -84,10 +88,12 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element([type=file]).ActualWebElement.Clear().SendKeys({{EmptyHtmlPath}})
                 Reason:
                     element not interactable
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(
-                Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
-                Is.EqualTo("")
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomAttribute("value"),
+                Is.EqualTo(null)
             );
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("input")).GetDomProperty("value"),
@@ -113,11 +119,13 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element([type=file]).ActualNotOverlappedWebElement.Clear().SendKeys({{EmptyHtmlPath}})
                 Reason:
                     javascript error: element is not visible
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
 
             Assert.That(
-                Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
-                Is.EqualTo("")
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomAttribute("value"),
+                Is.EqualTo(null)
             );
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("input")).GetDomProperty("value"),
@@ -176,7 +184,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                     element not interactable
                 """));
             Assert.That(
-                Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomAttribute("value"),
                 Is.EqualTo("initial")
             );
             Assert.That(
@@ -203,9 +211,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(input).ActualNotOverlappedWebElement.Clear().SendKeys(overwritten)
                 Reason:
                     javascript error: element is not visible
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(
-                Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomAttribute("value"),
                 Is.EqualTo("initial")
             );
             Assert.That(
@@ -347,8 +357,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Reason:
                     Element: <input value="initial">
                     is overlapped by: <div id="overlay"
-                """
-                ));
+                """,
+                after: Configuration.Timeout
+            ));
         }
     }
 }

@@ -38,7 +38,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(form).ActualWebElement.Submit()
                 Reason:
                     no such element: Unable to locate element: {"method":"css selector","selector":"form"}
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
         
         [Test]
@@ -55,7 +57,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(form).ActualNotOverlappedWebElement.Submit()
                 Reason:
                     no such element: Unable to locate element: {"method":"css selector","selector":"form"}
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
 
         [Test]
@@ -128,7 +132,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(form).ActualNotOverlappedWebElement.Submit()
                 Reason:
                     javascript error: element is not visible
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
 
         [Test]
@@ -252,7 +258,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Reason:
                     Element: <form action="#second">go to H2</form>
                     is overlapped by: <div id="overlay"
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
 
         [Test]
@@ -274,7 +282,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(a).ActualWebElement.Submit()
                 Reason:
                     javascript error: Unable to find owning document
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(Configuration.Driver.Url, Does.Not.Contain("second"));
         }
     }

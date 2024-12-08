@@ -72,7 +72,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(input).Should(Have.Attribute(value = «initial»))
                 Reason:
                     no such element: Unable to locate element: {"method":"css selector","selector":"input"}
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
 
         [Test]
@@ -94,7 +96,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Reason:
                     Actual value: Null (attribute is absent)
                 Actual webelement: <label style="display:none"></label>
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
 
         [Test]
@@ -116,7 +120,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Reason:
                     Actual value: «»
                 Actual webelement: <input value="" style="display:none">
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
 
         [Test]
@@ -140,7 +146,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Actual webelement: <label value="some">thing</label>
                 Actual text: «thing»
                 Actual webelement: <label value="some">thing</label>
-                """)); // TODO: fix final extra webelement html
+                """,
+                after: Configuration.Timeout
+            )); // TODO: fix final extra webelement html
         }
         [Test]
         public void Should_HaveValue_And_HaveText_IsRenderedInError_OnDifferentActualAsEmptyFailure()
@@ -161,7 +169,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Reason:
                     Actual text: «»
                 Actual webelement: <label value="some"></label>
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
         
         [Test]
@@ -182,7 +192,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(input).Should(Not.Have.Attribute(value = «initial»))
                 Reason:
                     condition not matched
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
         
         [Test]
@@ -262,7 +274,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Reason:
                     Actual text: «»
                 Actual webelement: <label style="display:none">initial</label>
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("label")).Text, Is.EqualTo("")
             );
@@ -375,7 +389,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(label).Should(Be.Visible)
                 Reason:
                     Found element is not visible: <label style="display:none">initial</label>
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("label")).Displayed, Is.EqualTo(false)
             );
@@ -400,7 +416,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(label).Should(Not.Be.Visible)
                 Reason:
                     condition not matched
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("label")).Displayed, Is.EqualTo(true)
             );
@@ -420,7 +438,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(label).Should(Be.Visible)
                 Reason:
                     no such element: Unable to locate element: {"method":"css selector","selector":"label"}
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
 
         [Test]
@@ -442,7 +462,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Reason:
                     Actual text: «initial»
                 Actual webelement: <label>initial</label>
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(
                 Configuration.Driver.FindElement(By.TagName("label")).Text, Is.EqualTo("initial")
             );
@@ -535,7 +557,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(label).contains initial
                 Reason:
                     Element is overlapped by: <div id=\"overlay\" 
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
     }
 }

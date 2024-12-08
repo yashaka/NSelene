@@ -139,7 +139,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
                 Browser.All(a)[1].ActualWebElement.Click()
                 Reason:
                     element not interactable
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
             Assert.That(Configuration.Driver.Url, Does.Not.Contain("second"));
         }
         [Test]
@@ -170,7 +172,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
                 Browser.All(#will-not-appear)[100].Should(Be.InDom)
                 Reason:
                     element was not found in collection by index 100 (actual collection size is 0)
-                """));
+                """,
+                after: Configuration.Timeout
+            ));
         }
     }
 }

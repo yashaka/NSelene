@@ -72,7 +72,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 Browser.Element(a).ActualWebElement.Click()
                 Reason:
                     element not interactable
-                """));
+                """, after: Configuration.Timeout));
             Assert.That(Configuration.Driver.Url, Does.Not.Contain("second"));
         }
     }

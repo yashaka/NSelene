@@ -2,7 +2,7 @@
 
 namespace NSelene.Tests.Integration.SharedDriver.Harness.Constraints
 {
-    internal class TimeoutConstraint(string errorMessage) : Constraint
+    internal class TimeoutConstraint(string errorMessage, double? after = null, double? before = null) : Constraint
     {
         private readonly string errorMessage = $$"""
             Timed out after {{Configuration.Timeout}}s, while waiting for:
@@ -16,7 +16,6 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness.Constraints
                 return new ConstraintResult(this, "Not a System.Action object passed to the constraint", ConstraintStatus.Error);
             }
 
-            var accuracyDelta = 2.0;
             var beforeCall = DateTime.Now;
             try
             {
@@ -30,10 +29,26 @@ namespace NSelene.Tests.Integration.SharedDriver.Harness.Constraints
                     return new ConstraintResult(this, error.Message, ConstraintStatus.Failure);
                 }
                 var elapsedTime = DateTime.Now.Subtract(beforeCall);
-                return new ConstraintResult(this, elapsedTime, elapsedTime < TimeSpan.FromSeconds(Configuration.Timeout + BaseTest.PollDuringWaits + accuracyDelta) && elapsedTime >= TimeSpan.FromSeconds(Configuration.Timeout));
+                return new ConstraintResult(
+                    this,
+                    elapsedTime, 
+                    elapsedTime >= TimeSpan.FromSeconds(after ?? 0.0)
+                    && elapsedTime < TimeSpan.FromSeconds(before ?? int.MaxValue)
+                );
             }
         }
 
-        public override string Description => $"Should timeout and throw TimeoutException with message: \r\n'{errorMessage}'";
+        public override string Description => 
+            $"Should timeout and throw TimeoutException with message: \r\n'{errorMessage}'"
+            + (
+                after.HasValue
+                ? $" after {after} seconds"
+                : ""
+            )
+            + (
+                before.HasValue
+                ? $", before {before} seconds"
+                : ""
+            );
     }
 }
