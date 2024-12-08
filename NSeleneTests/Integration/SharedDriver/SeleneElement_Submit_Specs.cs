@@ -1,148 +1,122 @@
-using NUnit.Framework;
-using static NSelene.Selene;
-
 namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 {
-    using System;
-    using System.Linq;
-    using Harness;
-
     [TestFixture]
     public class SeleneElement_Submit_Specs : BaseTest
     {
         [Test]
-        public void Submit_WaitsForVisibility_OfInitiialyAbsent()
+        public void Submit_WaitsForVisibility_OfInitialyAbsent()
         {
-            Configuration.Timeout = 0.6;
-            Configuration.PollDuringWaits = 0.1;
             Given.OpenedEmptyPage();
-            var beforeCall = DateTime.Now;
             Given.OpenedPageWithBodyTimedOut(
                 @"
                 <form action='#second'>go to Heading 2</form>
                 <h2 id='second'>Heading 2</h2>
                 ",
-                300
+                ShortTimeoutSpan
             );
 
-            S("form").Submit();
-            var afterCall = DateTime.Now;
+            var act = () =>
+            {
+                S("form").Submit();
+            };
 
-            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
-            Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
+            Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
         
         [Test]
         public void Submit_IsRenderedInError_OnAbsentElementFailure()
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedEmptyPage();
 
-            try 
-            {
+            var act = () => {
                 S("form").Submit();
-            }
+            };
 
-            catch (TimeoutException error)
-            {
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    Browser.Element(form).ActualWebElement.Submit()
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element(form).ActualWebElement.Submit()
                 Reason:
                     no such element: Unable to locate element: {"method":"css selector","selector":"form"}
-                """.Trim()
-                ));
-            }
+                """,
+                after: Configuration.Timeout
+            ));
         }
         
         [Test]
         public void Submit_IsRenderedInError_OnAbsentElementFailure_WhenCustomizedToWaitForNoOverlapFoundByJs()
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedEmptyPage();
 
-            try 
-            {
+            var act = () => {
                 S("form").With(waitForNoOverlapFoundByJs: true).Submit();
-            }
+            };
 
-            catch (TimeoutException error)
-            {
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    Browser.Element(form).ActualNotOverlappedWebElement.Submit()
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element(form).ActualNotOverlappedWebElement.Submit()
                 Reason:
                     no such element: Unable to locate element: {"method":"css selector","selector":"form"}
-                """.Trim()
-                ));
-            }
+                """,
+                after: Configuration.Timeout
+            ));
         }
 
         [Test]
         public void Submit_Works_OnHidden_ByDefault() // TODO: but should it?
         // public void Submit_WaitsForVisibility_OfInitialyHidden()
         {
-            Configuration.Timeout = 0.6;
-            Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
                 <form action='#second' style='display:none'>go to Heading 2</form>
                 <h2 id='second'>Heading 2</h2>
                 "
             );
-            var beforeCall = DateTime.Now;
             // Given.ExecuteScriptWithTimeout(
             //     @"
             //     document.getElementsByTagName('form')[0].style.display = 'block';
             //     ",
-            //     300
+            //     PollingPeriod
             // );
 
-            S("form").Submit();
+            var act = () =>
+            {
+                S("form").Submit();
+            };
 
-            var afterCall = DateTime.Now;
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.3));
-            // Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            // Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
-            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
+            Assert.That(act, Does.PassBefore(DefaultTimeoutSpan));
+            Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 
         [Test]
         public void Submit_WaitsForVisibility_OfInitialyHidden_WhenCustomizedToWaitForNoOverlapFoundByJs()
         {
-            Configuration.Timeout = 0.6;
-            Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
                 <form action='#second' style='display:none'>go to Heading 2</form>
                 <h2 id='second'>Heading 2</h2>
                 "
             );
-            var beforeCall = DateTime.Now;
             Given.ExecuteScriptWithTimeout(
-                @"
+                 @"
                 document.getElementsByTagName('form')[0].style.display = 'block';
                 ",
-                300
-            );
+                 ShortTimeoutSpan
+             );
 
-            S("form").With(waitForNoOverlapFoundByJs: true).Submit();
+            var act = () =>
+            {
+                S("form").With(waitForNoOverlapFoundByJs: true).Submit();
+            };
 
-            var afterCall = DateTime.Now;
-            Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
-
-            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
+            Assert.That(act, Does.PassBefore(DefaultTimeoutSpan));
+            Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
         
         [Test]
         public void Submit_IsRenderedInError_OnHiddenElementFailure_WhenCustomizedToWaitForNoOverlapFoundByJs()
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedPageWithBody(
                 @"
                 <form action='#second' style='display:none'>go to Heading 2</form>
@@ -150,28 +124,22 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 "
             );
 
-            try 
-            {
+            var act = () => {
                 S("form").With(waitForNoOverlapFoundByJs: true).Submit();
-            }
+            };
 
-            catch (TimeoutException error)
-            {
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    Browser.Element(form).ActualNotOverlappedWebElement.Submit()
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element(form).ActualNotOverlappedWebElement.Submit()
                 Reason:
                     javascript error: element is not visible
-                """.Trim()
-                ));
-            }
+                """,
+                after: Configuration.Timeout
+            ));
         }
 
         [Test]
         public void Submit_Works_UnderOverlay()
         {
-            Configuration.Timeout = 0.6;
-            Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
                 <div 
@@ -197,20 +165,19 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 <h2 id='second'>Heading 2</h2>
                 "
             );
-            var beforeCall = DateTime.Now;
-
-            S("form").Submit(); // TODO: this overlay works only for "overlayying at center of element", handle the "partial overlay" cases too!
-
-            var afterCall = DateTime.Now;
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
+            
+            var act = () =>
+            {
+                S("form").Submit(); // TODO: this overlay works only for "overlayying at center of element", handle the "partial overlay" cases too!
+            };
+        
+            Assert.That(act, Does.PassBefore(DefaultTimeoutSpan));
+            Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 
         [Test]
         public void Submit_Waits_For_NoOverlay_WhenCustomized()
         {
-            Configuration.Timeout = 0.6;
-            Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
                 <div 
@@ -236,27 +203,26 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 <h2 id='second'>Heading 2</h2>
                 "
             );
-            var beforeCall = DateTime.Now;
             Given.ExecuteScriptWithTimeout(
                 @"
                 document.getElementById('overlay').style.display = 'none';
                 ",
-                300
+                ShortTimeoutSpan
             );
 
-            S("form").With(waitForNoOverlapFoundByJs: true).Submit(); // TODO: this overlay works only for "overlayying at center of element", handle the "partial overlay" cases too!
-            
-            var afterCall = DateTime.Now;
-            Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.6));
-            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
+            var act = () =>
+            {
+                S("form").With(waitForNoOverlapFoundByJs: true).Submit(); // TODO: this overlay works only for "overlayying at center of element", handle the "partial overlay" cases too!
+            };
+
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
+            Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 
         [Test]
         public void Submit_IsRenderedInError_OnOverlappedWithOverlayFailure_WhenCustomizedToWaitForNoOverlapFoundByJs()
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedPageWithBody(
                 @"
                 <div 
@@ -283,54 +249,43 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 "
             );
 
-            try 
-            {
+            var act = () => {
                 S("form").With(waitForNoOverlapFoundByJs: true).Submit();
-            }
+            };
 
-            catch (TimeoutException error)
-            {
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    Browser.Element(form).ActualNotOverlappedWebElement.Submit()
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element(form).ActualNotOverlappedWebElement.Submit()
                 Reason:
                     Element: <form action="#second">go to H2</form>
                     is overlapped by: <div id="overlay"
-                """.Trim()
-                ));
-            }
+                """,
+                after: Configuration.Timeout
+            ));
         }
 
         [Test]
         public void Submit_Fails_OnNonFormElement()
         {
-            Configuration.Timeout = 0.6;
-            Configuration.PollDuringWaits = 0.1;
-            Given.OpenedEmptyPage();
-            Given.OpenedPageWithBodyTimedOut(
+            Configuration.Timeout = BaseTest.ShortTimeout;
+            Given.OpenedPageWithBody(
                 @"
                 <a href='#second'>go to Heading 2</a>
                 <h2 id='second'>Heading 2</h2>
-                ",
-                300
+                "
             );
 
-            try 
-            {
+            var act = () => {
                 S("a").Submit();
-            }
+            };
 
-            catch (TimeoutException error)
-            {
-                Assert.That(error.Message.Trim(), Does.Contain(
-                    $$"""
-                    Reason:
-                        javascript error: Unable to find owning document
-                    """
-                ));
-
-                Assert.IsFalse(Configuration.Driver.Url.Contains("second"));
-            }
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element(a).ActualWebElement.Submit()
+                Reason:
+                    javascript error: Unable to find owning document
+                """,
+                after: Configuration.Timeout
+            ));
+            Assert.That(Configuration.Driver.Url, Does.Not.Contain("second"));
         }
     }
 }

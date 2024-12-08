@@ -1,6 +1,3 @@
-using System;
-using NSelene.Conditions;
-
 namespace NSelene.Tests.Integration.SharedDriver.OldConditionsSpecs
 {
     namespace Conditions

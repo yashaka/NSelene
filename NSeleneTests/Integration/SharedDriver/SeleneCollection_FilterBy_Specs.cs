@@ -1,26 +1,13 @@
-using NUnit.Framework;
-using static NSelene.Selene;
-using OpenQA.Selenium;
-
 namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
 {
-    using Harness;
-
     [TestFixture]
     public class SeleneCollection_FilterBy_Specs : BaseTest
     {
-
-        [TearDown]
-        public void TeardownTest()
-        {
-            Configuration.Timeout = 4;
-        }
-        
         [Test]
         public void NotStartSearch_OnCreation()
         {
             var nonExistingCollection = SS(".will-exist").By(Be.Visible);
-            Assert.IsNotEmpty(nonExistingCollection.ToString()); 
+            Assert.That(nonExistingCollection.ToString(), Is.Not.Empty); 
         }
 
         [Test]
@@ -33,8 +20,8 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
                     <li class='will-appear' style='display:none'>Bob</li>
                     <li class='will-appear'>Kate</li>
                 </ul>"
-            ); 
-            Assert.AreEqual(1, elements.Count);
+            );
+            Assert.That(elements, Has.Count.EqualTo(1));
         }
 
         [Test]
@@ -48,11 +35,11 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
                     <li class='will-appear' style='display:none'>Julie Mao</li>
                 </ul>"
             );
-            Assert.AreEqual(0, elements.Count);
+            Assert.That(elements, Is.Empty);
             Selene.ExecuteScript(@"
                 document.getElementsByTagName('li')[0].style = 'display:block';"
             );
-            Assert.AreEqual(1, elements.Count);
+            Assert.That(elements, Has.Count);
         }
 
         [Test]
@@ -65,14 +52,15 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
                     <li class='will-appear' style='display:none'>Miller</li>
                     <li class='will-appear' style='display:none'>Julie Mao</li>
                 </ul>"
-                , 
-                500
+                ,
+                TimeSpan.FromMilliseconds(500)
             );
             When.ExecuteScriptWithTimeout(@"
                 document.getElementsByTagName('a')[1].style = 'display:block';
-                ", 1000
+                ",
+                TimeSpan.FromMilliseconds(1000)
             );
-            Assert.AreEqual(0, elements.Count);
+            Assert.That(elements, Is.Empty);
         }
     }
 }

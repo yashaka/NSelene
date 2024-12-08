@@ -1,21 +1,8 @@
-using NUnit.Framework;
-using static NSelene.Selene;
-using OpenQA.Selenium;
-
 namespace NSelene.Tests.Integration.SharedDriver.SeleneCollectionSpec
 {
-    using Harness;
-
     [TestFixture]
     public class SeleneCollection_ElementByIts_Specs : BaseTest
     {
-
-        [TearDown]
-        public void TeardownTest()
-        {
-            Configuration.Timeout = 4;
-        }
-
         [Test]
         public void SelectsProperElementByItsInnerLocatedElementMatchingCondition()
         {

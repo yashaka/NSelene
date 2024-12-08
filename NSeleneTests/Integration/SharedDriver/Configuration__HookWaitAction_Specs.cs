@@ -1,14 +1,7 @@
-using NUnit.Framework;
-using static NSelene.Selene;
-using OpenQA.Selenium;
+using System.Collections.Generic;
 
 namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Harness;
-
     [TestFixture]
     public class Configuration__HookWaitAction_Specs : BaseTest
     {
@@ -45,8 +38,7 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
             try { SS(".absent").Should(Have.Count(1)); } catch {}
             try { S(".parent").All(".child").Should(Have.Count(1)); } catch {}
 
-            Assert.AreEqual(log,
-                @"Browser.All(button).Should(Have.Count = 1): STARTED
+            Assert.That(@"Browser.All(button).Should(Have.Count = 1): STARTED
                 Browser.All(button).Should(Have.Count = 1): PASSED
                 Browser.Element(button).Should(Have.ExactText(«Click me!»)): STARTED
                 Browser.Element(button).Should(Have.ExactText(«Click me!»)): PASSED
@@ -62,7 +54,8 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
                 Browser.All(.absent).Should(Have.Count = 1): FAILED
                 Browser.Element(.parent).All(.child).Should(Have.Count = 1): STARTED
                 Browser.Element(.parent).All(.child).Should(Have.Count = 1): FAILED"
-                .Split(Environment.NewLine).Select(item => item.Trim()).ToList()
+                .Split(Environment.NewLine).Select(item => item.Trim()).ToList(),
+                Is.EqualTo(log)
             );
         }
 
@@ -102,9 +95,8 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
             try { absent.Should(Have.Text("some")); } catch {}
             try { allAbsent.Should(Have.Count(1)); } catch {}
             try { absent.All(".child").Should(Have.Count(1)); } catch {}
-            
-            Assert.AreEqual(log,
-                @"Browser.All(button).Should(Have.Count = 1): STARTED
+
+            Assert.That(@"Browser.All(button).Should(Have.Count = 1): STARTED
                 Browser.All(button).Should(Have.Count = 1): PASSED
                 Browser.Element(button).Should(Have.ExactText(«Click me!»)): STARTED
                 Browser.Element(button).Should(Have.ExactText(«Click me!»)): PASSED
@@ -120,7 +112,8 @@ namespace NSelene.Tests.Integration.SharedDriver.ConfigurationSpec
                 Browser.All(.absent).Should(Have.Count = 1): FAILED
                 Browser.Element(.absent).All(.child).Should(Have.Count = 1): STARTED
                 Browser.Element(.absent).All(.child).Should(Have.Count = 1): FAILED"
-                .Split(Environment.NewLine).Select(item => item.Trim()).ToList()
+                .Split(Environment.NewLine).Select(item => item.Trim()).ToList(),
+                Is.EqualTo(log)
             );
         }
     }

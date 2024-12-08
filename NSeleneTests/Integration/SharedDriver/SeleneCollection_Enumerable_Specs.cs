@@ -1,22 +1,8 @@
-﻿using NSelene;
-using NSelene.Tests.Integration.SharedDriver.Harness;
-using static NSelene.Selene;
-using NUnit.Framework;
-using System.Linq;
-using System;
-
-namespace NSeleneTests.Integration.SharedDriver.SeleneCollectionSpec
+﻿namespace NSeleneTests.Integration.SharedDriver.SeleneCollectionSpec
 {
     [TestFixture]
     public class SeleneCollection_Enumerable_Specs : BaseTest
     {
-
-        [TearDown]
-        public void TeardownTest()
-        {
-            Configuration.Timeout = 4;
-        }
-
         [Test]
         public void ReturnFirst()
         {
@@ -32,7 +18,7 @@ namespace NSeleneTests.Integration.SharedDriver.SeleneCollectionSpec
 
             var element = elements.ActualWebElements.First();
 
-            Assert.AreEqual("input", element.TagName);
+            Assert.That(element.TagName, Is.EqualTo("input"));
         }
 
         [Test]
@@ -50,7 +36,7 @@ namespace NSeleneTests.Integration.SharedDriver.SeleneCollectionSpec
 
             var element = elements.ActualWebElements.FirstOrDefault();
 
-            Assert.IsNull(element);
+            Assert.That(element, Is.Null);
         }
 
         [Test]
@@ -68,7 +54,7 @@ namespace NSeleneTests.Integration.SharedDriver.SeleneCollectionSpec
 
             var element = elements.ActualWebElements.Last();
 
-            Assert.AreEqual("c", element.Text);
+            Assert.That(element.Text, Is.EqualTo("c"));
         }
 
         [Test]
@@ -86,7 +72,7 @@ namespace NSeleneTests.Integration.SharedDriver.SeleneCollectionSpec
 
             var element = elements.ActualWebElements.LastOrDefault();
 
-            Assert.IsNull(element);
+            Assert.That(element, Is.Null);
         }
 
         [Test]
@@ -104,7 +90,7 @@ namespace NSeleneTests.Integration.SharedDriver.SeleneCollectionSpec
 
             var element = elements.ActualWebElements.Single(e => e.Text == "c");
 
-            Assert.AreEqual("c", element.Text);
+            Assert.That(element.Text, Is.EqualTo("c"));
         }
 
         [Test]
@@ -137,7 +123,7 @@ namespace NSeleneTests.Integration.SharedDriver.SeleneCollectionSpec
 
             var element = elements.ActualWebElements.SingleOrDefault(e => e.Text == "b");
 
-            Assert.IsNull(element);
+            Assert.That(element, Is.Null);
         }
 
         [Test]
@@ -154,8 +140,8 @@ namespace NSeleneTests.Integration.SharedDriver.SeleneCollectionSpec
 
             var selectedElements = elements.ActualWebElements.Select(e => e.Text == "b");
 
-            Assert.AreEqual(false, selectedElements.First());
-            Assert.AreEqual(true, selectedElements.Last());
+            Assert.That(selectedElements.First(), Is.EqualTo(false));
+            Assert.That(selectedElements.Last(), Is.EqualTo(true));
         }
 
         [Test]
@@ -170,9 +156,9 @@ namespace NSeleneTests.Integration.SharedDriver.SeleneCollectionSpec
 
             SeleneCollection elements = SS(".item");
 
-            var selectedElements = elements.ActualWebElements.Where(e => e.Text == "b");
+            var selectedElements = elements.ActualWebElements.Where(e => e.Text == "b").ToList();
 
-            Assert.AreEqual(1, selectedElements.Count());
+            Assert.That(selectedElements, Has.Count.EqualTo(1));
         }
 
         [Test]
@@ -187,9 +173,9 @@ namespace NSeleneTests.Integration.SharedDriver.SeleneCollectionSpec
 
             SeleneCollection elements = SS(".item");
 
-            var selectedElements = elements.ActualWebElements.Where(e => e.Text == "c");
+            var selectedElements = elements.ActualWebElements.Where(e => e.Text == "c").ToList();
 
-            Assert.AreEqual(0, selectedElements.Count());
+            Assert.That(selectedElements, Has.Count.EqualTo(0));
         }
 
         [Test]
@@ -205,9 +191,8 @@ namespace NSeleneTests.Integration.SharedDriver.SeleneCollectionSpec
 
             SeleneCollection elements = SS(".item");
 
-            var count = elements.ActualWebElements.Count();
 
-            Assert.AreEqual(3, count);
+            Assert.That(elements.ActualWebElements, Has.Count.EqualTo(3));
         }
     }
 }

@@ -1,28 +1,14 @@
-using NUnit.Framework;
-using static NSelene.Selene;
-using OpenQA.Selenium;
-
 namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
 {
-    using System;
-    using Harness;
-
     [TestFixture]
     public class SeleneElement_Displayed_Specs : BaseTest
     {
-
-        [TearDown]
-        public void TeardownTest()
-        {
-            Configuration.Timeout = 4;
-        }
-        
         [Test]
         public void NotStartActualSearch()
         {
             Given.OpenedEmptyPage();
             var nonExistentElement = S("#not-existing-element-id");
-            Assert.IsNotEmpty(nonExistentElement.ToString()); 
+            Assert.That(nonExistentElement.ToString(), Is.Not.Empty); 
         }
 
         [Test]
@@ -31,7 +17,7 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Given.OpenedEmptyPage();
             var element = S("#will-be-existing-element-id");
             When.WithBody(@"<h1 id='will-be-existing-element-id'>Hello kitty:*</h1>");
-            Assert.IsTrue(element.Displayed);
+            Assert.That(element.Displayed, Is.True);
         }
 
         [Test]
@@ -40,9 +26,9 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
             Given.OpenedEmptyPage();
             var element = S("#will-be-existing-element-id");
             When.WithBody(@"<h1 id='will-be-existing-element-id'>Hello kitty:*</h1>");
-            Assert.IsTrue(element.Displayed);
+            Assert.That(element.Displayed, Is.True);
             When.WithBody(@"<h1 id='will-be-existing-element-id' style='display:none'>Hello kitty:*</h1>");
-            Assert.IsFalse(element.Displayed);
+            Assert.That(element.Displayed, Is.False);
         }
 
         [Test]
@@ -60,13 +46,13 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                     500);"
             );
             S("a").Click();
-            Assert.IsTrue(Configuration.Driver.Url.Contains("second"));
+            Assert.That(Configuration.Driver.Url, Does.Contain("second"));
         }
 
         [Test]
         public void FailWithTimeout_DuringWaitingForVisibilityOnActionsLikeClick()
         {
-            Configuration.Timeout = 0.25;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedPageWithBody(
                 @"
                 <a href='#second' style='display:none'>go to Heading 2</a>
@@ -77,16 +63,23 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneElementSpec
                 @"
                 document.getElementById('a').style.display = 'block';
                 ",
-                300
+                ShortTimeoutSpan
             );
 
-            // TODO: consider using Assert.Throws<WebDriverTimeoutException>(() => { ... })
-            try {
+
+            var act = () =>
+            {
                 S("a").Click();
-                Assert.Fail("should fail on timeout before can be clicked");
-            } catch (TimeoutException) {
-                Assert.IsFalse(Configuration.Driver.Url.Contains("second"));
-            }
+            };
+
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element(a).ActualWebElement.Click()
+                Reason:
+                    element not interactable
+                """,
+                after: Configuration.Timeout
+            ));
+            Assert.That(Configuration.Driver.Url, Does.Not.Contain("second"));
         }
     }
 }

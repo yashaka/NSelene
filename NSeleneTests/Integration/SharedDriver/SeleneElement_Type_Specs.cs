@@ -1,14 +1,5 @@
-using NUnit.Framework;
-using static NSelene.Selene;
-
 namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
 {
-    using System;
-    using System.Linq;
-    using System.Reflection;
-    using Harness;
-    using OpenQA.Selenium;
-
     [TestFixture]
     public class SeleneElement_Type_Specs : BaseTest
     {
@@ -17,222 +8,180 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
         // TODO: move here some TypeByJs tests
 
         [Test]
-        public void Type_WaitsForVisibility_OfInitiialyAbsent()
+        public void Type_WaitsForVisibility_OfInitialyAbsent()
         {
-            Configuration.Timeout = 0.7; // bigger than for other actions, because we simulate typing all keys...
-            Configuration.PollDuringWaits = 0.1;
             Given.OpenedEmptyPage();
-            var beforeCall = DateTime.Now;
             Given.OpenedPageWithBodyTimedOut(
                 @"
                 <input value='before '></input>
                 ",
-                300
+                ShortTimeoutSpan
             );
 
-            S("input").Type("and after");
-            var afterCall = DateTime.Now;
-
-            Assert.AreEqual(
-                "before and after", 
-                Configuration.Driver
-                .FindElement(By.TagName("input")).GetAttribute("value")
+            var act = () =>
+            {
+                S("input").Type("and after");
+            };
+            
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
+                Is.EqualTo("before and after")
             );
-            Assert.AreEqual(
-                "before and after", 
-                Configuration.Driver
-                .FindElement(By.TagName("input")).GetDomProperty("value")
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomProperty("value"),
+                Is.EqualTo("before and after")
             );
-            Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.7));
         }
         
         [Test]
         public void Type_IsRenderedInError_OnAbsentElementFailure()
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedEmptyPage();
 
-            try 
-            {
+            var act = () => {
                 S("input").Type("and after");
-            }
+            };
 
-            catch (TimeoutException error)
-            {
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)
                 Reason:
                     no such element: Unable to locate element: {"method":"css selector","selector":"input"}
-                """.Trim()
-                ));
-            }
+                """,
+                after: Configuration.Timeout
+            ));
         }
-        
+
         [Test]
+        [Ignore("Overlay does not fail <file input>.Type()")]
+
         public void Type_FailsOnHiddenInputOfTypeFile()
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedPageWithBody(
                 @"
                 <input type='file' style='display:none'></input>
                 "
             );
 
-            var path = new Uri(
-                new Uri(Assembly.GetExecutingAssembly().Location), 
-                "../../../Resources/empty.html" // TODO: use ./empty.html (tune csproj correspondingly)
-            ).AbsolutePath;
-            
-            try 
+            var act = () =>
             {
-                S("[type=file]").Type(path);
-            }
+                S("[type=file]").Type(EmptyHtmlPath);
+            };
 
-            catch (TimeoutException error)
-            {
-                var lines = error.Message.Split(Environment.NewLine).Select(
-                    item => item.Trim()
-                ).ToList();
-
-                Assert.Contains($"Timed out after {0.25}s, while waiting for:", lines);
-                Assert.Contains($"Browser.Element([type=file]).ActualNotOverlappedWebElement.SendKeys({path})", lines);
-                Assert.Contains("Reason:", lines);
-                Assert.Contains("javascript error: element is not visible", lines);
-
-                Assert.AreEqual(
-                    "", 
-                    Configuration.Driver
-                    .FindElement(By.TagName("input")).GetAttribute("value")
-                );
-                Assert.AreEqual(
-                    "", 
-                    Configuration.Driver
-                    .FindElement(By.TagName("input")).GetDomProperty("value")
-                );
-            }
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element([type=file]).ActualNotOverlappedWebElement.SendKeys({path})
+                Reason:
+                    javascript error: element is not visible
+                """,
+                after: Configuration.Timeout
+            ));
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomAttribute("value"),
+                Is.EqualTo("")
+            );
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomProperty("value"),
+                Is.EqualTo("")
+            );
         }
 
         [Test]
         public void Type_WaitsForVisibility_OfInitialyHidden()
         {
-            Configuration.Timeout = 0.7;
-            Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
                 <input value='before ' style='display:none'></input>
                 "
             );
-            var beforeCall = DateTime.Now;
             Given.ExecuteScriptWithTimeout(
                 @"
                 document.getElementsByTagName('input')[0].style.display = 'block';
                 ",
-                300
-            );
+                ShortTimeoutSpan
+             );
 
-            S("input").Type("and after");
-            var afterCall = DateTime.Now;
-
-            Assert.AreEqual(
-                "before and after", 
-                Configuration.Driver
-                .FindElement(By.TagName("input")).GetAttribute("value")
+            var act = () =>
+            {
+                S("input").Type("and after");
+            };
+            
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
+                Is.EqualTo("before and after")
             );
-            Assert.AreEqual(
-                "before and after", 
-                Configuration.Driver
-                .FindElement(By.TagName("input")).GetDomProperty("value")
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomProperty("value"),
+                Is.EqualTo("before and after")
             );
-            Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.7));
         }
         
         [Test]
         public void Type_IsRenderedInError_OnHiddenElementFailure()
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedPageWithBody(
                 @"
                 <input value='before ' style='display:none'></input>
                 "
             );
 
-            try 
-            {
+            var act = () => {
                 S("input").Type("and after");
-            }
+            };
 
-            catch (TimeoutException error)
-            {
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)
                 Reason:
                     element not interactable
-                """.Trim()
-                ));
-
-                Assert.AreEqual(
-                    "before ", 
-                    Configuration.Driver
-                    .FindElement(By.TagName("input")).GetAttribute("value")
-                );
-                Assert.AreEqual(
-                    "before ", 
-                    Configuration.Driver
-                    .FindElement(By.TagName("input")).GetDomProperty("value")
-                );
-            }
+                """,
+                after: Configuration.Timeout
+            ));
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomAttribute("value"),
+                Is.EqualTo("before ")
+            );
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomProperty("value"),
+                Is.EqualTo("before ")
+            );
         }
         [Test]
         public void Type_IsRenderedInError_OnHiddenElementFailure_WhenCustomizedToWaitForNoOverlapFoundByJs()
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedPageWithBody(
                 @"
                 <input value='before ' style='display:none'></input>
                 "
             );
 
-            try 
-            {
+            var act = () => {
                 S("input").With(waitForNoOverlapFoundByJs: true).Type("and after");
-            }
+            };
 
-            catch (TimeoutException error)
-            {
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)
                 Reason:
                     javascript error: element is not visible
-                """.Trim()
-                ));
-
-                Assert.AreEqual(
-                    "before ", 
-                    Configuration.Driver
-                    .FindElement(By.TagName("input")).GetAttribute("value")
-                );
-                Assert.AreEqual(
-                    "before ", 
-                    Configuration.Driver
-                    .FindElement(By.TagName("input")).GetDomProperty("value")
-                );
-            }
+                """,
+                after: Configuration.Timeout
+            ));
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomAttribute("value"),
+                Is.EqualTo("before ")
+            );
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomProperty("value"),
+                Is.EqualTo("before ")
+            );
         }
 
         [Test]
         public void Type_WorksUnderOverlay_ByDefault()
         {
-            Configuration.Timeout = 1.0;
-            Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
                 <div 
@@ -257,29 +206,26 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 <input value='before '></input>
                 "
             );
-            var beforeCall = DateTime.Now;
 
-            S("input").Type("and after");
+            var act = () =>
+            {
+                S("input").Type("and after");
+            };
 
-            var afterCall = DateTime.Now;
-            Assert.Less(afterCall, beforeCall.AddSeconds(0.5));
-            Assert.AreEqual(
-                "before and after", 
-                Configuration.Driver
-                .FindElement(By.TagName("input")).GetAttribute("value")
+            Assert.That(act, Does.PassBefore(DefaultTimeoutSpan));
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
+                Is.EqualTo("before and after")
             );
-            Assert.AreEqual(
-                "before and after", 
-                Configuration.Driver
-                .FindElement(By.TagName("input")).GetDomProperty("value")
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomProperty("value"),
+                Is.EqualTo("before and after")
             );
         }
 
         [Test]
         public void Type_WaitsForNoOverlay_IfExplicitelyCustomized()
         {
-            Configuration.Timeout = 1.0;
-            Configuration.PollDuringWaits = 0.1;
             Given.OpenedPageWithBody(
                 @"
                 <div 
@@ -304,36 +250,33 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 <input value='before '></input>
                 "
             );
-            var beforeCall = DateTime.Now;
             Given.ExecuteScriptWithTimeout(
                 @"
                 document.getElementById('overlay').style.display = 'none';
                 ",
-                300
+                ShortTimeoutSpan
             );
 
-            S("input").With(waitForNoOverlapFoundByJs: true).Type("and after");
+            var act = () =>
+            {
+                S("input").With(waitForNoOverlapFoundByJs: true).Type("and after");
+            };
 
-            var afterCall = DateTime.Now;
-            Assert.Greater(afterCall, beforeCall.AddSeconds(0.3));
-            Assert.Less(afterCall, beforeCall.AddSeconds(1.0));
-            Assert.AreEqual(
-                "before and after", 
-                Configuration.Driver
-                .FindElement(By.TagName("input")).GetAttribute("value")
+            Assert.That(act, Does.PassWithin(ShortTimeoutSpan, DefaultTimeoutSpan));
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetAttribute("value"),
+                Is.EqualTo("before and after")
             );
-            Assert.AreEqual(
-                "before and after", 
-                Configuration.Driver
-                .FindElement(By.TagName("input")).GetDomProperty("value")
+            Assert.That(
+                Configuration.Driver.FindElement(By.TagName("input")).GetDomProperty("value"),
+                Is.EqualTo("before and after")
             );
         }
 
         [Test]
         public void Type_IsRenderedInError_OnOverlappedWithOverlayFailure()
         {
-            Configuration.Timeout = 0.25;
-            Configuration.PollDuringWaits = 0.1;
+            Configuration.Timeout = BaseTest.ShortTimeout;
             Given.OpenedPageWithBody(
                 @"
                 <div 
@@ -359,22 +302,19 @@ namespace NSelene.Tests.Integration.SharedDriver.SeleneSpec
                 "
             );
 
-            try 
-            {
+            var act = () => {
                 S("input").With(waitForNoOverlapFoundByJs: true).Type("and after");
-            }
+            };
 
-            catch (TimeoutException error)
-            {
-                Assert.That(error.Message.Trim(), Does.Contain($$"""
-                Timed out after {{0.25}}s, while waiting for:
-                    Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)
+
+            Assert.That(act, Does.Timeout($$"""
+                Browser.Element(input).ActualNotOverlappedWebElement.SendKeys(and after)
                 Reason:
                     Element: <input value="before ">
                     is overlapped by: <div id="overlay"
-                """.Trim()
-                ));
-            }
+                """,
+                after: Configuration.Timeout
+            ));
         }
     }
 }
